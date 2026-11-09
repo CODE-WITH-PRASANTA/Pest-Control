@@ -16,7 +16,8 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'HOME', path: '/' },
-    { name: 'PAGES', path: '/pages' },
+    { name: 'ABOUT', path: '/about' },
+    { name: 'TEAM', path: '/team' },
     { name: 'SERVICES', path: '/services' },
     { name: 'PROJECTS', path: '/projects' },
     { name: 'NEWS', path: '/news' },
@@ -56,7 +57,7 @@ const Navbar = () => {
 
           {/* Mobile-only contact action */}
           <div className="navbar-mobile-contact">
-            <a href="tel:+8801750050088" className="navbar-contact-link">
+            <a href="tel:+91 7205303566" className="navbar-contact-link">
               <div className="navbar-contact-icon">
                 <svg
                   viewBox="0 0 24 24"
@@ -69,7 +70,7 @@ const Navbar = () => {
               </div>
               <div className="navbar-contact-info">
                 <span className="navbar-contact-label">Call Anytime</span>
-                <span className="navbar-contact-number">+8801750050088</span>
+                <span className="navbar-contact-number">+91 7205303566</span>
               </div>
             </a>
           </div>
@@ -77,7 +78,7 @@ const Navbar = () => {
 
         {/* Right CTA / Call Action (Desktop) */}
         <div className="navbar-action">
-          <a href="tel:+8801750050088" className="navbar-contact-link">
+          <a href="tel:+91 7205303566" className="navbar-contact-link">
             <div className="navbar-contact-icon">
               <svg
                 viewBox="0 0 24 24"
@@ -90,7 +91,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-contact-info">
               <span className="navbar-contact-label">Call Anytime</span>
-              <span className="navbar-contact-number">+8801750050088</span>
+              <span className="navbar-contact-number">+91 7205303566</span>
             </div>
           </a>
         </div>

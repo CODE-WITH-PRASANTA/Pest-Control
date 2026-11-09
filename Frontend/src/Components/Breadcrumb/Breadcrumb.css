@@ -1,0 +1,207 @@
+
+/* ==============================
+   BREADCRUMB SECTION
+================================ */
+
+.breadcrumb-section {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* Background Overlay */
+
+.breadcrumb-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 35, 24, 0.90),
+    rgba(0, 50, 34, 0.55)
+  );
+  z-index: 1;
+}
+
+/* Container */
+
+.breadcrumb-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Content */
+
+.breadcrumb-content {
+  width: 100%;
+}
+
+/* Subtitle */
+
+.breadcrumb-subtitle {
+  display: inline-block;
+  color: #b5ed45;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+/* Main Heading */
+
+.breadcrumb-content h1 {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 24px;
+}
+
+/* ==============================
+   BREADCRUMB NAVIGATION
+================================ */
+
+.breadcrumb-navigation {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 5px;
+  padding: 10px 18px;
+  border: 1px solid rgba(181, 237, 69, 0.4);
+  border-radius: 50px;
+  background: rgba(0, 45, 30, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+/* Home Link */
+
+.breadcrumb-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.breadcrumb-home svg {
+  font-size: 19px;
+  color: #fff;
+}
+
+.breadcrumb-home:hover {
+  color: #b5ed45;
+}
+
+/* Other Links */
+
+.breadcrumb-navigation a:not(.breadcrumb-home) {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.breadcrumb-navigation a:hover {
+  color: #b5ed45;
+}
+
+/* Arrow */
+
+.breadcrumb-arrow {
+  color: #b5ed45;
+  font-size: 13px;
+}
+
+/* Active Page */
+
+.breadcrumb-active {
+  color: #b5ed45;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ==============================
+   TABLET RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+  .breadcrumb-section {
+    min-height: 240px;
+  }
+
+  .breadcrumb-container {
+    padding: 45px 25px;
+  }
+
+  .breadcrumb-content h1 {
+    font-size: 36px;
+    margin-bottom: 18px;
+  }
+
+  .breadcrumb-subtitle {
+    font-size: 12px;
+  }
+
+  .breadcrumb-navigation {
+    gap: 10px;
+    padding: 9px 15px;
+  }
+}
+
+/* ==============================
+   MOBILE RESPONSIVE
+================================ */
+
+@media (max-width: 480px) {
+  .breadcrumb-section {
+    min-height: 210px;
+  }
+
+  .breadcrumb-container {
+    padding: 35px 20px;
+  }
+
+  .breadcrumb-content h1 {
+    font-size: 30px;
+  }
+
+  .breadcrumb-subtitle {
+    font-size: 11px;
+    letter-spacing: 1.3px;
+  }
+
+  .breadcrumb-navigation {
+    gap: 9px;
+    padding: 8px 13px;
+  }
+
+  .breadcrumb-home {
+    font-size: 14px;
+    gap: 7px;
+  }
+
+  .breadcrumb-home svg {
+    font-size: 16px;
+  }
+
+  .breadcrumb-arrow {
+    font-size: 11px;
+  }
+
+  .breadcrumb-active {
+    font-size: 14px;
+  }
+}

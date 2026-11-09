@@ -209,10 +209,19 @@ const Footer = () => {
           </form>
         </div>
 
-        {/* Bottom Copyright & Legal Links */}
+        {/* Bottom Copyright with PR WEBSTOCK Link & Legal Links */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © Copyright 2026 by Insectra. All Rights Reserved.
+            © Copyright 2026 by{' '}
+            <a
+              href="https://prwebstock.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-copyright-link"
+            >
+              PR WEBSTOCK
+            </a>
+            . All Rights Reserved.
           </p>
           <div className="footer-legal-links">
             <Link to="/terms" className="footer-legal-link">Terms & Condition</Link>
