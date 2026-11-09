@@ -1,0 +1,575 @@
+/* ===================================================
+   Footer Component Styles
+   =================================================== */
+
+:root {
+  --footer-bg-dark: #022317;
+  --footer-bg-gradient: radial-gradient(circle at 75% 20%, #063c26 0%, #022014 70%);
+  --footer-text-light: #c2d8cc;
+  --footer-text-heading: #ffffff;
+  --footer-accent-lime: #b4e64f;
+  --footer-accent-lime-hover: #9bd236;
+  --footer-pill-bg: rgba(2, 42, 27, 0.75);
+  --footer-border-glow: rgba(180, 230, 79, 0.22);
+  --footer-transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--footer-bg-dark);
+  background-image: var(--footer-bg-gradient);
+  color: var(--footer-text-light);
+  overflow: hidden;
+  padding: 80px 0 35px 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Background botanical leaf shapes */
+.footer-leaf {
+  position: absolute;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+.footer-leaf-top-left {
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 180px;
+  background: radial-gradient(ellipse at top left, #347d47 0%, transparent 70%);
+  filter: blur(2px);
+}
+
+.footer-leaf-bottom-left {
+  bottom: 0;
+  left: 0;
+  width: 140px;
+  height: 220px;
+  background: radial-gradient(ellipse at bottom left, #29693b 0%, transparent 65%);
+  filter: blur(4px);
+}
+
+/* Stylized Insect watermark on top-right */
+.footer-watermark-insect {
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  width: 170px;
+  height: 170px;
+  color: rgba(180, 230, 79, 0.12);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-watermark-insect svg {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ===================================================
+   Grid (4 Columns)
+   =================================================== */
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.1fr 1.2fr;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+/* Column 1: Brand & Logo */
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  margin-bottom: 22px;
+}
+
+.footer-brand-logo-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #ffffff;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: var(--footer-transition);
+}
+
+.footer-brand-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Eye-catching subtle hover effect on logo */
+.footer-brand:hover .footer-brand-logo-wrapper {
+  box-shadow: 0 0 18px rgba(180, 230, 79, 0.5);
+  border: 1px solid var(--footer-accent-lime);
+}
+
+.footer-brand:hover .footer-brand-logo {
+  transform: scale(0.92); /* Gentle shrink as requested */
+}
+
+.footer-brand-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-family: inherit;
+}
+
+.footer-brand-desc {
+  color: #b0c9bd;
+  font-size: 14.5px;
+  line-height: 1.65;
+  max-width: 320px;
+  margin-bottom: 26px;
+}
+
+/* CTA Pill Button */
+.footer-btn-appointment {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--footer-accent-lime);
+  color: #042517;
+  padding: 8px 10px 8px 24px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--footer-transition);
+  box-shadow: 0 4px 12px rgba(180, 230, 79, 0.25);
+}
+
+.footer-btn-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #042517;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.footer-btn-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.footer-btn-appointment:hover {
+  background-color: var(--footer-accent-lime-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(180, 230, 79, 0.35);
+}
+
+.footer-btn-appointment:hover .footer-btn-icon {
+  transform: translateX(3px);
+}
+
+/* Headings with lime underline dash */
+.footer-heading {
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--footer-text-heading);
+  margin-bottom: 26px;
+  display: inline-block;
+}
+
+.footer-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 30px;
+  height: 2.5px;
+  background-color: var(--footer-accent-lime);
+  border-radius: 2px;
+}
+
+/* Column Links */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--footer-text-light);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: var(--footer-transition);
+}
+
+.footer-arrow {
+  color: var(--footer-accent-lime);
+  font-weight: bold;
+  font-size: 15px;
+  transition: transform 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.footer-link:hover .footer-arrow {
+  transform: translateX(4px);
+}
+
+/* Column 4: Contact details */
+.footer-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-info-icon {
+  color: var(--footer-accent-lime);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.footer-info-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-address-text {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--footer-text-light);
+  margin: 0;
+}
+
+.footer-address-divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+  margin: 18px 0;
+}
+
+.footer-subheading {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.footer-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-info-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--footer-text-light);
+  text-decoration: none;
+  font-size: 14.5px;
+  transition: var(--footer-transition);
+}
+
+.footer-info-link:hover {
+  color: #ffffff;
+}
+
+/* ===================================================
+   Middle Newsletter & Social Glassmorphic Bar
+   =================================================== */
+
+.footer-newsletter-box {
+  background: var(--footer-pill-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--footer-border-glow);
+  border-radius: 60px;
+  padding: 16px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.footer-social-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-social-label {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.footer-social-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: var(--footer-transition);
+}
+
+.footer-social-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.footer-social-btn:hover {
+  background: var(--footer-accent-lime);
+  color: #042517;
+  transform: translateY(-2px);
+}
+
+.footer-newsletter-divider {
+  width: 1px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.footer-newsletter-form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  flex: 1;
+}
+
+.footer-newsletter-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+}
+
+.footer-newsletter-icon {
+  color: var(--footer-accent-lime);
+  display: flex;
+  align-items: center;
+}
+
+.footer-newsletter-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.footer-newsletter-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.footer-input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 20, 12, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 40px;
+  padding: 4px 6px 4px 20px;
+  width: 100%;
+  max-width: 330px;
+  transition: var(--footer-transition);
+}
+
+.footer-input-group:focus-within {
+  border-color: var(--footer-accent-lime);
+  box-shadow: 0 0 10px rgba(180, 230, 79, 0.2);
+}
+
+.footer-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 13.5px;
+  width: 100%;
+}
+
+.footer-input::placeholder {
+  color: #8faea0;
+}
+
+.footer-subscribe-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--footer-accent-lime);
+  border: none;
+  outline: none;
+  color: #042517;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: var(--footer-transition);
+}
+
+.footer-subscribe-btn svg {
+  width: 18px;
+  height: 18px;
+  transform: rotate(-25deg) translate(1px, -1px);
+}
+
+.footer-subscribe-btn:hover {
+  background-color: var(--footer-accent-lime-hover);
+  transform: scale(1.08);
+}
+
+/* ===================================================
+   Bottom Copyright & Legal Links
+   =================================================== */
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13.5px;
+  color: #9ab3a7;
+}
+
+.footer-copyright {
+  margin: 0;
+}
+
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-legal-link {
+  color: #9ab3a7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: #ffffff;
+}
+
+.footer-legal-sep {
+  opacity: 0.35;
+}
+
+/* ===================================================
+   Responsive Breakpoints
+   =================================================== */
+
+@media (max-width: 1200px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-newsletter-box {
+    flex-wrap: wrap;
+    border-radius: 24px;
+    padding: 20px 24px;
+  }
+
+  .footer-newsletter-divider {
+    display: none;
+  }
+
+  .footer-newsletter-form {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-section {
+    padding: 60px 0 25px 0;
+  }
+
+  .footer-container {
+    padding: 0 20px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .footer-newsletter-box {
+    border-radius: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .footer-social-section {
+    justify-content: space-between;
+  }
+
+  .footer-newsletter-form {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .footer-input-group {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
