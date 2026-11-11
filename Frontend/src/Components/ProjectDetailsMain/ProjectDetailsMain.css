@@ -1,0 +1,647 @@
+/* =================================
+   PROJECT DETAILS MAIN SECTION
+================================= */
+
+.psv-section {
+  width: 100%;
+  padding: 60px 5% 60px;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.psv-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =================================
+   HERO IMAGE
+================================= */
+
+.psv-hero {
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #f1f1f1;
+  margin-bottom: 30px;
+}
+
+.psv-hero-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+/* =================================
+   PROJECT HEADING
+================================= */
+
+.psv-heading {
+  margin-top: 36px;
+  margin-bottom: 30px;
+}
+
+.psv-subtitle {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #83bd38;
+  margin-bottom: 10px;
+}
+
+.psv-heading h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #183d2d;
+}
+
+.psv-heading-line {
+  width: 65px;
+  height: 3px;
+  margin-top: 17px;
+  border-radius: 10px;
+  background: #c7f36d;
+}
+
+/* =================================
+   DESCRIPTION + INFO GRID
+================================= */
+
+.psv-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 42px;
+  align-items: start;
+}
+
+/* =================================
+   DESCRIPTION
+================================= */
+
+.psv-description {
+  width: 100%;
+}
+
+.psv-description p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.9;
+  color: #626b65;
+  margin: 0 0 22px;
+  text-align: left;
+}
+
+.psv-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* =================================
+   PROJECT INFORMATION CARD
+================================= */
+
+.psv-info-card {
+  width: 100%;
+  height: 440px;
+  box-sizing: border-box;
+  margin-top: 42px;
+  padding: 29px 27px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    0 5px 30px rgba(25, 55, 38, 0.07),
+    0 1px 5px rgba(0, 0, 0, 0.025);
+  border: 1px solid #f0f2ed;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.psv-info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(25, 55, 38, 0.11);
+}
+
+/* INFO ITEMS */
+
+.psv-info-item {
+  margin-bottom: 19px;
+}
+
+.psv-info-item span {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9a9f9a;
+  margin-bottom: 5px;
+}
+
+.psv-info-item h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.5;
+  color: #294b39;
+}
+
+.psv-info-item h4 a {
+  color: #294b39;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.psv-info-item h4 a:hover {
+  color: #86bd3e;
+}
+
+/* =================================
+   SOCIAL LINKS
+================================= */
+
+.psv-social-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.psv-social-links a {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #c9f36d;
+  color: #244b30;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.psv-social-links a:hover {
+  background: #254c36;
+  color: #ffffff;
+  transform: translateY(-4px);
+}
+
+/* =================================
+   PREVIOUS / NEXT NAVIGATION
+================================= */
+
+.psv-navigation {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 23px 0;
+  margin-top: 65px;
+  margin-bottom: 28px;
+  border-top: 1px solid #eeeeea;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.psv-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #68736b;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.psv-nav-btn:hover {
+  color: #83bd38;
+}
+
+.psv-nav-circle {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #526a5b;
+  border-radius: 50%;
+  color: #526a5b;
+  font-size: 23px;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.psv-nav-btn:hover .psv-nav-circle {
+  background: #c9f36d;
+  border-color: #c9f36d;
+  color: #244b30;
+  transform: scale(1.08);
+}
+
+/* =================================
+   RELATED PROJECTS GRID
+================================= */
+
+.psv-related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+/* =================================
+   RELATED PROJECT CARDS
+================================= */
+
+.psv-project-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 21px;
+  background: #e8eee9;
+  cursor: pointer;
+  isolation: isolate;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.psv-project-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition:
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1),
+    filter 0.6s ease;
+}
+
+.psv-project-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(5, 20, 12, 0.12),
+    rgba(5, 20, 12, 0.38)
+  );
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+
+.psv-project-frame {
+  position: absolute;
+  inset: 15px;
+  z-index: 2;
+  border: 1px solid rgba(235, 231, 207, 0.75);
+  border-radius: 15px;
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s ease;
+  pointer-events: none;
+}
+
+.psv-project-info {
+  position: absolute;
+  z-index: 3;
+  bottom: 17px;
+  left: 17px;
+  width: fit-content;
+  min-width: 245px;
+  max-width: 75%;
+  padding: 19px 22px;
+  background: #c9f36d;
+  color: #173b27;
+  border-radius: 15px;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.13);
+  opacity: 0;
+  transform: translateX(-115%);
+  transition:
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease;
+}
+
+.psv-project-info h3 {
+  margin: 0 0 8px;
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.35;
+  color: #173b27;
+}
+
+.psv-project-info p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #345b3b;
+}
+
+.psv-project-info p span {
+  font-size: 18px;
+}
+
+/* =================================
+   DESKTOP HOVER EFFECT
+================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .psv-project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .psv-project-card:hover .psv-project-image {
+    transform: scale(1.035);
+    filter: brightness(0.76);
+  }
+
+  .psv-project-card:hover .psv-project-overlay {
+    opacity: 1;
+  }
+
+  .psv-project-card:hover .psv-project-frame {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .psv-project-card:hover .psv-project-info {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* CLICK ACTIVE EFFECT */
+
+.psv-project-card.is-active .psv-project-image {
+  transform: scale(1.035);
+  filter: brightness(0.76);
+}
+
+.psv-project-card.is-active .psv-project-overlay {
+  opacity: 1;
+}
+
+.psv-project-card.is-active .psv-project-frame {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.psv-project-card.is-active .psv-project-info {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =================================
+   TABLET RESPONSIVE
+================================= */
+
+@media (max-width: 992px) {
+  .psv-section {
+    padding: 22px 4% 45px;
+  }
+
+  .psv-hero {
+    height: 290px;
+  }
+
+  .psv-content-grid {
+    grid-template-columns: minmax(0, 1fr) 270px;
+    gap: 27px;
+  }
+
+  .psv-heading h1 {
+    font-size: 30px;
+  }
+
+  .psv-description p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .psv-info-card {
+    padding: 24px 21px;
+  }
+
+  .psv-project-info {
+    min-width: 210px;
+    padding: 17px 19px;
+  }
+
+  .psv-project-info h3 {
+    font-size: 19px;
+  }
+
+  .psv-project-info p {
+    font-size: 15px;
+  }
+
+  .psv-project-frame {
+    inset: 12px;
+  }
+}
+
+/* =================================
+   MOBILE RESPONSIVE
+================================= */
+
+@media (max-width: 600px) {
+  .psv-section {
+    padding: 18px 25px 35px;
+  }
+
+  .psv-hero {
+    width: 100%;
+    height: 240px;
+    border-radius: 9px;
+  }
+
+  .psv-hero-image {
+    object-position: center;
+  }
+
+  .psv-heading {
+    margin-top: 27px;
+    margin-bottom: 24px;
+  }
+
+  .psv-subtitle {
+    font-size: 12px;
+    letter-spacing: 1.7px;
+  }
+
+  .psv-heading h1 {
+    font-size: 27px;
+    line-height: 1.4;
+  }
+
+  .psv-content-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .psv-description p {
+    font-size: 17px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .psv-info-card {
+    padding: 27px 25px;
+    border-radius: 13px;
+  }
+
+  .psv-info-item {
+    margin-bottom: 20px;
+  }
+
+  .psv-info-item span {
+    font-size: 15px;
+  }
+
+  .psv-info-item h4 {
+    font-size: 17px;
+  }
+
+  .psv-social-links {
+    gap: 12px;
+  }
+
+  .psv-social-links a {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+  }
+
+  .psv-navigation {
+    margin-top: 40px;
+    margin-bottom: 25px;
+    padding: 19px 0;
+  }
+
+  .psv-nav-btn {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .psv-nav-circle {
+    width: 37px;
+    height: 37px;
+    font-size: 20px;
+  }
+
+  .psv-related-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .psv-project-card {
+    width: 100%;
+    aspect-ratio: 0.65 / 1;
+    border-radius: 19px;
+  }
+
+  .psv-project-frame {
+    inset: 17px;
+    border-radius: 14px;
+  }
+
+  .psv-project-info {
+    bottom: 19px;
+    left: 19px;
+    width: calc(100% - 38px);
+    max-width: none;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 25px 26px;
+    border-radius: 16px;
+  }
+
+  .psv-project-info h3 {
+    font-size: 27px;
+    line-height: 1.4;
+    margin-bottom: 11px;
+  }
+
+  .psv-project-info p {
+    font-size: 19px;
+    line-height: 1.5;
+    gap: 12px;
+  }
+
+  .psv-project-info p span {
+    font-size: 21px;
+  }
+}
+
+/* =================================
+   SMALL MOBILE
+================================= */
+
+@media (max-width: 380px) {
+  .psv-section {
+    padding: 16px 22px 30px;
+  }
+
+  .psv-hero {
+    height: 210px;
+  }
+
+  .psv-heading h1 {
+    font-size: 24px;
+  }
+
+  .psv-description p {
+    font-size: 16px;
+  }
+
+  .psv-info-card {
+    padding: 23px 20px;
+  }
+
+  .psv-project-card {
+    aspect-ratio: 0.65 / 1;
+  }
+
+  .psv-project-info {
+    bottom: 17px;
+    left: 16px;
+    width: calc(100% - 32px);
+    max-width: none;
+    padding: 22px 23px;
+  }
+
+  .psv-project-info h3 {
+    font-size: 25px;
+  }
+
+  .psv-project-info p {
+    font-size: 17px;
+  }
+
+  .psv-project-frame {
+    inset: 14px;
+  }
+}
