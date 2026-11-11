@@ -1,0 +1,394 @@
+.HomeVideo {
+  --HomeVideo-dark: #04442c;
+  --HomeVideo-deep: #02281b;
+  --HomeVideo-lime: #c6f26a;
+  --HomeVideo-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 32px);
+  min-height: clamp(520px, 50vw, 980px);
+  margin: 12px auto;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: clamp(22px, 1.8vw, 36px);
+  background: var(--HomeVideo-deep);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  opacity: 0;
+  transform: translateY(50px) scale(0.97);
+}
+
+.HomeVideo *,
+.HomeVideo *::before,
+.HomeVideo *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- Background ---------- */
+.HomeVideo__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: scale(1.15);
+}
+
+.HomeVideo__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(0, 52, 36, 0.45) 0%, rgba(0, 62, 42, 0.28) 38%, rgba(0, 48, 32, 0.9) 100%),
+    radial-gradient(circle at 50% 45%, rgba(198, 242, 106, 0.1), transparent 55%);
+}
+
+/* ---------- Play button ---------- */
+.HomeVideo__center {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+}
+
+.HomeVideo__play {
+  position: relative;
+  width: clamp(86px, 8.6vw, 164px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.26);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: scale(0);
+  transition: background 0.5s ease, color 0.4s ease, box-shadow 0.5s ease;
+}
+
+.HomeVideo__play-inner {
+  position: absolute;
+  inset: 26%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(0, 40, 27, 0.22);
+  transition: background 0.4s ease, transform 0.5s var(--HomeVideo-ease);
+}
+
+.HomeVideo__play-inner svg {
+  width: 48%;
+  height: 48%;
+  margin-left: 6%;
+}
+
+.HomeVideo__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.HomeVideo__play:hover {
+  background: var(--HomeVideo-lime);
+  color: var(--HomeVideo-dark);
+  box-shadow: 0 30px 70px -18px rgba(198, 242, 106, 0.7);
+}
+
+.HomeVideo__play:hover .HomeVideo__play-inner {
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(1.08);
+}
+
+.HomeVideo__play:focus-visible {
+  outline: 3px solid var(--HomeVideo-lime);
+  outline-offset: 6px;
+}
+
+/* ---------- Stats ---------- */
+.HomeVideo__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 48px);
+  width: 100%;
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5.6vw, 107px) clamp(26px, 3.5vw, 67px);
+}
+
+.HomeVideo__stat {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.3vw, 24px);
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.HomeVideo__stat-icon {
+  flex: 0 0 auto;
+  width: clamp(52px, 4.1vw, 78px);
+  height: clamp(52px, 4.1vw, 78px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--HomeVideo-lime);
+  color: var(--HomeVideo-dark);
+  box-shadow: 0 16px 30px -14px rgba(198, 242, 106, 0.7);
+  transition: transform 0.6s var(--HomeVideo-ease);
+}
+
+.HomeVideo__stat-icon svg {
+  width: 56%;
+  height: 56%;
+}
+
+.HomeVideo__stat:hover .HomeVideo__stat-icon {
+  transform: rotate(-10deg) scale(1.1);
+}
+
+.HomeVideo__stat-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.HomeVideo__stat-number {
+  color: #fff;
+  font-size: clamp(2rem, 3vw, 3.7rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.HomeVideo__stat-label {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(0.88rem, 1.05vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* ---------- Entrance ---------- */
+.HomeVideo--visible {
+  animation: HomeVideo-section 1.2s var(--HomeVideo-ease) forwards;
+}
+
+.HomeVideo--visible .HomeVideo__bg {
+  animation: HomeVideo-zoom 14s var(--HomeVideo-ease) forwards;
+}
+
+.HomeVideo--visible .HomeVideo__play {
+  animation: HomeVideo-pop 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards;
+}
+
+.HomeVideo--visible .HomeVideo__ring--one {
+  animation: HomeVideo-pulse 2.8s ease-out 1.8s infinite;
+}
+
+.HomeVideo--visible .HomeVideo__ring--two {
+  animation: HomeVideo-pulse 2.8s ease-out 3.2s infinite;
+}
+
+.HomeVideo--visible .HomeVideo__stat {
+  animation: HomeVideo-up 1s var(--HomeVideo-ease) forwards;
+  animation-delay: calc(0.9s + var(--i) * 0.14s);
+}
+
+@keyframes HomeVideo-section {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes HomeVideo-zoom {
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes HomeVideo-pop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes HomeVideo-pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes HomeVideo-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Video modal ---------- */
+.HomeVideo__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: 70px 20px 30px;
+  background: rgba(2, 22, 14, 0.88);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: HomeVideo-fade 0.4s ease forwards;
+}
+
+.HomeVideo__modal-box {
+  position: relative;
+  width: min(1100px, 100%);
+  animation: HomeVideo-modal 0.6s var(--HomeVideo-ease) forwards;
+}
+
+.HomeVideo__modal-frame {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: clamp(12px, 1.4vw, 22px);
+  background: #000;
+  box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.8);
+}
+
+.HomeVideo__modal-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+.HomeVideo__modal-close {
+  position: absolute;
+  top: -56px;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #c6f26a;
+  color: #04442c;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.HomeVideo__modal-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.HomeVideo__modal-close:hover {
+  transform: rotate(90deg) scale(1.08);
+}
+
+.HomeVideo__modal-close:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+@keyframes HomeVideo-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes HomeVideo-modal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991px) {
+  .HomeVideo {
+    min-height: clamp(520px, 80vw, 760px);
+  }
+
+  .HomeVideo__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 20px;
+    padding: 0 clamp(20px, 5vw, 48px) 36px;
+  }
+}
+
+@media (max-width: 575px) {
+  .HomeVideo {
+    width: calc(100% - 16px);
+    margin: 8px auto;
+    min-height: 560px;
+    border-radius: 20px;
+  }
+
+  .HomeVideo__stats {
+    gap: 22px 12px;
+    padding: 0 16px 28px;
+  }
+
+  .HomeVideo__stat {
+    gap: 10px;
+  }
+
+  .HomeVideo__stat-number {
+    font-size: 1.6rem;
+  }
+
+  .HomeVideo__stat-label {
+    font-size: 0.78rem;
+  }
+
+  .HomeVideo__modal {
+    padding: 64px 12px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .HomeVideo,
+  .HomeVideo *,
+  .HomeVideo *::before,
+  .HomeVideo *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .HomeVideo,
+  .HomeVideo__play,
+  .HomeVideo__stat {
+    opacity: 1;
+    transform: none;
+  }
+
+  .HomeVideo__bg {
+    transform: none;
+  }
+}

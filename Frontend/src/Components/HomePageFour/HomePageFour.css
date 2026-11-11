@@ -1,20 +1,16 @@
 .HomePageFour {
-  /* Height of your fixed navbar: the pinned image touches its bottom edge */
-  --HomePageFour-nav: 80px;
-  /* Space above/below each row's content (also used to align the pin) */
-  --HomePageFour-pad: clamp(30px, 2.6vw, 50px);
-
-  --HomePageFour-dark: #04442c;
-  --HomePageFour-deep: #02321f;
-  --HomePageFour-lime: #c6f26a;
-  --HomePageFour-text: #4c5651;
-  --HomePageFour-line: #e3e7e4;
-  --HomePageFour-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --hp4-dark: #04442c;
+  --hp4-deep: #02321f;
+  --hp4-lime: #c6f26a;
+  --hp4-text: #55615b;
+  --hp4-muted: #9aa6a0;
+  --hp4-line: #e4e9e5;
+  --hp4-tint: #f5f9f1;
+  --hp4-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   position: relative;
-  overflow-x: clip; /* clip (not hidden) so sticky rows keep working */
   background: #fff;
-  padding: clamp(40px, 5vw, 70px) 20px clamp(40px, 6vw, 90px);
+  padding: clamp(56px, 7vw, 110px) 20px clamp(56px, 7vw, 110px);
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -25,8 +21,28 @@
 }
 
 .HomePageFour__container {
-  max-width: 1520px;
+  max-width: 1320px;
   margin: 0 auto;
+}
+
+/* ---------- Reveal (one simple fade-up, plays once) ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s var(--hp4-ease), transform 0.9s var(--hp4-ease);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.HomePageFour__row > [data-reveal]:nth-child(2) {
+  transition-delay: 0.12s;
+}
+
+.HomePageFour__row > [data-reveal]:nth-child(3) {
+  transition-delay: 0.24s;
 }
 
 /* ---------- Heading ---------- */
@@ -35,7 +51,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: clamp(24px, 3.5vw, 48px);
+  margin-bottom: clamp(36px, 5vw, 72px);
 }
 
 .HomePageFour__badge {
@@ -44,85 +60,59 @@
   gap: 10px;
   padding: 9px 22px;
   border-radius: 999px;
-  background: #f3f5f4;
-  color: var(--HomePageFour-deep);
+  background: #f1f4f2;
+  color: var(--hp4-deep);
   font-size: 1rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  opacity: 0;
-  transform: translateY(-18px) scale(0.9);
+  letter-spacing: 0.1em;
 }
 
 .HomePageFour__badge-dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--HomePageFour-lime);
-  animation: HomePageFour-dot 2s infinite;
+  background: var(--hp4-lime);
 }
 
 .HomePageFour__title {
-  margin: 18px 0 0;
-  color: var(--HomePageFour-dark);
-  font-size: clamp(2rem, 2.7vw, 3.3rem);
+  margin: 22px 0 0;
+  color: var(--hp4-dark);
+  font-size: clamp(2rem, 3.2vw, 3.6rem);
   font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-  word-spacing: normal;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
-.HomePageFour__line {
-  display: block;
-}
-
-.HomePageFour__word {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.HomePageFour__letter {
-  display: inline-block;
-  letter-spacing: -0.02em;
-  opacity: 0;
-  transform: translateY(-1.4em) rotate(-14deg);
-  transform-origin: 50% 100%;
-}
-
-.HomePageFour__head--visible .HomePageFour__badge {
-  animation: HomePageFour-badge 0.9s var(--HomePageFour-ease) 0.1s forwards;
-}
-
-.HomePageFour__head--visible .HomePageFour__letter {
-  animation: HomePageFour-drop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  animation-delay: calc(0.35s + var(--l) * 0.035s);
-}
-
-/* ---------- Rows (stacking cards) ---------- */
+/* ---------- List ---------- */
 .HomePageFour__list {
-  position: relative;
+  border-bottom: 1px solid var(--hp4-line);
 }
 
 .HomePageFour__row {
-  position: sticky;
-  /* pin so the IMAGE top (not the row top) meets the navbar bottom */
-  top: calc(var(--HomePageFour-nav) - var(--HomePageFour-pad));
-  background: #fff;
-  border-radius: 26px 26px 0 0;
-  box-shadow: 0 -18px 34px -30px rgba(4, 68, 44, 0.45);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 96px);
+  padding: clamp(36px, 4vw, 64px) 0;
+  border-top: 1px solid var(--hp4-line);
+  isolation: isolate;
 }
 
-.HomePageFour__row-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 31.4% 26%;
-  align-items: center;
-  gap: clamp(28px, 6.5vw, 126px);
-  padding: var(--HomePageFour-pad) clamp(12px, 1vw, 18px);
-  min-height: clamp(380px, 28vw, 520px);
-  border-bottom: 1px solid var(--HomePageFour-line);
-  transform-origin: 50% 0;
-  transform: scale(calc(1 - var(--p, 0) * 0.04));
-  opacity: calc(1 - var(--p, 0) * 0.6);
-  will-change: transform, opacity;
+/* Flat tint on hover (no shadow) */
+.HomePageFour__row::before {
+  content: "";
+  position: absolute;
+  inset: -1px -24px;
+  z-index: -1;
+  border-radius: 18px;
+  background: var(--hp4-tint);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.HomePageFour__row:hover::before {
+  opacity: 1;
 }
 
 /* ---------- Left info ---------- */
@@ -130,16 +120,20 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(20px, 2.1vw, 40px);
-  opacity: 0;
-  transform: translateX(-60px);
+  gap: clamp(22px, 2.4vw, 40px);
+}
+
+.HomePageFour__info-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .HomePageFour__icon {
-  width: clamp(56px, 3.6vw, 70px);
-  height: clamp(56px, 3.6vw, 70px);
-  color: var(--HomePageFour-dark);
-  transition: transform 0.7s var(--HomePageFour-ease);
+  width: clamp(54px, 4vw, 68px);
+  height: clamp(54px, 4vw, 68px);
+  color: var(--hp4-dark);
+  transition: transform 0.6s var(--hp4-ease);
 }
 
 .HomePageFour__icon svg {
@@ -147,288 +141,119 @@
   height: 100%;
 }
 
-.HomePageFour__service-title {
-  margin: 0;
-  max-width: 11ch;
-  color: var(--HomePageFour-dark);
-  font-size: clamp(1.5rem, 1.8vw, 2.2rem);
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  transition: color 0.4s ease, transform 0.6s var(--HomePageFour-ease);
-}
-
 .HomePageFour__row:hover .HomePageFour__icon {
-  transform: translateY(-6px) rotate(-8deg) scale(1.1);
-}
-
-.HomePageFour__row:hover .HomePageFour__service-title {
-  color: #1c8a56;
-  transform: translateX(6px);
-}
-
-/* ---------- Image ---------- */
-.HomePageFour__media {
-  position: relative;
-}
-
-.HomePageFour__frame {
-  position: relative;
-  aspect-ratio: 1.69;
-  overflow: hidden;
-  border-radius: 14px;
-  background: #dfe5e1;
-  box-shadow: 0 30px 50px -30px rgba(4, 68, 44, 0.55);
-  clip-path: inset(0 100% 0 0 round 14px);
-  transition: box-shadow 0.6s ease, transform 0.6s var(--HomePageFour-ease);
-}
-
-.HomePageFour__row:hover .HomePageFour__frame {
-  box-shadow: 0 40px 60px -28px rgba(4, 68, 44, 0.7);
-  transform: translateY(-6px);
-}
-
-/* Fixed frame, image scrolls right → left on hover */
-.HomePageFour__img {
-  display: block;
-  width: 140%;
-  max-width: none;
-  height: 100%;
-  object-fit: cover;
-  transform: translateX(0);
-  animation: HomePageFour-pan 6s ease-in-out infinite alternate;
-  animation-play-state: paused;
-}
-
-.HomePageFour__row:hover .HomePageFour__img {
-  animation-play-state: running;
-}
-
-.HomePageFour__shine {
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-  transform: skewX(-18deg);
-  pointer-events: none;
-}
-
-.HomePageFour__row:hover .HomePageFour__shine {
-  animation: HomePageFour-shine 1.4s ease 0.1s;
+  transform: scale(1.08);
 }
 
 .HomePageFour__number {
-  position: absolute;
-  left: clamp(12px, 1.6vw, 24px);
-  bottom: clamp(12px, 1.6vw, 24px);
-  z-index: 2;
-  padding: 0.02em 0.28em 0.08em;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-  background: rgba(10, 30, 20, 0.35);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: clamp(2rem, 2.7vw, 3.3rem);
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  opacity: 0;
-  transform: translateY(24px) scale(0.85);
-  transition: background 0.5s ease, transform 0.6s var(--HomePageFour-ease);
+  color: var(--hp4-muted);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
-.HomePageFour__number-dot {
-  color: var(--HomePageFour-lime);
-  font-style: normal;
+.HomePageFour__service-title {
+  margin: 0;
+  max-width: 12ch;
+  color: var(--hp4-dark);
+  font-size: clamp(1.6rem, 2.1vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-.HomePageFour__row:hover .HomePageFour__number {
-  background: rgba(4, 68, 44, 0.7);
+/* ---------- Image ---------- */
+.HomePageFour__frame {
+  position: relative;
+  aspect-ratio: 1.6;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #e3e9e5;
+}
+
+.HomePageFour__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  transition: transform 1.6s var(--hp4-ease);
+}
+
+/* image settles to normal size as it scrolls into view */
+.HomePageFour__media.is-in .HomePageFour__img {
+  transform: scale(1);
+}
+
+.HomePageFour__row:hover .HomePageFour__media.is-in .HomePageFour__img {
+  transform: scale(1.05);
+  transition-duration: 1.2s;
 }
 
 /* ---------- Right content ---------- */
-.HomePageFour__content {
-  opacity: 0;
-  transform: translateX(80px);
-  filter: blur(8px);
-}
-
 .HomePageFour__text {
-  margin: 0 0 clamp(20px, 2vw, 34px);
-  color: var(--HomePageFour-text);
-  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
-  line-height: 2;
+  margin: 0 0 clamp(22px, 2.2vw, 34px);
+  max-width: 42ch;
+  color: var(--hp4-text);
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.85;
 }
 
 .HomePageFour__link {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding-bottom: 10px;
-  color: var(--HomePageFour-dark);
-  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  gap: 14px;
+  color: var(--hp4-dark);
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
   font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid #e0e5e2;
 }
 
 .HomePageFour__link-arrow {
-  width: 1.15em;
-  height: 1.15em;
-  transition: transform 0.5s var(--HomePageFour-ease);
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hp4-line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--hp4-dark);
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.5s var(--hp4-ease);
+}
+
+.HomePageFour__link-arrow svg {
+  width: 18px;
+  height: 18px;
 }
 
 .HomePageFour__link:hover .HomePageFour__link-arrow,
 .HomePageFour__row:hover .HomePageFour__link-arrow {
+  background: var(--hp4-lime);
+  border-color: var(--hp4-lime);
   transform: translateX(6px);
 }
 
-.HomePageFour__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 0;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--HomePageFour-lime), #7cd13a);
-  transition: width 0.6s var(--HomePageFour-ease);
-}
-
-.HomePageFour__link:hover::after,
-.HomePageFour__link:focus-visible::after,
-.HomePageFour__row:hover .HomePageFour__link::after {
-  width: 100%;
-}
-
 .HomePageFour__link:focus-visible {
-  outline: 3px solid var(--HomePageFour-lime);
+  outline: 3px solid var(--hp4-dark);
   outline-offset: 6px;
+  border-radius: 999px;
 }
 
-/* ---------- Row entrance ---------- */
-.HomePageFour__row--in .HomePageFour__info {
-  animation: HomePageFour-left 1s var(--HomePageFour-ease) 0.1s forwards;
-}
-
-.HomePageFour__row--in .HomePageFour__frame {
-  animation: HomePageFour-wipe 1.3s var(--HomePageFour-ease) 0.2s forwards;
-}
-
-.HomePageFour__row--in .HomePageFour__number {
-  animation: HomePageFour-pop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
-}
-
-.HomePageFour__row--in .HomePageFour__content {
-  animation: HomePageFour-right 1.1s var(--HomePageFour-ease) 0.45s forwards;
-}
-
-/* ---------- Keyframes ---------- */
-@keyframes HomePageFour-drop {
-  0% {
-    opacity: 0;
-    transform: translateY(-1.4em) rotate(-14deg);
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg);
-  }
-}
-
-@keyframes HomePageFour-badge {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes HomePageFour-left {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes HomePageFour-right {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes HomePageFour-wipe {
-  to {
-    clip-path: inset(0 0 0 0 round 14px);
-  }
-}
-
-@keyframes HomePageFour-pop {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes HomePageFour-pan {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-28.57%);
-  }
-}
-
-@keyframes HomePageFour-shine {
-  to {
-    left: 130%;
-  }
-}
-
-@keyframes HomePageFour-dot {
-  0% {
-    box-shadow: 0 0 0 0 rgba(160, 220, 60, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(160, 220, 60, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(160, 220, 60, 0);
-  }
-}
-
-/* ---------- Responsive ---------- */
-@media (min-width: 640px) {
-  .HomePageFour__line {
-    white-space: nowrap;
-  }
-}
-
+/* ---------- Tablet ---------- */
 @media (max-width: 991px) {
-  .HomePageFour {
-    --HomePageFour-nav: 80px;
-    --HomePageFour-pad: 30px;
-  }
-
-  .HomePageFour__row-inner {
+  .HomePageFour__row {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
       "info media"
       "content media";
-    gap: 20px clamp(24px, 4vw, 44px);
+    gap: 22px clamp(24px, 4vw, 44px);
   }
 
   .HomePageFour__info {
     grid-area: info;
     align-self: end;
-    gap: 18px;
   }
 
   .HomePageFour__media {
@@ -447,106 +272,57 @@
   .HomePageFour__frame {
     aspect-ratio: 1.15;
   }
-}
 
-/* Small screens or short windows: no stacking, normal flow */
-@media (max-width: 767px), (max-height: 620px) {
-  .HomePageFour__row {
-    position: relative;
-    top: auto;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .HomePageFour__row-inner {
-    transform: none !important;
-    opacity: 1 !important;
-    min-height: 0;
+  .HomePageFour__row::before {
+    inset: -1px -12px;
   }
 }
 
-@media (max-width: 767px) {
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
   .HomePageFour {
-    padding: 36px 16px 50px;
+    padding: 44px 16px 56px;
   }
 
-  .HomePageFour__row-inner {
+  .HomePageFour__row {
     grid-template-columns: 1fr;
     grid-template-areas:
       "info"
       "media"
       "content";
     gap: 22px;
-    padding: 30px 0;
+    padding: 34px 0;
+  }
+
+  .HomePageFour__row::before {
+    display: none;
   }
 
   .HomePageFour__info {
-    flex-direction: row;
-    align-items: center;
-    align-self: start;
-    gap: 16px;
-  }
-
-  .HomePageFour__icon {
-    flex: 0 0 auto;
-    width: 56px;
-    height: 56px;
+    gap: 14px;
   }
 
   .HomePageFour__service-title {
-    font-size: clamp(1.4rem, 6vw, 1.8rem);
+    font-size: clamp(1.5rem, 6.5vw, 1.9rem);
   }
 
   .HomePageFour__frame {
-    aspect-ratio: 1.55;
+    aspect-ratio: 1.5;
   }
 
-  .HomePageFour__content {
-    transform: translateY(40px);
-  }
-
-  .HomePageFour__text {
-    max-width: none;
-  }
-
-  .HomePageFour__title {
-    font-size: clamp(1.7rem, 8vw, 2.3rem);
-  }
-
-  .HomePageFour__badge {
-    font-size: 0.85rem;
-    padding: 9px 20px;
-  }
-
-  /* touch screens: pan the image automatically so it still feels alive */
-  .HomePageFour__img {
-    animation-play-state: running;
+  .HomePageFour__title br {
+    display: none;
   }
 }
 
+/* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .HomePageFour *,
-  .HomePageFour *::before,
-  .HomePageFour *::after {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .HomePageFour__badge,
-  .HomePageFour__letter,
-  .HomePageFour__info,
-  .HomePageFour__content,
-  .HomePageFour__number {
+  [data-reveal],
+  .HomePageFour__img,
+  .HomePageFour__icon,
+  .HomePageFour__link-arrow {
     opacity: 1;
     transform: none;
-    filter: none;
-  }
-
-  .HomePageFour__frame {
-    clip-path: none;
-  }
-
-  .HomePageFour__img {
-    width: 100%;
+    transition: none;
   }
 }

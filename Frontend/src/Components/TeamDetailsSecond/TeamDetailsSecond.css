@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* =========================================
+   MAIN SECTION
+========================================= */
+
+.insectra-experience {
+  width: 100%;
+  height: 400px;
+  min-height: 400px;
+  padding: 55px 6%;
+  background: #f5f5f5;
+  
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.045);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  font-family: "Inter", sans-serif;
+}
+
+.insectra-experience *,
+.insectra-experience *::before,
+.insectra-experience *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.insectra-experience__container {
+  width: 100%;
+  max-width: 1670px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: 10%;
+}
+
+/* =========================================
+   LEFT CONTENT
+========================================= */
+
+.insectra-experience__left {
+  width: 100%;
+  animation: insectraExperienceLeft 1s ease both;
+}
+
+.insectra-experience__eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #82ae32;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.2s;
+}
+
+.insectra-experience--active
+.insectra-experience__eyebrow {
+  opacity: 1;
+}
+
+.insectra-experience__left h2 {
+  margin: 0 0 58px;
+  color: #092f2b;
+  font-size: 43px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  position: relative;
+  width: fit-content;
+}
+
+.insectra-experience__left h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -13px;
+  width: 0;
+  height: 3px;
+  border-radius: 5px;
+  background: #b9ed59;
+  transition: width 0.8s ease 0.3s;
+}
+
+.insectra-experience--active
+.insectra-experience__left h2::after {
+  width: 75px;
+}
+
+.insectra-experience__left p {
+  max-width: 720px;
+  margin: 0;
+  color: #40514f;
+  font-size: 19px;
+  line-height: 1.95;
+  font-weight: 400;
+  letter-spacing: -0.2px;
+}
+
+/* =========================================
+   RIGHT SKILLS
+========================================= */
+
+.insectra-experience__right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+}
+
+/* =========================================
+   SINGLE SKILL
+========================================= */
+
+.insectra-experience__skill {
+  width: 100%;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(.2,.7,.2,1);
+  transition-delay: calc(var(--skill-index) * 0.15s);
+}
+
+.insectra-experience--active
+.insectra-experience__skill {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   SKILL HEADER
+========================================= */
+
+.insectra-experience__skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.insectra-experience__skill-header h3 {
+  margin: 0;
+  color: #102e2a;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.insectra-experience__percentage {
+  color: #082f2b;
+  font-size: 17px;
+  font-weight: 500;
+  min-width: 45px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================
+   PROGRESS TRACK
+========================================= */
+
+.insectra-experience__track {
+  width: 100%;
+  height: 17px;
+  background: #e9ebf2;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* =========================================
+   PROGRESS FILL
+========================================= */
+
+.insectra-experience__fill {
+  height: 100%;
+  width: 0%;
+  background: #b9ef5d;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: width 1.6s cubic-bezier(.2,.75,.25,1);
+  transition-delay: calc(var(--skill-index) * 0.7s)
+}
+
+/* Subtle shine effect */
+
+.insectra-experience__fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+}
+
+.insectra-experience--active
+.insectra-experience__fill::after {
+  animation: insectraProgressShine 1.3s ease 1s;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes insectraExperienceLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes insectraProgressShine {
+  from {
+    left: -100%;
+  }
+
+  to {
+    left: 150%;
+  }
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .insectra-experience {
+    padding: 45px 5%;
+  }
+
+  .insectra-experience__container {
+    column-gap: 7%;
+  }
+
+  .insectra-experience__left h2 {
+    font-size: 35px;
+    margin-bottom: 45px;
+  }
+
+  .insectra-experience__left p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .insectra-experience__skill-header h3 {
+    font-size: 16px;
+  }
+
+  .insectra-experience__percentage {
+    font-size: 15px;
+  }
+
+  .insectra-experience__right {
+    gap: 27px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .insectra-experience {
+    height: auto;
+    min-height: 400px;
+    padding: 45px 30px;
+  }
+
+  .insectra-experience__container {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 35px;
+  }
+
+  .insectra-experience__left h2 {
+    font-size: 29px;
+    margin-bottom: 35px;
+  }
+
+  .insectra-experience__left p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .insectra-experience__right {
+    gap: 27px;
+  }
+
+  .insectra-experience__skill-header h3 {
+    font-size: 14px;
+  }
+
+  .insectra-experience__percentage {
+    font-size: 14px;
+  }
+
+  .insectra-experience__track {
+    height: 13px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .insectra-experience {
+    height: auto;
+    min-height: 400px;
+    padding: 40px 20px;
+  }
+
+  .insectra-experience__container {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .insectra-experience__left h2 {
+    font-size: 28px;
+    margin-bottom: 28px;
+    letter-spacing: -0.8px;
+  }
+
+  .insectra-experience__left p {
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .insectra-experience__eyebrow {
+    font-size: 9px;
+  }
+
+  .insectra-experience__right {
+    gap: 25px;
+  }
+
+  .insectra-experience__skill-header {
+    margin-bottom: 10px;
+  }
+
+  .insectra-experience__skill-header h3 {
+    font-size: 15px;
+  }
+
+  .insectra-experience__percentage {
+    font-size: 14px;
+  }
+
+  .insectra-experience__track {
+    height: 14px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .insectra-experience {
+    padding: 35px 16px;
+  }
+
+  .insectra-experience__left h2 {
+    font-size: 25px;
+  }
+
+  .insectra-experience__left p {
+    font-size: 13px;
+  }
+
+  .insectra-experience__skill-header h3 {
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .insectra-experience *,
+  .insectra-experience *::before,
+  .insectra-experience *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

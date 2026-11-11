@@ -1,0 +1,617 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* =========================================
+   INSECTRA TEAM DETAILS
+========================================= */
+
+.insectra-team-details {
+  width: 100%;
+  position: relative;
+  padding: 80px 23px 70px;
+  background: #f7f8f6;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+}
+
+.insectra-team-details *,
+.insectra-team-details *::before,
+.insectra-team-details *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   BACKGROUND DECORATION
+========================================= */
+
+.insectra-team-details::before {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 65px solid rgba(174, 225, 94, 0.075);
+  border-radius: 50%;
+  top: -230px;
+  left: -130px;
+  pointer-events: none;
+  animation: insectraFloat 9s ease-in-out infinite;
+}
+
+.insectra-team-details::after {
+  content: "";
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  border: 55px solid rgba(174, 225, 94, 0.075);
+  border-radius: 50%;
+  bottom: -240px;
+  right: -180px;
+  pointer-events: none;
+  animation: insectraFloat 10s ease-in-out infinite reverse;
+}
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.insectra-team-details__container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 0.92fr;
+  align-items: center;
+  gap: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================
+   IMAGE SECTION
+========================================= */
+
+.insectra-team-details__visual {
+  width: 100%;
+  position: relative;
+  animation: insectraImageReveal 1s cubic-bezier(.2,.7,.2,1) both;
+}
+
+.insectra-team-details__image-box {
+  width: 100%;
+  height: 536px;
+  position: relative;
+  border-radius: 29px;
+  overflow: hidden;
+  background: #e7eee8;
+  box-shadow: 0 22px 55px rgba(18, 57, 43, 0.10);
+}
+
+.insectra-team-details__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 1.1s cubic-bezier(.2,.7,.2,1);
+}
+
+.insectra-team-details__image-box:hover
+.insectra-team-details__image {
+  transform: scale(1.07);
+}
+
+.insectra-team-details__image-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 55%,
+    rgba(4, 37, 28, 0.45) 100%
+  );
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.insectra-team-details__image-label {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 19px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 30px;
+  color: #fff;
+  background: rgba(9, 55, 39, 0.65);
+  backdrop-filter: blur(12px);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: transform 0.4s ease;
+}
+
+.insectra-team-details__image-box:hover
+.insectra-team-details__image-label {
+  transform: translateY(-5px);
+}
+
+.insectra-team-details__status-dot {
+  width: 9px;
+  height: 9px;
+  background: #b9ef58;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(185, 239, 88, 0.9);
+  animation: insectraPulse 1.8s infinite;
+}
+
+/* IMAGE DECORATIVE BORDER */
+
+.insectra-team-details__visual-decoration {
+  position: absolute;
+  width: 88%;
+  height: 84%;
+  left: 6%;
+  top: 8%;
+  border: 1px solid rgba(190, 236, 111, 0.45);
+  border-radius: 29px;
+  pointer-events: none;
+  transition: transform 0.6s ease;
+}
+
+.insectra-team-details__visual:hover
+.insectra-team-details__visual-decoration {
+  transform: translate(12px, 10px);
+}
+
+/* =========================================
+   RIGHT CONTENT
+========================================= */
+
+.insectra-team-details__content {
+  width: 100%;
+  max-width: 620px;
+  color: #123c30;
+  animation: insectraContentReveal 1s ease 0.2s both;
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.insectra-team-details__eyebrow {
+  display: inline-block;
+  color: #79a92f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.insectra-team-details__intro h1 {
+  margin: 0 0 8px;
+  color: #073c2e;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.insectra-team-details__role {
+  margin: 0;
+  color: #287451;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* =========================================
+   GREEN ACCENT LINE
+========================================= */
+
+.insectra-team-details__accent-line {
+  width: 150px;
+  height: 4px;
+  background: #e3eddc;
+  border-radius: 10px;
+  margin-top: 22px;
+  overflow: hidden;
+}
+
+.insectra-team-details__accent-line span {
+  display: block;
+  width: 48%;
+  height: 100%;
+  background: #aee34f;
+  border-radius: inherit;
+  animation: insectraLineGrow 1.2s ease 0.7s both;
+}
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.insectra-team-details__description {
+  max-width: 620px;
+  margin: 30px 0 34px;
+  color: #294b48;
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.4px;
+}
+
+/* =========================================
+   CONTACT DETAILS
+========================================= */
+
+.insectra-team-details__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.insectra-team-details__contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.insectra-team-details__contact-item h3 {
+  margin: 0;
+  color: #0a4836;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.insectra-team-details__contact-item a {
+  width: fit-content;
+  color: #506469;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.insectra-team-details__contact-item a:hover {
+  color: #7eae2c;
+  transform: translateX(5px);
+}
+
+/* =========================================
+   SOCIAL ICONS
+========================================= */
+
+.insectra-team-details__socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 27px;
+}
+
+.insectra-team-details__social-link {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #c2ef65;
+  color: #084532;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(131, 180, 53, 0.08);
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.4s cubic-bezier(.2,.8,.2,1),
+    box-shadow 0.35s ease;
+  animation: insectraSocialReveal 0.65s ease both;
+  animation-delay: calc(0.8s + var(--social-index) * 0.13s);
+}
+
+.insectra-team-details__social-link svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+  transition: transform 0.35s ease;
+}
+
+.insectra-team-details__social-link:hover {
+  background: #073f30;
+  color: #c2ef65;
+  transform: translateY(-7px) rotate(-5deg);
+  box-shadow: 0 12px 24px rgba(5, 58, 43, 0.2);
+}
+
+.insectra-team-details__social-link:hover svg {
+  transform: scale(1.12);
+}
+
+/* =========================================
+   BOTTOM BORDER
+========================================= */
+
+.insectra-team-details__bottom-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #e2e7e1;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes insectraImageReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-55px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes insectraContentReveal {
+  from {
+    opacity: 0;
+    transform: translateX(45px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes insectraSocialReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes insectraFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+@keyframes insectraPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(185, 239, 88, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(185, 239, 88, 0);
+  }
+}
+
+@keyframes insectraLineGrow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 48%;
+  }
+}
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1500px) {
+  .insectra-team-details__container {
+    grid-template-columns: 625px 1fr;
+    gap: 100px;
+  }
+}
+
+/* =========================================
+   LAPTOP
+========================================= */
+
+@media (max-width: 1200px) {
+  .insectra-team-details {
+    padding: 65px 25px;
+  }
+
+  .insectra-team-details__container {
+    grid-template-columns: 1fr 0.95fr;
+    gap: 55px;
+  }
+
+  .insectra-team-details__image-box {
+    height: 470px;
+  }
+
+  .insectra-team-details__intro h1 {
+    font-size: 30px;
+  }
+
+  .insectra-team-details__role {
+    font-size: 14px;
+  }
+
+  .insectra-team-details__description {
+    font-size: 20px;
+  }
+
+  .insectra-team-details__contact-item h3 {
+    font-size: 16px;
+  }
+
+  .insectra-team-details__contact-item a {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .insectra-team-details {
+    padding: 55px 25px;
+  }
+
+  .insectra-team-details__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .insectra-team-details__image-box {
+    height: 410px;
+    border-radius: 22px;
+  }
+
+  .insectra-team-details__intro h1 {
+    font-size: 27px;
+  }
+
+  .insectra-team-details__role {
+    font-size: 13px;
+  }
+
+  .insectra-team-details__description {
+    font-size: 19px;
+    margin: 23px 0;
+  }
+
+  .insectra-team-details__contact {
+    gap: 19px;
+  }
+
+  .insectra-team-details__contact-item h3 {
+    font-size: 15px;
+  }
+
+  .insectra-team-details__contact-item a {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .insectra-team-details {
+    padding: 35px 16px 45px;
+  }
+
+  .insectra-team-details__container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .insectra-team-details__image-box {
+    height: auto;
+    aspect-ratio: 1 / 0.88;
+    border-radius: 20px;
+  }
+
+  .insectra-team-details__visual-decoration {
+    border-radius: 20px;
+  }
+
+  .insectra-team-details__image-label {
+    bottom: 16px;
+    left: 15px;
+    font-size: 10px;
+    padding: 10px 14px;
+  }
+
+  .insectra-team-details__content {
+    max-width: 100%;
+  }
+
+  .insectra-team-details__eyebrow {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+  }
+
+  .insectra-team-details__intro h1 {
+    font-size: 26px;
+    letter-spacing: -0.6px;
+  }
+
+  .insectra-team-details__role {
+    font-size: 13px;
+  }
+
+  .insectra-team-details__accent-line {
+    margin-top: 17px;
+  }
+
+  .insectra-team-details__description {
+    font-size: 18px;
+    line-height: 1.55;
+    margin: 22px 0 26px;
+  }
+
+  .insectra-team-details__contact {
+    gap: 20px;
+  }
+
+  .insectra-team-details__contact-item h3 {
+    font-size: 15px;
+  }
+
+  .insectra-team-details__contact-item a {
+    font-size: 13px;
+  }
+
+  .insectra-team-details__socials {
+    margin-top: 25px;
+    gap: 11px;
+  }
+
+  .insectra-team-details__social-link {
+    width: 41px;
+    height: 41px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .insectra-team-details__intro h1 {
+    font-size: 24px;
+  }
+
+  .insectra-team-details__description {
+    font-size: 17px;
+  }
+
+  .insectra-team-details__image-label {
+    font-size: 9px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .insectra-team-details *,
+  .insectra-team-details *::before,
+  .insectra-team-details *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

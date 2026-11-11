@@ -1,0 +1,589 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.HomeWork {
+  --HomeWork-green: #04402a;
+  --HomeWork-green-soft: #0a5a3b;
+  --HomeWork-lime: #c6f45f;
+  --HomeWork-bg: #f5f5f5;
+  --HomeWork-text: #6b6f6d;
+
+  position: relative;
+  width: 100%;
+  padding: 90px 20px 100px;
+  background: var(--HomeWork-bg);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.HomeWork *,
+.HomeWork *::before,
+.HomeWork *::after {
+  box-sizing: border-box;
+}
+
+/* soft premium background glows */
+.HomeWork::before,
+.HomeWork::after {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  filter: blur(110px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+.HomeWork::before {
+  top: -200px;
+  left: -160px;
+  background: rgba(198, 244, 95, 0.35);
+}
+.HomeWork::after {
+  bottom: -220px;
+  right: -160px;
+  background: rgba(4, 64, 42, 0.14);
+}
+
+.HomeWork-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+.HomeWork-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.HomeWork-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: #fff;
+  border-radius: 50px;
+  color: var(--HomeWork-green);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  box-shadow: 0 8px 30px rgba(4, 64, 42, 0.08);
+  opacity: 0;
+  transform: translateY(-14px) scale(0.92);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.HomeWork-visible .HomeWork-badge {
+  opacity: 1;
+  transform: none;
+}
+
+.HomeWork-badge-dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--HomeWork-lime);
+}
+.HomeWork-badge-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--HomeWork-lime);
+  animation: HomeWork-pulse 2s ease-out infinite;
+}
+
+.HomeWork-title {
+  max-width: 640px;
+  margin: 24px 0 0;
+  color: var(--HomeWork-green);
+  font-size: clamp(1.7rem, 3.4vw, 3.1rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  perspective: 800px;
+}
+
+.HomeWork-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* letter by letter animation */
+.HomeWork-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(60%) rotateX(-70deg);
+  transform-origin: 50% 100%;
+  filter: blur(6px);
+  will-change: transform, opacity, filter;
+}
+
+.HomeWork-visible .HomeWork-letter {
+  animation: HomeWork-letter 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(0.25s + var(--i) * 0.04s);
+}
+
+/* ---------- Cards ---------- */
+.HomeWork-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.HomeWork-card {
+  position: relative;
+  padding: 42px 42px 46px;
+  border-radius: 34px;
+  background: linear-gradient(150deg, #f1f1f1 0%, #e8ebe9 100%);
+  border: 1px solid rgba(4, 64, 42, 0.06);
+  overflow: hidden;
+  opacity: 0;
+  cursor: default;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+}
+
+.HomeWork-visible .HomeWork-card {
+  opacity: 1;
+  animation: HomeWork-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation-delay: calc(1.3s + var(--c) * 0.18s);
+}
+
+/* lime accent line on top */
+.HomeWork-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--HomeWork-green), var(--HomeWork-lime));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.HomeWork-card-glow {
+  position: absolute;
+  right: -80px;
+  bottom: -80px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198, 244, 95, 0.55), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.HomeWork-card:hover {
+  transform: translateY(-14px);
+  background: linear-gradient(150deg, #ffffff 0%, #f3f8ee 100%);
+  border-color: rgba(198, 244, 95, 0.8);
+  box-shadow: 0 30px 60px rgba(4, 64, 42, 0.16),
+    0 6px 18px rgba(4, 64, 42, 0.08);
+}
+.HomeWork-card:hover::before {
+  transform: scaleX(1);
+}
+.HomeWork-card:hover .HomeWork-card-glow {
+  opacity: 1;
+}
+
+.HomeWork-bug {
+  position: absolute;
+  top: 40px;
+  right: 34px;
+  width: 88px;
+  height: 88px;
+  color: rgba(4, 64, 42, 0.14);
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.5s ease;
+}
+.HomeWork-card:hover .HomeWork-bug {
+  transform: rotate(14deg) scale(1.12);
+  color: rgba(4, 64, 42, 0.3);
+}
+
+.HomeWork-number {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--HomeWork-green);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  box-shadow: 0 10px 24px rgba(4, 64, 42, 0.25);
+  transition: background 0.45s ease, color 0.45s ease, transform 0.5s ease,
+    box-shadow 0.45s ease;
+}
+.HomeWork-number::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed rgba(4, 64, 42, 0.25);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.HomeWork-card:hover .HomeWork-number {
+  background: var(--HomeWork-lime);
+  color: var(--HomeWork-green);
+  transform: scale(1.06);
+  box-shadow: 0 12px 28px rgba(198, 244, 95, 0.6);
+}
+.HomeWork-card:hover .HomeWork-number::after {
+  opacity: 1;
+  animation: HomeWork-spin 12s linear infinite;
+}
+
+.HomeWork-card-title {
+  position: relative;
+  margin: 30px 0 14px;
+  color: var(--HomeWork-green);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.HomeWork-card-text {
+  position: relative;
+  margin: 0;
+  color: var(--HomeWork-text);
+  font-size: 1rem;
+  line-height: 1.85;
+  transition: color 0.4s ease;
+}
+.HomeWork-card:hover .HomeWork-card-text {
+  color: var(--HomeWork-green);
+}
+
+/* ---------- CTA bar ---------- */
+.HomeWork-cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 50px;
+  padding: 34px 40px;
+  border-radius: 34px;
+  background: #f6f6f6;
+  border: 1px solid #e3e6e3;
+  transition: opacity 0.9s ease 2s, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 2s,
+    box-shadow 0.5s ease, border-color 0.5s ease;
+  opacity: 0;
+  transform: translateY(40px);
+}
+.HomeWork-visible .HomeWork-cta {
+  opacity: 1;
+  transform: none;
+}
+.HomeWork-cta:hover {
+  border-color: rgba(198, 244, 95, 0.9);
+  box-shadow: 0 22px 50px rgba(4, 64, 42, 0.08);
+}
+
+.HomeWork-avatars {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.HomeWork-avatar {
+  width: 66px;
+  height: 66px;
+  margin-left: -22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f6f6f6;
+  background: #fff;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.HomeWork-avatar:first-child {
+  margin-left: 0;
+}
+.HomeWork-avatar:hover {
+  transform: translateY(-8px) scale(1.08);
+  z-index: 2;
+}
+
+.HomeWork-cta-text {
+  flex: 1;
+  max-width: 430px;
+  margin: 0 0 0 70px;
+  color: var(--HomeWork-green);
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.HomeWork-cta-media {
+  flex-shrink: 0;
+  width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: HomeWork-float 5s ease-in-out infinite;
+}
+.HomeWork-cta-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.8s ease;
+}
+.HomeWork-cta-media:hover .HomeWork-cta-image {
+  transform: scale(1.08);
+}
+
+.HomeWork-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 18px 34px;
+  border-radius: 60px;
+  background: var(--HomeWork-lime);
+  color: var(--HomeWork-green);
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(198, 244, 95, 0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease,
+    color 0.4s ease;
+}
+.HomeWork-button span {
+  position: relative;
+  z-index: 1;
+}
+.HomeWork-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  transform: skewX(-20deg);
+}
+.HomeWork-button:hover {
+  background: var(--HomeWork-green);
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 18px 34px rgba(4, 64, 42, 0.3);
+}
+.HomeWork-button:hover::before {
+  animation: HomeWork-shine 0.9s ease;
+}
+.HomeWork-button:focus-visible,
+.HomeWork-avatar:focus-visible {
+  outline: 3px solid var(--HomeWork-green);
+  outline-offset: 4px;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes HomeWork-letter {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+    filter: blur(0);
+  }
+}
+@keyframes HomeWork-rise {
+  from {
+    opacity: 0;
+    transform: translateY(70px) scale(0.94);
+  }
+}
+@keyframes HomeWork-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+@keyframes HomeWork-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes HomeWork-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes HomeWork-shine {
+  to {
+    left: 140%;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .HomeWork-card {
+    padding: 40px 34px 44px;
+  }
+  .HomeWork-bug {
+    width: 86px;
+    height: 86px;
+    right: 24px;
+  }
+  .HomeWork-card-text {
+    font-size: 0.95rem;
+  }
+  .HomeWork-cta {
+    padding: 30px 30px;
+  }
+  .HomeWork-cta-text {
+    font-size: 1.2rem;
+    margin-left: 30px;
+  }
+  .HomeWork-cta-media {
+    width: 210px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .HomeWork {
+    padding: 70px 20px 80px;
+  }
+  .HomeWork-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .HomeWork-card:last-child {
+    grid-column: 1 / -1;
+  }
+  .HomeWork-cta {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+  }
+  .HomeWork-cta-text {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin: 0;
+    order: 2;
+  }
+  .HomeWork-avatars {
+    order: 1;
+  }
+  .HomeWork-cta-media {
+    order: 1;
+  }
+  .HomeWork-button {
+    order: 3;
+  }
+}
+
+@media (max-width: 680px) {
+  .HomeWork {
+    padding: 56px 16px 64px;
+  }
+  .HomeWork-header {
+    margin-bottom: 44px;
+  }
+  .HomeWork-badge {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+  .HomeWork-cards {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .HomeWork-card {
+    padding: 34px 26px 38px;
+    border-radius: 28px;
+  }
+  .HomeWork-card:last-child {
+    grid-column: auto;
+  }
+  .HomeWork-number {
+    width: 56px;
+    height: 56px;
+    font-size: 1.35rem;
+  }
+  .HomeWork-card-title {
+    margin: 28px 0 14px;
+    font-size: 1.3rem;
+  }
+  .HomeWork-card-text {
+    font-size: 0.95rem;
+    line-height: 1.85;
+  }
+  .HomeWork-cta {
+    margin-top: 36px;
+    padding: 26px 20px;
+    border-radius: 28px;
+    gap: 22px;
+    flex-direction: column;
+  }
+  .HomeWork-cta-text {
+    font-size: 1.1rem;
+  }
+  .HomeWork-cta-media {
+    width: 100%;
+    max-width: 300px;
+  }
+  .HomeWork-avatar {
+    width: 54px;
+    height: 54px;
+  }
+  .HomeWork-button {
+    width: 100%;
+    padding: 16px 28px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .HomeWork-title {
+    font-size: 1.55rem;
+  }
+}
+
+/* Touch devices: no sticky hover lift */
+@media (hover: none) {
+  .HomeWork-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .HomeWork *,
+  .HomeWork *::before,
+  .HomeWork *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .HomeWork-letter,
+  .HomeWork-badge,
+  .HomeWork-card,
+  .HomeWork-cta {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

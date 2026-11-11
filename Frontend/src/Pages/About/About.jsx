@@ -3,6 +3,8 @@ import React from "react";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
 import AboutMain from "../../Components/AboutMain/AboutMain";
 import AboutService from "../../Components/AboutService/AboutService";
+import AboutWhy from "../../Components/AboutWhy/AboutWhy";
+import AboutTeam from "../../Components/AboutTeam/AboutTeam";
 
 const About = () => {
   return (
@@ -16,6 +18,9 @@ const About = () => {
 
         <AboutMain/>
         <AboutService/>
+        <AboutWhy/>
+        <AboutTeam/>
+
       </section>
     </>
   );

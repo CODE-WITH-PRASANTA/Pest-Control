@@ -1,6 +1,7 @@
 
 import React from "react";
 import Breadcrumb from "../../Components/Breadcrumb/Breadcrumb";
+import TeamContainer from "../../Components/TeamContainer/TeamContainer";
 
 const Team = () => {
   return (
@@ -12,6 +13,8 @@ const Team = () => {
 
       <section className="team-section">
         {/* Add your Team content here */}
+        <TeamContainer/>
+
       </section>
     </>
   );

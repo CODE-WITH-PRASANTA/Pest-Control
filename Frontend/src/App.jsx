@@ -10,6 +10,10 @@ import News from './Pages/News/News'
 import NewsDetails from './Pages/NewsDetails/NewsDetails'
 import Projects from './Pages/Projects/Projects'
 import ProjectDetails from './Pages/ProjectDetails/ProjectDetails'
+import Services from './Pages/Services/Services'
+import TeamDetails from './Pages/TeamDetails/TeamDetails'
+import FloatingIcons from './Components/FloatingIcons/FloatingIcons'
+import ServiceDetails from './Pages/ServiceDetails/ServiceDetails'
 
 function App() {
   return (
@@ -24,6 +28,13 @@ function App() {
           <Route path="/contact" element={<Contact/>} />
 
 
+          <Route path="/services" element={<Services/>} />
+          <Route path="/services-details" element={<ServiceDetails/>} />
+
+          
+          <Route path="/team-details" element={<TeamDetails/>} />
+
+
           <Route path="/news" element={<News/>} />
           <Route path="/news-details" element={<NewsDetails/>} />
 
@@ -34,6 +45,7 @@ function App() {
       </main>
 
       <Footer />
+      <FloatingIcons/>
     </Router>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./HomePageFour.css";
 
 import service1 from "../../assets/Home-service -1.jpg";
@@ -67,189 +67,111 @@ const SERVICES = [
   },
 ];
 
-const HEADING = ["Expert pest control services", "designed to solve"];
-
-/* Letters drop in one after another */
-const DropText = () => {
-  let counter = 0;
-  return (
-    <h2 className="HomePageFour__title" aria-label={HEADING.join(" ")}>
-      {HEADING.map((line, li) => (
-        <span className="HomePageFour__line" key={li} aria-hidden="true">
-          {line.split(" ").map((word, wi) => (
-            <React.Fragment key={wi}>
-              <span className="HomePageFour__word">
-                {word.split("").map((ch, ci) => {
-                  const idx = counter++;
-                  return (
-                    <span
-                      className="HomePageFour__letter"
-                      style={{ "--l": idx }}
-                      key={ci}
-                    >
-                      {ch}
-                    </span>
-                  );
-                })}
-              </span>{" "}
-            </React.Fragment>
-          ))}
-        </span>
-      ))}
-    </h2>
-  );
-};
-
 const HomePageFour = () => {
-  const headRef = useRef(null);
-  const rowRefs = useRef([]);
-  const [headVisible, setHeadVisible] = useState(false);
-  const [rowsVisible, setRowsVisible] = useState(() => SERVICES.map(() => false));
+  const sectionRef = useRef(null);
 
-  /* heading entrance */
+  /* One observer: anything marked data-reveal fades in once when it enters the screen */
   useEffect(() => {
-    const el = headRef.current;
-    if (!el) return;
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const items = root.querySelectorAll("[data-reveal]");
+
     if (!("IntersectionObserver" in window)) {
-      setHeadVisible(true);
+      items.forEach((el) => el.classList.add("is-in"));
       return;
     }
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHeadVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
-  /* row entrance (right content animates in when a row enters the screen) */
-  useEffect(() => {
-    const rows = rowRefs.current.filter(Boolean);
-    if (!("IntersectionObserver" in window)) {
-      setRowsVisible(SERVICES.map(() => true));
-      return;
-    }
-    const obs = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const i = Number(entry.target.dataset.index);
-            setRowsVisible((prev) => {
-              if (prev[i]) return prev;
-              const next = [...prev];
-              next[i] = true;
-              return next;
-            });
-            obs.unobserve(entry.target);
+            entry.target.classList.add("is-in");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.25 }
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
     );
-    rows.forEach((row) => obs.observe(row));
-    return () => obs.disconnect();
-  }, []);
 
-  /* stacking effect: previous row shrinks and dims while the next one covers it */
-  useEffect(() => {
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-      const rows = rowRefs.current.filter(Boolean);
-      rows.forEach((row, i) => {
-        const next = rows[i + 1];
-        const isSticky = getComputedStyle(row).position === "sticky";
-        if (!next || !isSticky) {
-          row.style.setProperty("--p", 0);
-          return;
-        }
-        const stuckTop = parseFloat(getComputedStyle(row).top) || 0;
-        const nextTop = next.getBoundingClientRect().top;
-        const p = Math.min(Math.max(1 - (nextTop - stuckTop) / row.offsetHeight, 0), 1);
-        row.style.setProperty("--p", p.toFixed(3));
-      });
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    items.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="HomePageFour">
+    <section className="HomePageFour" ref={sectionRef}>
       <div className="HomePageFour__container">
         {/* Heading */}
-        <div
-          ref={headRef}
-          className={`HomePageFour__head ${headVisible ? "HomePageFour__head--visible" : ""}`}
-        >
+        <header className="HomePageFour__head" data-reveal>
           <span className="HomePageFour__badge">
             <i className="HomePageFour__badge-dot" />
             Service Area
           </span>
-          <DropText />
-        </div>
+          <h2 className="HomePageFour__title">
+            Expert pest control services
+            <br />
+            designed to solve
+          </h2>
+        </header>
 
         {/* Services */}
         <div className="HomePageFour__list">
           {SERVICES.map((item, i) => (
-            <article
-              key={item.title}
-              ref={(el) => (rowRefs.current[i] = el)}
-              data-index={i}
-              className={`HomePageFour__row ${rowsVisible[i] ? "HomePageFour__row--in" : ""}`}
-              style={{ zIndex: i + 1 }}
-            >
-              <div className="HomePageFour__row-inner">
-                {/* left */}
-                <div className="HomePageFour__info">
+            <article className="HomePageFour__row" key={item.title}>
+              {/* left */}
+              <div className="HomePageFour__info" data-reveal>
+                <div className="HomePageFour__info-top">
                   <span className="HomePageFour__icon">
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 64 64"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
                       {item.icon}
                     </svg>
                   </span>
-                  <h3 className="HomePageFour__service-title">{item.title}</h3>
-                </div>
-
-                {/* middle image (side-scrolls on hover) */}
-                <div className="HomePageFour__media">
-                  <div className="HomePageFour__frame">
-                    <img src={item.image} alt={item.title} className="HomePageFour__img" loading="lazy" />
-                    <span className="HomePageFour__shine" aria-hidden="true" />
-                  </div>
                   <span className="HomePageFour__number">
                     {String(i + 1).padStart(2, "0")}
-                    <i className="HomePageFour__number-dot">.</i>
                   </span>
                 </div>
+                <h3 className="HomePageFour__service-title">{item.title}</h3>
+              </div>
 
-                {/* right */}
-                <div className="HomePageFour__content">
-                  <p className="HomePageFour__text">{item.text}</p>
-                  <a href="/services" className="HomePageFour__link">
-                    <span className="HomePageFour__link-text">View Details</span>
-                    <svg className="HomePageFour__link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M4 12h15M13 6l6 6-6 6" />
-                    </svg>
-                  </a>
+              {/* middle image */}
+              <div className="HomePageFour__media" data-reveal>
+                <div className="HomePageFour__frame">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="HomePageFour__img"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
+              </div>
+
+              {/* right */}
+              <div className="HomePageFour__content" data-reveal>
+                <p className="HomePageFour__text">{item.text}</p>
+                <a href="/services" className="HomePageFour__link">
+                  <span>View Details</span>
+                  <b className="HomePageFour__link-arrow" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </b>
+                </a>
               </div>
             </article>
           ))}

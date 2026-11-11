@@ -1,0 +1,549 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* ==========================================
+   MAIN SERVICE SECTION
+========================================== */
+
+.service-main {
+  --service-main-green: #173b2b;
+  --service-main-green-deep: #0f2e20;
+  --service-main-lime: #d0f47a;
+  --service-main-lime-dark: #a9dc3d;
+  --service-main-text: #727c73;
+
+  position: relative;
+  width: 100%;
+  padding: 70px 35px 110px;
+  background: #f7f7f6;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.service-main *,
+.service-main *::before,
+.service-main *::after {
+  box-sizing: border-box;
+}
+
+.service-main-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(208, 244, 122, 0.4), rgba(208, 244, 122, 0) 68%);
+  animation: serviceMainFloat 10s ease-in-out infinite;
+}
+
+.service-main-glow-one {
+  top: -180px;
+  left: -160px;
+  width: 560px;
+  height: 560px;
+}
+
+.service-main-glow-two {
+  bottom: -200px;
+  right: -160px;
+  width: 620px;
+  height: 620px;
+  animation-delay: -5s;
+}
+
+.service-main-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   SECTION HEADING
+========================================== */
+
+.service-main-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 64px;
+}
+
+.service-main-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  background: #fff;
+  border-radius: 50px;
+  color: #547b2c;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  box-shadow: 0 8px 26px rgba(23, 59, 43, 0.08);
+  opacity: 0;
+  transform: translateY(-14px) scale(0.92);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.service-main-active .service-main-subtitle {
+  opacity: 1;
+  transform: none;
+}
+
+.service-main-subtitle-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--service-main-lime-dark);
+  animation: serviceMainPulse 2s infinite;
+}
+
+.service-main-heading h2 {
+  color: var(--service-main-green);
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin: 24px 0 18px;
+}
+
+.service-main-word {
+  display: inline-block;
+  white-space: nowrap;
+  margin-right: 0.26em;
+}
+
+.service-main-word:last-child {
+  margin-right: 0;
+}
+
+.service-main-word-accent {
+  color: #83ad38;
+}
+
+.service-main-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.6em) rotateX(-70deg) scale(0.9);
+  filter: blur(6px);
+  transform-origin: bottom center;
+}
+
+.service-main-active .service-main-letter {
+  animation: serviceMainLetterIn 0.7s cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
+}
+
+.service-main-heading p {
+  margin: 0;
+  color: var(--service-main-text);
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s;
+}
+
+.service-main-active .service-main-heading p {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================
+   GRID - 3 TOP + 3 BOTTOM
+========================================== */
+
+.service-main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  width: 100%;
+}
+
+/* ==========================================
+   CARD DESIGN
+========================================== */
+
+.service-main-card {
+  position: relative;
+  width: 100%;
+  min-height: 430px;
+  padding: 32px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(160deg, #f1f1f0 0%, #e8e9e6 100%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 22% 30% 22% 30% / 12% 20% 12% 20%;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 14px 34px rgba(23, 59, 43, 0.07);
+
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.55s ease,
+    box-shadow 0.55s ease;
+  transition-delay: calc(var(--card-index) * 110ms + 0.5s);
+}
+
+.service-main-active .service-main-card {
+  opacity: 1;
+  transform: none;
+}
+
+.service-main-active .service-main-card:hover,
+.service-main-active .service-main-card:focus-visible {
+  transform: translateY(-10px);
+  background: linear-gradient(160deg, #dcf88f 0%, #c8f068 100%);
+  box-shadow:
+    0 32px 56px rgba(64, 94, 35, 0.22),
+    0 10px 18px rgba(64, 94, 35, 0.1);
+  transition-delay: 0s;
+}
+
+/* ==========================================
+   LIGHT SWEEP ANIMATION
+========================================== */
+
+.service-main-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.service-main-card:hover::before,
+.service-main-card:focus-visible::before {
+  animation: serviceMainLightSweep 0.95s ease forwards;
+}
+
+/* ==========================================
+   NUMBER BADGE
+========================================== */
+
+.service-main-number {
+  position: absolute;
+  top: 16px;
+  right: 28px;
+  z-index: 1;
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(23, 59, 43, 0.14);
+  transition: -webkit-text-stroke-color 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.service-main-card:hover .service-main-number,
+.service-main-card:focus-visible .service-main-number {
+  -webkit-text-stroke-color: rgba(23, 59, 43, 0.32);
+  transform: translateY(-4px);
+}
+
+/* ==========================================
+   ICON
+========================================== */
+
+.service-main-icon {
+  position: relative;
+  z-index: 2;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--service-main-green);
+  background: #fff;
+  border-radius: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 12px 26px rgba(23, 59, 43, 0.12);
+  transition:
+    transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.5s ease,
+    color 0.5s ease;
+}
+
+.service-main-card:hover .service-main-icon,
+.service-main-card:focus-visible .service-main-icon {
+  transform: translateY(-5px) rotate(-10deg) scale(1.1);
+  background: var(--service-main-green);
+  color: var(--service-main-lime);
+}
+
+/* ==========================================
+   CARD TITLE
+========================================== */
+
+.service-main-card h3 {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 280px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #193f2d;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 16px;
+  transition: transform 0.45s ease, color 0.45s ease;
+}
+
+.service-main-card:hover h3,
+.service-main-card:focus-visible h3 {
+  color: #0f2e20;
+  transform: translateY(-3px);
+}
+
+/* ==========================================
+   IMAGE FRAME SIZE
+========================================== */
+
+.service-main-image-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 66%;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+  margin-top: auto;
+  perspective: 1300px;
+}
+
+/* soft glow behind clover */
+.service-main-image-ring {
+  position: absolute;
+  inset: -10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 68%);
+  opacity: 0.6;
+  transition: opacity 0.5s ease, transform 0.8s ease;
+}
+
+.service-main-card:hover .service-main-image-ring,
+.service-main-card:focus-visible .service-main-image-ring {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   3D IMAGE FLIP
+========================================== */
+
+.service-main-image-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 16px 20px rgba(23, 59, 43, 0.22));
+  transition: transform 0.95s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.service-main-card:hover .service-main-image-inner,
+.service-main-card:focus-visible .service-main-image-inner {
+  transform: rotateY(180deg);
+}
+
+/* ==========================================
+   IMAGE FRAME - FOUR-LOBE CLOVER
+========================================== */
+
+.service-main-image-front,
+.service-main-image-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  -webkit-mask-image:
+    radial-gradient(ellipse 27% 27% at 50% 25%, #000 98%, transparent 100%),
+    radial-gradient(ellipse 27% 27% at 25% 50%, #000 98%, transparent 100%),
+    radial-gradient(ellipse 27% 27% at 75% 50%, #000 98%, transparent 100%),
+    radial-gradient(ellipse 27% 27% at 50% 75%, #000 98%, transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-over;
+
+  mask-image:
+    radial-gradient(ellipse 27% 27% at 50% 25%, #000 98%, transparent 100%),
+    radial-gradient(ellipse 27% 27% at 25% 50%, #000 98%, transparent 100%),
+    radial-gradient(ellipse 27% 27% at 75% 50%, #000 98%, transparent 100%),
+    radial-gradient(ellipse 27% 27% at 50% 75%, #000 98%, transparent 100%);
+  mask-repeat: no-repeat;
+  mask-composite: add;
+}
+
+.service-main-image-front {
+  transform: rotateY(0deg);
+}
+
+.service-main-image-back {
+  transform: rotateY(180deg);
+}
+
+.service-main-image-front img,
+.service-main-image-back img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s ease, filter 0.6s ease;
+}
+
+.service-main-card:hover .service-main-image-front img,
+.service-main-card:hover .service-main-image-back img,
+.service-main-card:focus-visible .service-main-image-front img,
+.service-main-card:focus-visible .service-main-image-back img {
+  transform: scale(1.12);
+  filter: saturate(1.15);
+}
+
+/* ==========================================
+   LEARN MORE LINK
+========================================== */
+
+.service-main-link {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 9px 20px;
+  border-radius: 40px;
+  color: var(--service-main-green);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(23, 59, 43, 0.1);
+  transition:
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.service-main-link svg {
+  transition: transform 0.35s ease;
+}
+
+.service-main-card:hover .service-main-link,
+.service-main-card:focus-visible .service-main-link,
+.service-main-link:hover {
+  background: var(--service-main-green);
+  color: var(--service-main-lime);
+}
+
+.service-main-link:hover {
+  transform: translateY(-3px);
+}
+
+.service-main-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================
+   KEYFRAMES
+========================================== */
+
+@keyframes serviceMainLightSweep {
+  from { left: -150%; }
+  to { left: 150%; }
+}
+
+@keyframes serviceMainLetterIn {
+  60% { filter: blur(0); }
+  100% { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes serviceMainPulse {
+  0% { box-shadow: 0 0 0 0 rgba(169, 220, 61, 0.6); }
+  70% { box-shadow: 0 0 0 11px rgba(169, 220, 61, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(169, 220, 61, 0); }
+}
+
+@keyframes serviceMainFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, 18px) scale(1.06); }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 1200px) {
+  .service-main-grid { gap: 20px; }
+  .service-main-card { min-height: 410px; padding: 30px 16px 22px; }
+  .service-main-number { font-size: 44px; right: 22px; }
+}
+
+@media (max-width: 1100px) {
+  .service-main { padding: 80px 25px 90px; }
+  .service-main-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .service-main-card { min-height: 430px; padding: 32px 20px 24px; }
+  .service-main-image-wrapper { width: 62%; max-width: 210px; }
+}
+
+@media (max-width: 650px) {
+  .service-main { padding: 60px 16px 70px; }
+  .service-main-subtitle { font-size: 11px; letter-spacing: 2px; padding: 9px 18px; }
+  .service-main-heading { margin-bottom: 40px; }
+  .service-main-grid { grid-template-columns: 1fr; gap: 18px; }
+  .service-main-card { min-height: 400px; padding: 30px 16px 22px; max-width: 360px; margin: 0 auto; }
+  .service-main-icon { width: 56px; height: 56px; border-radius: 16px; }
+  .service-main-card h3 { min-height: 50px; font-size: 1.2rem; }
+  .service-main-image-wrapper { width: 60%; max-width: 190px; }
+  .service-main-number { font-size: 40px; top: 14px; right: 20px; }
+}
+
+@media (max-width: 380px) {
+  .service-main-card { min-height: 380px; }
+  .service-main-card h3 { font-size: 1.1rem; }
+}
+
+/* touch devices: no hover, so show the active (lime) look softly */
+@media (hover: none) {
+  .service-main-link {
+    background: var(--service-main-green);
+    color: var(--service-main-lime);
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .service-main *,
+  .service-main *::before,
+  .service-main *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .service-main-card,
+  .service-main-letter,
+  .service-main-subtitle,
+  .service-main-heading p {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
