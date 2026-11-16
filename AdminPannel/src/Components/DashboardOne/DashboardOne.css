@@ -1,0 +1,365 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+.DashboardOne {
+  --d1-green-950: #08301f;
+  --d1-green-800: #0f4d34;
+  --d1-green-600: #16a34a;
+  --d1-green-200: #c9efd4;
+  --d1-green-100: #e1f6e7;
+  --d1-ink: #0f2a1d;
+  --d1-muted: #5d7266;
+
+  box-sizing: border-box;
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--d1-ink);
+}
+
+.DashboardOne *,
+.DashboardOne *::before,
+.DashboardOne *::after {
+  box-sizing: border-box;
+}
+
+/* ------------------------------ Banner ------------------------------ */
+
+.DashboardOne-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 112px;
+  padding: 24px 32px;
+  border-radius: 26px;
+  border: 2px solid #fff;
+  background:
+    radial-gradient(520px 200px at 62% 110%, rgba(52, 196, 107, 0.2), transparent 70%),
+    linear-gradient(100deg, #ffffff 0%, #f1faf4 55%, #e5f6ea 100%);
+  box-shadow: 0 14px 40px rgba(15, 77, 52, 0.09);
+  animation: DashboardOne-rise 0.6s ease-out both;
+}
+
+.DashboardOne-leaves {
+  position: absolute;
+  top: 0;
+  right: 22%;
+  width: 520px;
+  max-width: 60%;
+  height: 100%;
+  pointer-events: none;
+  animation: DashboardOne-sway 7s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+
+.DashboardOne-welcome {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  min-width: 0;
+}
+
+.DashboardOne-bar {
+  flex: none;
+  width: 5px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, #25b35a, var(--d1-green-800));
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+}
+
+.DashboardOne-title {
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--d1-green-950);
+}
+
+.DashboardOne-wave {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: DashboardOne-wave 2.4s ease-in-out 0.8s 2;
+}
+
+.DashboardOne-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--d1-muted);
+}
+
+/* ------------------------------ Stats ------------------------------- */
+
+.DashboardOne-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.DashboardOne-stat {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  border-radius: 24px;
+  border: 2px solid #fff;
+  box-shadow: 0 12px 32px rgba(15, 77, 52, 0.09);
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s ease var(--DashboardOne-delay, 0ms),
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) var(--DashboardOne-delay, 0ms),
+    box-shadow 0.25s ease;
+}
+
+.DashboardOne-stat.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.DashboardOne-stat.is-visible:hover {
+  transform: translateY(-4px);
+  transition-delay: 0ms;
+  box-shadow: 0 20px 40px rgba(15, 77, 52, 0.15);
+}
+
+.DashboardOne-stat::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.55), transparent 40%);
+  pointer-events: none;
+}
+
+.DashboardOne-stat--bookings { background: linear-gradient(135deg, #e3f8ea, #f7fdf9); --d1-tone: #12a150; --d1-tone-dark: #0b7a3a; }
+.DashboardOne-stat--projects { background: linear-gradient(135deg, #dcecff, #f4f9ff); --d1-tone: #3b82f6; --d1-tone-dark: #1d4ed8; }
+.DashboardOne-stat--orders { background: linear-gradient(135deg, #ffecd2, #fff8ef); --d1-tone: #f59e0b; --d1-tone-dark: #d97706; }
+.DashboardOne-stat--enquiries { background: linear-gradient(135deg, #eadfff, #f8f4ff); --d1-tone: #8b5cf6; --d1-tone-dark: #6d28d9; }
+
+.DashboardOne-statIcon {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  color: #fff;
+  background: linear-gradient(145deg, var(--d1-tone), var(--d1-tone-dark));
+  box-shadow:
+    0 10px 20px color-mix(in srgb, var(--d1-tone) 40%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.3s ease;
+}
+
+.DashboardOne-stat:hover .DashboardOne-statIcon {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.DashboardOne-statBody {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.DashboardOne-statLabel {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--d1-ink);
+}
+
+.DashboardOne-statValue {
+  margin: 2px 0 6px;
+  font-size: 2.3rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--d1-green-950);
+}
+
+.DashboardOne-statValue.is-done {
+  animation: DashboardOne-pop 0.45s ease-out;
+}
+
+.DashboardOne-statTrend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--d1-muted);
+}
+
+.DashboardOne-statTrend strong {
+  margin-right: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.DashboardOne-statTrend.is-up svg,
+.DashboardOne-statTrend.is-up strong {
+  color: #16a34a;
+}
+
+.DashboardOne-statTrend.is-down svg,
+.DashboardOne-statTrend.is-down strong {
+  color: #e11d48;
+}
+
+.DashboardOne-statWatermark {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  color: var(--d1-tone);
+  opacity: 0.18;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.DashboardOne-stat:hover .DashboardOne-statWatermark {
+  opacity: 0.28;
+  transform: scale(1.08) rotate(-4deg);
+}
+
+/* ---------------------------- Animations ---------------------------- */
+
+@keyframes DashboardOne-rise {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes DashboardOne-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.6deg) translateY(-2px); }
+}
+
+@keyframes DashboardOne-wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(16deg); }
+  20%, 40% { transform: rotate(-10deg); }
+  50% { transform: rotate(8deg); }
+}
+
+@keyframes DashboardOne-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .DashboardOne *,
+  .DashboardOne-banner {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .DashboardOne-stat {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------- Responsive ----------------------------- */
+
+@media (max-width: 1200px) {
+  .DashboardOne-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .DashboardOne-leaves {
+    right: 28%;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 860px) {
+  .DashboardOne-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px;
+  }
+
+  .DashboardOne-leaves {
+    right: -80px;
+    max-width: none;
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 640px) {
+  .DashboardOne {
+    gap: 16px;
+    padding: 14px;
+  }
+
+  .DashboardOne-title {
+    font-size: 1.35rem;
+  }
+
+  .DashboardOne-subtitle {
+    font-size: 0.85rem;
+  }
+
+
+  .DashboardOne-stats {
+    gap: 12px;
+  }
+
+  .DashboardOne-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .DashboardOne-statIcon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+  }
+
+  .DashboardOne-statValue {
+    font-size: 1.9rem;
+  }
+
+  .DashboardOne-statTrend span {
+    display: none;
+  }
+
+  .DashboardOne-statWatermark {
+    width: 56px;
+    height: 56px;
+    right: 8px;
+    bottom: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .DashboardOne-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .DashboardOne-stat {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .DashboardOne-statTrend span {
+    display: inline;
+  }
+}

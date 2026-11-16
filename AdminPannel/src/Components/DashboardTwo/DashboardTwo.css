@@ -1,0 +1,898 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =========================================================
+   DashboardTwo
+   ========================================================= */
+
+.DashboardTwo {
+  --DashboardTwo-bg: #f1f5ee;
+  --DashboardTwo-card: #ffffff;
+  --DashboardTwo-border: #e6ede2;
+  --DashboardTwo-ink: #0f2a1a;
+  --DashboardTwo-muted: #6b7c70;
+  --DashboardTwo-green: #16a34a;
+  --DashboardTwo-green-dark: #14532d;
+  --DashboardTwo-green-soft: #eaf4e4;
+  --DashboardTwo-lime: #bef264;
+  --DashboardTwo-radius: 20px;
+  --DashboardTwo-shadow: 0 1px 2px rgba(16, 40, 24, 0.04), 0 14px 34px -16px rgba(20, 70, 36, 0.22);
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+  padding: 20px;
+  background: var(--DashboardTwo-bg);
+  color: var(--DashboardTwo-ink);
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.DashboardTwo *,
+.DashboardTwo *::before,
+.DashboardTwo *::after {
+  box-sizing: border-box;
+}
+
+.DashboardTwo button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.DashboardTwo ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Grid ---------- */
+
+.DashboardTwo-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 340px);
+  grid-template-areas:
+    'overview side'
+    'service side'
+    'recent recent';
+  gap: 20px;
+  align-items: stretch;
+}
+
+.DashboardTwo-overview {
+  grid-area: overview;
+  display: flex;
+  flex-direction: column;
+}
+.DashboardTwo-service { grid-area: service; }
+.DashboardTwo-side { grid-area: side; }
+.DashboardTwo-recent { grid-area: recent; }
+
+.DashboardTwo-card {
+  position: relative;
+  min-width: 0;
+  padding: 20px 22px;
+  background: var(--DashboardTwo-card);
+  border: 1px solid var(--DashboardTwo-border);
+  border-radius: var(--DashboardTwo-radius);
+  box-shadow: var(--DashboardTwo-shadow);
+}
+
+.DashboardTwo-cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.DashboardTwo-cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--DashboardTwo-ink);
+}
+
+.DashboardTwo-cardTitle--light {
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.DashboardTwo-titleIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--DashboardTwo-green-soft);
+  color: var(--DashboardTwo-green-dark);
+  font-size: 16px;
+}
+
+.DashboardTwo-titleIcon--lime {
+  background: transparent;
+  color: var(--DashboardTwo-lime);
+  width: 22px;
+  height: 22px;
+  font-size: 19px;
+}
+
+.DashboardTwo-viewAll {
+  border: 0;
+  background: transparent;
+  padding: 4px 2px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--DashboardTwo-green-dark);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  transition: color 0.2s ease;
+}
+
+.DashboardTwo-viewAll:hover { color: var(--DashboardTwo-green); }
+
+/* ---------- Premium dropdown ---------- */
+
+.DashboardTwo-dropdown {
+  position: relative;
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.DashboardTwo-dropdownButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 12px 0 16px;
+  border: 1px solid var(--DashboardTwo-border);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff, #f7faf5);
+  color: var(--DashboardTwo-ink);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(16, 40, 24, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.DashboardTwo-dropdownButton:hover,
+.DashboardTwo-dropdownButton.is-open {
+  border-color: #9fd3ac;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+}
+
+.DashboardTwo-dropdownButton:focus-visible {
+  outline: 2px solid var(--DashboardTwo-green);
+  outline-offset: 2px;
+}
+
+.DashboardTwo-dropdownChevron {
+  font-size: 16px;
+  color: var(--DashboardTwo-green-dark);
+  transition: transform 0.25s ease;
+}
+
+.DashboardTwo-dropdownButton.is-open .DashboardTwo-dropdownChevron {
+  transform: rotate(180deg);
+}
+
+.DashboardTwo-dropdownMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 100%;
+  width: max-content;
+  padding: 6px;
+  border: 1px solid var(--DashboardTwo-border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 48px -16px rgba(15, 60, 30, 0.35), 0 4px 12px rgba(15, 60, 30, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.97);
+  transform-origin: top right;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.DashboardTwo-dropdownMenu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.DashboardTwo-dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--DashboardTwo-ink);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.DashboardTwo-dropdownItem.is-focused { background: var(--DashboardTwo-green-soft); }
+
+.DashboardTwo-dropdownItem.is-selected {
+  color: var(--DashboardTwo-green-dark);
+  background: linear-gradient(90deg, #e3f3dc, #eef8e8);
+}
+
+.DashboardTwo-dropdownCheck {
+  font-size: 15px;
+  color: var(--DashboardTwo-green);
+}
+
+/* ---------- Chart ---------- */
+
+.DashboardTwo-chart {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 260px;
+}
+
+.DashboardTwo-chartSvg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.DashboardTwo-gridLine {
+  stroke: #dfe8db;
+  stroke-width: 1;
+  stroke-dasharray: 4 5;
+}
+
+.DashboardTwo-axisText {
+  font-size: 12px;
+  font-weight: 500;
+  fill: #55655a;
+}
+
+.DashboardTwo-line {
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: DashboardTwo-draw 1.3s cubic-bezier(0.22, 0.8, 0.3, 1) forwards;
+}
+
+.DashboardTwo-area {
+  opacity: 0;
+  animation: DashboardTwo-fade 1s ease 0.5s forwards;
+}
+
+.DashboardTwo-crosshair {
+  stroke: #16a34a;
+  stroke-opacity: 0.35;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.DashboardTwo-dot {
+  fill: #16a34a;
+  stroke: #ffffff;
+  stroke-width: 2;
+  transition: r 0.15s ease;
+}
+
+.DashboardTwo-dot.is-active { fill: #15803d; stroke: #ffffff; stroke-width: 3; }
+
+.DashboardTwo-dotHalo {
+  fill: rgba(34, 197, 94, 0.2);
+}
+
+.DashboardTwo-chartHit { cursor: crosshair; }
+
+.DashboardTwo-tooltip {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--DashboardTwo-green-dark);
+  color: #fff;
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(-50%, calc(-100% - 16px));
+  box-shadow: 0 12px 24px -8px rgba(10, 50, 25, 0.5);
+}
+
+.DashboardTwo-tooltip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: var(--DashboardTwo-green-dark);
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 2px;
+}
+
+.DashboardTwo-tooltipMonth {
+  font-size: 11px;
+  font-weight: 500;
+  color: #b6e3c3;
+}
+
+.DashboardTwo-tooltipValue {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@keyframes DashboardTwo-draw { to { stroke-dashoffset: 0; } }
+@keyframes DashboardTwo-fade { to { opacity: 1; } }
+
+/* ---------- Service distribution ---------- */
+
+.DashboardTwo-serviceBody {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px 24px;
+  padding-top: 6px;
+}
+
+.DashboardTwo-donut {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 150px;
+  aspect-ratio: 1 / 1;
+}
+
+.DashboardTwo-donutSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.DashboardTwo-donutTrack {
+  fill: none;
+  stroke: #eef3eb;
+  stroke-width: 28;
+}
+
+.DashboardTwo-donutSegment {
+  fill: none;
+  stroke-width: 28;
+  cursor: pointer;
+  transition: stroke-dasharray 1.1s cubic-bezier(0.22, 0.8, 0.3, 1), stroke-width 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.DashboardTwo-donutSegment.is-active { stroke-width: 34; }
+.DashboardTwo-donutSegment.is-dim { opacity: 0.45; }
+
+.DashboardTwo-donutCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.DashboardTwo-donutValue {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.DashboardTwo-donutLabel {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--DashboardTwo-muted);
+}
+
+.DashboardTwo-legend {
+  flex: 1 1 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  max-width: 260px;
+}
+
+.DashboardTwo-legendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: default;
+  transition: background 0.15s ease;
+}
+
+.DashboardTwo-legendItem.is-active { background: var(--DashboardTwo-green-soft); }
+
+.DashboardTwo-legendDot {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.DashboardTwo-legendName { flex: 1; min-width: 0; white-space: nowrap; }
+
+.DashboardTwo-legendValue {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Side column ---------- */
+
+.DashboardTwo-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.DashboardTwo-schedule {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Quick actions */
+
+.DashboardTwo-actions {
+  padding: 20px;
+  border: 0;
+  color: #fff;
+  background:
+    radial-gradient(circle at 90% -20%, rgba(190, 242, 100, 0.22), transparent 55%),
+    linear-gradient(135deg, #1b7a3d 0%, #14532d 100%);
+  overflow: hidden;
+}
+
+.DashboardTwo-actionGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.DashboardTwo-actionBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 74px;
+  padding: 10px 4px;
+  border: 0;
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--DashboardTwo-ink);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.DashboardTwo-actionBtn:hover {
+  transform: translateY(-3px);
+  background: #f4fbe9;
+  box-shadow: 0 14px 24px -10px rgba(0, 0, 0, 0.5);
+}
+
+.DashboardTwo-actionBtn:focus-visible {
+  outline: 2px solid var(--DashboardTwo-lime);
+  outline-offset: 2px;
+}
+
+.DashboardTwo-actionIcon {
+  font-size: 22px;
+  color: var(--DashboardTwo-green-dark);
+}
+
+/* Schedule */
+
+.DashboardTwo-scheduleList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.DashboardTwo-scheduleList li {
+  display: flex;
+  flex: 1 1 0;
+  max-height: 96px;
+}
+
+.DashboardTwo-scheduleItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 62px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #f5f8f2;
+  text-align: left;
+  color: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.DashboardTwo-scheduleItem:hover {
+  background: #eef6e9;
+  border-color: #cfe6c8;
+  transform: translateX(2px);
+}
+
+.DashboardTwo-time {
+  flex-shrink: 0;
+  padding: 7px 9px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.DashboardTwo-time--green { background: #d6f0d0; color: #17702f; }
+.DashboardTwo-time--blue { background: #d9e8fd; color: #1e55c9; }
+.DashboardTwo-time--orange { background: #fde3bb; color: #b45309; }
+
+.DashboardTwo-scheduleInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.DashboardTwo-scheduleTitle {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.DashboardTwo-schedulePlace {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--DashboardTwo-muted);
+}
+
+.DashboardTwo-schedulePlace svg { color: var(--DashboardTwo-green); }
+
+.DashboardTwo-scheduleArrow {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: #3b4a40;
+}
+
+/* Revenue */
+
+.DashboardTwo-revenue {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'icon badge'
+    'info badge';
+  align-items: center;
+  row-gap: 4px;
+  padding: 18px 22px;
+  border: 0;
+  color: #fff;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 100% 120%, rgba(190, 242, 100, 0.25), transparent 55%),
+    linear-gradient(135deg, #1e8444 0%, #14532d 100%);
+}
+
+.DashboardTwo-revenue::after {
+  content: '';
+  position: absolute;
+  inset: auto -20% -60% -20%;
+  height: 90%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.DashboardTwo-revenueIcon {
+  grid-area: icon;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--DashboardTwo-lime);
+}
+
+.DashboardTwo-revenueInfo {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.DashboardTwo-revenueLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #cfe9d6;
+}
+
+.DashboardTwo-revenueValue {
+  font-size: clamp(26px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.DashboardTwo-revenueBadge {
+  grid-area: badge;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--DashboardTwo-green-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* ---------- Recent bookings table ---------- */
+
+.DashboardTwo-tableWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.DashboardTwo-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.DashboardTwo-thead th {
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #f0f7ea, #e9f3e2);
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--DashboardTwo-green-dark);
+  white-space: nowrap;
+}
+
+.DashboardTwo-thead th:first-child { border-radius: 12px 0 0 12px; }
+.DashboardTwo-thead th:last-child { border-radius: 0 12px 12px 0; }
+.DashboardTwo-thCenter { text-align: center !important; }
+
+.DashboardTwo-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #edf2ea;
+  font-weight: 500;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.DashboardTwo-tr:last-child td { border-bottom: 0; }
+.DashboardTwo-tr { transition: background 0.2s ease; }
+.DashboardTwo-tr:hover td { background: #f8fbf6; }
+.DashboardTwo-tdId { font-weight: 700; color: var(--DashboardTwo-muted); }
+.DashboardTwo-tdAction { text-align: center; }
+
+.DashboardTwo-customer,
+.DashboardTwo-serviceCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.DashboardTwo-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e8444, #14532d);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.DashboardTwo-serviceDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.DashboardTwo-status {
+  display: inline-block;
+  min-width: 96px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.DashboardTwo-status--completed { background: #d6f0d0; color: #17702f; }
+.DashboardTwo-status--in-progress { background: #d9e8fd; color: #1e55c9; }
+.DashboardTwo-status--pending { background: #fde3bb; color: #b45309; }
+
+.DashboardTwo-viewBtn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #2b3a30;
+  font-size: 17px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.DashboardTwo-viewBtn:hover {
+  background: var(--DashboardTwo-green-soft);
+  border-color: #cfe6c8;
+  color: var(--DashboardTwo-green);
+}
+
+/* =========================================================
+   Responsive (container queries: works inside admin layouts
+   with a sidebar, not only on the viewport width)
+   ========================================================= */
+
+/* Wide: exact 3-column layout from the design */
+@container (min-width: 1240px) {
+  .DashboardTwo-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(300px, 0.95fr);
+    grid-template-areas:
+      'overview service side'
+      'recent recent side';
+  }
+
+  .DashboardTwo-serviceBody {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .DashboardTwo-donut { flex: 0 0 140px; max-width: 140px; }
+  .DashboardTwo-legend { flex: 1 1 0; max-width: none; }
+}
+
+/* Medium and small: stack, side cards become a grid */
+@container (max-width: 859px) {
+  .DashboardTwo-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'overview'
+      'service'
+      'side'
+      'recent';
+    gap: 16px;
+  }
+
+  .DashboardTwo-side {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .DashboardTwo-actions { order: 1; }
+  .DashboardTwo-revenue { order: 2; }
+  .DashboardTwo-schedule { order: 3; grid-column: 1 / -1; }
+  .DashboardTwo-scheduleList li { max-height: none; flex: 0 0 auto; }
+}
+
+/* Table becomes stacked cards */
+@container (max-width: 759px) {
+  .DashboardTwo-table { min-width: 0; }
+  .DashboardTwo-thead { display: none; }
+
+  .DashboardTwo-table,
+  .DashboardTwo-table tbody { display: block; }
+
+  .DashboardTwo-tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 14px;
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 1px solid var(--DashboardTwo-border);
+    border-radius: 16px;
+    background: #fafcf8;
+  }
+
+  .DashboardTwo-tr:last-child { margin-bottom: 0; }
+
+  .DashboardTwo-table td,
+  .DashboardTwo-tr:hover td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    white-space: normal;
+  }
+
+  .DashboardTwo-table td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--DashboardTwo-muted);
+  }
+
+  .DashboardTwo-tdAction { align-items: flex-end !important; }
+  .DashboardTwo-tdAction::before { align-self: flex-end; }
+}
+
+@container (max-width: 600px) {
+  .DashboardTwo-side { grid-template-columns: minmax(0, 1fr); }
+  .DashboardTwo-actions { order: 0; }
+  .DashboardTwo-schedule { order: 0; }
+  .DashboardTwo-revenue { order: 0; }
+  .DashboardTwo-card { padding: 16px; border-radius: 18px; }
+  .DashboardTwo-actions { padding: 16px; }
+  .DashboardTwo-cardTitle { font-size: 16px; }
+  .DashboardTwo-chart { min-height: 230px; }
+}
+
+@container (max-width: 440px) {
+  .DashboardTwo-cardHead { flex-wrap: wrap; }
+  .DashboardTwo-actionGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .DashboardTwo-actionBtn { min-height: 62px; flex-direction: row; gap: 10px; font-size: 12px; }
+  .DashboardTwo-tr { grid-template-columns: minmax(0, 1fr); }
+  .DashboardTwo-tdAction { align-items: flex-start !important; }
+  .DashboardTwo-tdAction::before { align-self: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .DashboardTwo { padding: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .DashboardTwo *,
+  .DashboardTwo *::before,
+  .DashboardTwo *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .DashboardTwo-line { stroke-dashoffset: 0; }
+  .DashboardTwo-area { opacity: 1; }
+}
