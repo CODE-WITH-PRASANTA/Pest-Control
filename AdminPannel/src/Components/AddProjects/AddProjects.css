@@ -1,0 +1,662 @@
+.AddProjects {
+  --AddProjects-green-900: #064e3b;
+  --AddProjects-green-800: #0a5c40;
+  --AddProjects-green-600: #16a34a;
+  --AddProjects-green-100: #dcfce7;
+  --AddProjects-green-50: #f0fdf4;
+  --AddProjects-border: #dfe8e2;
+  --AddProjects-text: #0f1f17;
+  --AddProjects-muted: #6b7a72;
+  --AddProjects-red: #dc2626;
+
+  width: 100%;
+  min-height: 100%;
+  padding: 28px 32px 40px;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--AddProjects-text);
+  background:
+    radial-gradient(900px 400px at 100% -10%, rgba(134, 239, 172, 0.28), transparent 60%),
+    radial-gradient(700px 400px at -10% 110%, rgba(187, 247, 208, 0.35), transparent 60%),
+    #f6faf7;
+}
+
+.AddProjects *,
+.AddProjects *::before,
+.AddProjects *::after {
+  box-sizing: border-box;
+}
+
+.AddProjects-hidden {
+  display: none;
+}
+
+/* ---------- Header ---------- */
+.AddProjects-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.AddProjects-header-icon {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: var(--AddProjects-green-900);
+  background: linear-gradient(145deg, #ffffff, var(--AddProjects-green-100));
+  border: 1px solid #cdeedb;
+  box-shadow: 0 8px 20px rgba(6, 78, 59, 0.12);
+}
+
+.AddProjects-heading {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--AddProjects-green-900);
+}
+
+.AddProjects-subheading {
+  margin: 4px 0 0;
+  font-size: 14.5px;
+  color: var(--AddProjects-muted);
+}
+
+/* ---------- Layout ---------- */
+.AddProjects-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.AddProjects-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e6eee9;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 10px 34px rgba(16, 60, 40, 0.07);
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- Fields ---------- */
+.AddProjects-field {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.AddProjects-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.AddProjects-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--AddProjects-text);
+}
+
+.AddProjects-required {
+  color: var(--AddProjects-red);
+}
+
+.AddProjects-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  background: #fff;
+  border: 1px solid var(--AddProjects-border);
+  border-radius: 14px;
+  color: #4b5b53;
+  box-shadow: 0 2px 6px rgba(16, 60, 40, 0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.AddProjects-input-wrap:hover {
+  border-color: #b8d6c5;
+}
+
+.AddProjects-input-wrap:focus-within,
+.AddProjects-input-wrap.AddProjects-focus {
+  border-color: var(--AddProjects-green-600);
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.14);
+}
+
+.AddProjects-input-icon {
+  display: inline-flex;
+  color: #5d6d65;
+}
+
+.AddProjects-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14.5px;
+  font-family: inherit;
+  color: var(--AddProjects-text);
+}
+
+.AddProjects-input::placeholder {
+  color: #8a9990;
+}
+
+.AddProjects-has-error {
+  border-color: var(--AddProjects-red) !important;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
+}
+
+.AddProjects-error {
+  margin: 6px 2px 0;
+  font-size: 12.5px;
+  color: var(--AddProjects-red);
+}
+
+/* ---------- Custom dropdown ---------- */
+.AddProjects-dropdown {
+  position: relative;
+}
+
+.AddProjects-select-btn {
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.AddProjects-select-value {
+  flex: 1;
+  min-width: 0;
+  font-size: 14.5px;
+  color: var(--AddProjects-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.AddProjects-placeholder {
+  color: #8a9990;
+}
+
+.AddProjects-chevron {
+  display: inline-flex;
+  color: var(--AddProjects-text);
+  transition: transform 0.25s ease;
+}
+
+.AddProjects-chevron-open {
+  transform: rotate(180deg);
+}
+
+.AddProjects-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--AddProjects-border);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(6, 40, 28, 0.18);
+  animation: AddProjects-pop 0.16s ease-out;
+}
+
+.AddProjects-menu-small {
+  right: auto;
+  min-width: 150px;
+}
+
+.AddProjects-menu-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--AddProjects-text);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.AddProjects-menu-item:hover {
+  background: var(--AddProjects-green-50);
+}
+
+.AddProjects-menu-item-active {
+  background: var(--AddProjects-green-100);
+  color: var(--AddProjects-green-900);
+  font-weight: 700;
+}
+
+@keyframes AddProjects-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Editor ---------- */
+.AddProjects-editor {
+  background: #fff;
+  border: 1px solid var(--AddProjects-border);
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(16, 60, 40, 0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.AddProjects-editor:focus-within {
+  border-color: var(--AddProjects-green-600);
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.14);
+}
+
+.AddProjects-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  background: linear-gradient(#fbfdfc, #f4f8f6);
+  border-bottom: 1px solid var(--AddProjects-border);
+  border-radius: 14px 14px 0 0;
+}
+
+.AddProjects-block-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 112px;
+  height: 34px;
+  padding: 0 10px;
+  font: 500 13.5px inherit;
+  font-family: inherit;
+  color: var(--AddProjects-text);
+  background: #fff;
+  border: 1px solid var(--AddProjects-border);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.AddProjects-block-btn:hover {
+  border-color: #b8d6c5;
+}
+
+.AddProjects-tool-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: #2b3a33;
+  background: transparent;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.AddProjects-tool-btn:hover {
+  background: var(--AddProjects-green-100);
+  color: var(--AddProjects-green-900);
+}
+
+.AddProjects-tool-btn-active {
+  background: var(--AddProjects-green-900);
+  color: #fff;
+}
+
+.AddProjects-tool-btn-active:hover {
+  background: var(--AddProjects-green-800);
+  color: #fff;
+}
+
+.AddProjects-divider {
+  width: 1px;
+  height: 22px;
+  margin: 0 6px;
+  background: var(--AddProjects-border);
+}
+
+.AddProjects-editor-area {
+  min-height: 160px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 16px 18px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  outline: none;
+  word-break: break-word;
+}
+
+.AddProjects-editor-area.AddProjects-editor-empty::before {
+  content: attr(data-placeholder);
+  color: #8a9990;
+  pointer-events: none;
+  position: absolute;
+}
+
+.AddProjects-editor-area h1 { font-size: 24px; margin: 0.4em 0; }
+.AddProjects-editor-area h2 { font-size: 20px; margin: 0.4em 0; }
+.AddProjects-editor-area h3 { font-size: 17px; margin: 0.4em 0; }
+.AddProjects-editor-area p { margin: 0 0 0.6em; }
+.AddProjects-editor-area a { color: var(--AddProjects-green-600); text-decoration: underline; }
+.AddProjects-editor-area ul,
+.AddProjects-editor-area ol { padding-left: 24px; margin: 0.4em 0; }
+.AddProjects-editor-area blockquote {
+  margin: 0.6em 0;
+  padding: 6px 14px;
+  border-left: 4px solid var(--AddProjects-green-600);
+  background: var(--AddProjects-green-50);
+  color: #3b4b43;
+  border-radius: 0 8px 8px 0;
+}
+.AddProjects-editor-area code {
+  padding: 2px 6px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+  background: #eef4f0;
+  border-radius: 6px;
+}
+.AddProjects-editor-area img,
+.AddProjects-editor-area video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.AddProjects-editor-area .AddProjects-table,
+.AddProjects-editor-area table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.6em 0;
+}
+.AddProjects-editor-area td {
+  min-width: 40px;
+  padding: 8px;
+  border: 1px solid var(--AddProjects-border);
+}
+.AddProjects-embed {
+  position: relative;
+  padding-top: 56.25%;
+  margin: 0.6em 0;
+}
+.AddProjects-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 10px;
+}
+
+.AddProjects-editor-full {
+  position: fixed;
+  inset: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.AddProjects-editor-full .AddProjects-editor-area {
+  flex: 1;
+  max-height: none;
+}
+
+/* ---------- Side card ---------- */
+.AddProjects-side-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.AddProjects-side-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: var(--AddProjects-green-900);
+  background: var(--AddProjects-green-100);
+  border-radius: 11px;
+}
+
+.AddProjects-side-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--AddProjects-green-900);
+}
+
+.AddProjects-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 190px;
+  padding: 24px 16px;
+  text-align: center;
+  cursor: pointer;
+  background: linear-gradient(180deg, #f7fcf8, #eefaf1);
+  border: 2px dashed #6cc58a;
+  border-radius: 16px;
+  outline: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.AddProjects-upload:hover,
+.AddProjects-upload:focus-visible,
+.AddProjects-upload-active {
+  background: #e6f8eb;
+  border-color: var(--AddProjects-green-600);
+}
+
+.AddProjects-upload-active {
+  transform: scale(1.015);
+}
+
+.AddProjects-upload-icon {
+  display: inline-flex;
+  color: var(--AddProjects-green-800);
+  margin-bottom: 6px;
+}
+
+.AddProjects-upload-title {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+.AddProjects-upload-note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--AddProjects-muted);
+}
+
+.AddProjects-thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.AddProjects-thumb {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(16, 60, 40, 0.18);
+}
+
+.AddProjects-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+
+.AddProjects-thumb-remove {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--AddProjects-green-900);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.AddProjects-thumb-remove:hover {
+  background: var(--AddProjects-red);
+  transform: scale(1.12);
+}
+
+/* ---------- Actions ---------- */
+.AddProjects-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #e6eee9;
+  border-radius: 20px;
+  box-shadow: 0 10px 34px rgba(16, 60, 40, 0.06);
+}
+
+.AddProjects-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 28px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+}
+
+.AddProjects-btn:active {
+  transform: translateY(1px);
+}
+
+.AddProjects-btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #0b6b4a, var(--AddProjects-green-900));
+  border: none;
+  box-shadow: 0 10px 22px rgba(6, 78, 59, 0.32);
+}
+
+.AddProjects-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(6, 78, 59, 0.4);
+}
+
+.AddProjects-btn-secondary {
+  color: var(--AddProjects-text);
+  background: #fff;
+  border: 1px solid var(--AddProjects-border);
+  box-shadow: 0 4px 12px rgba(16, 60, 40, 0.08);
+}
+
+.AddProjects-btn-secondary:hover {
+  background: var(--AddProjects-green-50);
+  border-color: #b8d6c5;
+}
+
+.AddProjects-toast {
+  margin-left: auto;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--AddProjects-green-900);
+  background: var(--AddProjects-green-100);
+  border-radius: 12px;
+  animation: AddProjects-pop 0.25s ease-out;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .AddProjects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .AddProjects {
+    padding: 20px 16px 32px;
+  }
+  .AddProjects-heading {
+    font-size: 23px;
+  }
+  .AddProjects-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .AddProjects-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .AddProjects-header-icon {
+    width: 46px;
+    height: 46px;
+  }
+  .AddProjects-subheading {
+    font-size: 13px;
+  }
+  .AddProjects-toolbar {
+    gap: 2px;
+    padding: 6px;
+  }
+  .AddProjects-tool-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .AddProjects-actions {
+    padding: 14px;
+  }
+  .AddProjects-btn {
+    flex: 1;
+    padding: 0 16px;
+  }
+  .AddProjects-toast {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .AddProjects-editor-full {
+    inset: 0;
+    border-radius: 0;
+  }
+}

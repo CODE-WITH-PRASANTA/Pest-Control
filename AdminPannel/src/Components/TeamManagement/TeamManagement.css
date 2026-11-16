@@ -1,0 +1,1495 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+.TeamManagement {
+  --tm-green-950: #08301f;
+  --tm-green-900: #0b3d2a;
+  --tm-green-800: #0f4d34;
+  --tm-green-600: #16a34a;
+  --tm-green-200: #c9efd4;
+  --tm-green-100: #e1f6e7;
+  --tm-green-50: #f2faf4;
+  --tm-ink: #0f2a1d;
+  --tm-muted: #5d7266;
+  --tm-line: #e4eee7;
+  --tm-white: #ffffff;
+  --tm-red: #dc2626;
+
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 20px;
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--tm-ink);
+  background:
+    radial-gradient(900px 300px at 85% -60px, rgba(52, 196, 107, 0.14), transparent 70%),
+    #f4f9f5;
+}
+
+.TeamManagement *,
+.TeamManagement *::before,
+.TeamManagement *::after {
+  box-sizing: border-box;
+}
+
+.TeamManagement button,
+.TeamManagement input {
+  font-family: inherit;
+}
+
+.TeamManagement button:focus-visible,
+.TeamManagement input:focus-visible {
+  outline: 3px solid rgba(22, 163, 74, 0.35);
+  outline-offset: 2px;
+}
+
+/* ------------------------------ Header ------------------------------ */
+
+.TeamManagement-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.TeamManagement-headerMain {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.TeamManagement-headerIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  color: var(--tm-green-800);
+  background: linear-gradient(145deg, #ffffff, var(--tm-green-100));
+  box-shadow: 0 0 0 1px var(--tm-green-200), 0 8px 20px rgba(15, 77, 52, 0.1);
+}
+
+.TeamManagement-title {
+  margin: 0;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: var(--tm-muted);
+}
+
+/* ------------------------------ Buttons ----------------------------- */
+
+.TeamManagement-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.TeamManagement-btn:active {
+  transform: translateY(1px);
+}
+
+.TeamManagement-btn--lg {
+  padding: 14px 24px;
+  border-radius: 14px;
+}
+
+.TeamManagement-btn--primary {
+  color: #fff;
+  background: linear-gradient(180deg, var(--tm-green-800), var(--tm-green-950));
+  box-shadow: 0 8px 18px rgba(8, 48, 31, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.TeamManagement-btn--primary:hover {
+  box-shadow: 0 12px 24px rgba(8, 48, 31, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.TeamManagement-btn--ghost {
+  color: var(--tm-ink);
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--tm-line);
+}
+
+.TeamManagement-btn--ghost:hover {
+  background: var(--tm-green-50);
+}
+
+.TeamManagement-btn--soft {
+  color: var(--tm-green-800);
+  background: var(--tm-green-100);
+}
+
+.TeamManagement-btn--soft:hover {
+  background: var(--tm-green-200);
+}
+
+.TeamManagement-btn--danger {
+  color: #fff;
+  background: linear-gradient(180deg, #ef4444, #b91c1c);
+  box-shadow: 0 8px 18px rgba(185, 28, 28, 0.28);
+}
+
+/* ------------------------------- Stats ------------------------------ */
+
+.TeamManagement-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.TeamManagement-stat {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 22px;
+  border: 2px solid #fff;
+  box-shadow: 0 10px 28px rgba(15, 77, 52, 0.09);
+}
+
+.TeamManagement-stat--total { background: linear-gradient(135deg, #e6f8ec, #f6fdf8); --tm-tone: #12a150; }
+.TeamManagement-stat--active { background: linear-gradient(135deg, #e0f6e6, #f4fcf6); --tm-tone: #2fb457; }
+.TeamManagement-stat--leave { background: linear-gradient(135deg, #fff1d1, #fffaf0); --tm-tone: #f5b52a; }
+.TeamManagement-stat--inactive { background: linear-gradient(135deg, #ffdfe6, #fff5f7); --tm-tone: #f0507a; }
+
+.TeamManagement-statIcon {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  color: #fff;
+  background: var(--tm-tone);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--tm-tone) 40%, transparent);
+}
+
+.TeamManagement-statLabel {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tm-ink);
+}
+
+.TeamManagement-statValue {
+  margin: 2px 0 0;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.TeamManagement-statWatermark {
+  position: absolute;
+  right: 14px;
+  bottom: -6px;
+  color: var(--tm-tone);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* ------------------------------- Card ------------------------------- */
+
+.TeamManagement-card {
+  padding: 22px;
+  border-radius: 26px;
+  background: var(--tm-white);
+  box-shadow: 0 14px 40px rgba(15, 77, 52, 0.08), 0 0 0 1px rgba(15, 77, 52, 0.04);
+}
+
+.TeamManagement-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.TeamManagement-cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.TeamManagement-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 320px;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--tm-muted);
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--tm-line), 0 4px 12px rgba(15, 77, 52, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.TeamManagement-search:focus-within {
+  color: var(--tm-green-800);
+  box-shadow: inset 0 0 0 1.5px var(--tm-green-600), 0 0 0 4px rgba(22, 163, 74, 0.14);
+}
+
+.TeamManagement-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0 !important;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--tm-ink);
+}
+
+.TeamManagement-search input::placeholder {
+  color: #7d9185;
+}
+
+/* ----------------------------- Dropdown ----------------------------- */
+
+.TeamManagement-dropdown {
+  position: relative;
+}
+
+.TeamManagement-dropdown--filter {
+  width: 160px;
+}
+
+.TeamManagement-dropdown--field {
+  width: 100%;
+}
+
+.TeamManagement-dropdownTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 46px;
+  padding: 0 14px 0 16px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tm-ink);
+  background: #fff;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1.5px var(--tm-line), 0 4px 12px rgba(15, 77, 52, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.TeamManagement-dropdownTrigger:hover {
+  box-shadow: inset 0 0 0 1.5px var(--tm-green-200), 0 4px 12px rgba(15, 77, 52, 0.08);
+}
+
+.TeamManagement-dropdownTrigger.is-open {
+  box-shadow: inset 0 0 0 1.5px var(--tm-green-600), 0 0 0 4px rgba(22, 163, 74, 0.14);
+}
+
+.TeamManagement-dropdownChevron {
+  color: var(--tm-muted);
+  transition: transform 0.2s ease;
+}
+
+.TeamManagement-dropdownTrigger.is-open .TeamManagement-dropdownChevron {
+  transform: rotate(180deg);
+  color: var(--tm-green-800);
+}
+
+.TeamManagement-dropdownMenu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  min-width: 170px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 44px rgba(8, 48, 31, 0.18), 0 0 0 1px var(--tm-line);
+  animation: TeamManagement-pop 0.16s ease-out;
+  transform-origin: top center;
+}
+
+.TeamManagement-dropdownOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 11px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+  color: var(--tm-ink);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.TeamManagement-dropdownOption:hover {
+  background: var(--tm-green-50);
+}
+
+.TeamManagement-dropdownOption.is-selected {
+  color: var(--tm-green-800);
+  font-weight: 800;
+  background: var(--tm-green-100);
+}
+
+/* --------------------------- View toggle ---------------------------- */
+
+.TeamManagement-viewToggle {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 14px;
+  background: var(--tm-green-50);
+  box-shadow: inset 0 0 0 1.5px var(--tm-line);
+}
+
+.TeamManagement-viewBtn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  color: var(--tm-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.TeamManagement-viewBtn:hover {
+  color: var(--tm-green-800);
+}
+
+.TeamManagement-viewBtn.is-active {
+  color: #fff;
+  background: var(--tm-green-800);
+  box-shadow: 0 6px 14px rgba(15, 77, 52, 0.3);
+}
+
+/* ------------------------------ Table ------------------------------- */
+
+.TeamManagement-tableWrap {
+  overflow-x: auto;
+}
+
+.TeamManagement-table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.TeamManagement-table th {
+  padding: 14px 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-align: left;
+  color: var(--tm-green-950);
+  background: linear-gradient(90deg, var(--tm-green-100), #f1fbf4);
+}
+
+.TeamManagement-table th:first-child {
+  padding-left: 18px;
+  border-radius: 14px 0 0 14px;
+}
+
+.TeamManagement-table th:last-child {
+  border-radius: 0 14px 14px 0;
+}
+
+.TeamManagement-thAction {
+  text-align: center !important;
+}
+
+.TeamManagement-table td {
+  padding: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--tm-line);
+  vertical-align: middle;
+  transition: background 0.15s ease;
+}
+
+.TeamManagement-table td:first-child {
+  padding-left: 18px;
+}
+
+.TeamManagement-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.TeamManagement-table tbody tr:hover td {
+  background: var(--tm-green-50);
+}
+
+.TeamManagement-cellIndex {
+  width: 50px;
+  color: var(--tm-muted);
+}
+
+.TeamManagement-cellMember {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 210px;
+}
+
+.TeamManagement-memberName {
+  font-weight: 800;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--tm-ink);
+}
+
+.TeamManagement-meta svg {
+  flex: none;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-cellAction {
+  width: 150px;
+}
+
+/* ------------------------------ Avatars ----------------------------- */
+
+.TeamManagement-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+  box-shadow: 0 0 0 3px #fff, 0 4px 10px rgba(15, 77, 52, 0.18);
+}
+
+.TeamManagement-avatar--lg { width: 56px; height: 56px; font-size: 1.05rem; }
+.TeamManagement-avatar--xl { width: 84px; height: 84px; font-size: 1.6rem; }
+
+/* ------------------------------ Badges ------------------------------ */
+
+.TeamManagement-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.TeamManagement-role-manager { color: #1a7a3c; background: #d3f5de; }
+.TeamManagement-role-technician { color: #1565c0; background: #d6ebff; }
+.TeamManagement-role-field { color: #6d28d9; background: #ebe0ff; }
+.TeamManagement-role-support { color: #c81e4d; background: #ffdce5; }
+
+.TeamManagement-status-active { color: #167a3a; background: #d3f5de; }
+.TeamManagement-status-leave { color: #a86200; background: #ffecbd; }
+.TeamManagement-status-inactive { color: #d3153f; background: #ffdde4; }
+
+/* ------------------------------ Actions ----------------------------- */
+
+.TeamManagement-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.TeamManagement-iconBtn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.TeamManagement-iconBtn:hover {
+  transform: translateY(-2px);
+}
+
+.TeamManagement-iconBtn--edit { color: #14532d; background: #d8f3e1; }
+.TeamManagement-iconBtn--edit:hover { color: #fff; background: #16a34a; box-shadow: 0 6px 14px rgba(22, 163, 74, 0.35); }
+
+.TeamManagement-iconBtn--view { color: #14532d; background: #eaf7ee; }
+.TeamManagement-iconBtn--view:hover { color: #fff; background: var(--tm-green-800); box-shadow: 0 6px 14px rgba(15, 77, 52, 0.35); }
+
+.TeamManagement-iconBtn--delete { color: #dc2626; background: #ffe1e4; }
+.TeamManagement-iconBtn--delete:hover { color: #fff; background: #dc2626; box-shadow: 0 6px 14px rgba(220, 38, 38, 0.35); }
+
+/* ------------------------------- Grid ------------------------------- */
+
+.TeamManagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.TeamManagement-gridCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fbfefc, var(--tm-green-50));
+  box-shadow: inset 0 0 0 1.5px var(--tm-line);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.TeamManagement-gridCard:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1.5px var(--tm-green-200), 0 16px 30px rgba(15, 77, 52, 0.12);
+}
+
+.TeamManagement-gridTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.TeamManagement-gridName {
+  margin: 4px 0 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-gridMeta {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin: 6px 0 4px;
+  padding: 14px 0 0;
+  list-style: none;
+  border-top: 1px dashed var(--tm-green-200);
+  font-size: 0.83rem;
+  font-weight: 500;
+}
+
+.TeamManagement-gridMeta li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.TeamManagement-gridMeta svg {
+  flex: none;
+  color: var(--tm-green-800);
+}
+
+.TeamManagement-gridMeta span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.TeamManagement-gridCard .TeamManagement-actions {
+  width: 100%;
+  justify-content: flex-start;
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+/* ---------------------------- Pagination ---------------------------- */
+
+.TeamManagement-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--tm-line);
+}
+
+.TeamManagement-paginationInfo {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--tm-muted);
+}
+
+.TeamManagement-paginationInfo strong {
+  color: var(--tm-ink);
+}
+
+.TeamManagement-paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.TeamManagement-pageBtn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 11px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tm-ink);
+  background: #fff;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1.5px var(--tm-line);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.TeamManagement-pageBtn:hover:not(:disabled):not(.is-active) {
+  background: var(--tm-green-50);
+  box-shadow: inset 0 0 0 1.5px var(--tm-green-200);
+}
+
+.TeamManagement-pageBtn.is-active {
+  color: #fff;
+  background: var(--tm-green-800);
+  box-shadow: 0 6px 14px rgba(15, 77, 52, 0.3);
+}
+
+.TeamManagement-pageBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.TeamManagement-pageGap {
+  padding: 0 4px;
+  color: var(--tm-muted);
+}
+
+/* ------------------------------ Empty ------------------------------- */
+
+.TeamManagement-empty {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 48px 16px;
+  text-align: center;
+}
+
+.TeamManagement-emptyIcon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+  border-radius: 20px;
+  color: var(--tm-green-800);
+  background: var(--tm-green-100);
+}
+
+.TeamManagement-empty h3 { margin: 0; font-size: 1.05rem; font-weight: 800; }
+.TeamManagement-empty p { margin: 0 0 12px; font-size: 0.88rem; color: var(--tm-muted); }
+
+/* ------------------------------ Modal ------------------------------- */
+
+.TeamManagement-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(6, 30, 20, 0.55);
+  backdrop-filter: blur(6px);
+  animation: TeamManagement-fade 0.18s ease-out;
+}
+
+.TeamManagement-modal {
+  width: 100%;
+  max-width: 580px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 26px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(6, 30, 20, 0.4);
+  animation: TeamManagement-pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+.TeamManagement-modal--sm {
+  max-width: 440px;
+}
+
+.TeamManagement-modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.TeamManagement-modalTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-modalSubtitle {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--tm-muted);
+}
+
+.TeamManagement-modalClose {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 11px;
+  color: var(--tm-muted);
+  background: var(--tm-green-50);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.TeamManagement-modalClose:hover {
+  color: var(--tm-red);
+  background: #ffe1e4;
+}
+
+.TeamManagement-modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* ------------------------------- Form ------------------------------- */
+
+.TeamManagement-formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.TeamManagement-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.TeamManagement-field--full {
+  grid-column: 1 / -1;
+}
+
+.TeamManagement-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-input,
+.TeamManagement-phoneInput {
+  width: 100%;
+  height: 46px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--tm-ink);
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--tm-line);
+  transition: box-shadow 0.2s ease;
+}
+
+.TeamManagement-input {
+  padding: 0 16px;
+}
+
+.TeamManagement-input::placeholder,
+.TeamManagement-phoneInput input::placeholder {
+  color: #8da093;
+}
+
+.TeamManagement-input:focus,
+.TeamManagement-phoneInput:focus-within {
+  outline: 0 !important;
+  box-shadow: inset 0 0 0 1.5px var(--tm-green-600), 0 0 0 4px rgba(22, 163, 74, 0.14);
+}
+
+.TeamManagement-input.has-error,
+.TeamManagement-phoneInput.has-error {
+  box-shadow: inset 0 0 0 1.5px var(--tm-red), 0 0 0 4px rgba(220, 38, 38, 0.1);
+}
+
+.TeamManagement-phoneInput {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.TeamManagement-phonePrefix {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 0 14px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--tm-green-800);
+  background: var(--tm-green-50);
+  border-right: 1.5px solid var(--tm-line);
+}
+
+.TeamManagement-phoneInput input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 14px;
+  border: 0;
+  outline: 0 !important;
+  background: transparent;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--tm-ink);
+}
+
+.TeamManagement-error {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tm-red);
+}
+
+/* ---------------------- View & delete modals ------------------------ */
+
+.TeamManagement-profile {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 22px 16px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, var(--tm-green-100), var(--tm-green-50));
+}
+
+.TeamManagement-profileName {
+  margin: 4px 0 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--tm-green-950);
+}
+
+.TeamManagement-profileBadges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.TeamManagement-details {
+  display: grid;
+  margin: 18px 0 0;
+}
+
+.TeamManagement-details > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--tm-line);
+}
+
+.TeamManagement-details > div:last-child {
+  border-bottom: 0;
+}
+
+.TeamManagement-details dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tm-muted);
+}
+
+.TeamManagement-details dd {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.TeamManagement-confirm {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.TeamManagement-confirmIcon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  color: var(--tm-red);
+  background: #ffe1e4;
+}
+
+.TeamManagement-confirm p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--tm-muted);
+}
+
+.TeamManagement-confirm strong {
+  color: var(--tm-ink);
+}
+
+/* ------------------------------ Toast ------------------------------- */
+
+.TeamManagement-toast {
+  position: fixed;
+  z-index: 120;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 48px);
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--tm-green-950);
+  box-shadow: 0 16px 36px rgba(6, 30, 20, 0.35);
+  animation: TeamManagement-slide 0.25s ease-out;
+}
+
+.TeamManagement-toast svg {
+  flex: none;
+  padding: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--tm-green-600);
+}
+
+/* --------------------- Embossed calendar picker --------------------- */
+
+.TeamManagement-modal {
+  overflow-x: hidden;
+}
+
+.TeamManagement-datePicker {
+  position: relative;
+}
+
+.TeamManagement-dateTrigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--tm-ink);
+  text-align: left;
+  cursor: pointer;
+  background: linear-gradient(145deg, #ffffff, #edf5ef);
+  box-shadow:
+    5px 5px 12px rgba(15, 77, 52, 0.13),
+    -4px -4px 10px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1.5px var(--tm-line);
+  transition: box-shadow 0.2s ease;
+}
+
+.TeamManagement-dateTrigger > svg:first-child {
+  flex: none;
+  color: var(--tm-green-800);
+}
+
+.TeamManagement-dateTrigger > span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.TeamManagement-dateTrigger .is-placeholder {
+  color: #8da093;
+  font-weight: 500;
+}
+
+.TeamManagement-dateTrigger.is-open {
+  background: linear-gradient(145deg, #e8f1ea, #f4faf5);
+  box-shadow:
+    inset 4px 4px 9px rgba(15, 77, 52, 0.16),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.95),
+    0 0 0 3px rgba(22, 163, 74, 0.18);
+}
+
+.TeamManagement-dateTrigger.is-open .TeamManagement-dropdownChevron {
+  transform: rotate(180deg);
+  color: var(--tm-green-800);
+}
+
+.TeamManagement-dateTrigger.has-error {
+  box-shadow:
+    5px 5px 12px rgba(15, 77, 52, 0.1),
+    -4px -4px 10px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 1.5px var(--tm-red);
+}
+
+.TeamManagement-calendar {
+  position: absolute;
+  z-index: 60;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(312px, calc(100vw - 64px));
+  padding: 16px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, #f6fbf7, #e6f0e9);
+  box-shadow:
+    16px 16px 34px rgba(8, 48, 31, 0.24),
+    -8px -8px 22px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 0 rgba(255, 255, 255, 0.9);
+  animation: TeamManagement-pop 0.18s ease-out;
+  transform-origin: top right;
+}
+
+.TeamManagement-calendarHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.TeamManagement-calendarNav,
+.TeamManagement-calendarDay,
+.TeamManagement-calendarMonth,
+.TeamManagement-calendarToday {
+  border: 0;
+  cursor: pointer;
+  color: var(--tm-green-950);
+  background: linear-gradient(145deg, #fbfefc, #e3eee6);
+  box-shadow:
+    3px 3px 7px rgba(15, 77, 52, 0.17),
+    -3px -3px 7px rgba(255, 255, 255, 0.95);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.TeamManagement-calendarNav {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.TeamManagement-calendarNav:hover,
+.TeamManagement-calendarDay:hover,
+.TeamManagement-calendarMonth:hover,
+.TeamManagement-calendarToday:hover {
+  color: var(--tm-green-600);
+  transform: translateY(-1px);
+}
+
+.TeamManagement-calendarNav:active,
+.TeamManagement-calendarToday:active {
+  transform: none;
+  box-shadow:
+    inset 3px 3px 6px rgba(15, 77, 52, 0.18),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.95);
+}
+
+.TeamManagement-calendarTitle {
+  flex: 1;
+  height: 36px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--tm-green-950);
+  cursor: pointer;
+  background: linear-gradient(145deg, #e3eee6, #f4faf5);
+  box-shadow:
+    inset 3px 3px 7px rgba(15, 77, 52, 0.15),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.95);
+}
+
+.TeamManagement-calendarTitle:hover {
+  color: var(--tm-green-600);
+}
+
+.TeamManagement-calendarWeek,
+.TeamManagement-calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.TeamManagement-calendarWeek {
+  margin-bottom: 10px;
+  padding: 7px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--tm-muted);
+  box-shadow:
+    inset 2px 2px 5px rgba(15, 77, 52, 0.1),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
+.TeamManagement-calendarDay {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.TeamManagement-calendarDay.is-today {
+  color: var(--tm-green-600);
+  box-shadow:
+    3px 3px 7px rgba(15, 77, 52, 0.17),
+    -3px -3px 7px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 2px rgba(22, 163, 74, 0.55);
+}
+
+.TeamManagement-calendarDay.is-selected,
+.TeamManagement-calendarMonth.is-selected {
+  color: #fff;
+  transform: none;
+  background: linear-gradient(145deg, var(--tm-green-950), #1c8a4a);
+  box-shadow:
+    inset 3px 3px 7px rgba(0, 0, 0, 0.38),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.16);
+}
+
+.TeamManagement-calendarMonths {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.TeamManagement-calendarMonth {
+  height: 48px;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.TeamManagement-calendarFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(15, 77, 52, 0.1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--tm-muted);
+}
+
+.TeamManagement-calendarToday {
+  padding: 8px 16px;
+  border-radius: 11px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--tm-green-800);
+}
+
+/* ---------------------------- Animations ---------------------------- */
+
+@keyframes TeamManagement-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes TeamManagement-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes TeamManagement-slide {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .TeamManagement *,
+  .TeamManagement-overlay,
+  .TeamManagement-modal,
+  .TeamManagement-toast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* --------------------------- Responsive ----------------------------- */
+
+@media (max-width: 1100px) {
+  .TeamManagement-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .TeamManagement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .TeamManagement-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .TeamManagement-controls {
+    flex-wrap: nowrap;
+  }
+
+  .TeamManagement-search {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .TeamManagement {
+    padding: 14px;
+  }
+
+  .TeamManagement-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .TeamManagement-headerIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+  }
+
+  .TeamManagement-title {
+    font-size: 1.4rem;
+  }
+
+  .TeamManagement-card {
+    padding: 16px;
+    border-radius: 22px;
+  }
+
+  .TeamManagement-controls {
+    flex-wrap: wrap;
+  }
+
+  .TeamManagement-search {
+    flex: 1 1 100%;
+  }
+
+  .TeamManagement-dropdown--filter {
+    flex: 1;
+    width: auto;
+  }
+
+  /* Table rows become stacked cards */
+  .TeamManagement-tableWrap {
+    overflow: visible;
+  }
+
+  .TeamManagement-table,
+  .TeamManagement-table tbody {
+    display: block;
+    min-width: 0;
+  }
+
+  .TeamManagement-table thead {
+    display: none;
+  }
+
+  .TeamManagement-table tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px 12px;
+    margin-bottom: 12px;
+    padding: 16px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #fbfefc, var(--tm-green-50));
+    box-shadow: inset 0 0 0 1.5px var(--tm-line);
+  }
+
+  .TeamManagement-table td,
+  .TeamManagement-table td:first-child {
+    padding: 0;
+    border: 0;
+    background: transparent !important;
+  }
+
+  .TeamManagement-cellIndex {
+    display: none;
+  }
+
+  .TeamManagement-cellMember {
+    grid-column: 1;
+    min-width: 0;
+  }
+
+  .TeamManagement-cellStatus {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .TeamManagement-cellRole {
+    grid-column: 1 / -1;
+  }
+
+  .TeamManagement-table td[data-label] {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .TeamManagement-meta {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .TeamManagement-cellAction {
+    grid-column: 1 / -1;
+    width: auto;
+    padding-top: 6px !important;
+    border-top: 1px dashed var(--tm-green-200) !important;
+  }
+
+  .TeamManagement-cellAction .TeamManagement-actions {
+    justify-content: flex-start;
+    padding-top: 10px;
+  }
+
+  .TeamManagement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .TeamManagement-pagination {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .TeamManagement-paginationInfo {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .TeamManagement-stats {
+    gap: 12px;
+  }
+
+  .TeamManagement-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .TeamManagement-statValue {
+    font-size: 1.7rem;
+  }
+
+  .TeamManagement-statWatermark {
+    width: 54px;
+    height: 54px;
+    right: 8px;
+  }
+
+  .TeamManagement-modal {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .TeamManagement-formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .TeamManagement-modalFooter {
+    flex-direction: column-reverse;
+  }
+
+  .TeamManagement-modalFooter .TeamManagement-btn {
+    width: 100%;
+  }
+
+  .TeamManagement-toast {
+    right: 14px;
+    left: 14px;
+    bottom: 14px;
+    max-width: none;
+  }
+}
