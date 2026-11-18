@@ -15,6 +15,7 @@ import TeamDetails from './Pages/TeamDetails/TeamDetails'
 import FloatingIcons from './Components/FloatingIcons/FloatingIcons'
 import ServiceDetails from './Pages/ServiceDetails/ServiceDetails'
 import TermAndCondition from './Pages/TermAndCondition/TermAndCondition'
+import PrivicyandPolicy from './Pages/PrivicyandPolicy/PrivicyandPolicy'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
 
 
           <Route path="/terms" element={<TermAndCondition/>} />
+          <Route path='/privacy' element={<PrivicyandPolicy/>}/>
         </Routes>
       </main>
 
