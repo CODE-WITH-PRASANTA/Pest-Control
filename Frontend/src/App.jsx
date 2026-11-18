@@ -14,6 +14,7 @@ import Services from './Pages/Services/Services'
 import TeamDetails from './Pages/TeamDetails/TeamDetails'
 import FloatingIcons from './Components/FloatingIcons/FloatingIcons'
 import ServiceDetails from './Pages/ServiceDetails/ServiceDetails'
+import TermAndCondition from './Pages/TermAndCondition/TermAndCondition'
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
 
           <Route path="/projects" element={<Projects/>} />
           <Route path="/project-details" element={<ProjectDetails/>} />
+
+
+          <Route path="/terms" element={<TermAndCondition/>} />
         </Routes>
       </main>
 
