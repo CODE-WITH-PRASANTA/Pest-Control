@@ -1,67 +1,81 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./ServiceMain.css";
 
-import serviceone from "../../assets/service2-1.jpg";
-import servicetwo from "../../assets/service2-2.jpg";
-import servicethree from "../../assets/service2-3.jpg";
-import servicefour from "../../assets/service2-4.jpg";
-import servicefive from "../../assets/service2-5.jpg";
-import servicesix from "../../assets/service2-3.jpg"; // change to your 6th image if you have one
+/* ==========================================================
+   IMAGES  -> put your own pictures in:  src/assets/services/
+   Name them service-1.jpg ... service-20.jpg
+   (or change the file names below to match yours)
+========================================================== */
+import img01 from "../../assets/service2-1.jpg";
+import img02 from "../../assets/service2-2.jpg";
+import img03 from "../../assets/service2-3.jpg";
+import img04 from "../../assets/service2-4.jpg";
+import img05 from "../../assets/service2-5.jpg";
+import img06 from "../../assets/service2-6.webp";
+import img07 from "../../assets/service2-7.webp";
+import img08 from "../../assets/service2-8.webp";
+import img09 from "../../assets/service2-9.webp";
+import img10 from "../../assets/service2-10.webp";
+import img11 from "../../assets/service2-11.webp";
+import img12 from "../../assets/service2-12.webp";
+import img13 from "../../assets/service2-13.webp";
+import img14 from "../../assets/service2-14.webp";
+import img15 from "../../assets/service2-15.webp";
+import img16 from "../../assets/service2-16.webp";
+import img17 from "../../assets/service2-17.webp";
+import img18 from "../../assets/service2-18.webp";
+import img19 from "../../assets/service2-19.webp";
+import img20 from "../../assets/service2-20.webp";
 
 import {
-  House,
-  Monitor,
-  ShieldCheck,
-  Leaf,
+  Bug,
+  Rat,
+  BedDouble,
+  Bird,
+  Worm,
+  Droplets,
   SprayCan,
+  ShieldCheck,
+  Sprout,
+  Wind,
+  Package,
+  Hammer,
+  TreePine,
+  Home,
   Building2,
   ArrowUpRight,
 } from "lucide-react";
 
+/* ==========================================================
+   SERVICES  (20 cards)
+   - `slug` is sent to the details page so it can load the
+     right service.
+   - To add a back-side image different from the front,
+     change `backImage`.
+========================================================== */
 const services = [
-  {
-    id: 1,
-    title: "Wasp Removal Services",
-    icon: House,
-    image: serviceone,
-    backImage: serviceone,
-  },
-  {
-    id: 2,
-    title: "Termite Treatment Solutions",
-    icon: SprayCan,
-    image: servicetwo,
-    backImage: servicetwo,
-  },
-  {
-    id: 3,
-    title: "Mosquito Control Services",
-    icon: Monitor,
-    image: servicethree,
-    backImage: servicethree,
-  },
-  {
-    id: 4,
-    title: "Mobility Assistance Services",
-    icon: Leaf,
-    image: servicefour,
-    backImage: servicefour,
-  },
-  {
-    id: 5,
-    title: "Commercial Pest Solutions",
-    icon: Building2,
-    image: servicefive,
-    backImage: servicefive,
-  },
-  {
-    id: 6,
-    title: "Residential Pest Treatment",
-    icon: ShieldCheck,
-    image: servicesix,
-    backImage: servicesix,
-  },
-];
+  { title: "General Pest Control", slug: "general-pest-control", icon: ShieldCheck, image: img01 },
+  { title: "Cockroach Management Service (CMS)", slug: "cockroach-management-service", icon: Bug, image: img02 },
+  { title: "Rodent Management Service (RMS)", slug: "rodent-management-service", icon: Rat, image: img03 },
+  { title: "Bedbug Management Service (BMS)", slug: "bedbug-management-service", icon: BedDouble, image: img04 },
+  { title: "Mosquito Management Service (MMS)", slug: "mosquito-management-service", icon: Bug, image: img05 },
+  { title: "Disinfection Sanitization Management Service (DSMS)", slug: "disinfection-sanitization-management-service", icon: SprayCan, image: img06 },
+  { title: "Ant Management Service (AMS)", slug: "ant-management-service", icon: Bug, image: img07 },
+  { title: "Termite Management Service (Post Construction)", slug: "termite-post-construction", icon: Home, image: img08 },
+  { title: "Termite Management Service (Pre-Construction)", slug: "termite-pre-construction", icon: Building2, image: img09 },
+  { title: "Snake Control", slug: "snake-control", icon: Worm, image: img10 },
+  { title: "Woodborer Management Service (WMS)", slug: "woodborer-management-service", icon: Hammer, image: img11 },
+  { title: "Fly Management Service (FMS)", slug: "fly-management-service", icon: Bug, image: img12 },
+  { title: "Bird Management Service (BMS)", slug: "bird-management-service", icon: Bird, image: img13 },
+  { title: "Lizard Management Service (LMS)", slug: "lizard-management-service", icon: Worm, image: img14 },
+  { title: "Fogging Service", slug: "fogging-service", icon: Wind, image: img15 },
+  { title: "Larvicide Treatment", slug: "larvicide-treatment", icon: Droplets, image: img16 },
+  { title: "Weed Control", slug: "weed-control", icon: Sprout, image: img17 },
+  { title: "Commodity Pest Management Services (CPMS)", slug: "commodity-pest-management-services", icon: Package, image: img18 },
+  { title: "Spider Management Service (SMS)", slug: "spider-management-service", icon: TreePine, image: img19 },
+  { title: "Wasp Management Service", slug: "wasp-management-service", icon: Bug, image: img20 },
+].map((s, i) => ({ ...s, id: i + 1, backImage: s.backImage || s.image }));
 
 const HEADING_WORDS = [
   { text: "Our", accent: false },
@@ -86,7 +100,7 @@ const ServiceMain = () => {
           io.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -118,13 +132,13 @@ const ServiceMain = () => {
                 }`}
                 key={wi}
               >
-                {word.text.split("").map((ch) => {
+                {word.text.split("").map((ch, ci) => {
                   const delay = letterIndex++ * 0.05;
                   return (
                     <span
                       className="service-main-letter"
                       style={{ animationDelay: `${delay}s` }}
-                      key={letterIndex}
+                      key={`${wi}-${ci}`}
                       aria-hidden="true"
                     >
                       {ch}
@@ -141,7 +155,7 @@ const ServiceMain = () => {
           </p>
         </div>
 
-        {/* SIX SERVICE CARDS */}
+        {/* 20 SERVICE CARDS */}
         <div className="service-main-grid">
           {services.map((service, index) => {
             const Icon = service.icon;
@@ -151,32 +165,24 @@ const ServiceMain = () => {
                 className="service-main-card"
                 key={service.id}
                 tabIndex={0}
-                style={{ "--card-index": index }}
+                style={{ "--card-index": index % 4 }}
               >
                 <span className="service-main-number">
                   {String(service.id).padStart(2, "0")}
                 </span>
 
-                {/* ICON */}
                 <div className="service-main-icon">
-                  <Icon size={42} strokeWidth={1.5} />
+                  <Icon size={36} strokeWidth={1.5} />
                 </div>
 
-                {/* TITLE */}
                 <h3>{service.title}</h3>
 
-                {/* CLOVER IMAGE FRAME */}
                 <div className="service-main-image-wrapper">
                   <div className="service-main-image-ring" />
                   <div className="service-main-image-inner">
                     <div className="service-main-image-front">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        loading="lazy"
-                      />
+                      <img src={service.image} alt={service.title} loading="lazy" />
                     </div>
-
                     <div className="service-main-image-back">
                       <img
                         src={service.backImage}
@@ -187,16 +193,17 @@ const ServiceMain = () => {
                   </div>
                 </div>
 
-                {/* LEARN MORE */}
-                <a
-                  href="#service-main"
+                {/* LEARN MORE -> /services-details */}
+                <Link
+                  to="/services-details"
+                  state={{ slug: service.slug, title: service.title }}
                   className="service-main-link"
-                  onClick={(e) => e.preventDefault()}
                   aria-label={`Learn more about ${service.title}`}
+                  onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
                 >
                   <span>Learn More</span>
                   <ArrowUpRight size={18} strokeWidth={2.2} />
-                </a>
+                </Link>
               </article>
             );
           })}

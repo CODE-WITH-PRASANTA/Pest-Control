@@ -1,15 +1,26 @@
 /* ===================================================
-   Navbar Component Styles
+   Navbar Component Styles – Giridurga Pest Controls
    =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 :root {
   --navbar-bg: #ffffff;
   --navbar-brand-color: #0b3b2c;
-  --navbar-link-color: #1a1a1a;
-  --navbar-subtext-color: #717171;
+  --navbar-link-color: #22302b;
+  --navbar-subtext-color: #6b7a74;
   --navbar-accent-lime: #b5e853;
-  --navbar-height: 75px;
-  --navbar-transition: all 0.25s ease-in-out;
+  --navbar-accent-green: #2f9e44;
+  --navbar-height: 88px;
+  --navbar-height-scrolled: 72px;
+  --navbar-font: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+  --navbar-transition: all 0.3s ease;
+}
+
+/* Make sure anchored sections never hide under the sticky header */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--navbar-height) + 16px);
 }
 
 /* Sticky Wrapper */
@@ -18,10 +29,25 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--navbar-bg);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid rgba(11, 59, 44, 0.06);
+  box-shadow: 0 4px 24px rgba(11, 59, 44, 0.06);
   z-index: 1000;
+  font-family: var(--navbar-font);
   transition: var(--navbar-transition);
+}
+
+/* Thin brand accent line at the very top */
+.navbar-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--navbar-brand-color), var(--navbar-accent-green), var(--navbar-accent-lime));
 }
 
 .navbar-container {
@@ -32,33 +58,47 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
+  transition: height 0.3s ease;
+}
+
+.navbar-scrolled .navbar-container {
+  height: var(--navbar-height-scrolled);
+}
+
+.navbar-scrolled {
+  box-shadow: 0 8px 30px rgba(11, 59, 44, 0.12);
 }
 
 /* Brand / Logo */
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
   cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px 0;
 }
 
 .navbar-brand-logo {
-  height: 42px;
+  height: 72px;
   width: auto;
+  max-width: 240px;
   object-fit: contain;
   display: block;
+  transition: transform 0.3s ease, height 0.3s ease;
+  filter: drop-shadow(0 2px 6px rgba(11, 59, 44, 0.15));
 }
 
-.navbar-brand-name {
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--navbar-brand-color);
-  letter-spacing: -0.5px;
-  font-family: inherit;
+.navbar-scrolled .navbar-brand-logo {
+  height: 58px;
 }
 
-/* Desktop Navigation Menu */
+.navbar-brand:hover .navbar-brand-logo {
+  transform: scale(1.04);
+}
+
+/* Navigation Menu */
 .navbar-nav {
   display: flex;
   align-items: center;
@@ -69,8 +109,10 @@
   align-items: center;
   list-style: none;
   margin: 0;
-  padding: 0;
-  gap: 32px;
+  padding: 6px;
+  gap: 4px;
+  background: #f3f7f4;
+  border-radius: 999px;
 }
 
 .navbar-item {
@@ -79,49 +121,68 @@
 
 .navbar-link {
   text-decoration: none;
-  font-size: 14.5px;
-  font-weight: 700;
+  font-family: var(--navbar-font);
+  font-size: 14px;
+  font-weight: 600;
   color: var(--navbar-link-color);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: color 0.2s ease;
-  padding: 8px 0;
+  letter-spacing: 0.3px;
+  padding: 10px 18px;
+  border-radius: 999px;
   display: inline-block;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.navbar-link:hover,
-.navbar-link-active {
+.navbar-link:hover {
   color: var(--navbar-brand-color);
+  background-color: rgba(181, 232, 83, 0.35);
 }
 
-/* Contact Button / Call Action */
+.navbar-link-active,
+.navbar-link-active:hover {
+  color: #ffffff;
+  background-color: var(--navbar-brand-color);
+  box-shadow: 0 4px 12px rgba(11, 59, 44, 0.3);
+}
+
+.navbar-link:focus-visible,
+.navbar-contact-link:focus-visible,
+.navbar-toggle-btn:focus-visible {
+  outline: 2px solid var(--navbar-accent-green);
+  outline-offset: 3px;
+}
+
+/* Call Action */
 .navbar-action {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .navbar-contact-link {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-decoration: none;
 }
 
 .navbar-contact-icon {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background-color: var(--navbar-accent-lime);
+  background: linear-gradient(135deg, var(--navbar-accent-lime), #8fd13a);
   color: var(--navbar-brand-color);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(143, 209, 58, 0.45);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .navbar-contact-link:hover .navbar-contact-icon {
-  transform: scale(1.05);
+  transform: scale(1.08) rotate(-8deg);
+  box-shadow: 0 8px 20px rgba(143, 209, 58, 0.6);
 }
 
 .navbar-contact-info {
@@ -130,26 +191,29 @@
 }
 
 .navbar-contact-label {
-  font-size: 12.5px;
+  font-family: var(--navbar-font);
+  font-size: 12px;
   color: var(--navbar-subtext-color);
   font-weight: 500;
   line-height: 1.2;
 }
 
 .navbar-contact-number {
+  font-family: var(--navbar-font);
   font-size: 17px;
   font-weight: 800;
   color: var(--navbar-brand-color);
   line-height: 1.3;
+  white-space: nowrap;
 }
 
 /* Mobile Toggle Hamburger */
 .navbar-toggle-btn {
   display: none;
   flex-direction: column;
-  justify-content: space-around;
-  width: 32px;
-  height: 24px;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -166,7 +230,7 @@
 }
 
 .navbar-toggle-bar.open:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
+  transform: translateY(9.5px) rotate(45deg);
 }
 
 .navbar-toggle-bar.open:nth-child(2) {
@@ -174,7 +238,7 @@
 }
 
 .navbar-toggle-bar.open:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: translateY(-9.5px) rotate(-45deg);
 }
 
 .navbar-mobile-contact {
@@ -185,19 +249,44 @@
    Responsive Breakpoints
    =================================================== */
 
-@media (max-width: 1024px) {
-  .navbar-menu {
-    gap: 20px;
-  }
+@media (max-width: 1200px) {
   .navbar-link {
+    padding: 9px 14px;
     font-size: 13.5px;
   }
   .navbar-contact-number {
-    font-size: 15px;
+    font-size: 15.5px;
+  }
+  .navbar-brand-logo {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar-contact-info {
+    display: none;
+  }
+  .navbar-link {
+    padding: 9px 12px;
+    font-size: 13px;
   }
 }
 
 @media (max-width: 868px) {
+  :root {
+    --navbar-height: 76px;
+    --navbar-height-scrolled: 68px;
+  }
+
+  .navbar-brand-logo {
+    height: 60px;
+    max-width: 180px;
+  }
+
+  .navbar-scrolled .navbar-brand-logo {
+    height: 52px;
+  }
+
   .navbar-action {
     display: none;
   }
@@ -207,17 +296,19 @@
   }
 
   .navbar-nav {
-    position: absolute;
+    position: fixed;
     top: var(--navbar-height);
     left: 0;
     width: 100%;
+    max-height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
     background-color: #ffffff;
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px 30px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    padding: 20px 24px 28px;
+    box-shadow: 0 16px 30px rgba(11, 59, 44, 0.12);
     display: none;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid #eef2ef;
   }
 
   .navbar-nav.navbar-nav-active {
@@ -226,9 +317,12 @@
 
   .navbar-menu {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     width: 100%;
-    gap: 16px;
+    gap: 6px;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
   }
 
   .navbar-item {
@@ -238,16 +332,43 @@
   .navbar-link {
     display: block;
     width: 100%;
-    padding: 10px 0;
-    font-size: 15px;
-    border-bottom: 1px solid #f6f6f6;
+    padding: 14px 16px;
+    font-size: 15.5px;
+    border-radius: 12px;
   }
 
   .navbar-mobile-contact {
     display: block;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px dashed #e2e8f0;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed #d9e2dc;
     width: 100%;
+  }
+
+  .navbar-mobile-contact .navbar-contact-info {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 16px;
+  }
+  .navbar-brand-logo {
+    height: 54px;
+    max-width: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .navbar-header,
+  .navbar-container,
+  .navbar-brand-logo,
+  .navbar-link,
+  .navbar-contact-icon {
+    transition: none;
   }
 }

@@ -249,7 +249,7 @@
 /* ---------- Description ---------- */
 
 .homemain-description {
-  max-width: 620px;
+  max-width: 640px;
   margin: 28px 0 24px;
   color: rgba(255, 255, 255, 0.88);
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
@@ -257,6 +257,11 @@
   line-height: 1.75;
   opacity: 0;
   animation: homemain-up 1s var(--hm-ease) 1s forwards;
+}
+
+.homemain-description strong {
+  color: var(--hm-lime);
+  font-weight: 600;
 }
 
 .homemain-features {
@@ -349,6 +354,8 @@
 
 .homemain-stat-number {
   position: relative;
+  display: inline-flex;
+  align-items: baseline;
   color: var(--hm-lime);
   font-size: clamp(3.6rem, 5.2vw, 5.2rem);
   font-weight: 800;
@@ -356,11 +363,6 @@
   letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
   text-shadow: 0 6px 35px rgba(181, 237, 69, 0.25);
-}
-
-.homemain-stat-number {
-  display: inline-flex;
-  align-items: baseline;
 }
 
 .homemain-stat-value {
@@ -407,61 +409,14 @@
 
 .homemain-client-info {
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 18px;
   margin: 18px 0 26px;
-}
-
-.homemain-avatars {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.homemain-avatar {
-  width: 46px;
-  height: 46px;
-  margin-left: -12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  font-size: 0.72rem;
-  font-weight: 800;
-  transition: transform 0.4s var(--hm-ease);
-}
-
-.homemain-avatar:first-child {
-  margin-left: 0;
-}
-
-.homemain-avatars:hover .homemain-avatar {
-  transform: translateY(-4px);
-}
-
-.homemain-avatar-one {
-  color: #fff;
-  background: linear-gradient(135deg, #326b56, #173d30);
-}
-
-.homemain-avatar-two {
-  color: #fff;
-  background: linear-gradient(135deg, #ba895d, #60432f);
-}
-
-.homemain-avatar-three {
-  color: var(--hm-dark);
-  background: #fff;
-  font-size: 0.85rem;
 }
 
 .homemain-client-info p {
   margin: 0;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 0.88rem;
-  line-height: 1.6;
+  font-size: 0.92rem;
+  line-height: 1.65;
 }
 
 .homemain-client-info strong {
@@ -880,17 +835,8 @@
     padding: 8px 14px 8px 8px;
   }
 
-  .homemain-avatar {
-    width: 40px;
-    height: 40px;
-  }
-
-  .homemain-client-info {
-    gap: 14px;
-  }
-
   .homemain-client-info p {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
   }
 
   .homemain-button {

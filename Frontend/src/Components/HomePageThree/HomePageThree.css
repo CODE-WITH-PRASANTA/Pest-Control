@@ -142,7 +142,7 @@
 
 .HomePageThree__badge-text text {
   fill: var(--HomePageThree-dark);
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -169,9 +169,9 @@
   border-radius: 999px;
   background: #fff;
   color: var(--HomePageThree-deep);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   box-shadow: 0 10px 30px -15px rgba(4, 68, 44, 0.3);
 }
 
@@ -186,7 +186,7 @@
 .HomePageThree__title {
   margin: 16px 0 18px;
   color: var(--HomePageThree-dark);
-  font-size: clamp(2rem, 3.5vw, 3.3rem);
+  font-size: clamp(2rem, 3.4vw, 3.2rem);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.03em;
@@ -208,7 +208,12 @@
   display: inline-block;
   transform: translateY(115%) rotate(6deg);
   transform-origin: 0 100%;
-  background: linear-gradient(100deg, var(--HomePageThree-deep) 20%, #1f9a5f 50%, var(--HomePageThree-deep) 80%);
+  background: linear-gradient(
+    100deg,
+    var(--HomePageThree-deep) 20%,
+    #1f9a5f 50%,
+    var(--HomePageThree-deep) 80%
+  );
   background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -231,8 +236,13 @@
   margin: 0 0 clamp(20px, 2.6vw, 30px);
   max-width: 640px;
   color: var(--HomePageThree-text);
-  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
   line-height: 1.75;
+}
+
+.HomePageThree__text strong {
+  color: var(--HomePageThree-dark);
+  font-weight: 600;
 }
 
 /* features */
@@ -255,8 +265,8 @@
 
 .HomePageThree__feature-icon {
   flex: 0 0 auto;
-  width: 74px;
-  height: 74px;
+  width: 72px;
+  height: 72px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -267,8 +277,8 @@
 }
 
 .HomePageThree__feature-icon svg {
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
 }
 
 .HomePageThree__feature:hover .HomePageThree__feature-icon {
@@ -279,7 +289,7 @@
 .HomePageThree__feature-title {
   margin: 0 0 6px;
   color: var(--HomePageThree-dark);
-  font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+  font-size: clamp(1.15rem, 1.55vw, 1.38rem);
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -287,8 +297,8 @@
 .HomePageThree__feature-text {
   margin: 0;
   color: var(--HomePageThree-text);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 /* actions */
@@ -305,17 +315,18 @@
   align-items: center;
   justify-content: center;
   height: 64px;
-  padding: 0 44px;
+  padding: 0 40px;
   overflow: hidden;
   border-radius: 999px;
   background: var(--HomePageThree-lime);
   color: var(--HomePageThree-dark);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   text-decoration: none;
   isolation: isolate;
   box-shadow: 0 16px 30px -14px rgba(130, 190, 20, 0.9);
-  transition: transform 0.4s var(--HomePageThree-ease), color 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.4s var(--HomePageThree-ease), color 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 .HomePageThree__btn::before {
@@ -326,7 +337,8 @@
   background: var(--HomePageThree-dark);
   transform: translateY(101%);
   border-radius: 50% 50% 0 0 / 40% 40% 0 0;
-  transition: transform 0.55s var(--HomePageThree-ease), border-radius 0.55s var(--HomePageThree-ease);
+  transition: transform 0.55s var(--HomePageThree-ease),
+    border-radius 0.55s var(--HomePageThree-ease);
 }
 
 .HomePageThree__btn:hover {
@@ -397,12 +409,12 @@
 }
 
 .HomePageThree__call-label {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #3a403d;
 }
 
 .HomePageThree__call-number {
-  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  font-size: clamp(1.15rem, 1.65vw, 1.4rem);
   font-weight: 700;
   letter-spacing: 0.01em;
 }
@@ -440,8 +452,7 @@
 }
 
 .HomePageThree--visible .HomePageThree__word-inner {
-  animation:
-    HomePageThree-word 1s var(--HomePageThree-ease) forwards,
+  animation: HomePageThree-word 1s var(--HomePageThree-ease) forwards,
     HomePageThree-shine 6s linear 2s infinite;
   animation-delay: calc(0.5s + var(--w) * 0.1s), 2s;
 }
@@ -466,8 +477,7 @@
 }
 
 .HomePageThree--visible .HomePageThree__bee {
-  animation:
-    HomePageThree-fade 1.5s ease 0.4s forwards,
+  animation: HomePageThree-fade 1.5s ease 0.4s forwards,
     HomePageThree-bee 7s ease-in-out 1.8s infinite;
 }
 
@@ -695,7 +705,7 @@
   }
 
   .HomePageThree__badge-text text {
-    font-size: 14px;
+    font-size: 13.5px;
   }
 }
 

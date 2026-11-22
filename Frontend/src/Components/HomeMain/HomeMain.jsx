@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowRight, FaPlus, FaShieldAlt, FaCheck } from "react-icons/fa";
+import { FaArrowRight, FaShieldAlt, FaCheck } from "react-icons/fa";
 
 import "./HomeMain.css";
 import homeImage from "../../assets/homemain.png";
 
 const FEATURES = ["Expert Technicians", "Safe Solutions", "Trusted Service"];
-const STAT_TARGET = 4; // shows as 4K+
+const STAT_TARGET = 1; // shows as 1K+
 
 const HomeMain = () => {
   const [value, setValue] = useState(0);
   const [done, setDone] = useState(false);
 
-  // Premium running counter: 0.0K -> 4K
+  // Premium running counter: 0.0K -> 1K+
   useEffect(() => {
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
@@ -70,7 +70,7 @@ const HomeMain = () => {
             <span className="homemain-tag-icon">
               <FaShieldAlt />
             </span>
-            <span>Professional Pest Control Services</span>
+            <span>Pest Control Service Providers in Cuttack</span>
             <span className="homemain-tag-dot" />
           </div>
 
@@ -85,9 +85,10 @@ const HomeMain = () => {
           </h1>
 
           <p className="homemain-description">
-            Our trained technicians conduct thorough inspections to identify
-            problem areas, entry points and breeding sites before applying safe
-            and effective pest control solutions.
+            Looking for the <strong>Best Pest Control in Cuttack with genuine rates</strong>?
+            Our trained technicians deliver expert pest and termite control across
+            Cuttack, Bhubaneswar, and Puri—inspecting entry points and breeding
+            sites to apply safe, long-lasting pest control solutions.
           </p>
 
           <ul className="homemain-features">
@@ -107,7 +108,7 @@ const HomeMain = () => {
           <div className="homemain-stat-card">
             <div
               className={`homemain-stat-number ${done ? "homemain-stat-done" : ""}`}
-              aria-label="4K plus happy clients"
+              aria-label="1K plus happy clients"
             >
               <span className="homemain-stat-value">{display}</span>
               <span className="homemain-stat-k">K</span>
@@ -115,17 +116,10 @@ const HomeMain = () => {
             </div>
 
             <div className="homemain-client-info">
-              <div className="homemain-avatars">
-                <div className="homemain-avatar homemain-avatar-one">AK</div>
-                <div className="homemain-avatar homemain-avatar-two">JD</div>
-                <div className="homemain-avatar homemain-avatar-three">
-                  <FaPlus />
-                </div>
-              </div>
-
               <p>
-                Happy clients love our <strong>Biggest Pest Control</strong>{" "}
-                services.
+                Happy clients trust us for the{" "}
+                <strong>best pest control services in Cuttack, Bhubaneswar &amp; Puri</strong>{" "}
+                with genuine rates.
               </p>
             </div>
 
@@ -148,7 +142,7 @@ const HomeMain = () => {
         <div className="homemain-bottom-label">
           <span className="homemain-bottom-brand">INSECTRA</span>
           <span className="homemain-bottom-line" />
-          <span>Your trusted pest control partner</span>
+          <span>Pest Control Solutions in Cuttack, Odisha</span>
         </div>
       </div>
     </section>
