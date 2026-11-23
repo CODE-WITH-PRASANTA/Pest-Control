@@ -1,75 +1,117 @@
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./GeneralPestControlMain.css";
 
-// Manually change your image paths here
 import service from "../../assets/service-details.jpg";
 import serviceone from "../../assets/service-d1.jpg";
 import servicetwo from "../../assets/service-d2.jpg";
 
 const services = [
   {
-    title: "Termite Control",
-    heading: "Advanced Termite Control Solutions",
+    title: "Pest Inspection",
+    heading: "Professional General Pest Inspection Services",
     image: serviceone,
     description:
-      "Protect your home and property from destructive termites with our professional inspection and treatment solutions.",
+      "Our experts inspect your property to identify common household and workplace pests, their hiding spots and infestation levels.",
   },
   {
-    title: "Mosquito Control",
-    heading: "Professional Mosquito Control Services",
+    title: "Cockroach & Ant Control",
+    heading: "Advanced Cockroach & Ant Control Solutions",
     image: service,
     description:
-      "Enjoy a healthier environment with effective mosquito prevention and treatment designed for homes and businesses.",
+      "Control unwanted cockroaches and ants with targeted treatments designed to eliminate infestations and prevent recurring pest problems.",
   },
   {
-    title: "Ant & Insect Control",
-    heading: "Complete Ant & Insect Protection",
+    title: "Mosquito & Fly Control",
+    heading: "Effective Mosquito & Fly Management",
     image: servicetwo,
     description:
-      "Our experienced technicians identify insect activity and provide targeted solutions to keep your surroundings protected.",
+      "Maintain a hygienic environment with professional mosquito and fly control treatments for residential and commercial properties.",
   },
   {
-    title: "Residential & Commercial",
-    heading: "Residential & Commercial Pest Solutions",
-    image: service,
-    description:
-      "Customized pest management programs for residential buildings, offices, commercial spaces and industries.",
-  },
-  {
-    title: "Bed Bug Treatment",
-    heading: "Effective Bed Bug Treatment",
+    title: "Spider & Lizard Control",
+    heading: "Reliable Spider & Lizard Control Services",
     image: serviceone,
     description:
-      "Restore comfort to your sleeping environment with professional bed bug inspection and treatment services.",
+      "Protect your indoor spaces through suitable pest management methods that help control spiders, lizards and other unwanted pests.",
+  },
+  {
+    title: "Preventive Pest Management",
+    heading: "Long-Term General Pest Prevention",
+    image: service,
+    description:
+      "Prevent future pest infestations with regular monitoring, preventive treatments and expert hygiene recommendations.",
+  },
+];
+
+const processSteps = [
+  {
+    number: "01",
+    title: "Inspection & Assessment",
+    description:
+      "Our experts thoroughly inspect your premises to identify the type of pests, their hiding spots and the level of infestation.",
+    image: serviceone,
+  },
+  {
+    number: "02",
+    title: "Customized Treatment Plan",
+    description:
+      "Based on the inspection findings, we design a treatment plan tailored to your specific property and pest control requirements.",
+    image: servicetwo,
+  },
+  {
+    number: "03",
+    title: "Safe & Targeted Treatment",
+    description:
+      "Using eco-friendly and government-approved chemicals, gels, sprays or fogging methods, we target pests at their source while following appropriate safety precautions.",
+    image: service,
+  },
+  {
+    number: "04",
+    title: "Preventive Measures",
+    description:
+      "After treatment, we guide you with preventive steps and hygiene practices to reduce the chances of pests returning.",
+    image: serviceone,
+  },
+  {
+    number: "05",
+    title: "Follow-Up Services",
+    description:
+      "Regular monitoring and follow-up visits help us assess treatment effectiveness and support long-term pest management.",
+    image: servicetwo,
   },
 ];
 
 const faqs = [
   {
-    question: "What types of pest control treatments do you offer?",
+    question: "What is included in general pest control services?",
     answer:
-      "We provide termite control, mosquito management, ant and insect treatment, rodent control, bed bug treatment and customized commercial pest management solutions.",
+      "Our general pest control services include property inspection, pest identification, customized treatment planning, targeted pest treatment, preventive recommendations and follow-up support.",
   },
   {
-    question: "Are your treatments safe for children and pets?",
+    question: "Which pests are covered under general pest control?",
     answer:
-      "We use professionally selected treatment methods and provide safety instructions according to the products and treatment procedures used. Always follow the technician's re-entry guidance.",
+      "General pest control covers common pests such as cockroaches, ants, spiders, lizards, flies, mosquitoes, bed bugs and rodents.",
   },
   {
-    question: "How often should pest control be performed?",
+    question: "Are general pest control treatments safe for children and pets?",
     answer:
-      "The frequency depends on the type of pest, property conditions and infestation level. Our experts can recommend a suitable maintenance schedule after inspection.",
+      "We select suitable treatment methods according to your property and pest infestation. Our technicians provide necessary safety instructions, and children and pets should be kept away from treated areas as advised.",
   },
   {
-    question: "How long does a pest control treatment take?",
+    question: "How often should general pest control be done?",
     answer:
-      "Treatment time depends on the property size and pest problem. Our technician will explain the expected duration before starting the service.",
+      "The frequency depends on the type of pests, property conditions and infestation level. Our experts can recommend a suitable treatment and monitoring schedule after inspection.",
   },
   {
-    question: "Do you provide residential and commercial services?",
+    question: "Do you provide pest control for homes and offices?",
     answer:
-      "Yes. We offer customized pest control services for houses, apartments, offices, restaurants, warehouses and commercial properties.",
+      "Yes. General pest control solutions can be arranged for houses, apartments, offices, shops, hotels, restaurants, warehouses and other commercial properties.",
+  },
+  {
+    question: "How long does a general pest control treatment take?",
+    answer:
+      "Treatment duration depends on property size, pest type, infestation level and selected treatment method. Our technician can explain the expected duration after inspection.",
   },
 ];
 
@@ -97,24 +139,6 @@ const PhoneIcon = () => (
   </svg>
 );
 
-const PdfIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path
-      d="M6 2h8l5 5v14H6a2 2 0 01-2-2V4a2 2 0 012-2Z"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 const GeneralPestControlMain = () => {
   const rootRef = useRef(null);
 
@@ -123,12 +147,9 @@ const GeneralPestControlMain = () => {
   const [failedImages, setFailedImages] = useState({});
 
   const currentService = services[activeService];
-  const imageFailed = failedImages[activeService];
 
-  // Scroll reveal animation
   useEffect(() => {
     const root = rootRef.current;
-
     if (!root) return;
 
     const items = root.querySelectorAll(
@@ -136,7 +157,7 @@ const GeneralPestControlMain = () => {
     );
 
     if (typeof IntersectionObserver === "undefined") {
-      items.forEach((el) => el.classList.add("is-visible"));
+      items.forEach((item) => item.classList.add("is-visible"));
       return;
     }
 
@@ -152,7 +173,7 @@ const GeneralPestControlMain = () => {
       { threshold: 0.12 }
     );
 
-    items.forEach((el) => observer.observe(el));
+    items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
   }, []);
@@ -168,6 +189,7 @@ const GeneralPestControlMain = () => {
       <div className="general-pest-control-main-container">
 
         {/* LEFT SIDEBAR */}
+
         <aside className="general-pest-control-main-sidebar">
 
           <div className="general-pest-control-main-menu">
@@ -197,14 +219,17 @@ const GeneralPestControlMain = () => {
           </div>
 
           {/* CONTACT CARD */}
+
           <div className="general-pest-control-main-contact-card">
 
             <div className="general-pest-control-main-contact-decoration general-pest-control-main-contact-decoration-one" />
-
             <div className="general-pest-control-main-contact-decoration general-pest-control-main-contact-decoration-two" />
 
             <div className="general-pest-control-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+
+              <h2>
+                Need Professional Pest Control Assistance?
+              </h2>
 
               <a
                 href="tel:+919876543210"
@@ -214,7 +239,7 @@ const GeneralPestControlMain = () => {
                 <PhoneIcon />
               </a>
 
-              <p>Need help? Talk to an expert</p>
+              <p>Talk to our pest control experts</p>
 
               <a
                 href="tel:+919876543210"
@@ -222,35 +247,53 @@ const GeneralPestControlMain = () => {
               >
                 +91 98765 43210
               </a>
+
             </div>
           </div>
 
           {/* DOWNLOAD BUTTON */}
+
           <a
             href="/service-brochure.pdf"
             download
             className="general-pest-control-main-download"
           >
-            <PdfIcon />
-            <span>Download Pdf File</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 2h8l5 5v14H6a2 2 0 01-2-2V4a2 2 0 012-2Z"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              />
+            </svg>
+
+            <span>Download PDF File</span>
           </a>
 
         </aside>
 
         {/* RIGHT CONTENT */}
+
         <main className="general-pest-control-main-content">
 
           {/* HERO SECTION */}
+
           <div
             className={`general-pest-control-main-hero ${
-              imageFailed
+              failedImages[activeService]
                 ? "general-pest-control-main-hero-fallback"
                 : ""
             }`}
           >
-            {!imageFailed && (
+            {!failedImages[activeService] && (
               <img
-                key={`img-${activeService}`}
+                key={activeService}
                 src={currentService.image}
                 alt={currentService.title}
                 className="general-pest-control-main-hero-image"
@@ -276,7 +319,7 @@ const GeneralPestControlMain = () => {
               key={`text-${activeService}`}
             >
               <span className="general-pest-control-main-hero-label">
-                PROFESSIONAL PEST MANAGEMENT
+                PROFESSIONAL GENERAL PEST CONTROL
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -285,45 +328,60 @@ const GeneralPestControlMain = () => {
             </div>
           </div>
 
-          {/* SERVICE OVERVIEW */}
+          {/* OVERVIEW */}
+
           <div className="general-pest-control-main-overview general-pest-control-main-reveal">
 
             <span className="general-pest-control-main-section-subtitle">
-              ABOUT OUR SERVICES
+              ABOUT GENERAL PEST CONTROL
             </span>
 
-            <h2>Service Overview</h2>
+            <h2>
+              Professional General Pest Control Services
+            </h2>
 
             <p>
-              We provide comprehensive pest control solutions designed
-              to protect your home, workplace and surroundings from
-              unwanted pests. Our experienced professionals use
-              systematic inspection and targeted treatment methods
-              to deliver reliable pest management.
+              General pest control refers to the treatment and prevention
+              of common household and workplace pests such as cockroaches,
+              ants, spiders, lizards, flies, mosquitoes, bed bugs and
+              rodents. These pests can affect hygiene, damage property
+              and create an uncomfortable living or working environment.
             </p>
 
             <p>
-              Every property has different pest control requirements.
-              That's why we focus on identifying the source of
-              infestation and recommending appropriate treatment
-              solutions for long-term protection.
+              The service involves the use of suitable chemicals, sprays,
+              gels and other treatment methods to eliminate pests and
+              prevent them from returning. It generally includes detailed
+              inspection, targeted treatment and follow-up services to
+              maintain a clean, hygienic and pest-free environment.
+            </p>
+
+            <p>
+              At Nilachakra Pest Control, we provide professional pest
+              control solutions for residential and commercial properties.
+              Our approach focuses on protecting health, preventing
+              property damage and maintaining overall hygiene.
             </p>
 
           </div>
 
           {/* COMPREHENSIVE SOLUTIONS */}
+
           <div className="general-pest-control-main-comprehensive general-pest-control-main-reveal">
 
             <span className="general-pest-control-main-section-subtitle">
-              COMPLETE PROTECTION
+              OUR PROFESSIONAL APPROACH
             </span>
 
-            <h2>Comprehensive Pest Control Solutions</h2>
+            <h2>
+              Complete General Pest Control Solutions
+            </h2>
 
             <p>
-              From residential pest problems to large commercial
-              requirements, we deliver customized pest management
-              solutions with professional care.
+              From identifying pest infestation sources to applying
+              suitable treatment methods, our experts follow a structured
+              pest management process to provide effective and reliable
+              solutions.
             </p>
 
             <div className="general-pest-control-main-image-grid">
@@ -333,17 +391,19 @@ const GeneralPestControlMain = () => {
                   <img
                     src={serviceone}
                     alt="Professional pest inspection"
+                    loading="lazy"
                   />
+
                   <span className="general-pest-control-main-image-number">
                     01
                   </span>
                 </div>
 
-                <h3>Professional Inspection</h3>
+                <h3>Detailed Pest Inspection</h3>
 
                 <p>
-                  Detailed inspection to identify pest activity
-                  and understand the source of infestation.
+                  Identify pest types, hiding spots and infestation
+                  areas through professional property inspection.
                 </p>
               </div>
 
@@ -351,25 +411,156 @@ const GeneralPestControlMain = () => {
                 <div className="general-pest-control-main-image-wrap">
                   <img
                     src={servicetwo}
-                    alt="Professional pest treatment"
+                    alt="Professional general pest treatment"
+                    loading="lazy"
                   />
+
                   <span className="general-pest-control-main-image-number">
                     02
                   </span>
                 </div>
 
-                <h3>Advanced Treatment</h3>
+                <h3>Targeted Pest Treatment</h3>
 
                 <p>
-                  Targeted treatment procedures designed to manage
-                  pest problems effectively.
+                  Apply suitable treatment methods to control common
+                  household and commercial pest infestations.
                 </p>
               </div>
 
             </div>
           </div>
 
+          {/* PROCESS AND METHODS */}
+
+          <div className="general-pest-control-main-process general-pest-control-main-reveal">
+
+            <span className="general-pest-control-main-section-subtitle">
+              OUR PROCESS & METHODS
+            </span>
+
+            <h2>
+              Our General Pest Control Treatment Process
+            </h2>
+
+            <p className="general-pest-control-main-process-intro">
+              We follow a systematic approach to identify, treat and
+              prevent common pest infestations in your property.
+            </p>
+
+            <div className="general-pest-control-main-process-list">
+
+              {processSteps.map((step) => (
+                <div
+                  className="general-pest-control-main-process-item"
+                  key={step.number}
+                >
+                  <div className="general-pest-control-main-process-image">
+                    <img
+                      src={step.image}
+                      alt={step.title}
+                      loading="lazy"
+                    />
+
+                    <span>{step.number}</span>
+                  </div>
+
+                  <div className="general-pest-control-main-process-content">
+                    <span>STEP {step.number}</span>
+
+                    <h3>{step.title}</h3>
+
+                    <p>{step.description}</p>
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+          {/* WHY CHOOSE US */}
+
+          <div className="general-pest-control-main-overview general-pest-control-main-reveal">
+
+            <span className="general-pest-control-main-section-subtitle">
+              WHY CHOOSE NILACHAKRA PEST CONTROL
+            </span>
+
+            <h2>
+              Reliable Pest Management for a Cleaner Environment
+            </h2>
+
+            <p>
+              Professional general pest control helps reduce pest-related
+              health risks, prevent property damage and maintain better
+              hygiene. Our customized treatment approach considers the
+              type of pest, infestation level and property requirements.
+            </p>
+
+            <p>
+              We provide pest management solutions for residential and
+              commercial spaces, helping property owners manage common
+              pests through inspection, targeted treatments, preventive
+              recommendations and follow-up support.
+            </p>
+
+            <div className="general-pest-control-main-benefits">
+
+              <div>
+                <span>✓</span>
+                <p>Customized pest treatment plans</p>
+              </div>
+
+              <div>
+                <span>✓</span>
+                <p>Suitable and targeted treatment methods</p>
+              </div>
+
+              <div>
+                <span>✓</span>
+                <p>Residential and commercial pest control</p>
+              </div>
+
+              <div>
+                <span>✓</span>
+                <p>Preventive guidance and follow-up support</p>
+              </div>
+
+            </div>
+          </div>
+
+          {/* SERVICE LOCATIONS / SEO */}
+
+          <div className="general-pest-control-main-location general-pest-control-main-reveal">
+
+            <span className="general-pest-control-main-section-subtitle">
+              OUR SERVICE AREAS
+            </span>
+
+            <h2>
+              General Pest Control Services Across Odisha
+            </h2>
+
+            <p>
+              Nilachakra Pest Control provides professional pest
+              management solutions for residential and commercial
+              properties in Bhubaneswar, Cuttack, Puri and nearby areas.
+              Contact our team for suitable pest control solutions
+              based on your property requirements.
+            </p>
+
+            <div className="general-pest-control-main-location-tags">
+              <span>Bhubaneswar</span>
+              <span>Cuttack</span>
+              <span>Puri</span>
+              <span>Odisha</span>
+            </div>
+
+          </div>
+
           {/* FAQ SECTION */}
+
           <div className="general-pest-control-main-faq general-pest-control-main-reveal">
 
             <span className="general-pest-control-main-section-subtitle">
@@ -379,11 +570,12 @@ const GeneralPestControlMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="general-pest-control-main-faq-intro">
-              Find answers to common questions about our professional
-              pest control services.
+              Find answers to common questions about our general pest
+              control treatments and professional pest management services.
             </p>
 
             <div className="general-pest-control-main-faq-list">
+
               {faqs.map((faq, index) => (
                 <div
                   key={faq.question}
@@ -395,9 +587,7 @@ const GeneralPestControlMain = () => {
                     type="button"
                     className="general-pest-control-main-faq-question"
                     onClick={() =>
-                      setActiveFaq(
-                        activeFaq === index ? -1 : index
-                      )
+                      setActiveFaq(activeFaq === index ? -1 : index)
                     }
                     aria-expanded={activeFaq === index}
                   >
@@ -413,23 +603,27 @@ const GeneralPestControlMain = () => {
                       <p>{faq.answer}</p>
                     </div>
                   </div>
+
                 </div>
               ))}
-            </div>
 
+            </div>
           </div>
 
           {/* BOTTOM CTA */}
+
           <div className="general-pest-control-main-bottom-cta general-pest-control-main-reveal">
 
             <div>
-              <span>LET'S PROTECT YOUR PROPERTY</span>
+              <span>PROTECT YOUR PROPERTY TODAY</span>
 
-              <h2>Need Professional Pest Control?</h2>
+              <h2>
+                Need Professional General Pest Control?
+              </h2>
 
               <p>
-                Get in touch with our team and find the right
-                solution for your property.
+                Keep your home and workplace clean, hygienic and protected
+                from unwanted pests. Contact Nilachakra Pest Control today.
               </p>
             </div>
 

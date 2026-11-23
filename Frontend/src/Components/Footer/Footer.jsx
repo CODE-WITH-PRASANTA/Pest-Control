@@ -16,19 +16,24 @@ const Footer = () => {
 
   const aboutLinks = [
     { name: 'About', path: '/about' },
-    { name: 'Our Mission', path: '/mission' },
-    { name: 'Our Blogs', path: '/blogs' },
-    { name: 'Help Center', path: '/help' },
+    { name: 'Our Team', path: '/team' },
+    { name: 'Our Blogs', path: '/news' },
+    { name: 'Our Projects', path: '/projects'},
+    { name: 'Help Center', path: '/contact' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
   const serviceLinks = [
-    { name: 'Termite Control', path: '/services/termite' },
-    { name: 'Bed Bug Treatment', path: '/services/bed-bug' },
-    { name: 'Mosquito Control', path: '/services/mosquito' },
-    { name: 'Cockroach Removal', path: '/services/cockroach' },
-    { name: 'Ant & Insect Control', path: '/services/ant-insect' },
+    { name: 'Termite Control', path: '/termite-control' },
+    { name: 'General Pest Control', path: '/general-pest-control' },
+    { name: 'Cockroach Management Service ', path: '/cockroach-management' },
+    { name: 'Rodent Management Service ', path: '/rodent-management' },
+    { name: 'Bedbug Management Service ', path: '/bedbug-management' },
+    { name: 'Mosquito Management Service ', path: '/mosquito-management' },
   ];
+
+  const phoneNumber = '9776573231';
+  const emailAddress = 'giridurgapestcontrol@gmail.com';
 
   return (
     <footer className="footer-section">
@@ -59,16 +64,19 @@ const Footer = () => {
               <div className="footer-brand-logo-wrapper">
                 <img
                   src={mainLogo}
-                  alt="Insectra Logo"
+                  alt="Giri Durga Pest Control Logo"
                   className="footer-brand-logo"
                 />
               </div>
-              <span className="footer-brand-title">Insectra</span>
+              <span className="footer-brand-title">
+                Giri Durga <span className="footer-brand-title-sub">Pest Control</span>
+              </span>
             </Link>
 
             <p className="footer-brand-desc">
-              Insectra services are dedicated to delivering high-quality, personalized
-              care with compassion and eco-friendly methods.
+              Giri Durga Pest Control is dedicated to delivering high-quality, reliable
+              pest management with care, safe methods and long-lasting results for your
+              home and business.
             </p>
 
             <Link to="/contact" className="footer-btn-appointment">
@@ -97,8 +105,8 @@ const Footer = () => {
           </div>
 
           {/* Column 3: Services */}
-          <div className="footer-col">
-            <h3 className="footer-heading">Services</h3>
+          <div className="footer-col footer-col-services">
+            <h3 className="footer-heading">Our Services</h3>
             <ul className="footer-links-list">
               {serviceLinks.map((item) => (
                 <li key={item.name} className="footer-link-item">
@@ -121,30 +129,30 @@ const Footer = () => {
                 </svg>
               </span>
               <p className="footer-address-text">
-                1901 Thornridge Cir. Shiloh <br /> Hawaii 81063
+                At-Seikoruan, Urali, Gopalpur <br /> Katak - 753011
               </p>
             </div>
 
             <div className="footer-address-divider"></div>
 
             <div className="footer-info-block">
-              <span className="footer-subheading">Phone</span>
-              <a href="tel:+8801750050088" className="footer-info-link">
+              <span className="footer-subheading">Contact</span>
+              <a href={`tel:+91${phoneNumber}`} className="footer-info-link">
                 <span className="footer-info-icon">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1v3.49a1 1 0 01-1 1A17.93 17.93 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.28.2 2.52.59 3.68a1 1 0 01-.24 1.02l-2.23 2.09z" />
                   </svg>
                 </span>
-                <span>+8801750050088</span>
+                <span>+91 {phoneNumber}</span>
               </a>
 
-              <a href="mailto:demo@example.com" className="footer-info-link">
+              <a href={`mailto:${emailAddress}`} className="footer-info-link footer-info-email">
                 <span className="footer-info-icon">
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                   </svg>
                 </span>
-                <span>demo@example.com</span>
+                <span>{emailAddress}</span>
               </a>
             </div>
           </div>
@@ -155,11 +163,7 @@ const Footer = () => {
           <div className="footer-social-section">
             <span className="footer-social-label">Follow Us On:</span>
             <div className="footer-social-icons">
-              <a href="https://twitter.com" target="_blank" rel="noreferrer" aria-label="Twitter" className="footer-social-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.05c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
-                </svg>
-              </a>
+              
               <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Facebook" className="footer-social-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95C18.05 21.45 22 17.19 22 12z" />

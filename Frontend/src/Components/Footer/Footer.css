@@ -85,10 +85,14 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1.1fr 1.2fr;
+  grid-template-columns: 1.35fr 0.85fr 1.4fr 1.3fr;
   gap: 40px;
   align-items: flex-start;
   margin-bottom: 60px;
+}
+
+.footer-col {
+  min-width: 0;
 }
 
 /* Column 1: Brand & Logo */
@@ -101,8 +105,9 @@
 }
 
 .footer-brand-logo-wrapper {
-  width: 52px;
-  height: 52px;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #ffffff;
   padding: 4px;
@@ -131,18 +136,30 @@
 }
 
 .footer-brand-title {
+  display: flex;
+  flex-direction: column;
   color: #ffffff;
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
   font-family: inherit;
+}
+
+.footer-brand-title-sub {
+  color: var(--footer-accent-lime);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
 }
 
 .footer-brand-desc {
   color: #b0c9bd;
   font-size: 14.5px;
   line-height: 1.65;
-  max-width: 320px;
+  max-width: 340px;
   margin-bottom: 26px;
 }
 
@@ -222,12 +239,13 @@
 
 .footer-link {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   color: var(--footer-text-light);
   text-decoration: none;
   font-size: 14.5px;
   font-weight: 500;
+  line-height: 1.4;
   transition: var(--footer-transition);
 }
 
@@ -235,6 +253,7 @@
   color: var(--footer-accent-lime);
   font-weight: bold;
   font-size: 15px;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
@@ -293,17 +312,26 @@
 .footer-info-block {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-info-link {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   color: var(--footer-text-light);
   text-decoration: none;
   font-size: 14.5px;
   transition: var(--footer-transition);
+}
+
+.footer-info-link .footer-info-icon {
+  margin-top: 2px;
+}
+
+.footer-info-email {
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .footer-info-link:hover {
@@ -558,6 +586,14 @@
     gap: 35px;
   }
 
+  .footer-brand-title {
+    font-size: 23px;
+  }
+
+  .footer-brand-title-sub {
+    font-size: 15px;
+  }
+
   .footer-newsletter-box {
     border-radius: 18px;
     flex-direction: column;
@@ -575,6 +611,10 @@
     gap: 14px;
   }
 
+  .footer-newsletter-title {
+    white-space: normal;
+  }
+
   .footer-input-group {
     max-width: 100%;
   }
@@ -583,5 +623,10 @@
     flex-direction: column;
     text-align: center;
     gap: 12px;
+  }
+
+  .footer-legal-links {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

@@ -1,0 +1,374 @@
+/* ===========================================================
+   GiriDurga Pest Controls – Loader styles
+   Palette: deep forest #04241a / #0b3d2e, lime #b6f03a, white
+   =========================================================== */
+
+.Loader {
+  --Loader-deep: #04241a;
+  --Loader-forest: #0b3d2e;
+  --Loader-lime: #b6f03a;
+  --Loader-white: #ffffff;
+  --Loader-size: clamp(260px, 72vw, 400px);
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--Loader-white);
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(110% 90% at 50% 40%, var(--Loader-forest) 0%, var(--Loader-deep) 72%);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transition: opacity 0.8s ease, visibility 0s linear 0.9s;
+}
+
+/* ---------- smooth close: soft fade + gentle zoom ---------- */
+.Loader--exit {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.Loader__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.2, 1), filter 0.8s ease, opacity 0.7s ease;
+}
+.Loader--exit .Loader__content {
+  transform: scale(1.1);
+  filter: blur(6px);
+  opacity: 0;
+}
+
+/* ---------- background ---------- */
+.Loader__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  background: var(--Loader-lime);
+  pointer-events: none;
+}
+.Loader__glow--one {
+  width: 44vmax;
+  height: 44vmax;
+  top: -16vmax;
+  left: -14vmax;
+  opacity: 0.17;
+  animation: LoaderFloat 8s ease-in-out infinite;
+}
+.Loader__glow--two {
+  width: 36vmax;
+  height: 36vmax;
+  bottom: -14vmax;
+  right: -12vmax;
+  opacity: 0.12;
+  animation: LoaderFloat 10s ease-in-out infinite reverse;
+}
+.Loader__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(182, 240, 58, 0.16) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  -webkit-mask: radial-gradient(60% 55% at 50% 45%, #000 0%, transparent 100%);
+  mask: radial-gradient(60% 55% at 50% 45%, #000 0%, transparent 100%);
+}
+
+/* ---------- particles ---------- */
+.Loader__particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.Loader__particle {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  background: var(--Loader-lime);
+  box-shadow: 0 0 10px rgba(182, 240, 58, 0.8);
+  opacity: 0;
+  animation: LoaderRiseUp linear infinite;
+}
+
+/* ---------- stage (circle) ---------- */
+.Loader__stage {
+  position: relative;
+  width: var(--Loader-size);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  animation: LoaderIn 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.Loader__pulse {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1.5px solid var(--Loader-lime);
+  animation: LoaderPulse 3s ease-out infinite;
+}
+.Loader__pulse--two {
+  animation-delay: 1.5s;
+}
+.Loader__sweep {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 66%, rgba(182, 240, 58, 0.4) 100%);
+  -webkit-mask: radial-gradient(closest-side, transparent 0 80%, #000 81%);
+  mask: radial-gradient(closest-side, transparent 0 80%, #000 81%);
+  animation: LoaderSpin 2.4s linear infinite;
+}
+.Loader__rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+.Loader__ringDash {
+  fill: none;
+  stroke: rgba(182, 240, 58, 0.35);
+  stroke-width: 1;
+  stroke-dasharray: 2 9;
+  transform-origin: 110px 110px;
+  animation: LoaderSpin 24s linear infinite reverse;
+}
+.Loader__ringTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 4;
+}
+.Loader__ringProgress {
+  fill: none;
+  stroke: var(--Loader-lime);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(182, 240, 58, 0.85));
+}
+
+/* ---------- pests ---------- */
+.Loader__bug {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a)) translateY(calc(var(--Loader-size) * -0.436));
+}
+.Loader__bugDot {
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  animation: LoaderZap 2.4s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+
+/* ---------- middle disc with logo ---------- */
+.Loader__disc {
+  position: relative;
+  width: 76%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 22%, #ffffff 0%, #f1f9e8 100%);
+  border: 3px solid rgba(182, 240, 58, 0.9);
+  box-shadow:
+    0 0 0 8px rgba(182, 240, 58, 0.1),
+    0 0 50px rgba(182, 240, 58, 0.35),
+    inset 0 -10px 24px rgba(11, 61, 46, 0.1);
+  animation: LoaderFloat 3.6s ease-in-out infinite;
+}
+.Loader__logoBox {
+  position: relative;
+  width: 88%;
+  line-height: 0;
+}
+.Loader__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: LoaderLogoIn 1s 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.Loader__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.95) 50%, transparent 62%);
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: LoaderShine 2.2s 1s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ---------- status text ---------- */
+.Loader__meta {
+  margin-top: clamp(20px, 4.5vh, 34px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  animation: LoaderRise 0.9s 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.Loader__status {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: clamp(13px, 3.4vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--Loader-lime);
+  text-shadow: 0 0 18px rgba(182, 240, 58, 0.4);
+  animation: LoaderFade 0.45s both;
+}
+
+/* ---------- keyframes ---------- */
+@keyframes LoaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes LoaderFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes LoaderPulse {
+  0% {
+    transform: scale(0.75);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+@keyframes LoaderIn {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes LoaderLogoIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+@keyframes LoaderRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes LoaderFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes LoaderShine {
+  0% {
+    background-position: 130% 0;
+  }
+  60%,
+  100% {
+    background-position: -30% 0;
+  }
+}
+@keyframes LoaderZap {
+  0%,
+  55% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(2.2);
+    background: #b6f03a;
+    box-shadow: 0 0 18px #b6f03a;
+  }
+  85%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+@keyframes LoaderRiseUp {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-105vh) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 380px) {
+  .Loader__content {
+    padding: 16px;
+  }
+}
+@media (max-height: 560px) and (orientation: landscape) {
+  .Loader {
+    --Loader-size: clamp(150px, 56vh, 260px);
+  }
+  .Loader__meta {
+    margin-top: 10px;
+  }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .Loader *,
+  .Loader *::before,
+  .Loader *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .Loader__particles {
+    display: none;
+  }
+}

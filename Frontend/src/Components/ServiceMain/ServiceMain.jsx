@@ -99,8 +99,8 @@ const services = [
     image: img08,
   },
   {
-    title: "Termite Management Service (Pre-Construction)",
-    path: "/termite-pre-construction",
+    title: "Termite Control",
+    path: "/termite-control",
     icon: Building2,
     image: img09,
   },

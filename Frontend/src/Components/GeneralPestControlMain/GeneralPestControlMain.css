@@ -12,7 +12,7 @@
   width: 100%;
   padding: 60px 24px 80px;
   background: var(--pest-bg);
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   color: var(--pest-text);
   overflow: hidden;
 }
@@ -29,8 +29,12 @@
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(208,244,123,.4), rgba(208,244,123,0) 68%);
-  animation: generalPestControlFloat 11s ease-in-out infinite;
+  background: radial-gradient(
+    circle,
+    rgba(208, 244, 123, 0.4),
+    rgba(208, 244, 123, 0) 68%
+  );
+  animation: generalPestFloat 11s ease-in-out infinite;
 }
 
 .general-pest-control-main-glow-one {
@@ -82,7 +86,7 @@
   width: 100%;
   min-height: 72px;
   padding: 12px 14px 12px 18px;
-  border: 1px solid rgba(255,255,255,.9);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 18px;
   background: #f8fafb;
   color: var(--pest-dark);
@@ -94,17 +98,19 @@
   font-weight: 700;
   text-align: left;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(23,62,45,.04);
-  transition: background .4s ease, transform .4s ease, box-shadow .4s ease;
+  box-shadow: 0 6px 16px rgba(23, 62, 45, 0.04);
+  transition:
+    background 0.4s ease,
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
 .general-pest-control-main-menu-number {
   flex-shrink: 0;
   font-size: 13px;
   font-weight: 800;
-  letter-spacing: .05em;
-  color: rgba(23,62,45,.4);
-  transition: color .35s ease;
+  letter-spacing: 0.05em;
+  color: rgba(23, 62, 45, 0.4);
 }
 
 .general-pest-control-main-menu-title {
@@ -116,16 +122,17 @@
 .general-pest-control-main-menu-item:hover {
   transform: translateX(6px);
   background: #fff;
-  box-shadow: 0 12px 28px rgba(20,50,35,.09);
+  box-shadow: 0 12px 28px rgba(20, 50, 35, 0.09);
 }
 
 .general-pest-control-main-menu-item.active {
-  background: linear-gradient(135deg,#dcf88f,var(--pest-green));
-  box-shadow: 0 14px 30px rgba(70,110,35,.16);
+  background: linear-gradient(135deg, #dcf88f, var(--pest-green));
+  box-shadow: 0 14px 30px rgba(70, 110, 35, 0.16);
   transform: translateX(6px);
 }
 
-.general-pest-control-main-menu-item.active .general-pest-control-main-menu-number {
+.general-pest-control-main-menu-item.active
+.general-pest-control-main-menu-number {
   color: var(--pest-dark);
 }
 
@@ -138,20 +145,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background .35s ease, color .35s ease;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 .general-pest-control-main-arrow svg {
   width: 19px;
   height: 19px;
-  transition: transform .35s ease;
+  transition: transform 0.35s ease;
 }
 
-.general-pest-control-main-menu-item:hover .general-pest-control-main-arrow svg {
+.general-pest-control-main-menu-item:hover
+.general-pest-control-main-arrow svg {
   transform: translateX(4px);
 }
 
-.general-pest-control-main-menu-item.active .general-pest-control-main-arrow {
+.general-pest-control-main-menu-item.active
+.general-pest-control-main-arrow {
   background: var(--pest-dark);
   color: var(--pest-green);
 }
@@ -162,13 +171,13 @@
   position: relative;
   min-height: 340px;
   border-radius: 22px;
-  background: linear-gradient(160deg,#dcf88f,var(--pest-green));
+  background: linear-gradient(160deg, #dcf88f, var(--pest-green));
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 34px 24px;
-  box-shadow: 0 18px 40px rgba(70,110,35,.16);
+  box-shadow: 0 18px 40px rgba(70, 110, 35, 0.16);
 }
 
 .general-pest-control-main-contact-decoration {
@@ -180,7 +189,7 @@
 .general-pest-control-main-contact-decoration-one {
   width: 220px;
   height: 220px;
-  background: rgba(255,255,255,.32);
+  background: rgba(255, 255, 255, 0.32);
   top: -90px;
   right: -90px;
 }
@@ -188,7 +197,7 @@
 .general-pest-control-main-contact-decoration-two {
   width: 260px;
   height: 260px;
-  background: rgba(165,225,69,.42);
+  background: rgba(165, 225, 69, 0.42);
   bottom: -120px;
   left: -90px;
 }
@@ -219,13 +228,12 @@
   justify-content: center;
   margin: 0 auto 22px;
   color: var(--pest-dark);
-  box-shadow: 0 10px 24px rgba(23,62,45,.12);
-  transition: transform .4s ease, box-shadow .4s ease;
+  box-shadow: 0 10px 24px rgba(23, 62, 45, 0.12);
+  transition: transform 0.4s ease;
 }
 
 .general-pest-control-main-contact-phone-icon:hover {
   transform: rotate(-12deg) scale(1.1);
-  box-shadow: 0 15px 30px rgba(0,0,0,.16);
 }
 
 .general-pest-control-main-contact-phone-icon svg {
@@ -264,15 +272,14 @@
   color: var(--pest-dark);
   font-size: 16px;
   font-weight: 800;
-  box-shadow: 0 10px 24px rgba(70,110,35,.14);
-  transition: background .4s ease, color .4s ease, transform .4s ease, box-shadow .4s ease;
+  box-shadow: 0 10px 24px rgba(70, 110, 35, 0.14);
+  transition: all 0.4s ease;
 }
 
 .general-pest-control-main-download:hover {
   background: var(--pest-dark);
   color: white;
   transform: translateY(-4px);
-  box-shadow: 0 16px 34px rgba(20,50,35,.2);
 }
 
 .general-pest-control-main-download svg {
@@ -292,7 +299,9 @@
 .general-pest-control-main-reveal {
   opacity: 0;
   transform: translateY(36px);
-  transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .general-pest-control-main-reveal.is-visible {
@@ -300,16 +309,16 @@
   transform: none;
 }
 
-/* HERO */
+/* HERO SECTION */
 
 .general-pest-control-main-hero {
   position: relative;
   height: 430px;
   overflow: hidden;
   border-radius: 24px;
-  background: linear-gradient(135deg,#1f5a42,#173e2d);
+  background: linear-gradient(135deg, #1f5a42, #173e2d);
   isolation: isolate;
-  box-shadow: 0 24px 50px rgba(23,62,45,.2);
+  box-shadow: 0 24px 50px rgba(23, 62, 45, 0.2);
 }
 
 .general-pest-control-main-hero-image {
@@ -320,21 +329,30 @@
   object-fit: cover;
   object-position: center;
   display: block;
-  animation: generalPestControlHeroReveal .9s ease;
-  transition: transform .9s ease;
+  animation: generalPestHeroReveal 0.9s ease;
+  transition: transform 0.9s ease;
   z-index: -1;
 }
 
-.general-pest-control-main-hero:hover .general-pest-control-main-hero-image {
+.general-pest-control-main-hero:hover
+.general-pest-control-main-hero-image {
   transform: scale(1.04);
+}
+
+.general-pest-control-main-hero-fallback {
+  background: linear-gradient(135deg, #1f5a42, #173e2d);
 }
 
 .general-pest-control-main-hero-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg,rgba(8,28,20,0) 25%,rgba(8,28,20,.82) 100%),
-    linear-gradient(90deg,rgba(8,28,20,.45),transparent 65%);
+    linear-gradient(
+      180deg,
+      rgba(8, 28, 20, 0) 25%,
+      rgba(8, 28, 20, 0.82) 100%
+    ),
+    linear-gradient(90deg, rgba(8, 28, 20, 0.45), transparent 65%);
   pointer-events: none;
 }
 
@@ -348,13 +366,13 @@
   gap: 10px;
   padding: 9px 16px;
   border-radius: 40px;
-  background: rgba(255,255,255,.16);
-  border: 1px solid rgba(255,255,255,.3);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 .general-pest-control-main-hero-counter i {
@@ -373,7 +391,7 @@
   max-width: 620px;
   color: white;
   z-index: 2;
-  animation: generalPestControlTextIn .8s cubic-bezier(.2,.8,.2,1);
+  animation: generalPestTextIn 0.8s ease;
 }
 
 .general-pest-control-main-hero-label {
@@ -389,11 +407,11 @@
 }
 
 .general-pest-control-main-hero-text h1 {
-  font-size: clamp(26px,3.2vw,42px);
+  font-size: clamp(26px, 3.2vw, 42px);
   line-height: 1.15;
   margin: 0 0 12px;
   font-weight: 700;
-  letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
 
 .general-pest-control-main-hero-text p {
@@ -401,7 +419,7 @@
   font-size: 15px;
   line-height: 1.75;
   margin: 0;
-  color: rgba(255,255,255,.9);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* COMMON HEADINGS */
@@ -417,23 +435,28 @@
 
 .general-pest-control-main-overview,
 .general-pest-control-main-comprehensive,
+.general-pest-control-main-process,
+.general-pest-control-main-location,
 .general-pest-control-main-faq {
   margin-top: 52px;
 }
 
 .general-pest-control-main-overview h2,
 .general-pest-control-main-comprehensive h2,
+.general-pest-control-main-process h2,
+.general-pest-control-main-location h2,
 .general-pest-control-main-faq h2 {
   color: #18382c;
-  font-size: clamp(24px,2.6vw,33px);
+  font-size: clamp(24px, 2.6vw, 33px);
   line-height: 1.25;
   font-weight: 700;
   margin: 0 0 18px;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 
 .general-pest-control-main-overview p,
-.general-pest-control-main-comprehensive > p {
+.general-pest-control-main-comprehensive > p,
+.general-pest-control-main-location > p {
   font-size: 16px;
   line-height: 1.9;
   color: #59615c;
@@ -444,7 +467,7 @@
 
 .general-pest-control-main-image-grid {
   display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   margin-top: 30px;
 }
@@ -454,13 +477,13 @@
   padding: 12px 12px 22px;
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 10px 26px rgba(23,62,45,.06);
-  transition: transform .45s ease, box-shadow .45s ease;
+  box-shadow: 0 10px 26px rgba(23, 62, 45, 0.06);
+  transition: transform 0.45s ease, box-shadow 0.45s ease;
 }
 
 .general-pest-control-main-image-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 22px 44px rgba(23,62,45,.14);
+  box-shadow: 0 22px 44px rgba(23, 62, 45, 0.14);
 }
 
 .general-pest-control-main-image-wrap {
@@ -476,10 +499,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform .7s ease;
+  transition: transform 0.7s ease;
 }
 
-.general-pest-control-main-image-card:hover .general-pest-control-main-image-wrap img {
+.general-pest-control-main-image-card:hover
+.general-pest-control-main-image-wrap img {
   transform: scale(1.09);
 }
 
@@ -497,14 +521,6 @@
   color: var(--pest-dark);
   font-size: 13px;
   font-weight: 800;
-  transform: translateY(-10px);
-  opacity: 0;
-  transition: .4s ease;
-}
-
-.general-pest-control-main-image-card:hover .general-pest-control-main-image-number {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .general-pest-control-main-image-card h3 {
@@ -518,6 +534,160 @@
   line-height: 1.75;
   color: #69736d;
   margin: 0 10px;
+}
+
+/* PROCESS */
+
+.general-pest-control-main-process-intro {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #69736d;
+  margin-bottom: 28px;
+}
+
+.general-pest-control-main-process-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.general-pest-control-main-process-item {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 14px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(23, 62, 45, 0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.general-pest-control-main-process-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(23, 62, 45, 0.1);
+}
+
+.general-pest-control-main-process-image {
+  position: relative;
+  height: 145px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #e5e9e5;
+}
+
+.general-pest-control-main-process-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.general-pest-control-main-process-item:hover
+.general-pest-control-main-process-image img {
+  transform: scale(1.08);
+}
+
+.general-pest-control-main-process-image span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--pest-green);
+  color: var(--pest-dark);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.general-pest-control-main-process-content > span {
+  color: #779c43;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.general-pest-control-main-process-content h3 {
+  color: var(--pest-dark);
+  font-size: 19px;
+  margin: 8px 0;
+}
+
+.general-pest-control-main-process-content p {
+  color: #69736d;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* BENEFITS */
+
+.general-pest-control-main-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.general-pest-control-main-benefits > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 6px 18px rgba(23, 62, 45, 0.04);
+}
+
+.general-pest-control-main-benefits span {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--pest-green);
+  border-radius: 50%;
+  color: var(--pest-dark);
+  font-weight: 800;
+}
+
+.general-pest-control-main-benefits p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--pest-dark);
+  font-weight: 600;
+}
+
+/* SERVICE LOCATIONS */
+
+.general-pest-control-main-location {
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 28px rgba(23, 62, 45, 0.06);
+}
+
+.general-pest-control-main-location-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.general-pest-control-main-location-tags span {
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #eaf7d3;
+  color: var(--pest-dark);
+  font-size: 14px;
+  font-weight: 700;
 }
 
 /* FAQ */
@@ -543,13 +713,13 @@
   border-radius: 18px;
   background: white;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(23,62,45,.04);
-  transition: background .4s ease, box-shadow .4s ease;
+  box-shadow: 0 6px 18px rgba(23, 62, 45, 0.04);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .general-pest-control-main-faq-item.faq-active {
-  background: linear-gradient(135deg,#dcf88f,var(--pest-green));
-  box-shadow: 0 14px 30px rgba(70,110,35,.14);
+  background: linear-gradient(135deg, #dcf88f, var(--pest-green));
+  box-shadow: 0 14px 30px rgba(70, 110, 35, 0.14);
 }
 
 .general-pest-control-main-faq-question {
@@ -581,12 +751,12 @@
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  font-weight: 400;
   line-height: 1;
-  transition: transform .4s ease, background .4s ease;
+  transition: transform 0.4s ease, background 0.4s ease;
 }
 
-.general-pest-control-main-faq-item.faq-active .general-pest-control-main-faq-toggle {
+.general-pest-control-main-faq-item.faq-active
+.general-pest-control-main-faq-toggle {
   transform: rotate(180deg);
   background: var(--pest-dark);
   color: var(--pest-green);
@@ -595,14 +765,15 @@
 .general-pest-control-main-faq-answer {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows .4s ease;
+  transition: grid-template-rows 0.4s ease;
 }
 
 .general-pest-control-main-faq-answer > div {
   overflow: hidden;
 }
 
-.general-pest-control-main-faq-item.faq-active .general-pest-control-main-faq-answer {
+.general-pest-control-main-faq-item.faq-active
+.general-pest-control-main-faq-answer {
   grid-template-rows: 1fr;
 }
 
@@ -620,14 +791,14 @@
   position: relative;
   padding: 40px 42px;
   border-radius: 22px;
-  background: linear-gradient(135deg,#1f5a42,var(--pest-dark));
+  background: linear-gradient(135deg, #1f5a42, var(--pest-dark));
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 26px;
   overflow: hidden;
-  box-shadow: 0 22px 46px rgba(23,62,45,.25);
+  box-shadow: 0 22px 46px rgba(23, 62, 45, 0.25);
 }
 
 .general-pest-control-main-bottom-cta::after {
@@ -635,7 +806,7 @@
   position: absolute;
   width: 240px;
   height: 240px;
-  border: 40px solid rgba(208,244,123,.12);
+  border: 40px solid rgba(208, 244, 123, 0.12);
   border-radius: 50%;
   right: -70px;
   top: -110px;
@@ -656,7 +827,8 @@
 
 .general-pest-control-main-bottom-cta h2 {
   margin: 12px 0 8px;
-  font-size: clamp(22px,2.6vw,30px);
+  font-size: clamp(22px, 2.6vw, 30px);
+  color: white;
 }
 
 .general-pest-control-main-bottom-cta p {
@@ -678,7 +850,7 @@
   gap: 12px;
   text-decoration: none;
   font-weight: 800;
-  transition: background .35s ease, transform .35s ease;
+  transition: background 0.35s ease, transform 0.35s ease;
 }
 
 .general-pest-control-main-cta-button:hover {
@@ -693,7 +865,7 @@
 
 /* ANIMATIONS */
 
-@keyframes generalPestControlHeroReveal {
+@keyframes generalPestHeroReveal {
   from {
     opacity: 0;
     transform: scale(1.06);
@@ -704,7 +876,7 @@
   }
 }
 
-@keyframes generalPestControlTextIn {
+@keyframes generalPestTextIn {
   from {
     opacity: 0;
     transform: translateY(22px);
@@ -715,12 +887,12 @@
   }
 }
 
-@keyframes generalPestControlFloat {
+@keyframes generalPestFloat {
   0%, 100% {
-    transform: translate(0,0) scale(1);
+    transform: translate(0, 0) scale(1);
   }
   50% {
-    transform: translate(16px,18px) scale(1.06);
+    transform: translate(16px, 18px) scale(1.06);
   }
 }
 
@@ -728,7 +900,7 @@
 
 @media (max-width: 1100px) {
   .general-pest-control-main-container {
-    grid-template-columns: 290px minmax(0,1fr);
+    grid-template-columns: 290px minmax(0, 1fr);
     gap: 28px;
   }
 
@@ -787,7 +959,7 @@
 
   .general-pest-control-main-menu {
     display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
@@ -821,140 +993,93 @@
     min-height: 300px;
   }
 
-  .general-pest-control-main-download {
-    min-height: 60px;
-  }
-
-  .general-pest-control-main-hero {
-    height: 360px;
-    border-radius: 20px;
-  }
-
-  .general-pest-control-main-hero-text {
-    left: 22px;
-    right: 20px;
-    bottom: 24px;
-  }
-
-  .general-pest-control-main-hero-text p {
-    font-size: 14px;
-  }
-
-  .general-pest-control-main-overview,
-  .general-pest-control-main-comprehensive,
-  .general-pest-control-main-faq {
-    margin-top: 42px;
+  .general-pest-control-main-image-grid {
+    grid-template-columns: 1fr;
   }
 
   .general-pest-control-main-bottom-cta {
-    padding: 32px 24px;
     flex-direction: column;
     align-items: flex-start;
+    padding: 30px 24px;
+  }
+
+  .general-pest-control-main-process-item {
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+  }
+
+  .general-pest-control-main-process-image {
+    height: 130px;
   }
 }
 
 /* SMALL MOBILE */
 
-@media (max-width: 520px) {
-  .general-pest-control-main {
-    padding: 28px 14px 50px;
-  }
-
+@media (max-width: 540px) {
   .general-pest-control-main-menu {
     grid-template-columns: 1fr;
   }
 
-  .general-pest-control-main-menu-number {
-    display: block;
-  }
-
-  .general-pest-control-main-menu-item {
-    font-size: 15px;
-  }
-
   .general-pest-control-main-hero {
-    height: 330px;
+    height: 340px;
   }
 
-  .general-pest-control-main-hero-counter {
-    top: 14px;
-    right: 14px;
-    padding: 7px 12px;
-    font-size: 11px;
-  }
-
-  .general-pest-control-main-hero-text h1 {
-    font-size: 24px;
-  }
-
-  .general-pest-control-main-hero-text p {
-    font-size: 13px;
-    line-height: 1.65;
+  .general-pest-control-main-hero-text {
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
   }
 
   .general-pest-control-main-hero-label {
-    font-size: 9.5px;
-    padding: 7px 12px;
+    font-size: 9px;
+    letter-spacing: 1px;
   }
 
-  .general-pest-control-main-image-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .general-pest-control-main-image-wrap {
-    height: 220px;
+  .general-pest-control-main-hero-text h1 {
+    font-size: 27px;
   }
 
   .general-pest-control-main-faq-question {
-    min-height: 66px;
-    padding: 14px 16px;
+    padding: 14px 18px;
     font-size: 15px;
-  }
-
-  .general-pest-control-main-faq-toggle {
-    width: 34px;
-    height: 34px;
-    font-size: 21px;
   }
 
   .general-pest-control-main-faq-answer p {
-    padding: 0 16px 20px;
-    font-size: 14px;
+    padding: 0 18px 18px;
   }
 
-  .general-pest-control-main-contact-content h2 {
-    font-size: 22px;
+  .general-pest-control-main-process-item {
+    grid-template-columns: 1fr;
   }
 
-  .general-pest-control-main-contact-number {
-    font-size: 22px;
+  .general-pest-control-main-process-image {
+    height: 190px;
   }
 
-  .general-pest-control-main-download {
-    font-size: 15px;
+  .general-pest-control-main-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .general-pest-control-main-location {
+    padding: 22px 18px;
   }
 
   .general-pest-control-main-bottom-cta {
     padding: 28px 20px;
   }
 
-  .general-pest-control-main-bottom-cta h2 {
+  .general-pest-control-main-contact-content h2 {
     font-size: 23px;
   }
 }
 
-/* ACCESSIBILITY */
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
   .general-pest-control-main *,
   .general-pest-control-main *::before,
   .general-pest-control-main *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .general-pest-control-main-reveal {
-    opacity: 1;
-    transform: none;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
