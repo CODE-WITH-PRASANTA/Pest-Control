@@ -151,7 +151,7 @@
   z-index: 2;
   flex: 1 1 auto;
   min-width: 0;
-  max-width: 820px;
+  max-width: 860px;
 }
 
 .homemain-tag {
@@ -168,7 +168,7 @@
   color: #e7f5df;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0;
   animation: homemain-drop 0.9s var(--hm-ease) 0.2s forwards;
@@ -194,10 +194,10 @@
 .homemain-title {
   margin: 0;
   color: var(--hm-white);
-  font-size: clamp(2.6rem, 6.4vw, 6rem);
+  font-size: clamp(2.4rem, 5.4vw, 5.1rem);
   font-weight: 800;
-  line-height: 0.96;
-  letter-spacing: -0.045em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
   text-transform: uppercase;
 }
 
@@ -224,7 +224,12 @@
 
 .homemain-gradient {
   animation-delay: 0.65s;
-  background: linear-gradient(100deg, var(--hm-lime) 20%, var(--hm-lime-light) 45%, var(--hm-lime) 70%);
+  background: linear-gradient(
+    100deg,
+    var(--hm-lime) 20%,
+    var(--hm-lime-light) 45%,
+    var(--hm-lime) 70%
+  );
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -249,10 +254,10 @@
 /* ---------- Description ---------- */
 
 .homemain-description {
-  max-width: 640px;
+  max-width: 660px;
   margin: 28px 0 24px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  font-size: clamp(0.95rem, 1.08vw, 1.05rem);
   font-weight: 400;
   line-height: 1.75;
   opacity: 0;
@@ -727,7 +732,7 @@
   }
 
   .homemain-title {
-    font-size: clamp(2.6rem, 6.2vw, 5rem);
+    font-size: clamp(2.3rem, 5vw, 4.3rem);
   }
 }
 
@@ -752,7 +757,7 @@
   }
 
   .homemain-title {
-    font-size: clamp(2.8rem, 10vw, 5rem);
+    font-size: clamp(2.3rem, 7.6vw, 4.4rem);
   }
 
   .homemain-decoration-one {
@@ -784,8 +789,12 @@
 
   .homemain-tag {
     padding: 9px 14px;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.08em;
+  }
+
+  .homemain-title {
+    font-size: clamp(2rem, 8.2vw, 3.2rem);
   }
 
   .homemain-right-content {
@@ -821,17 +830,17 @@
   }
 
   .homemain-tag {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     gap: 8px;
   }
 
   .homemain-title {
-    font-size: clamp(2.3rem, 12.5vw, 3.4rem);
-    letter-spacing: -0.04em;
+    font-size: clamp(1.75rem, 8.2vw, 2.5rem);
+    letter-spacing: -0.035em;
   }
 
   .homemain-feature {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     padding: 8px 14px 8px 8px;
   }
 

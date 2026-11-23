@@ -5,7 +5,12 @@ import { FaArrowRight, FaShieldAlt, FaCheck } from "react-icons/fa";
 import "./HomeMain.css";
 import homeImage from "../../assets/homemain.png";
 
-const FEATURES = ["Expert Technicians", "Safe Solutions", "Trusted Service"];
+const FEATURES = [
+  "Safe Home",
+  "Effective Solution",
+  "Eco-Friendly Approach",
+  "24/7 Support",
+];
 const STAT_TARGET = 1; // shows as 1K+
 
 const HomeMain = () => {
@@ -47,10 +52,15 @@ const HomeMain = () => {
     };
   }, []);
 
-  const display = done ? String(STAT_TARGET) : Math.min(value, STAT_TARGET - 0.1).toFixed(1);
+  const display = done
+    ? String(STAT_TARGET)
+    : Math.min(value, STAT_TARGET - 0.1).toFixed(1);
 
   return (
-    <section className="homemain-section">
+    <section
+      className="homemain-section"
+      aria-label="GiriDurga Pest Controls - Your Home, Our Protection"
+    >
       {/* Background */}
       <div
         className="homemain-bg"
@@ -60,8 +70,14 @@ const HomeMain = () => {
       <div className="homemain-overlay" aria-hidden="true" />
       <div className="homemain-glow homemain-glow-one" aria-hidden="true" />
       <div className="homemain-glow homemain-glow-two" aria-hidden="true" />
-      <div className="homemain-decoration homemain-decoration-one" aria-hidden="true" />
-      <div className="homemain-decoration homemain-decoration-two" aria-hidden="true" />
+      <div
+        className="homemain-decoration homemain-decoration-one"
+        aria-hidden="true"
+      />
+      <div
+        className="homemain-decoration homemain-decoration-two"
+        aria-hidden="true"
+      />
 
       <div className="homemain-container">
         {/* Left Content */}
@@ -70,25 +86,41 @@ const HomeMain = () => {
             <span className="homemain-tag-icon">
               <FaShieldAlt />
             </span>
-            <span>Pest Control Service Providers in Cuttack</span>
+            <span>GiriDurga Pest Controls • Your Home, Our Protection</span>
             <span className="homemain-tag-dot" />
           </div>
 
-          <h1 className="homemain-title" aria-label="Insect Control">
+          <h1
+            className="homemain-title"
+            aria-label="GiriDurga Pest Controls"
+          >
             <span className="homemain-line" aria-hidden="true">
-              <span className="homemain-line-inner homemain-line-first">INSECT</span>
+              <span className="homemain-line-inner homemain-line-first">
+                GIRIDURGA
+              </span>
             </span>
-            <span className="homemain-line homemain-line-second" aria-hidden="true">
-              <span className="homemain-line-inner homemain-gradient">CONTROL</span>
+            <span
+              className="homemain-line homemain-line-second"
+              aria-hidden="true"
+            >
+              <span className="homemain-line-inner homemain-gradient">
+                PEST CONTROLS
+              </span>
               <span className="homemain-title-mark">▼</span>
             </span>
           </h1>
 
           <p className="homemain-description">
-            Looking for the <strong>Best Pest Control in Cuttack with genuine rates</strong>?
-            Our trained technicians deliver expert pest and termite control across
-            Cuttack, Bhubaneswar, and Puri—inspecting entry points and breeding
-            sites to apply safe, long-lasting pest control solutions.
+            Searching for the{" "}
+            <strong>Best Pest Control in Cuttack with genuine rates</strong>?{" "}
+            <strong>GiriDurga Pest Controls</strong> is among the top{" "}
+            <strong>pest control service providers in Cuttack, Odisha</strong>,
+            delivering{" "}
+            <strong>
+              expert pest and termite control across Cuttack, Bhubaneswar, and
+              Puri
+            </strong>{" "}
+            with safe, eco-friendly pest control solutions.
           </p>
 
           <ul className="homemain-features">
@@ -107,7 +139,9 @@ const HomeMain = () => {
         <div className="homemain-right-content">
           <div className="homemain-stat-card">
             <div
-              className={`homemain-stat-number ${done ? "homemain-stat-done" : ""}`}
+              className={`homemain-stat-number ${
+                done ? "homemain-stat-done" : ""
+              }`}
               aria-label="1K plus happy clients"
             >
               <span className="homemain-stat-value">{display}</span>
@@ -117,8 +151,11 @@ const HomeMain = () => {
 
             <div className="homemain-client-info">
               <p>
-                Happy clients trust us for the{" "}
-                <strong>best pest control services in Cuttack, Bhubaneswar &amp; Puri</strong>{" "}
+                Happy homes &amp; businesses trust{" "}
+                <strong>GiriDurga Pest Controls</strong> for the{" "}
+                <strong>
+                  best pest control services in Cuttack, Bhubaneswar &amp; Puri
+                </strong>{" "}
                 with genuine rates.
               </p>
             </div>
@@ -140,9 +177,9 @@ const HomeMain = () => {
 
         {/* Bottom Label */}
         <div className="homemain-bottom-label">
-          <span className="homemain-bottom-brand">INSECTRA</span>
+          <span className="homemain-bottom-brand">GIRIDURGA PEST CONTROLS</span>
           <span className="homemain-bottom-line" />
-          <span>Pest Control Solutions in Cuttack, Odisha</span>
+          <span>Pest Control Solutions in Cuttack, Bhubaneswar &amp; Puri</span>
         </div>
       </div>
     </section>

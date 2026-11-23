@@ -16,6 +16,7 @@ import FloatingIcons from './Components/FloatingIcons/FloatingIcons'
 import ServiceDetails from './Pages/ServiceDetails/ServiceDetails'
 import TermAndCondition from './Pages/TermAndCondition/TermAndCondition'
 import PrivicyandPolicy from './Pages/PrivicyandPolicy/PrivicyandPolicy'
+import GeneralPestControl from './Pages/GeneralPestControl/GeneralPestControl'
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
 
           <Route path="/terms" element={<TermAndCondition/>} />
           <Route path='/privacy' element={<PrivicyandPolicy/>}/>
+
+
+          <Route path='/general-pest-control' element={<GeneralPestControl/>}/>
         </Routes>
       </main>
 
