@@ -13,7 +13,7 @@
   background: var(--pest-bg);
   font-family: "DM Sans", sans-serif;
   color: var(--pest-text);
-  overflow: hidden;
+  overflow-x: clip;
 }
 
 .termite-management-service-main *,
@@ -64,11 +64,13 @@
   align-items: start;
 }
 
-/* SIDEBAR */
+/* STICKY SIDEBAR */
 
 .termite-management-service-main-sidebar {
+  position: -webkit-sticky;
   position: sticky;
   top: 24px;
+  align-self: start;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -214,7 +216,7 @@
 .termite-management-service-main-contact-content h2 {
   max-width: 280px;
   margin: 0 auto 22px;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1.25;
   font-weight: 700;
   color: var(--pest-dark);
@@ -360,9 +362,9 @@
     linear-gradient(
       180deg,
       rgba(8, 28, 20, 0) 25%,
-      rgba(8, 28, 20, 0.82) 100%
+      rgba(8, 28, 20, 0.85) 100%
     ),
-    linear-gradient(90deg, rgba(8, 28, 20, 0.45), transparent 65%);
+    linear-gradient(90deg, rgba(8, 28, 20, 0.5), transparent 65%);
   pointer-events: none;
 }
 
@@ -398,7 +400,7 @@
   left: 40px;
   right: 40px;
   bottom: 38px;
-  max-width: 620px;
+  max-width: 650px;
   color: white;
   z-index: 2;
   animation: termiteManagementServiceTextIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -425,11 +427,11 @@
 }
 
 .termite-management-service-main-hero-text p {
-  max-width: 520px;
+  max-width: 560px;
   font-size: 15px;
   line-height: 1.75;
   margin: 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* COMMON HEADINGS */
@@ -466,6 +468,59 @@
   line-height: 1.9;
   color: #59615c;
   margin: 0 0 18px;
+}
+
+.termite-management-service-main-overview strong,
+.termite-management-service-main-comprehensive strong {
+  color: var(--pest-dark);
+  font-weight: 700;
+}
+
+/* HIGHLIGHTS LIST */
+
+.termite-management-service-main-highlights {
+  list-style: none;
+  padding: 20px 24px;
+  margin: 24px 0 20px;
+  background: #ffffff;
+  border-radius: 18px;
+  border-left: 4px solid var(--pest-green-dark);
+  box-shadow: 0 8px 22px rgba(23, 62, 45, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.termite-management-service-main-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pest-dark);
+}
+
+.termite-management-service-main-highlight-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pest-green);
+  color: var(--pest-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.termite-management-service-main-highlight-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.termite-management-service-main-tagline {
+  font-weight: 700;
+  color: var(--pest-dark) !important;
+  font-size: 17px !important;
 }
 
 /* IMAGE GRID */
@@ -539,8 +594,17 @@
   transform: translateY(0);
 }
 
+.termite-management-service-main-card-subtitle {
+  display: block;
+  margin: 16px 10px 4px;
+  color: #779c43;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
 .termite-management-service-main-image-card h3 {
-  margin: 18px 10px 8px;
+  margin: 4px 10px 8px;
   color: var(--pest-dark);
   font-size: 19px;
 }
@@ -550,6 +614,51 @@
   line-height: 1.75;
   color: #69736d;
   margin: 0 10px;
+}
+
+/* LOCAL COVERAGE BOX */
+
+.termite-management-service-main-local-box {
+  margin-top: 32px;
+  padding: 26px 28px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 26px rgba(23, 62, 45, 0.05);
+}
+
+.termite-management-service-main-local-box
+  .termite-management-service-main-card-subtitle {
+  margin: 0 0 6px;
+}
+
+.termite-management-service-main-local-box h3 {
+  margin: 0 0 10px;
+  color: var(--pest-dark);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.termite-management-service-main-local-box p {
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #59615c;
+}
+
+.termite-management-service-main-keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.termite-management-service-main-keyword-tags span {
+  padding: 7px 14px;
+  border-radius: 50px;
+  background: #f2f7ec;
+  border: 1px solid rgba(119, 156, 67, 0.25);
+  color: var(--pest-dark);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 /* FAQ */
@@ -794,7 +903,7 @@
   }
 
   .termite-management-service-main-contact-content h2 {
-    font-size: 23px;
+    font-size: 21px;
   }
 
   .termite-management-service-main-hero {
@@ -821,11 +930,48 @@
 
   .termite-management-service-main-container {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 34px;
   }
 
   .termite-management-service-main-sidebar {
-    position: static;
+    position: relative;
+    top: 0;
+  }
+
+  .termite-management-service-main-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .termite-management-service-main-menu-item:hover,
+  .termite-management-service-main-menu-item.active {
+    transform: none;
+  }
+
+  .termite-management-service-main-menu-item {
+    min-height: 62px;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+
+  .termite-management-service-main-menu-number {
+    display: none;
+  }
+
+  .termite-management-service-main-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .termite-management-service-main-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .termite-management-service-main-contact-card {
+    min-height: 300px;
   }
 
   .termite-management-service-main-image-grid {
@@ -836,5 +982,40 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 30px 24px;
+  }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 540px) {
+  .termite-management-service-main-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .termite-management-service-main-hero {
+    height: 340px;
+  }
+
+  .termite-management-service-main-hero-text {
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .termite-management-service-main-highlights {
+    padding: 16px 18px;
+  }
+
+  .termite-management-service-main-local-box {
+    padding: 20px 18px;
+  }
+
+  .termite-management-service-main-faq-question {
+    padding: 14px 18px;
+    font-size: 15px;
+  }
+
+  .termite-management-service-main-faq-answer p {
+    padding: 0 18px 18px;
   }
 }

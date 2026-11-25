@@ -7,67 +7,72 @@ import servicetwo from "../../assets/service-d2.jpg";
 
 const services = [
   {
-    title: "Wood Borer Inspection",
-    heading: "Detailed Wood Borer Inspection Services",
+    title: "Woodborer Inspection",
+    subtitle: "EXIT HOLES & FRASS AUDIT",
+    heading: "Detailed Woodborer Inspection Services in Odisha",
     image: serviceone,
     description:
-      "Locate exit holes, fine wood dust (frass), tunneling and weakened timber across furniture, beams, doors and flooring.",
+      "Locate exit holes, fine wood dust (frass), internal larval tunnels, and weakened timber across furniture, doors, windows, and panels.",
   },
   {
-    title: "Wood Borer Treatment",
-    heading: "Professional Wood Borer Treatment Solutions",
+    title: "Woodborer Treatment",
+    subtitle: "ODORLESS & STAIN-FREE CARE",
+    heading: "Woodborer Management Services in Odisha",
     image: service,
     description:
-      "Bring powderpost beetle and wood-boring insect activity under control with targeted injection, surface and tailored treatments.",
+      "Giridurga Pest Control uses advanced injection techniques and odorless, government-approved wood treatment solutions to target woodborers at the larval stage.",
   },
   {
     title: "Furniture & Timber Care",
+    subtitle: "CABINETS, DOORS & PANELS",
     heading: "Targeted Furniture & Structural Timber Care",
     image: servicetwo,
     description:
-      "Focused treatment for wooden cabinets, wardrobes, paneling, rafters, staircases and decorative wood fixtures.",
+      "Safe, stain-free treatment for wooden furniture, wardrobes, wooden panels, storage units, and finishes with minimal disruption.",
   },
   {
     title: "Residential & Commercial Sites",
-    heading: "Wood Borer Control for Homes & Businesses",
+    subtitle: "HOMES, OFFICES & SHOWROOMS",
+    heading: "Woodborer Control for Homes & Businesses",
     image: service,
     description:
-      "Customized wood borer management plans for homes, apartments, showrooms, offices, hotels and commercial spaces.",
+      "Customized woodborer management plans for homes, offices, showrooms, institutions, and warehouses across Bhubaneswar, Cuttack, and Puri.",
   },
   {
     title: "Preventive Wood Protection",
-    heading: "Ongoing Wood Borer Prevention & Care",
+    subtitle: "LONG-TERM TIMBER DEFENSE",
+    heading: "Ongoing Woodborer Prevention & Care",
     image: serviceone,
     description:
-      "Minimize the risk of repeat wood borer damage with seasoned timber guidance, humidity control tips and scheduled follow-ups.",
+      "Protect valuable wooden assets from future attacks with preventive barriers and expert pest and termite control across Cuttack and Odisha.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does your wood borer management service include?",
+    question: "What does Giridurga Pest Control's woodborer management service include?",
     answer:
-      "Our service includes inspecting wooden items and structural timber, identifying active exit holes and wood dust, applying targeted treatment and sharing practical care tips to help prevent re-infestation.",
+      "Our service includes inspecting wooden furniture, doors, windows, and panels for exit holes and wood dust, applying targeted injection and surface treatments with government-approved, eco-safe chemicals, and sharing preventive care tips.",
   },
   {
-    question: "How do I know if wood borers are active in my furniture?",
+    question: "How do I know if woodborers are active in my furniture or woodwork?",
     answer:
-      "Common signs include small round exit holes in wood surfaces, fine sawdust-like powder (frass) below or around furniture, clicking sounds or soft, crumbling wood.",
+      "Common signs include tiny round exit holes on wood surfaces, fine sawdust-like powder (frass) falling below furniture, hollow-sounding timber, or weakened wood edges.",
   },
   {
-    question: "Are wood borer treatments safe for homes, children and pets?",
+    question: "Are your woodborer treatments odorless, stain-free, and safe for pets?",
     answer:
-      "We select appropriate treatment methods for indoor wood and living spaces and share clear safety guidance. Always follow your technician's instructions on ventilation and contact after treatment.",
+      "Yes. Giridurga Pest Control uses odorless, stain-free, government-approved formulations that are safe for all types of wood finishes, families, and pets, accompanied by clear ventilation guidance.",
   },
   {
-    question: "How long does a wood borer treatment take?",
+    question: "Which cities in Odisha do you serve for woodborer and pest control?",
     answer:
-      "Service time depends on the number of affected pieces or structural areas and how thoroughly they need to be treated. Your technician will let you know the expected time before starting.",
+      "We serve Bhubaneswar, Cuttack, Puri, and nearby regions in Odisha with genuine rates, minimal disruption, and reliable woodborer, termite, and general pest control services.",
   },
   {
     question: "Do you treat both household furniture and commercial woodwork?",
     answer:
-      "Yes. We provide wood borer control for residential furniture, doors and cabinetry as well as offices, showrooms, hospitality spaces and commercial buildings.",
+      "Yes. Whether it is your home, office, showroom, institution, or warehouse, we provide customized woodborer management solutions for all residential and commercial wooden assets.",
   },
 ];
 
@@ -107,6 +112,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -154,10 +171,7 @@ const WoodborermanagementserviceMain = () => {
   }, []);
 
   return (
-    <section
-      className="wood-borer-management-service-main"
-      ref={rootRef}
-    >
+    <section className="wood-borer-management-service-main" ref={rootRef}>
       <div className="wood-borer-management-service-main-glow wood-borer-management-service-main-glow-one" />
       <div className="wood-borer-management-service-main-glow wood-borer-management-service-main-glow-two" />
 
@@ -196,12 +210,12 @@ const WoodborermanagementserviceMain = () => {
             <div className="wood-borer-management-service-main-contact-decoration wood-borer-management-service-main-contact-decoration-two" />
 
             <div className="wood-borer-management-service-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+              <h2>Contact Giridurga Pest Control for any advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="wood-borer-management-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -266,7 +280,7 @@ const WoodborermanagementserviceMain = () => {
               key={`text-${activeService}`}
             >
               <span className="wood-borer-management-service-main-hero-label">
-                PROFESSIONAL WOOD BORER MANAGEMENT
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -278,73 +292,162 @@ const WoodborermanagementserviceMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="wood-borer-management-service-main-overview wood-borer-management-service-main-reveal">
             <span className="wood-borer-management-service-main-section-subtitle">
-              ABOUT WOOD BORER MANAGEMENT
+              GIRIDURGA PEST CONTROL • TIMBER &amp; FURNITURE EXPERTS
             </span>
 
-            <h2>Wood Borer Management Overview</h2>
+            <h2>Woodborer Management Services in Odisha</h2>
 
             <p>
-              Wood-boring insects tunnel through seasoned and structural timber,
-              leaving tiny exit holes and powdery frass while gradually
-              weakening furniture, doors, cabinetry and woodwork from the
-              inside out. Our team inspects affected wood, identifies active
-              zones and recommends targeted wood borer control for your
-              property.
+              Woodborers are silent destroyers that attack wooden furniture,
+              doors, windows, and structural timber from within. These tiny
+              pests lay eggs inside the wood, and their larvae bore deep
+              tunnels, weakening the structure and reducing the lifespan of your
+              valuable wooden assets.
             </p>
 
             <p>
-              Every piece of wood and building layout has different needs. We
-              examine wood condition, moisture exposure and signs of borer
-              activity before suggesting an effective treatment and prevention
-              plan.
+              At <strong>Giridurga Pest Control</strong>, we offer expert
+              woodborer management services in Odisha to help homeowners,
+              businesses, and institutions protect their wood from internal
+              damage. Our team uses advanced injection techniques and odorless
+              wood treatment solutions to control active infestations and help
+              prevent future attacks.
+            </p>
+
+            <p>
+              We inspect and treat infected areas in furniture, wooden panels,
+              and storage units using government-approved, eco-safe chemicals.
+              Our customized woodborer control solutions ensure minimal
+              disruption, no staining, and dependable safety for your family
+              and pets.
+            </p>
+
+            <p>
+              Whether it's your home, office, showroom, or warehouse, we
+              provide reliable and long-term protection across{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby regions.
+            </p>
+
+            <ul className="wood-borer-management-service-main-highlights">
+              <li>
+                <span className="wood-borer-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Targets woodborers at larval stage</span>
+              </li>
+              <li>
+                <span className="wood-borer-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Odorless, stain-free &amp; long-lasting treatment</span>
+              </li>
+              <li>
+                <span className="wood-borer-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Safe for all types of wood &amp; finishes</span>
+              </li>
+            </ul>
+
+            <p className="wood-borer-management-service-main-tagline">
+              Don’t wait until your woodwork is permanently damaged—act now with
+              Giridurga Pest Control.
             </p>
           </div>
 
           {/* COMPREHENSIVE SOLUTIONS */}
           <div className="wood-borer-management-service-main-comprehensive wood-borer-management-service-main-reveal">
             <span className="wood-borer-management-service-main-section-subtitle">
-              TARGETED WOOD BORER CONTROL
+              TARGETED WOODBORER CONTROL
             </span>
 
-            <h2>Complete Wood Borer Control Solutions</h2>
+            <h2>Woodborer Management Services in Odisha</h2>
 
             <p>
-              From household furniture to commercial interiors, we offer
-              practical wood borer management tailored to the timber type and
-              infestation conditions.
+              Trusted among{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong> and
+              known for the{" "}
+              <strong>best pest control services in Bhubaneswar</strong>,{" "}
+              <strong>pest control Puri</strong>, and{" "}
+              <strong>expert pest and termite control across Cuttack</strong>,
+              Giridurga Pest Control protects residential and commercial
+              woodwork at genuine rates.
             </p>
 
             <div className="wood-borer-management-service-main-image-grid">
               <div className="wood-borer-management-service-main-image-card">
                 <div className="wood-borer-management-service-main-image-wrap">
-                  <img src={serviceone} alt="Wood borer inspection" />
+                  <img
+                    src={serviceone}
+                    alt="Woodborer inspection in Odisha"
+                  />
                   <span className="wood-borer-management-service-main-image-number">
                     01
                   </span>
                 </div>
 
-                <h3>Detailed Inspection</h3>
+                <span className="wood-borer-management-service-main-card-subtitle">
+                  EXIT HOLES &amp; FRASS CHECK
+                </span>
+
+                <h3>Detailed Wood Inspection</h3>
 
                 <p>
-                  Detailed inspection to spot exit holes, wood dust and
-                  affected timber zones.
+                  Detailed inspection to spot exit holes, powdery wood dust,
+                  and internal larval tunnels across furniture and timber.
                 </p>
               </div>
 
               <div className="wood-borer-management-service-main-image-card">
                 <div className="wood-borer-management-service-main-image-wrap">
-                  <img src={servicetwo} alt="Wood borer treatment" />
+                  <img
+                    src={servicetwo}
+                    alt="Odorless woodborer injection treatment"
+                  />
                   <span className="wood-borer-management-service-main-image-number">
                     02
                   </span>
                 </div>
 
-                <h3>Targeted Treatment</h3>
+                <span className="wood-borer-management-service-main-card-subtitle">
+                  STAIN-FREE LARVAL TREATMENT
+                </span>
+
+                <h3>Advanced Injection Treatment</h3>
 
                 <p>
-                  Targeted control measures designed to manage wood borer
-                  activity reliably and safely.
+                  Precision injection and surface care using odorless,
+                  government-approved chemicals safe for all wood finishes.
                 </p>
+              </div>
+            </div>
+
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="wood-borer-management-service-main-local-box">
+              <span className="wood-borer-management-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Woodborer &amp; Pest Protection Across Odisha</h3>
+              <p>
+                Looking for{" "}
+                <strong>Best Pest Control in Cuttack with genuine rates</strong>{" "}
+                or dependable <strong>pest control near Cuttack, Odisha</strong>?
+                Giridurga Pest Control delivers the{" "}
+                <strong>best pest control services in Cuttack</strong> and
+                comprehensive{" "}
+                <strong>pest control solutions in Cuttack</strong>, Bhubaneswar,
+                and Puri.
+              </p>
+              <div className="wood-borer-management-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
               </div>
             </div>
           </div>
@@ -358,8 +461,8 @@ const WoodborermanagementserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="wood-borer-management-service-main-faq-intro">
-              Find answers to common questions about our wood borer inspection,
-              treatment and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              woodborer inspection, odorless treatment, and prevention services.
             </p>
 
             <div className="wood-borer-management-service-main-faq-list">
@@ -398,13 +501,14 @@ const WoodborermanagementserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="wood-borer-management-service-main-bottom-cta wood-borer-management-service-main-reveal">
             <div>
-              <span>PROTECT YOUR WOODWORK & PROPERTY</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
-              <h2>Need Professional Wood Borer Control?</h2>
+              <h2>Need Professional Woodborer Control?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Don’t wait until your woodwork is permanently damaged—contact
+                Giridurga Pest Control today for genuine rates and stain-free
+                protection.
               </p>
             </div>
 

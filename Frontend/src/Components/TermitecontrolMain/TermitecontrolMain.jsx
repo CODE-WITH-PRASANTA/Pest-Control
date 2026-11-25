@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import "./TermitecontrolMain.css";
 
@@ -8,72 +7,100 @@ import servicetwo from "../../assets/service-d2.jpg";
 
 const services = [
   {
-    title: "Termite Inspection",
-    heading: "Detailed Termite Inspection Services",
+    title: "Inspection & Detection",
+    subtitle: "COLONY & ENTRY POINT AUDIT",
+    heading: "Detailed Termite Inspection & Detection",
     image: serviceone,
     description:
-      "Identify termite colonies, mud tubes, damaged wood and hidden infestation areas with a detailed inspection of your property.",
+      "Identifying termite colonies, mud tubes, entry points, and the extent of infestation across wooden structures and foundations.",
   },
   {
-    title: "Anti-Termite Treatment",
-    heading: "Professional Anti-Termite Treatment Solutions",
+    title: "Soil & Wood Treatment",
+    subtitle: "ECO-FRIENDLY PROTECTIVE BARRIERS",
+    heading: "Professional Termite Control Services",
     image: service,
     description:
-      "Protect your property with professional termite treatment solutions designed to control active infestations and reduce structural damage.",
+      "Giridhar Pest Control uses eco-friendly chemicals to create reliable barriers and protect wooden structures from silent termite damage.",
   },
   {
-    title: "Pre-Construction Treatment",
-    heading: "Pre-Construction Termite Protection",
+    title: "Drilling & Injection Method",
+    subtitle: "DEEP WALL & FLOOR TREATMENT",
+    heading: "Precision Drilling & Injection Termite Control",
     image: servicetwo,
     description:
-      "Create a protective barrier against termites during construction with carefully planned soil and foundation treatment.",
+      "Applying termiticides directly into walls, floors, and affected areas for deep colony control with minimal disruption.",
   },
   {
-    title: "Post-Construction Treatment",
-    heading: "Advanced Post-Construction Termite Control",
+    title: "Baiting Systems",
+    subtitle: "COLONY MONITORING & CONTROL",
+    heading: "Targeted Termite Baiting Systems",
     image: service,
     description:
-      "Protect existing buildings through targeted termite treatment around foundations, walls, wooden structures and affected areas.",
+      "Installing strategic bait stations to monitor activity and eradicate termite colonies across residential and commercial properties.",
   },
   {
-    title: "Preventive Termite Management",
-    heading: "Long-Term Termite Prevention & Protection",
+    title: "Preventive Care",
+    subtitle: "NEW & EXISTING BUILDING PROTECTION",
+    heading: "Long-Term Preventive Termite Care",
     image: serviceone,
     description:
-      "Minimize future termite risks with preventive treatment recommendations, property monitoring and professional follow-up services.",
+      "Offering long-term protection plans to safeguard new and existing buildings in Bhubaneswar, Cuttack, Puri, and across Odisha.",
+  },
+];
+
+const helpItems = [
+  {
+    title: "Inspection & Detection",
+    detail:
+      "Identifying termite colonies, entry points, and the extent of infestation.",
+  },
+  {
+    title: "Soil & Wood Treatment",
+    detail:
+      "Using eco-friendly chemicals to create barriers and protect wooden structures.",
+  },
+  {
+    title: "Drilling & Injection Method",
+    detail:
+      "Applying termiticides directly into walls, floors, and affected areas for deep elimination.",
+  },
+  {
+    title: "Baiting Systems",
+    detail:
+      "Installing bait stations to monitor and eradicate termite colonies.",
+  },
+  {
+    title: "Preventive Care",
+    detail:
+      "Offering long-term protection plans to safeguard new and existing buildings.",
   },
 ];
 
 const faqs = [
   {
-    question: "What is included in your termite control service?",
+    question: "What is included in Giridhar Pest Control's termite service?",
     answer:
-      "Our termite control service includes property inspection, identification of termite activity, assessment of affected areas, suitable treatment recommendations and preventive guidance.",
+      "Our termite control service includes Inspection & Detection, Soil & Wood Treatment, the Drilling & Injection Method, Baiting Systems, and long-term Preventive Care tailored to your property.",
   },
   {
     question: "How do I know if my property has termites?",
     answer:
-      "Common signs include mud tubes on walls, hollow-sounding wood, damaged wooden furniture, discarded wings and small piles of termite droppings. A professional inspection can help confirm termite activity.",
+      "Common signs include mud tubes on walls, hollow-sounding wood, damaged wooden furniture, discarded wings, and small piles of droppings. Our inspection & detection service identifies hidden colonies and entry points early.",
   },
   {
-    question: "Do you provide pre-construction termite treatment?",
+    question: "Do you provide termite protection for both new and existing buildings?",
     answer:
-      "Yes. We provide pre-construction anti-termite treatment to help protect building foundations and soil areas before construction is completed.",
+      "Yes. Giridhar Pest Control offers soil and wood barriers for new construction as well as drilling & injection and baiting systems to safeguard existing homes and commercial buildings.",
   },
   {
-    question: "Is termite treatment safe for children and pets?",
+    question: "Are your termite control chemicals safe for children and pets?",
     answer:
-      "Treatment methods are selected according to the property and infestation. We provide appropriate safety instructions, and occupants should follow all technician guidance during and after treatment.",
+      "We use eco-friendly, approved chemicals applied with controlled techniques. Our technicians share clear safety and re-entry instructions suited to your home or workplace.",
   },
   {
-    question: "How long does termite treatment take?",
+    question: "Which locations in Odisha do you serve for termite and pest control?",
     answer:
-      "Treatment duration depends on the property size, construction type and severity of infestation. Our technician will explain the expected service duration after inspection.",
-  },
-  {
-    question: "Do you provide termite control for commercial properties?",
-    answer:
-      "Yes. We provide termite management solutions for houses, apartments, offices, hotels, restaurants, warehouses and other commercial properties.",
+      "Giridhar Pest Control serves Bhubaneswar, Cuttack, Puri, and surrounding cities in Odisha with genuine rates, fast scheduling, and expert termite and pest control services.",
   },
 ];
 
@@ -119,6 +146,18 @@ const PdfIcon = () => (
   </svg>
 );
 
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const TermitecontrolMain = () => {
   const rootRef = useRef(null);
 
@@ -133,9 +172,7 @@ const TermitecontrolMain = () => {
     const root = rootRef.current;
     if (!root) return;
 
-    const items = root.querySelectorAll(
-      ".termite-control-main-reveal"
-    );
+    const items = root.querySelectorAll(".termite-control-main-reveal");
 
     if (typeof IntersectionObserver === "undefined") {
       items.forEach((el) => el.classList.add("is-visible"));
@@ -160,18 +197,13 @@ const TermitecontrolMain = () => {
   }, []);
 
   return (
-    <section
-      className="termite-control-main"
-      ref={rootRef}
-    >
+    <section className="termite-control-main" ref={rootRef}>
       <div className="termite-control-main-glow termite-control-main-glow-one" />
       <div className="termite-control-main-glow termite-control-main-glow-two" />
 
       <div className="termite-control-main-container">
-
         {/* LEFT SIDEBAR */}
         <aside className="termite-control-main-sidebar">
-
           <div className="termite-control-main-menu">
             {services.map((srv, index) => (
               <button
@@ -200,17 +232,16 @@ const TermitecontrolMain = () => {
 
           {/* CONTACT CARD */}
           <div className="termite-control-main-contact-card">
-
             <div className="termite-control-main-contact-decoration termite-control-main-contact-decoration-one" />
             <div className="termite-control-main-contact-decoration termite-control-main-contact-decoration-two" />
 
             <div className="termite-control-main-contact-content">
-              <h2>Contact with us for expert termite advice</h2>
+              <h2>Contact Giridhar Pest Control for expert termite advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="termite-control-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridhar Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -239,7 +270,6 @@ const TermitecontrolMain = () => {
 
         {/* RIGHT CONTENT */}
         <main className="termite-control-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`termite-control-main-hero ${
@@ -274,7 +304,7 @@ const TermitecontrolMain = () => {
               key={`text-${activeService}`}
             >
               <span className="termite-control-main-hero-label">
-                PROFESSIONAL TERMITE CONTROL
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -283,28 +313,66 @@ const TermitecontrolMain = () => {
             </div>
           </div>
 
-          {/* SERVICE OVERVIEW */}
+          {/* TERMITE CONTROL OVERVIEW */}
           <div className="termite-control-main-overview termite-control-main-reveal">
             <span className="termite-control-main-section-subtitle">
-              ABOUT TERMITE CONTROL
+              GIRIDHAR PEST CONTROL • PROFESSIONAL TERMITE PROTECTION
             </span>
 
-            <h2>Professional Termite Management Overview</h2>
+            <h2>Termite Control</h2>
 
             <p>
-              Termites are destructive pests that can silently damage
-              wooden furniture, doors, flooring, walls and building
-              foundations. Since termite colonies often remain hidden
-              underground or inside wooden structures, infestations
-              may go unnoticed until significant damage occurs.
+              Termites are silent destroyers that feed on wood, paper, and
+              other cellulose materials, causing severe structural damage if
+              left untreated. They often go unnoticed until the damage becomes
+              extensive, making professional termite control essential to
+              protect your property.
             </p>
 
             <p>
-              Our termite control services focus on identifying
-              infestation signs, locating affected areas and selecting
-              suitable treatment methods. We provide solutions for
-              residential, commercial and industrial properties to
-              help protect your valuable structures.
+              At <strong>Giridhar Pest Control</strong>, we serve{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and surrounding areas
+              in Odisha with reliable inspections and targeted treatments.
+              Recognized among trusted{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong> and
+              delivering the{" "}
+              <strong>best pest control services in Bhubaneswar</strong> and{" "}
+              <strong>pest control Puri</strong>, we help protect residential
+              and commercial buildings from costly structural repairs.
+            </p>
+          </div>
+
+          {/* HOW GIRIDHAR PEST CONTROL HELPS */}
+          <div className="termite-control-main-overview termite-control-main-reveal">
+            <span className="termite-control-main-section-subtitle">
+              ADVANCED TREATMENT &amp; PREVENTION
+            </span>
+
+            <h2>How Giridhar Pest Control Helps</h2>
+
+            <p>
+              <strong>Giridhar Pest Control</strong> provides advanced termite
+              treatment and prevention services, including:
+            </p>
+
+            <ul className="termite-control-main-highlights">
+              {helpItems.map((item) => (
+                <li key={item.title}>
+                  <span className="termite-control-main-highlight-icon">
+                    <CheckIcon />
+                  </span>
+                  <span>
+                    <strong>{item.title}</strong> – {item.detail}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="termite-control-main-tagline">
+              With expert techniques, safe chemicals, and proven methods,{" "}
+              <strong>Giridhar Pest Control</strong> helps safeguard your
+              property from termites, saving you from costly repairs and
+              damage.
             </p>
           </div>
 
@@ -317,63 +385,86 @@ const TermitecontrolMain = () => {
             <h2>Complete Termite Control Solutions</h2>
 
             <p>
-              From preventive soil treatment to controlling active
-              termite infestations, we provide professional solutions
-              designed around your building structure and specific
-              protection requirements.
+              From preventive soil barriers to deep drilling &amp; injection
+              and baiting systems, Giridhar Pest Control provides{" "}
+              <strong>expert pest and termite control across Cuttack</strong>,{" "}
+              <strong>pest control Bhubaneswar</strong>, and{" "}
+              <strong>pest control Puri</strong> tailored to your building
+              structure.
             </p>
 
             <div className="termite-control-main-image-grid">
-
               <div className="termite-control-main-image-card">
                 <div className="termite-control-main-image-wrap">
-                  <img src={serviceone} alt="Termite inspection service" />
+                  <img src={serviceone} alt="Termite inspection and detection" />
                   <span className="termite-control-main-image-number">
                     01
                   </span>
                 </div>
 
-                <h3>Detailed Termite Inspection</h3>
+                <span className="termite-control-main-card-subtitle">
+                  COLONY &amp; ENTRY POINT AUDIT
+                </span>
+
+                <h3>Inspection &amp; Detection</h3>
 
                 <p>
-                  Identify termite mud tubes, damaged wood,
-                  hidden colonies and vulnerable structural areas.
+                  Identifying termite colonies, mud tubes, entry points, and
+                  the extent of infestation across wood and masonry.
                 </p>
               </div>
 
               <div className="termite-control-main-image-card">
                 <div className="termite-control-main-image-wrap">
-                  <img src={servicetwo} alt="Professional anti termite treatment" />
+                  <img
+                    src={servicetwo}
+                    alt="Drilling and injection anti-termite treatment"
+                  />
                   <span className="termite-control-main-image-number">
                     02
                   </span>
                 </div>
 
-                <h3>Professional Termite Treatment</h3>
+                <span className="termite-control-main-card-subtitle">
+                  BARRIER &amp; BAITING CARE
+                </span>
+
+                <h3>Targeted Termite Treatment</h3>
 
                 <p>
-                  Apply appropriate treatment methods to control
-                  active termite infestations and protect structures.
+                  Combining soil &amp; wood barriers, drilling &amp; injection,
+                  and baiting systems for long-term property protection.
                 </p>
               </div>
             </div>
-          </div>
 
-          {/* WHY TERMITE CONTROL */}
-          <div className="termite-control-main-overview termite-control-main-reveal">
-            <span className="termite-control-main-section-subtitle">
-              WHY CHOOSE PROFESSIONAL PROTECTION
-            </span>
-
-            <h2>Protect Your Property From Hidden Termite Damage</h2>
-
-            <p>
-              Professional termite management helps identify hidden
-              infestation areas, reduce structural risks and prevent
-              recurring termite problems. Regular inspections and
-              suitable preventive measures are important for long-term
-              property protection.
-            </p>
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="termite-control-main-local-box">
+              <span className="termite-control-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Trusted Termite &amp; Pest Control Across Odisha</h3>
+              <p>
+                Looking for{" "}
+                <strong>Best Pest Control in Cuttack with genuine rates</strong>{" "}
+                or dependable <strong>pest control near Cuttack, Odisha</strong>?
+                Giridhar Pest Control offers the{" "}
+                <strong>best pest control services in Cuttack</strong> and
+                complete <strong>pest control solutions in Cuttack</strong>,
+                Bhubaneswar, and Puri.
+              </p>
+              <div className="termite-control-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
+              </div>
+            </div>
           </div>
 
           {/* FAQ SECTION */}
@@ -385,8 +476,9 @@ const TermitecontrolMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="termite-control-main-faq-intro">
-              Find answers to common questions about our termite
-              inspection, anti-termite treatment and prevention services.
+              Find answers to common questions about Giridhar Pest Control’s
+              termite inspection, anti-termite treatment, and prevention
+              services.
             </p>
 
             <div className="termite-control-main-faq-list">
@@ -425,13 +517,14 @@ const TermitecontrolMain = () => {
           {/* BOTTOM CTA */}
           <div className="termite-control-main-bottom-cta termite-control-main-reveal">
             <div>
-              <span>PROTECT YOUR PROPERTY TODAY</span>
+              <span>GIRIDHAR PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Termite Control?</h2>
 
               <p>
-                Keep your home and business protected from termite
-                damage. Contact our team for professional assistance.
+                Keep your home and business protected from termite damage.
+                Contact Giridhar Pest Control for expert assistance at genuine
+                rates.
               </p>
             </div>
 
@@ -443,7 +536,6 @@ const TermitecontrolMain = () => {
               <ArrowIcon />
             </a>
           </div>
-
         </main>
       </div>
     </section>

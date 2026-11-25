@@ -12,23 +12,23 @@ const services = [
     heading: "Detailed Disinfection & Sanitization Inspection",
     image: serviceone,
     description:
-      "Assess high-touch surfaces, shared spaces, restrooms, workstations and ventilation touchpoints to plan thorough sanitization coverage.",
+      "Assess high-touch surfaces, shared spaces, restrooms, workstations and ventilation touchpoints to plan thorough sanitization coverage across Odisha.",
   },
   {
     title: "Surface Disinfection",
     subtitle: "BROAD-SPECTRUM HYGIENE CARE",
-    heading: "Professional Disinfection & Sanitization Solutions",
+    heading: "Disinfection & Sanitization Services in Odisha",
     image: service,
     description:
-      "Reduce bacteria, viruses and surface contaminants across frequently touched points and rooms with structured disinfection procedures.",
+      "Giridurga Pest Control eliminates 99.9% of viruses, bacteria, and fungi across frequently touched surfaces using government-approved disinfectants.",
   },
   {
-    title: "Mist & Fog Sanitization",
+    title: "ULV Mist & Fog Sanitization",
     subtitle: "AIR & ENCLOSED SPACE COVERAGE",
-    heading: "Targeted Mist & Fogging Sanitization",
+    heading: "Advanced ULV Cold Fogging Sanitization",
     image: servicetwo,
     description:
-      "Reach hard-to-wipe corners, seating areas, cabins and enclosed rooms with controlled misting and sanitization application.",
+      "Reach hard-to-wipe corners, seating areas, cabins, and enclosed rooms with certified ULV cold fogging machines for total indoor hygiene.",
   },
   {
     title: "Residential & Commercial Care",
@@ -36,43 +36,43 @@ const services = [
     heading: "Sanitization Services for Homes & Businesses",
     image: service,
     description:
-      "Tailored disinfection and sanitization plans for apartments, houses, offices, clinics, schools, retail outlets and commercial premises.",
+      "Customized disinfection and sanitization solutions for homes, offices, hospitals, schools, shops, and industrial facilities in Bhubaneswar, Cuttack, and Puri.",
   },
   {
     title: "Preventive Hygiene Plans",
     subtitle: "ROUTINE & ONGOING SANITATION",
-    heading: "Ongoing Sanitization & Hygiene Management",
+    heading: "Ongoing Sanitization & Pest Management",
     image: serviceone,
     description:
-      "Maintain a cleaner, safer environment with practical hygiene routines, high-touch checklists and scheduled sanitization follow-ups.",
+      "Maintain a germ-free environment with scheduled sanitization follow-ups alongside expert pest and termite control across Cuttack, Bhubaneswar, and Puri.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does your disinfection and sanitization service include?",
+    question: "What does Giridurga Pest Control's sanitization service include?",
     answer:
-      "Our service includes evaluating high-touch surfaces and key zones, applying targeted disinfection and sanitization treatments, and sharing practical hygiene guidance.",
+      "Our service includes evaluating high-touch surfaces and key zones, applying government-approved disinfectants and ULV cold fogging treatments, and sharing practical hygiene guidance.",
   },
   {
-    question: "Are disinfection treatments safe for children and pets?",
+    question: "Are disinfection treatments safe for children, pets, and the environment?",
     answer:
-      "We select appropriate sanitization methods for the space and provide clear safety instructions. Always follow your technician's re-entry and surface-drying guidance.",
+      "Yes. We use government-approved, certified disinfectants that are safe for humans, pets, and the environment. Our trained technicians also provide clear re-entry and surface-drying guidance.",
   },
   {
-    question: "How often should sanitization be repeated?",
+    question: "Which cities in Odisha do you serve for sanitization and pest control?",
     answer:
-      "Frequency depends on footfall, shared usage, room type and hygiene requirements. Our team can recommend a suitable routine or periodic schedule after assessment.",
+      "Giridurga Pest Control serves Bhubaneswar, Cuttack, Puri, and surrounding cities in Odisha with affordable, fast, and reliable sanitization as well as pest and termite control services.",
   },
   {
-    question: "How long does sanitization take?",
+    question: "How long does sanitization take and how effective is it?",
     answer:
-      "Duration depends on property size, room count and the treatment method used. Your technician will inform you of the expected time before starting.",
+      "Our certified disinfectants and advanced ULV fogging machines kill 99.9% of viruses, bacteria, and fungi. Duration depends on property size and room count, which our team confirms before starting.",
   },
   {
     question: "Do you provide sanitization for both homes and commercial spaces?",
     answer:
-      "Yes. We offer disinfection and sanitization services for residences, offices, clinics, hospitality spaces, warehouses and commercial buildings.",
+      "Yes. Whether it is your home, office, hospital, school, shop, or industrial facility, we offer customized disinfection and sanitization solutions tailored to your premises.",
   },
 ];
 
@@ -112,6 +112,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -201,12 +213,12 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
             <div className="disinfection-sanitization-management-service-main-contact-decoration disinfection-sanitization-management-service-main-contact-decoration-two" />
 
             <div className="disinfection-sanitization-management-service-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+              <h2>Contact Giridurga Pest Control for any advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="disinfection-sanitization-management-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -283,22 +295,71 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="disinfection-sanitization-management-service-main-overview disinfection-sanitization-management-service-main-reveal">
             <span className="disinfection-sanitization-management-service-main-section-subtitle">
-              HYGIENE &amp; SANITIZATION STRATEGY
+              GIRIDURGA PEST CONTROL • ODISHA HYGIENE EXPERTS
             </span>
 
-            <h2>Disinfection &amp; Sanitization Overview</h2>
+            <h2>Disinfection &amp; Sanitization Services in Odisha</h2>
 
             <p>
-              Door handles, switches, desks, counters and shared rooms pick up
-              daily contact germs and microbes quickly. Our team evaluates
-              high-exposure areas and applies targeted disinfection and
-              sanitization to keep your space hygienic.
+              In today’s health-conscious world, maintaining hygiene in homes,
+              offices, schools, and commercial spaces is more important than
+              ever. Germs, viruses, and bacteria can spread quickly, leading to
+              serious health risks for your family, staff, or customers.
             </p>
 
             <p>
-              Every property has different traffic and usage patterns. We
-              consider room layout, occupancy and high-contact surfaces before
-              recommending an appropriate sanitization and maintenance plan.
+              At <strong>Giridurga Pest Control</strong>, we provide
+              professional disinfection and sanitization services in Odisha to
+              eliminate harmful microorganisms from surfaces and enclosed
+              spaces. Our trained team uses government-approved disinfectants
+              and ULV cold fogging technology to sanitize areas effectively and
+              safely.
+            </p>
+
+            <p>
+              Whether it's your home, office, hospital, school, shop, or
+              industrial facility, we offer customized sanitization solutions
+              that are safe for humans, pets, and the environment. Our team
+              ensures deep cleaning of high-touch areas to minimize infection
+              risk and ensure total hygiene.
+            </p>
+
+            <p>
+              We serve <strong>Bhubaneswar, Cuttack, Puri</strong>, and
+              surrounding cities in Odisha with affordable, fast, and reliable
+              sanitization services. Recognized among trusted{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong> and
+              offering the{" "}
+              <strong>best pest control services in Bhubaneswar</strong> and{" "}
+              <strong>pest control Puri</strong>, we deliver complete hygiene
+              and <strong>pest control solutions in Cuttack</strong> and nearby
+              regions.
+            </p>
+
+            <ul className="disinfection-sanitization-management-service-main-highlights">
+              <li>
+                <span className="disinfection-sanitization-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Certified disinfectants &amp; advanced fogging machines</span>
+              </li>
+              <li>
+                <span className="disinfection-sanitization-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Kills 99.9% of viruses, bacteria &amp; fungi</span>
+              </li>
+              <li>
+                <span className="disinfection-sanitization-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Trained professionals with safety gear</span>
+              </li>
+            </ul>
+
+            <p className="disinfection-sanitization-management-service-main-tagline">
+              Ensure a germ-free environment with Odisha’s trusted disinfection
+              experts at Giridurga Pest Control.
             </p>
           </div>
 
@@ -308,11 +369,16 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
               SURFACE &amp; SPACE COVERAGE
             </span>
 
-            <h2>Complete Disinfection &amp; Sanitization Solutions</h2>
+            <h2>Disinfection &amp; Sanitization Services in Odisha</h2>
 
             <p>
-              From home interiors to busy commercial premises, we provide
-              practical sanitization tailored to the space and hygiene needs.
+              From residential apartments to hospitals and industrial units,
+              Giridurga Pest Control provides the{" "}
+              <strong>best pest control services in Cuttack</strong>,{" "}
+              <strong>pest control Bhubaneswar</strong>, and{" "}
+              <strong>pest control Puri</strong> alongside specialized ULV
+              sanitization and{" "}
+              <strong>expert pest and termite control across Cuttack</strong>.
             </p>
 
             <div className="disinfection-sanitization-management-service-main-image-grid">
@@ -320,7 +386,7 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
                 <div className="disinfection-sanitization-management-service-main-image-wrap">
                   <img
                     src={serviceone}
-                    alt="Disinfection and hygiene inspection"
+                    alt="Disinfection and hygiene inspection in Odisha"
                   />
                   <span className="disinfection-sanitization-management-service-main-image-number">
                     01
@@ -334,8 +400,9 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
                 <h3>Detailed Inspection</h3>
 
                 <p>
-                  Detailed inspection to identify high-contact surfaces and
-                  priority sanitization zones.
+                  Thorough site assessment to identify high-contact surfaces,
+                  shared rooms, and priority sanitization zones for homes and
+                  commercial facilities.
                 </p>
               </div>
 
@@ -343,7 +410,7 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
                 <div className="disinfection-sanitization-management-service-main-image-wrap">
                   <img
                     src={servicetwo}
-                    alt="Sanitization treatment application"
+                    alt="ULV cold fogging sanitization treatment"
                   />
                   <span className="disinfection-sanitization-management-service-main-image-number">
                     02
@@ -351,15 +418,43 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
                 </div>
 
                 <span className="disinfection-sanitization-management-service-main-card-subtitle">
-                  TARGETED APPLICATION
+                  ULV COLD FOGGING TECHNOLOGY
                 </span>
 
-                <h3>Targeted Treatment</h3>
+                <h3>Certified Sanitization Treatment</h3>
 
                 <p>
-                  Targeted sanitization procedures designed to maintain clean,
-                  hygienic indoor surfaces.
+                  Targeted application with government-approved disinfectants and
+                  advanced fogging machines that eliminate 99.9% of viruses,
+                  bacteria, and fungi.
                 </p>
+              </div>
+            </div>
+
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="disinfection-sanitization-management-service-main-local-box">
+              <span className="disinfection-sanitization-management-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Hygiene &amp; Pest Protection Across Odisha</h3>
+              <p>
+                Looking for{" "}
+                <strong>Best Pest Control in Cuttack with genuine rates</strong>{" "}
+                or dependable <strong>pest control near Cuttack, Odisha</strong>?
+                Giridurga Pest Control combines hospital-grade sanitization with
+                comprehensive pest management across Cuttack, Bhubaneswar, and
+                Puri.
+              </p>
+              <div className="disinfection-sanitization-management-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
               </div>
             </div>
           </div>
@@ -373,8 +468,9 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="disinfection-sanitization-management-service-main-faq-intro">
-              Find answers to common questions about our disinfection,
-              sanitization and hygiene services.
+              Find answers to common questions about Giridurga Pest Control’s
+              disinfection, ULV fogging sanitization, and hygiene services in
+              Odisha.
             </p>
 
             <div className="disinfection-sanitization-management-service-main-faq-list">
@@ -413,13 +509,14 @@ const DisinfectionsanitizationmanagementserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="disinfection-sanitization-management-service-main-bottom-cta disinfection-sanitization-management-service-main-reveal">
             <div>
-              <span>KEEP YOUR PROPERTY CLEAN &amp; SANITIZED</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Disinfection &amp; Sanitization?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Ensure a germ-free environment with Odisha’s trusted disinfection
+                experts. Contact Giridurga Pest Control for genuine rates and
+                fast service.
               </p>
             </div>
 

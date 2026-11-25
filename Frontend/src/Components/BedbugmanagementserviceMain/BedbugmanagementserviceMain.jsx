@@ -67,7 +67,7 @@ const faqs = [
   {
     question: "Do you provide bed bug control for homes and hotels?",
     answer:
-      "Yes. We provide bed bug management solutions for homes, flats, hotels, hostels, serviced apartments and commercial spaces.",
+      "Yes. Giridurga Pest Control provides bed bug management solutions for homes, flats, hotels, hostels, serviced apartments and commercial spaces across Odisha.",
   },
 ];
 
@@ -115,13 +115,49 @@ const PdfIcon = () => (
 
 const BedbugmanagementserviceMain = () => {
   const rootRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   const [activeService, setActiveService] = useState(1);
   const [activeFaq, setActiveFaq] = useState(0);
   const [failedImages, setFailedImages] = useState({});
+  const [stickyTop, setStickyTop] = useState(24);
 
   const currentService = services[activeService];
   const imageFailed = failedImages[activeService];
+
+  useEffect(() => {
+    const updateStickyOffset = () => {
+      if (!sidebarRef.current) return;
+      if (window.innerWidth <= 860) {
+        setStickyTop(0);
+        return;
+      }
+
+      const sidebarHeight = sidebarRef.current.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const bottomGap = 24;
+
+      if (sidebarHeight + 48 > viewportHeight) {
+        setStickyTop(viewportHeight - sidebarHeight - bottomGap);
+      } else {
+        setStickyTop(24);
+      }
+    };
+
+    updateStickyOffset();
+    window.addEventListener("resize", updateStickyOffset);
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined" && sidebarRef.current) {
+      resizeObserver = new ResizeObserver(updateStickyOffset);
+      resizeObserver.observe(sidebarRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateStickyOffset);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -158,12 +194,21 @@ const BedbugmanagementserviceMain = () => {
       className="bedbug-management-service-main"
       ref={rootRef}
     >
-      <div className="bedbug-management-service-main-glow bedbug-management-service-main-glow-one" />
-      <div className="bedbug-management-service-main-glow bedbug-management-service-main-glow-two" />
+      <div
+        className="bedbug-management-service-main-bg-wrap"
+        aria-hidden="true"
+      >
+        <div className="bedbug-management-service-main-glow bedbug-management-service-main-glow-one" />
+        <div className="bedbug-management-service-main-glow bedbug-management-service-main-glow-two" />
+      </div>
 
       <div className="bedbug-management-service-main-container">
         {/* LEFT SIDEBAR */}
-        <aside className="bedbug-management-service-main-sidebar">
+        <aside
+          className="bedbug-management-service-main-sidebar"
+          ref={sidebarRef}
+          style={{ top: `${stickyTop}px` }}
+        >
           <div className="bedbug-management-service-main-menu">
             {services.map((srv, index) => (
               <button
@@ -281,19 +326,69 @@ const BedbugmanagementserviceMain = () => {
               ABOUT BED BUG MANAGEMENT
             </span>
 
-            <h2>Bed Bug Management Overview</h2>
+            <h2>Bedbug Management Services</h2>
 
             <p>
-              Bed bugs hide in tight seams, mattresses, bed frames, sofas and
-              wall crevices, making them hard to eliminate with casual spot
-              sprays. Our team inspects affected rooms, locates harbourage
-              points and recommends targeted bed bug control for your property.
+              Are bedbugs disrupting your sleep and peace of mind? Giridurga
+              Pest Control offers specialized bedbug management services in
+              Odisha, designed to eliminate these stubborn pests from your home,
+              hotel, or office.
             </p>
 
             <p>
-              Every room setup is different. We assess furniture layout,
-              signs of bed bug presence and room usage before suggesting a
-              practical treatment and prevention plan.
+              Bedbugs are small, but they multiply quickly and hide in
+              mattresses, furniture, cracks, and even electrical outlets. Their
+              bites cause itching, allergic reactions, and severe discomfort.
+              DIY methods often fail to remove the infestation completely.
+              That’s why you need professional bedbug control services in Odisha
+              by trusted experts.
+            </p>
+
+            <p>
+              At Giridurga Pest Control, we use advanced techniques and safe,
+              government-approved chemicals to target bedbugs at every life
+              stage — eggs, nymphs, and adults. Our team conducts a thorough
+              inspection, customized treatment, and follow-up to ensure
+              long-lasting relief.
+            </p>
+
+            <h3 className="bedbug-management-service-main-subhead">
+              Why Choose Us?
+            </h3>
+
+            <ul className="bedbug-management-service-main-benefits">
+              <li>✔ Over 10 years of local experience</li>
+              <li>✔ Trained professionals using eco-friendly methods</li>
+              <li>✔ Affordable pricing and service warranty</li>
+              <li>✔ Discreet and prompt service</li>
+            </ul>
+
+            <p className="bedbug-management-service-main-closing-note">
+              Protect your family, guests, and reputation from bedbug
+              infestations. Contact Giridurga Pest Control — the leading name in
+              bedbug pest control in Odisha.
+            </p>
+          </div>
+
+          {/* WHAT ARE BEDBUGS */}
+          <div className="bedbug-management-service-main-overview bedbug-management-service-main-reveal">
+            <span className="bedbug-management-service-main-section-subtitle">
+              UNDERSTANDING THE PEST
+            </span>
+
+            <h2>What Are Bedbugs &amp; How Harmful Are They?</h2>
+
+            <p>
+              Bed bugs are small, flat, wingless insects that feed on human
+              blood, usually at night. They hide in mattresses, bed frames,
+              furniture, and small cracks in the home. Although they don’t
+              spread diseases, bed bugs can cause itchy bites, skin irritation,
+              and allergic reactions. Their presence often leads to disturbed
+              sleep, stress, and anxiety. They reproduce quickly, making
+              infestations hard to control without professional treatment. Bed
+              bugs can also leave behind stains on bedding and furniture.
+              Overall, they are harmful pests that affect both health and
+              hygiene, and should be dealt with as soon as possible.
             </p>
           </div>
 
@@ -344,6 +439,28 @@ const BedbugmanagementserviceMain = () => {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* HOW GIRIDURGA PEST CONTROL HELPS */}
+          <div className="bedbug-management-service-main-overview bedbug-management-service-main-reveal">
+            <span className="bedbug-management-service-main-section-subtitle">
+              WHY GIRIDURGA PEST CONTROL
+            </span>
+
+            <h2>How Giridurga Pest Control Helps</h2>
+
+            <p>
+              Giridurga Pest Control provides professional and effective
+              solutions to eliminate bed bug infestations from homes and
+              businesses. Our trained experts use advanced methods and safe,
+              eco-friendly chemicals to detect, target, and eliminate bed bugs
+              at all life stages from eggs to adults. We offer thorough
+              inspection, customized treatment plans, and follow-up services to
+              ensure long-term protection. With fast response, reliable service,
+              and years of experience, Giridurga Pest Control helps restore
+              comfort, hygiene, and peace of mind by making your space
+              completely bed bug-free.
+            </p>
           </div>
 
           {/* FAQ SECTION */}
@@ -400,8 +517,8 @@ const BedbugmanagementserviceMain = () => {
               <h2>Need Professional Bed Bug Control?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Get in touch with Giridurga Pest Control and find the right
+                solution for your property.
               </p>
             </div>
 

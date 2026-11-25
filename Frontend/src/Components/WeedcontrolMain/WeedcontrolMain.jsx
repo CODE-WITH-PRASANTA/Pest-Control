@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import "./WeedcontrolMain.css";
 
@@ -9,38 +8,43 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Weed Inspection",
-    heading: "Professional Weed Inspection Services",
+    subtitle: "LAWN, GARDEN & FIELD AUDIT",
+    heading: "Professional Weed Inspection Services in Odisha",
     image: serviceone,
     description:
-      "Our experts inspect lawns, gardens, agricultural fields and commercial properties to identify unwanted weeds and understand their growth patterns.",
+      "Our experts inspect lawns, gardens, agricultural fields, and commercial properties to identify unwanted weeds and understand their growth patterns.",
   },
   {
     title: "Herbicide Application",
-    heading: "Effective Herbicide Application Solutions",
+    subtitle: "APPROVED VEGETATION CONTROL",
+    heading: "Professional Weed Control Services in Odisha",
     image: service,
     description:
-      "We use suitable and approved herbicide treatments to control unwanted weeds while following recommended application and safety practices.",
+      "Giridurga Pest Control uses suitable, approved herbicide treatments to control unwanted weeds while following recommended application and safety practices.",
   },
   {
     title: "Manual Weed Removal",
+    subtitle: "ROOT-LEVEL EXTRACTION CARE",
     heading: "Complete Manual & Mechanical Weed Removal",
     image: servicetwo,
     description:
-      "Our team removes unwanted weeds from roots using appropriate manual and mechanical methods to help reduce regrowth.",
+      "Our team removes unwanted weeds from their roots using appropriate manual and mechanical methods to help reduce regrowth.",
   },
   {
     title: "Preventive Weed Treatment",
+    subtitle: "PRE-EMERGENCE & SPREAD PREVENTION",
     heading: "Advanced Weed Prevention & Management",
     image: serviceone,
     description:
-      "Preventive weed management solutions help control early weed growth and reduce the chances of unwanted vegetation spreading.",
+      "Preventive weed management solutions help control early weed growth and reduce the chances of unwanted vegetation spreading across your property.",
   },
   {
     title: "Commercial & Agricultural Weed Control",
-    heading: "Customized Weed Control for Every Property",
+    subtitle: "FIELDS, LAWNS & INDUSTRIAL PREMISES",
+    heading: "Customized Weed Control for Every Property in Odisha",
     image: service,
     description:
-      "We provide customized weed management plans for agricultural fields, gardens, lawns, industrial premises and commercial properties.",
+      "Customized weed management plans for agricultural fields, gardens, lawns, industrial premises, and commercial properties across Bhubaneswar, Cuttack, and Puri.",
   },
 ];
 
@@ -48,27 +52,27 @@ const faqs = [
   {
     question: "What is weed control treatment?",
     answer:
-      "Weed control is a pest and vegetation management process that helps remove unwanted plants and prevent their regrowth. It includes inspection, suitable herbicide application, manual removal and preventive measures.",
+      "Weed control is a vegetation management process that removes unwanted plants and helps prevent their regrowth. It includes inspection & identification, suitable herbicide application, manual & mechanical removal, and preventive measures.",
   },
   {
     question: "Why is professional weed control important?",
     answer:
-      "Uncontrolled weeds compete with useful plants and crops for water, sunlight and nutrients. Professional weed management helps maintain healthier soil, cleaner surroundings and better plant growth.",
+      "Uncontrolled weeds compete with crops, plants, and lawns for water, sunlight, and nutrients while inviting pests and diseases. Professional weed management helps maintain healthier soil, stronger crops, and cleaner surroundings.",
   },
   {
-    question: "Are herbicides used for weed control?",
+    question: "Are approved herbicides used for weed control?",
     answer:
-      "Yes. Suitable and approved herbicides may be used depending on the weed type and treatment location. Our team follows recommended application procedures and safety instructions.",
+      "Yes. Giridurga Pest Control selects suitable and approved herbicides depending on the weed type and treatment location, following recommended application procedures and safety instructions.",
   },
   {
-    question: "Do you provide weed control for gardens and agricultural fields?",
+    question: "Do you provide weed control for gardens, lawns, and agricultural fields?",
     answer:
-      "Yes. Giridurga Pest Control provides customized weed management solutions for gardens, lawns, agricultural fields, industrial areas and commercial properties.",
+      "Yes. Giridurga Pest Control provides customized weed management plans for residential gardens, lawns, agricultural fields, industrial premises, and commercial properties across Odisha.",
   },
   {
-    question: "How often should weed control treatment be done?",
+    question: "Which cities in Odisha do you serve for weed and pest control?",
     answer:
-      "Treatment frequency depends on weed type, seasonal growth, property conditions and the selected treatment method. Our experts can recommend a suitable maintenance schedule after inspection.",
+      "Giridurga Pest Control serves Cuttack, Bhubaneswar, Puri, and nearby areas across Odisha with genuine rates, on-time service, and comprehensive weed, termite, and general pest control solutions.",
   },
 ];
 
@@ -158,10 +162,8 @@ const WeedcontrolMain = () => {
       <div className="weed-control-main-glow weed-control-main-glow-two" />
 
       <div className="weed-control-main-container">
-
         {/* LEFT SIDEBAR */}
         <aside className="weed-control-main-sidebar">
-
           <div className="weed-control-main-menu">
             {services.map((srv, index) => (
               <button
@@ -194,12 +196,12 @@ const WeedcontrolMain = () => {
             <div className="weed-control-main-contact-decoration weed-control-main-contact-decoration-two" />
 
             <div className="weed-control-main-contact-content">
-              <h2>Contact Us for Expert Weed Control Advice</h2>
+              <h2>Contact Giridurga Pest Control for Weed Advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="weed-control-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -224,12 +226,10 @@ const WeedcontrolMain = () => {
             <PdfIcon />
             <span>Download Pdf File</span>
           </a>
-
         </aside>
 
         {/* RIGHT CONTENT */}
         <main className="weed-control-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`weed-control-main-hero ${
@@ -264,7 +264,7 @@ const WeedcontrolMain = () => {
               key={`text-${activeService}`}
             >
               <span className="weed-control-main-hero-label">
-                PROFESSIONAL WEED CONTROL SERVICES
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -276,17 +276,17 @@ const WeedcontrolMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="weed-control-main-overview weed-control-main-reveal">
             <span className="weed-control-main-section-subtitle">
-              ABOUT WEED CONTROL
+              GIRIDURGA PEST CONTROL • VEGETATION &amp; LANDSCAPE CARE
             </span>
 
             <h2>Professional Weed Control Services in Odisha</h2>
 
             <p>
               Weeds not only affect the beauty of landscapes but also compete
-              with crops, plants and lawns for essential nutrients, water and
+              with crops, plants, and lawns for essential nutrients, water, and
               sunlight. If left unchecked, they can spread rapidly, reduce soil
-              fertility and invite pests and diseases, leading to long-term
-              damage in agricultural fields, gardens and commercial spaces.
+              fertility, and invite pests and diseases, leading to long-term
+              damage in agricultural fields, gardens, and commercial spaces.
             </p>
 
             <p>
@@ -294,14 +294,16 @@ const WeedcontrolMain = () => {
               weed management solutions designed to control unwanted
               vegetation and maintain cleaner, healthier surroundings. Our
               trained team identifies weed types, understands their growth
-              patterns and recommends suitable treatment methods according to
+              patterns, and recommends suitable treatment methods according to
               the property and its requirements.
             </p>
 
             <p>
               From residential gardens and lawns to agricultural fields and
-              industrial premises, we focus on customized weed management
-              using appropriate treatment procedures and preventive care.
+              industrial premises across{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby regions,
+              we focus on customized weed management using appropriate
+              treatment procedures and preventive care.
             </p>
           </div>
 
@@ -320,14 +322,20 @@ const WeedcontrolMain = () => {
             </p>
 
             <div className="weed-control-main-image-grid">
-
               <div className="weed-control-main-image-card">
                 <div className="weed-control-main-image-wrap">
-                  <img src={serviceone} alt="Weed inspection services" />
+                  <img
+                    src={serviceone}
+                    alt="Weed inspection and identification in Odisha"
+                  />
                   <span className="weed-control-main-image-number">01</span>
                 </div>
 
-                <h3>Inspection & Identification</h3>
+                <span className="weed-control-main-card-subtitle">
+                  SPECIES &amp; GROWTH AUDIT
+                </span>
+
+                <h3>Inspection &amp; Identification</h3>
 
                 <p>
                   Identifying different weed types and understanding their
@@ -337,9 +345,16 @@ const WeedcontrolMain = () => {
 
               <div className="weed-control-main-image-card">
                 <div className="weed-control-main-image-wrap">
-                  <img src={servicetwo} alt="Herbicide application" />
+                  <img
+                    src={servicetwo}
+                    alt="Approved herbicide application"
+                  />
                   <span className="weed-control-main-image-number">02</span>
                 </div>
+
+                <span className="weed-control-main-card-subtitle">
+                  APPROVED FORMULATION CARE
+                </span>
 
                 <h3>Herbicide Application</h3>
 
@@ -351,11 +366,18 @@ const WeedcontrolMain = () => {
 
               <div className="weed-control-main-image-card">
                 <div className="weed-control-main-image-wrap">
-                  <img src={service} alt="Manual weed removal" />
+                  <img
+                    src={service}
+                    alt="Manual and mechanical weed removal"
+                  />
                   <span className="weed-control-main-image-number">03</span>
                 </div>
 
-                <h3>Manual & Mechanical Removal</h3>
+                <span className="weed-control-main-card-subtitle">
+                  ROOT-LEVEL EXTRACTION
+                </span>
+
+                <h3>Manual &amp; Mechanical Removal</h3>
 
                 <p>
                   Removing unwanted weeds from their roots using appropriate
@@ -365,9 +387,16 @@ const WeedcontrolMain = () => {
 
               <div className="weed-control-main-image-card">
                 <div className="weed-control-main-image-wrap">
-                  <img src={serviceone} alt="Preventive weed treatment" />
+                  <img
+                    src={serviceone}
+                    alt="Preventive weed treatment"
+                  />
                   <span className="weed-control-main-image-number">04</span>
                 </div>
+
+                <span className="weed-control-main-card-subtitle">
+                  LONG-TERM SPREAD CONTROL
+                </span>
 
                 <h3>Preventive Measures</h3>
 
@@ -376,22 +405,22 @@ const WeedcontrolMain = () => {
                   unwanted weed growth before it spreads.
                 </p>
               </div>
-
             </div>
           </div>
 
           {/* WHY CHOOSE US */}
           <div className="weed-control-main-benefits weed-control-main-reveal">
             <span className="weed-control-main-section-subtitle">
-              WHY CHOOSE GIRIDURGA
+              WHY CHOOSE GIRIDURGA PEST CONTROL
             </span>
 
             <h2>Reliable Weed Management Solutions</h2>
 
             <p>
-              With appropriate treatment methods, advanced equipment and
-              professional care, Giridurga Pest Control helps maintain
-              healthier soil, stronger crops and cleaner surroundings.
+              With appropriate treatment methods, modern equipment, and
+              professional care, <strong>Giridurga Pest Control</strong> helps
+              maintain healthier soil, stronger crops, and cleaner
+              surroundings.
             </p>
 
             <div className="weed-control-main-benefit-list">
@@ -422,6 +451,57 @@ const WeedcontrolMain = () => {
             </div>
           </div>
 
+          {/* SERVICE AREAS / SEO KEYWORDS */}
+          <div className="weed-control-main-areas weed-control-main-reveal">
+            <span className="weed-control-main-section-subtitle">
+              OUR SERVICE LOCATIONS
+            </span>
+
+            <h2>Trusted Weed &amp; Pest Control Services Across Odisha</h2>
+
+            <p>
+              Looking for the{" "}
+              <strong>Best Pest Control in Cuttack with genuine rates</strong>?{" "}
+              <strong>Giridurga Pest Control</strong> provides professional
+              weed control and comprehensive pest management for residential,
+              agricultural, and commercial properties.
+            </p>
+
+            <p>
+              We serve customers searching for{" "}
+              <strong>pest control Bhubaneswar</strong>, the{" "}
+              <strong>best pest control services in Bhubaneswar</strong>,{" "}
+              <strong>pest control Puri</strong>, and{" "}
+              <strong>pest control near Cuttack, Odisha</strong>. Recognized
+              among reliable{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong>, we
+              also deliver the{" "}
+              <strong>best pest control services in Cuttack</strong>,{" "}
+              <strong>
+                expert pest and termite control across Cuttack
+              </strong>
+              , and complete <strong>pest control solutions in Cuttack</strong>.
+            </p>
+
+            <div className="weed-control-main-local-box">
+              <span className="weed-control-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Weed &amp; Pest Protection Across Odisha</h3>
+              <div className="weed-control-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
+              </div>
+            </div>
+          </div>
+
           {/* FAQ SECTION */}
           <div className="weed-control-main-faq weed-control-main-reveal">
             <span className="weed-control-main-section-subtitle">
@@ -431,8 +511,8 @@ const WeedcontrolMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="weed-control-main-faq-intro">
-              Find answers to common questions about our professional weed
-              inspection, treatment and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              professional weed inspection, treatment, and prevention services.
             </p>
 
             <div className="weed-control-main-faq-list">
@@ -471,13 +551,13 @@ const WeedcontrolMain = () => {
           {/* BOTTOM CTA */}
           <div className="weed-control-main-bottom-cta weed-control-main-reveal">
             <div>
-              <span>KEEP YOUR SURROUNDINGS CLEAN & HEALTHY</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Weed Control?</h2>
 
               <p>
                 Get in touch with Giridurga Pest Control for effective and
-                customized weed management solutions for your property.
+                customized weed management solutions at genuine rates.
               </p>
             </div>
 
@@ -489,7 +569,6 @@ const WeedcontrolMain = () => {
               <ArrowIcon />
             </a>
           </div>
-
         </main>
       </div>
     </section>

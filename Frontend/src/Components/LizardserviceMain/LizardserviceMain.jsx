@@ -1,8 +1,6 @@
-
 import { useEffect, useRef, useState } from "react";
 import "./LizardserviceMain.css";
 
-// Add your images manually in the assets folder
 import service from "../../assets/service-details.jpg";
 import serviceone from "../../assets/service-d1.jpg";
 import servicetwo from "../../assets/service-d2.jpg";
@@ -10,38 +8,43 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Lizard Inspection",
-    heading: "Professional Lizard Inspection Services",
+    subtitle: "HIDING & BREEDING SPOT AUDIT",
+    heading: "Detailed Lizard Inspection Services in Odisha",
     image: serviceone,
     description:
-      "Our team inspects ceilings, wall cracks, kitchens, electrical boxes and hidden corners to identify lizard entry points and activity.",
+      "Inspect ceilings, wall cracks, kitchens, electrical boxes, and hidden corners to locate lizard hiding spots, breeding zones, and insect attractants.",
   },
   {
     title: "Lizard Control Treatment",
-    heading: "Advanced Lizard Control Treatment Solutions",
+    subtitle: "ODORLESS & STAIN-FREE REPELLENT CARE",
+    heading: "Lizard Management Services in Odisha",
     image: service,
     description:
-      "Effective and targeted lizard management solutions designed to discourage unwanted lizard activity in residential and commercial properties.",
+      "Giridurga Pest Control uses advanced, odorless, and eco-friendly repellents and sprays that drive lizards away without stains, smell, or harm to the environment.",
   },
   {
     title: "Entry Point Management",
+    subtitle: "GAP & RE-ENTRY PREVENTION",
     heading: "Prevent Lizards from Entering Your Property",
     image: servicetwo,
     description:
-      "We identify possible entry points around doors, windows, wall gaps and other openings and recommend suitable preventive measures.",
+      "Identify and address entry points around doors, windows, wall cracks, and utility openings to discourage re-entry and nesting.",
   },
   {
     title: "Residential & Commercial Control",
-    heading: "Lizard Control for Homes and Businesses",
+    subtitle: "HOMES, HOTELS, SCHOOLS & OFFICES",
+    heading: "Lizard Control for Homes & Businesses in Odisha",
     image: serviceone,
     description:
-      "Customized lizard management services for houses, apartments, hotels, restaurants, schools, offices and commercial properties.",
+      "Customized lizard treatment plans for houses, apartments, restaurants, hotels, schools, and offices across Bhubaneswar, Cuttack, and Puri.",
   },
   {
     title: "Preventive Lizard Management",
-    heading: "Long-Term Lizard Prevention and Management",
+    subtitle: "LONG-TERM HYGIENE & PROTECTION",
+    heading: "Long-Term Lizard Prevention & Management",
     image: service,
     description:
-      "Practical prevention strategies, follow-up guidance and property recommendations to help reduce recurring lizard problems.",
+      "Maintain a cleaner indoor space with insect-source reduction, entry guidance, and expert pest and termite control across Cuttack and Odisha.",
   },
 ];
 
@@ -49,32 +52,32 @@ const faqs = [
   {
     question: "Why do lizards enter homes and commercial properties?",
     answer:
-      "Lizards generally enter buildings in search of insects, warmth and shelter. Open windows, gaps around doors, wall cracks and outdoor lighting that attracts insects can increase their presence.",
+      "Lizards generally enter buildings in search of insects, warmth, and shelter. Open windows, gaps around doors, wall cracks, electrical boxes, and indoor or outdoor lighting that attracts insects increase their presence.",
   },
   {
-    question: "What does your lizard management service include?",
+    question: "What does Giridurga Pest Control's lizard management service include?",
     answer:
-      "Our service includes inspecting affected areas, identifying possible entry points and hiding places, applying suitable targeted management solutions and providing prevention guidance.",
+      "Our service includes inspecting hiding and breeding spots such as ceilings, wall cracks, and electrical boxes, applying targeted odorless and eco-friendly repellents and sprays, and sharing prevention guidance.",
   },
   {
     question: "Are your lizard treatments safe for children and pets?",
     answer:
-      "Treatment methods are selected according to the property and the affected areas. Our technicians provide the necessary precautions and re-entry instructions. Always follow the product label and technician's safety guidance.",
+      "Yes. Giridurga Pest Control uses odorless, eco-safe, and stain-free formulations designed for homes, children, and pets, accompanied by clear precautions and re-entry instructions from our technicians.",
   },
   {
     question: "How can I prevent lizards from entering my home?",
     answer:
-      "Keep doors and windows screened, seal suitable gaps and cracks, reduce insect activity, maintain cleanliness and avoid leaving unnecessary food waste exposed.",
+      "Keep doors and windows screened, seal wall cracks and gaps, reduce indoor insect activity, maintain kitchen cleanliness, and schedule periodic preventive checks.",
   },
   {
-    question: "Do you provide lizard control for hotels and restaurants?",
+    question: "Do you provide lizard control for restaurants, hotels, schools, and offices?",
     answer:
-      "Yes. Giridurga Pest Control provides customized lizard management solutions for homes, restaurants, hotels, offices, schools, warehouses and other commercial properties.",
+      "Yes. Giridurga Pest Control provides customized lizard management solutions for homes, restaurants, hotels, schools, offices, and commercial properties across Odisha.",
   },
   {
     question: "Which areas do you serve in Odisha?",
     answer:
-      "We provide pest management services in Cuttack, Bhubaneswar, Puri and surrounding areas across Odisha. Contact our team to confirm service availability at your location.",
+      "We serve Bhubaneswar, Cuttack, Puri, and surrounding cities across Odisha with trusted, on-time service and genuine rates.",
   },
 ];
 
@@ -114,6 +117,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -164,7 +179,6 @@ const LizardserviceMain = () => {
       <div className="lizard-service-main-glow lizard-service-main-glow-two" />
 
       <div className="lizard-service-main-container">
-
         {/* LEFT SIDEBAR */}
         <aside className="lizard-service-main-sidebar">
           <div className="lizard-service-main-menu">
@@ -204,7 +218,7 @@ const LizardserviceMain = () => {
               <a
                 href="tel:+919876543210"
                 className="lizard-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -233,7 +247,6 @@ const LizardserviceMain = () => {
 
         {/* RIGHT CONTENT */}
         <main className="lizard-service-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`lizard-service-main-hero ${
@@ -268,7 +281,7 @@ const LizardserviceMain = () => {
               key={`text-${activeService}`}
             >
               <span className="lizard-service-main-hero-label">
-                GIRIDURGA PEST CONTROL
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -280,47 +293,71 @@ const LizardserviceMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="lizard-service-main-overview lizard-service-main-reveal">
             <span className="lizard-service-main-section-subtitle">
-              ABOUT OUR SERVICE
+              GIRIDURGA PEST CONTROL • ODORLESS &amp; ECO-SAFE CARE
             </span>
 
             <h2>Lizard Management Services in Odisha</h2>
 
             <p>
-              Lizards often enter homes, offices and commercial spaces in
-              search of insects and warmth. While they are generally not
-              harmful by nature, their presence can be unpleasant and
-              unhygienic, especially in kitchens, bedrooms, restaurants
-              and storage areas.
+              Lizards often enter homes, offices, and commercial spaces in
+              search of insects and warmth. While they are generally not harmful
+              by nature, their presence can be unpleasant and
+              unhygienic—especially in kitchens, bedrooms, and storage areas.
             </p>
 
             <p>
-              At <strong>Giridurga Pest Control</strong>, we offer
-              professional lizard management services in Odisha using
-              suitable targeted treatment methods and preventive solutions.
-              Our team identifies hiding and entry points such as ceilings,
-              wall cracks, windows, doors and electrical boxes before
-              recommending an appropriate management plan.
+              At <strong>Giridurga Pest Control</strong>, we offer professional
+              lizard management services in Odisha using advanced, odorless, and
+              eco-friendly solutions. Our team identifies hiding and breeding
+              spots such as{" "}
+              <strong>ceilings, wall cracks, and electrical boxes</strong>, and
+              applies targeted repellents and sprays that drive lizards away
+              without harming the environment.
             </p>
 
             <p>
-              Our treatments are selected according to the property and
-              treatment requirements. We provide clear safety instructions
-              and practical recommendations to help reduce unwanted lizard
-              activity without unnecessary disruption to your daily routine.
+              Our treatments are safe for children and pets, and leave no
+              stains or smell behind. Whether you need lizard control for your
+              home, restaurant, hotel, school, or office, we provide customized
+              treatment plans with long-lasting results.
             </p>
 
             <p>
-              Whether you need lizard control for your home, restaurant,
-              hotel, school or office, our team provides customized
-              solutions with a focus on effective management and
-              long-term prevention.
+              We serve <strong>Bhubaneswar, Cuttack, Puri</strong>, and
+              surrounding cities across Odisha with trusted, on-time service.
+            </p>
+
+            <ul className="lizard-service-main-highlights">
+              <li>
+                <span className="lizard-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Odorless &amp; eco-safe treatment</span>
+              </li>
+              <li>
+                <span className="lizard-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Prevents re-entry and nesting</span>
+              </li>
+              <li>
+                <span className="lizard-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Affordable pricing with expert support</span>
+              </li>
+            </ul>
+
+            <p className="lizard-service-main-tagline">
+              Say goodbye to unwanted lizards in your living or work space with
+              Giridurga Pest Control.
             </p>
           </div>
 
           {/* BENEFITS */}
           <div className="lizard-service-main-benefits lizard-service-main-reveal">
             <span className="lizard-service-main-section-subtitle">
-              WHY CHOOSE US
+              WHY CHOOSE GIRIDURGA PEST CONTROL
             </span>
 
             <h2>Professional Lizard Control You Can Trust</h2>
@@ -328,10 +365,10 @@ const LizardserviceMain = () => {
             <div className="lizard-service-main-benefit-grid">
               <div className="lizard-service-main-benefit-card">
                 <span>✓</span>
-                <h3>Odor-Conscious Solutions</h3>
+                <h3>Odorless &amp; Stain-Free</h3>
                 <p>
-                  Suitable treatment options selected according to the
-                  property and service requirements.
+                  Leaves no stains or unpleasant smell behind—safe for indoor
+                  living areas, children, and pets.
                 </p>
               </div>
 
@@ -339,8 +376,8 @@ const LizardserviceMain = () => {
                 <span>✓</span>
                 <h3>Entry Point Prevention</h3>
                 <p>
-                  Identification of gaps, cracks and other possible lizard
-                  entry points.
+                  Identifies hiding and breeding spots across ceilings, wall
+                  cracks, and electrical boxes to deter re-entry.
                 </p>
               </div>
 
@@ -348,8 +385,8 @@ const LizardserviceMain = () => {
                 <span>✓</span>
                 <h3>Expert Support</h3>
                 <p>
-                  Professional guidance and customized management plans
-                  for different properties.
+                  Customized treatment plans and practical prevention guidance
+                  for homes, hotels, restaurants, and offices.
                 </p>
               </div>
 
@@ -357,8 +394,8 @@ const LizardserviceMain = () => {
                 <span>✓</span>
                 <h3>Affordable Solutions</h3>
                 <p>
-                  Practical service recommendations based on your
-                  property's specific requirements.
+                  Genuine rates with trusted, on-time service across
+                  Bhubaneswar, Cuttack, Puri, and nearby Odisha cities.
                 </p>
               </div>
             </div>
@@ -370,40 +407,54 @@ const LizardserviceMain = () => {
               OUR LIZARD MANAGEMENT SOLUTIONS
             </span>
 
-            <h2>Complete Lizard Control Solutions</h2>
+            <h2>Lizard Management Services in Odisha</h2>
 
             <p>
-              From residential properties to busy commercial spaces,
-              Giridurga Pest Control offers professional lizard management
-              solutions designed around your property's needs.
+              From residential properties to busy commercial spaces,{" "}
+              <strong>Giridurga Pest Control</strong> offers professional lizard
+              management solutions designed around your property’s needs.
             </p>
 
             <div className="lizard-service-main-image-grid">
               <div className="lizard-service-main-image-card">
                 <div className="lizard-service-main-image-wrap">
-                  <img src={serviceone} alt="Lizard inspection service" />
+                  <img
+                    src={serviceone}
+                    alt="Lizard hiding and breeding spot inspection"
+                  />
                   <span className="lizard-service-main-image-number">01</span>
                 </div>
+
+                <span className="lizard-service-main-card-subtitle">
+                  CEILINGS, CRACKS &amp; ELECTRICAL BOXES
+                </span>
 
                 <h3>Detailed Property Inspection</h3>
 
                 <p>
-                  Inspecting walls, ceilings, kitchens and hidden spaces
-                  to identify lizard activity and possible entry points.
+                  Inspecting ceilings, wall cracks, kitchens, and electrical
+                  boxes to identify lizard hiding spots and entry points.
                 </p>
               </div>
 
               <div className="lizard-service-main-image-card">
                 <div className="lizard-service-main-image-wrap">
-                  <img src={servicetwo} alt="Professional lizard control" />
+                  <img
+                    src={servicetwo}
+                    alt="Odorless and stain-free lizard repellent treatment"
+                  />
                   <span className="lizard-service-main-image-number">02</span>
                 </div>
+
+                <span className="lizard-service-main-card-subtitle">
+                  ODORLESS &amp; ECO-FRIENDLY
+                </span>
 
                 <h3>Targeted Lizard Management</h3>
 
                 <p>
-                  Suitable treatment and preventive methods to manage
-                  unwanted lizard activity in your property.
+                  Targeted repellents and sprays that drive lizards away without
+                  stains, smell, or harm to the environment.
                 </p>
               </div>
             </div>
@@ -418,25 +469,33 @@ const LizardserviceMain = () => {
             <h2>Trusted Pest Control Services Across Odisha</h2>
 
             <p>
-              Looking for the best pest control in Cuttack with genuine
-              rates? Giridurga Pest Control provides professional pest
-              management and lizard control solutions for residential
-              and commercial properties.
+              Looking for the{" "}
+              <strong>Best Pest Control in Cuttack with genuine rates</strong>?{" "}
+              <strong>Giridurga Pest Control</strong> provides professional pest
+              management and lizard control solutions for residential and
+              commercial properties.
             </p>
 
             <p>
-              We serve customers searching for pest control in Bhubaneswar,
-              the best pest control services in Bhubaneswar, pest control
-              in Puri and pest control near Cuttack, Odisha. Our team also
-              provides expert pest and termite control across Cuttack,
-              subject to service availability.
+              We serve customers searching for{" "}
+              <strong>pest control Bhubaneswar</strong>, the{" "}
+              <strong>best pest control services in Bhubaneswar</strong>,{" "}
+              <strong>pest control Puri</strong>, and{" "}
+              <strong>pest control near Cuttack, Odisha</strong>. Our team also
+              provides{" "}
+              <strong>
+                expert pest and termite control across Cuttack
+              </strong>{" "}
+              and nearby cities.
             </p>
 
             <p>
-              If you are searching for reliable pest control service
-              providers in Cuttack or effective pest control solutions
-              in Cuttack, contact Giridurga Pest Control for service
-              information, expert support and pricing details.
+              If you are searching for reliable{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong>, the{" "}
+              <strong>best pest control services in Cuttack</strong>, or
+              effective <strong>pest control solutions in Cuttack</strong>,
+              contact Giridurga Pest Control for service information, expert
+              support, and pricing details.
             </p>
 
             <div className="lizard-service-main-city-list">
@@ -444,6 +503,24 @@ const LizardserviceMain = () => {
               <span>Bhubaneswar</span>
               <span>Puri</span>
               <span>Across Odisha</span>
+            </div>
+
+            <div className="lizard-service-main-local-box">
+              <span className="lizard-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Lizard &amp; Pest Protection Across Odisha</h3>
+              <div className="lizard-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
+              </div>
             </div>
           </div>
 
@@ -456,8 +533,8 @@ const LizardserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="lizard-service-main-faq-intro">
-              Find answers to common questions about our lizard inspection,
-              treatment and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              lizard inspection, odorless treatment, and prevention services.
             </p>
 
             <div className="lizard-service-main-faq-list">
@@ -496,14 +573,14 @@ const LizardserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="lizard-service-main-bottom-cta lizard-service-main-reveal">
             <div>
-              <span>KEEP YOUR PROPERTY LIZARD-FREE</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Lizard Control?</h2>
 
               <p>
-                Say goodbye to unwanted lizards in your living or working
-                space. Contact Giridurga Pest Control today for expert
-                assistance and customized solutions.
+                Say goodbye to unwanted lizards in your living or work space.
+                Contact Giridurga Pest Control today for expert assistance and
+                customized solutions.
               </p>
             </div>
 
@@ -515,7 +592,6 @@ const LizardserviceMain = () => {
               <ArrowIcon />
             </a>
           </div>
-
         </main>
       </div>
     </section>

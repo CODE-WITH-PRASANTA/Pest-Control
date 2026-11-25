@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap");
 
 .rodent-management-main {
@@ -14,7 +13,7 @@
   background: var(--pest-bg);
   font-family: "DM Sans", sans-serif;
   color: var(--pest-text);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .rodent-management-main *,
@@ -23,7 +22,15 @@
   box-sizing: border-box;
 }
 
-/* BACKGROUND GLOW */
+/* BACKGROUND GLOW WRAPPER (keeps overflow clipped without breaking sticky) */
+
+.rodent-management-main-bg-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
 
 .rodent-management-main-glow {
   position: absolute;
@@ -70,6 +77,7 @@
 .rodent-management-main-sidebar {
   position: sticky;
   top: 24px;
+  align-self: start;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -99,10 +107,7 @@
   text-align: left;
   cursor: pointer;
   box-shadow: 0 6px 16px rgba(23, 62, 45, 0.04);
-  transition:
-    background 0.4s ease,
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .rodent-management-main-menu-number {
@@ -131,8 +136,7 @@
   transform: translateX(6px);
 }
 
-.rodent-management-main-menu-item.active
-.rodent-management-main-menu-number {
+.rodent-management-main-menu-item.active .rodent-management-main-menu-number {
   color: var(--pest-dark);
 }
 
@@ -154,13 +158,11 @@
   transition: transform 0.35s ease;
 }
 
-.rodent-management-main-menu-item:hover
-.rodent-management-main-arrow svg {
+.rodent-management-main-menu-item:hover .rodent-management-main-arrow svg {
   transform: translateX(4px);
 }
 
-.rodent-management-main-menu-item.active
-.rodent-management-main-arrow {
+.rodent-management-main-menu-item.active .rodent-management-main-arrow {
   background: var(--pest-dark);
   color: var(--pest-green);
 }
@@ -274,11 +276,7 @@
   font-size: 16px;
   font-weight: 800;
   box-shadow: 0 10px 24px rgba(70, 110, 35, 0.14);
-  transition:
-    background 0.4s ease,
-    color 0.4s ease,
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .rodent-management-main-download:hover {
@@ -340,8 +338,7 @@
   z-index: -1;
 }
 
-.rodent-management-main-hero:hover
-.rodent-management-main-hero-image {
+.rodent-management-main-hero:hover .rodent-management-main-hero-image {
   transform: scale(1.04);
 }
 
@@ -526,7 +523,8 @@
 }
 
 .rodent-management-main-image-card:hover
-.rodent-management-main-image-wrap img {
+  .rodent-management-main-image-wrap
+  img {
   transform: scale(1.09);
 }
 
@@ -549,8 +547,7 @@
   transition: 0.4s ease;
 }
 
-.rodent-management-main-image-card:hover
-.rodent-management-main-image-number {
+.rodent-management-main-image-card:hover .rodent-management-main-image-number {
   opacity: 1;
   transform: translateY(0);
 }
@@ -687,7 +684,7 @@
 }
 
 .rodent-management-main-faq-item.faq-active
-.rodent-management-main-faq-toggle {
+  .rodent-management-main-faq-toggle {
   transform: rotate(180deg);
   background: var(--pest-dark);
   color: var(--pest-green);
@@ -703,8 +700,7 @@
   overflow: hidden;
 }
 
-.rodent-management-main-faq-item.faq-active
-.rodent-management-main-faq-answer {
+.rodent-management-main-faq-item.faq-active .rodent-management-main-faq-answer {
   grid-template-rows: 1fr;
 }
 
@@ -897,7 +893,7 @@
   }
 }
 
-/* MOBILE / TABLET */
+/* TABLET AND MOBILE */
 
 @media (max-width: 860px) {
   .rodent-management-main {
@@ -911,7 +907,7 @@
 
   .rodent-management-main-sidebar {
     position: relative;
-    top: 0;
+    top: 0 !important;
   }
 
   .rodent-management-main-menu {
@@ -964,12 +960,17 @@
 /* SMALL MOBILE */
 
 @media (max-width: 540px) {
+  .rodent-management-main {
+    padding: 28px 14px 45px;
+  }
+
   .rodent-management-main-menu {
     grid-template-columns: 1fr;
   }
 
   .rodent-management-main-hero {
     height: 340px;
+    border-radius: 18px;
   }
 
   .rodent-management-main-hero-text {
@@ -980,6 +981,27 @@
 
   .rodent-management-main-hero-label {
     font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .rodent-management-main-hero-text h1 {
+    font-size: 26px;
+  }
+
+  .rodent-management-main-hero-text p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .rodent-management-main-hero-counter {
+    top: 14px;
+    right: 14px;
+  }
+
+  .rodent-management-main-overview,
+  .rodent-management-main-comprehensive,
+  .rodent-management-main-faq {
+    margin-top: 36px;
   }
 
   .rodent-management-main-faq-question {
@@ -1001,9 +1023,34 @@
     height: 40px;
   }
 
+  .rodent-management-main-process-item h3 {
+    font-size: 16px;
+  }
+
+  .rodent-management-main-process-item p {
+    font-size: 14px;
+  }
+
   .rodent-management-main-keywords {
     padding: 20px;
   }
+
+  .rodent-management-main-bottom-cta {
+    padding: 26px 20px;
+  }
+
+  .rodent-management-main-cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ACCESSIBILITY */
+
+.rodent-management-main button:focus-visible,
+.rodent-management-main a:focus-visible {
+  outline: 3px solid #83a93e;
+  outline-offset: 4px;
 }
 
 /* REDUCED MOTION */
@@ -1014,5 +1061,11 @@
   .rodent-management-main *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .rodent-management-main-reveal {
+    opacity: 1;
+    transform: none;
   }
 }

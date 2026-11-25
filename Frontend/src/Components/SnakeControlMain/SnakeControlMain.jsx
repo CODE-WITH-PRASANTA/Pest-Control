@@ -7,67 +7,100 @@ import servicetwo from "../../assets/service-d2.jpg";
 
 const services = [
   {
-    title: "Snake Inspection",
-    heading: "Detailed Snake Inspection Services",
+    title: "Inspection & Habitat Check",
+    subtitle: "ENTRY POINTS & RODENT AUDIT",
+    heading: "Detailed Snake Inspection & Habitat Check",
     image: serviceone,
     description:
-      "Identify sheltering spots, entry gaps, shed skins, burrows and attraction zones around your property with a thorough inspection.",
+      "Identifying entry points, hiding spots, overgrown vegetation, and food sources like rodents around residential and commercial buildings.",
   },
   {
-    title: "Snake Removal & Control",
-    heading: "Safe & Professional Snake Control Solutions",
+    title: "Trapping & Removal",
+    subtitle: "SAFE & HUMANE RELOCATION",
+    heading: "Safe & Effective Snake Control Services",
     image: service,
     description:
-      "Manage snake sightings and presence around homes and compounds with careful response, exclusion measures and tailored control.",
+      "Giridurga Pest Control uses safe, humane methods to capture and relocate snakes away from your premises with trained experts.",
   },
   {
-    title: "Perimeter & Entry Exclusion",
-    heading: "Targeted Perimeter & Entry Exclusion",
+    title: "Exclusion Measures",
+    subtitle: "CRACK & GAP SEALING CARE",
+    heading: "Targeted Snake Entry Exclusion Measures",
     image: servicetwo,
     description:
-      "Address gaps under doors, drainage lines, utility openings, garden walls, woodpiles and dense vegetation where snakes move.",
+      "Sealing cracks, gaps, drainage openings, and structural entryways to help block snake access around homes and compounds.",
   },
   {
-    title: "Residential & Commercial Sites",
-    heading: "Snake Control for Homes & Businesses",
+    title: "Environmental Management",
+    subtitle: "YARD & RODENT CONTROL",
+    heading: "Habitat & Environmental Management",
     image: service,
     description:
-      "Customized snake management plans for houses, farmhouses, apartments, warehouses, factories and commercial grounds.",
+      "Advising on vegetation control, debris clearance, and rodent management to make surroundings snake-unfriendly across Odisha.",
   },
   {
-    title: "Preventive Snake Management",
-    heading: "Ongoing Snake Prevention & Site Readiness",
+    title: "Preventive Solutions",
+    subtitle: "LONG-TERM SITE PROTECTION",
+    heading: "Long-Term Preventive Snake Solutions",
     image: serviceone,
     description:
-      "Reduce repeat snake visits with practical yard and storage guidance, rodent reduction tips and scheduled follow-up checks.",
+      "Providing long-term strategies to reduce the chances of snakes returning across Bhubaneswar, Cuttack, Puri, and nearby areas.",
+  },
+];
+
+const helpItems = [
+  {
+    title: "Inspection & Habitat Check",
+    detail:
+      "Identifying entry points, hiding spots, and food sources like rodents.",
+  },
+  {
+    title: "Trapping & Removal",
+    detail:
+      "Using safe, humane methods to capture and relocate snakes away from your premises.",
+  },
+  {
+    title: "Exclusion Measures",
+    detail:
+      "Sealing cracks, gaps, and openings to block snake entry.",
+  },
+  {
+    title: "Environmental Management",
+    detail:
+      "Advising on vegetation control, debris clearance, and rodent management to make surroundings snake-unfriendly.",
+  },
+  {
+    title: "Preventive Solutions",
+    detail:
+      "Providing long-term strategies to reduce the chances of snakes returning.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does your snake control service include?",
+    question: "What does Giridurga Pest Control's snake control service include?",
     answer:
-      "Our service includes property inspection, identifying likely hiding and entry points, targeted control or exclusion measures and practical advice to make your surroundings less inviting to snakes.",
+      "Our service includes Inspection & Habitat Check, humane Trapping & Removal, Exclusion Measures to seal entry points, Environmental Management guidance, and long-term Preventive Solutions.",
   },
   {
     question: "What should I do if I spot a snake on my property?",
     answer:
-      "Keep a safe distance, keep children and pets indoors or away from the area, avoid trying to handle or provoke the snake, and contact our team or local wildlife/rescue support as appropriate.",
+      "Keep a safe distance, keep children and pets indoors or away from the area, avoid trying to handle or provoke the snake, and contact Giridurga Pest Control immediately for trained assistance.",
   },
   {
-    question: "How can I prevent snakes from entering my home or yard?",
+    question: "Why do snakes enter residential or commercial properties?",
     answer:
-      "Sealing gaps around doors and pipes, trimming overgrown grass and bushes, clearing debris or woodpiles near walls, and controlling rodents all help reduce snake shelter and food sources.",
+      "Snakes typically enter buildings and compounds in search of food, water, or cool shelter—often attracted by overgrown vegetation, debris, rodent activity, or open cracks and gaps.",
   },
   {
-    question: "How long does a snake inspection and control visit take?",
+    question: "How can I make my property less attractive to snakes?",
     answer:
-      "Visit duration depends on property size, outdoor landscaping and whether immediate response or perimeter exclusion planning is needed. Your technician will give you an estimated time on site.",
+      "Sealing cracks and gaps around doors and pipes, trimming overgrown grass and bushes, clearing woodpiles or debris, and controlling rodents significantly reduce snake shelter and food sources.",
   },
   {
-    question: "Do you provide snake control for both homes and commercial properties?",
+    question: "Which locations in Odisha do you serve for snake and pest control?",
     answer:
-      "Yes. We support residential homes, compounds, offices, warehouses, construction sites and commercial facilities.",
+      "Giridurga Pest Control serves Bhubaneswar, Cuttack, Puri, and surrounding areas in Odisha for residential homes, apartments, offices, warehouses, and commercial properties.",
   },
 ];
 
@@ -107,6 +140,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -191,12 +236,12 @@ const SnakeControlMain = () => {
             <div className="snake-control-main-contact-decoration snake-control-main-contact-decoration-two" />
 
             <div className="snake-control-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+              <h2>Contact Giridurga Pest Control for any advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="snake-control-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -259,7 +304,7 @@ const SnakeControlMain = () => {
               key={`text-${activeService}`}
             >
               <span className="snake-control-main-hero-label">
-                PROFESSIONAL SNAKE CONTROL
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -268,26 +313,65 @@ const SnakeControlMain = () => {
             </div>
           </div>
 
-          {/* SERVICE OVERVIEW */}
+          {/* SNAKE CONTROL OVERVIEW */}
           <div className="snake-control-main-overview snake-control-main-reveal">
             <span className="snake-control-main-section-subtitle">
-              ABOUT SNAKE CONTROL
+              GIRIDURGA PEST CONTROL • SAFE &amp; HUMANE PROTECTION
             </span>
 
-            <h2>Snake Control Overview</h2>
+            <h2>Snake Control</h2>
 
             <p>
-              Snakes often seek cool, shaded shelter or prey such as rodents
-              around yards, drains, stored materials, utility openings and
-              ground-level structures. Our team inspects vulnerable zones,
-              identifies entry pathways and helps put practical snake control
-              and exclusion measures in place.
+              Snakes often enter residential and commercial areas in search of
+              food, water, or shelter. While not all snakes are venomous, their
+              presence causes fear, health risks, and safety concerns. Snake
+              infestations are usually linked to overgrown vegetation, rodent
+              activity, or open entry points around buildings.
             </p>
 
             <p>
-              Every property has different surrounding conditions. We evaluate
-              landscaping, structural gaps, moisture areas and attractants
-              before recommending a tailored prevention plan.
+              At <strong>Giridurga Pest Control</strong>, we serve{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and surrounding areas
+              in Odisha with prompt habitat inspections and humane exclusion
+              solutions. Trusted among{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong> and
+              known for the{" "}
+              <strong>best pest control services in Bhubaneswar</strong> and{" "}
+              <strong>pest control Puri</strong>, our team helps keep your
+              property protected and secure.
+            </p>
+          </div>
+
+          {/* HOW GIRIDURGA PEST CONTROL HELPS */}
+          <div className="snake-control-main-overview snake-control-main-reveal">
+            <span className="snake-control-main-section-subtitle">
+              HABITAT CHECK, REMOVAL &amp; EXCLUSION
+            </span>
+
+            <h2>How Giridurga Pest Control Helps</h2>
+
+            <p>
+              <strong>Giridurga Pest Control</strong> provides safe and
+              effective snake control services through:
+            </p>
+
+            <ul className="snake-control-main-highlights">
+              {helpItems.map((item) => (
+                <li key={item.title}>
+                  <span className="snake-control-main-highlight-icon">
+                    <CheckIcon />
+                  </span>
+                  <span>
+                    <strong>{item.title}</strong> – {item.detail}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="snake-control-main-tagline">
+              With trained experts, eco-safe techniques, and years of
+              experience, <strong>Giridurga Pest Control</strong> helps your
+              home or business stay safe &amp; secure.
             </p>
           </div>
 
@@ -300,38 +384,83 @@ const SnakeControlMain = () => {
             <h2>Complete Snake Control Solutions</h2>
 
             <p>
-              From residential homes and gardens to commercial compounds, we
-              offer practical snake control tailored to site conditions and
-              safety requirements.
+              From residential homes and gardens to commercial compounds,
+              Giridurga Pest Control offers the{" "}
+              <strong>best pest control services in Cuttack</strong>,{" "}
+              <strong>pest control Bhubaneswar</strong>, and{" "}
+              <strong>pest control Puri</strong> along with{" "}
+              <strong>expert pest and termite control across Cuttack</strong>{" "}
+              and rodent management to eliminate snake attractants.
             </p>
 
             <div className="snake-control-main-image-grid">
               <div className="snake-control-main-image-card">
                 <div className="snake-control-main-image-wrap">
-                  <img src={serviceone} alt="Snake inspection" />
+                  <img
+                    src={serviceone}
+                    alt="Snake inspection and habitat check"
+                  />
                   <span className="snake-control-main-image-number">01</span>
                 </div>
 
-                <h3>Detailed Inspection</h3>
+                <span className="snake-control-main-card-subtitle">
+                  HABITAT &amp; ENTRY AUDIT
+                </span>
+
+                <h3>Inspection &amp; Habitat Check</h3>
 
                 <p>
-                  Detailed inspection to spot shelter zones, entry gaps and
-                  potential attractants around your property.
+                  Detailed inspection to identify entry points, hiding spots,
+                  and food sources like rodents around your property.
                 </p>
               </div>
 
               <div className="snake-control-main-image-card">
                 <div className="snake-control-main-image-wrap">
-                  <img src={servicetwo} alt="Snake control and exclusion" />
+                  <img
+                    src={servicetwo}
+                    alt="Humane snake trapping and exclusion measures"
+                  />
                   <span className="snake-control-main-image-number">02</span>
                 </div>
 
-                <h3>Targeted Control</h3>
+                <span className="snake-control-main-card-subtitle">
+                  HUMANE REMOVAL &amp; EXCLUSION
+                </span>
+
+                <h3>Trapping &amp; Exclusion Measures</h3>
 
                 <p>
-                  Targeted control and exclusion measures designed to reduce
-                  intrusion risks safely and effectively.
+                  Safe, humane relocation paired with sealing cracks, gaps, and
+                  openings to block future snake entry.
                 </p>
+              </div>
+            </div>
+
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="snake-control-main-local-box">
+              <span className="snake-control-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Trusted Snake &amp; Pest Control Across Odisha</h3>
+              <p>
+                Looking for{" "}
+                <strong>Best Pest Control in Cuttack with genuine rates</strong>{" "}
+                or dependable <strong>pest control near Cuttack, Odisha</strong>?
+                Giridurga Pest Control provides comprehensive{" "}
+                <strong>pest control solutions in Cuttack</strong>, Bhubaneswar,
+                and Puri for residential and commercial sites.
+              </p>
+              <div className="snake-control-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
               </div>
             </div>
           </div>
@@ -345,8 +474,8 @@ const SnakeControlMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="snake-control-main-faq-intro">
-              Find answers to common questions about our snake inspection,
-              control and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              snake inspection, humane removal, and prevention services.
             </p>
 
             <div className="snake-control-main-faq-list">
@@ -385,13 +514,13 @@ const SnakeControlMain = () => {
           {/* BOTTOM CTA */}
           <div className="snake-control-main-bottom-cta snake-control-main-reveal">
             <div>
-              <span>KEEP YOUR PROPERTY SAFER</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Snake Control?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Keep your home or business safe and secure. Contact Giridurga
+                Pest Control for trained, eco-safe assistance at genuine rates.
               </p>
             </div>
 

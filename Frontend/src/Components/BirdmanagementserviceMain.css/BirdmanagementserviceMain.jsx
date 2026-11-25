@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import "./BirdmanagementserviceMain.css";
 
@@ -11,38 +10,43 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Bird Net Installation",
+    subtitle: "BALCONIES, ROOFTOPS & OPEN SPACES",
     heading: "Professional Bird Net Installation Services",
     image: serviceone,
     description:
-      "Protect balconies, rooftops, windows and open spaces with professionally installed bird safety nets designed to prevent unwanted bird entry and nesting.",
+      "Protect balconies, rooftops, windows, and open spaces with professionally installed bird safety nets designed to prevent unwanted bird entry and nesting.",
   },
   {
     title: "Bird Spike Installation",
-    heading: "Effective Bird Spike Installation Solutions",
+    subtitle: "HUMANE LEDGE & PARAPET CARE",
+    heading: "Bird Management Service in Odisha",
     image: service,
     description:
-      "Prevent pigeons and other birds from landing and roosting on ledges, parapets, window frames and building surfaces with suitable bird spikes.",
+      "Giridurga Pest Control offers safe, humane, and long-lasting bird control using eco-friendly bird nets, spikes, repellents, and trapping systems.",
   },
   {
     title: "Pigeon Control",
+    subtitle: "HOMES, APARTMENTS & OFFICES",
     heading: "Expert Pigeon Management and Control Services",
     image: servicetwo,
     description:
-      "Manage pigeon-related problems around homes, offices, apartments and commercial properties with customized, humane bird control methods.",
+      "Manage pigeon and crow infestations around homes, offices, apartments, and commercial properties with customized, humane bird control methods.",
   },
   {
     title: "Bird Repellent Solutions",
+    subtitle: "ROOFTOPS & SOLAR PANEL PROTECTION",
     heading: "Advanced Bird Repellent and Prevention Solutions",
     image: service,
     description:
-      "Discourage unwanted bird activity around rooftops, solar panels, balconies and commercial structures using suitable bird deterrent systems.",
+      "Discourage unwanted bird activity around rooftops, solar panels, balconies, and commercial structures without harming them.",
   },
   {
     title: "Commercial Bird Management",
+    subtitle: "SHEDS, WAREHOUSES & FACTORIES",
     heading: "Complete Bird Control for Commercial Properties",
     image: serviceone,
     description:
-      "Protect factories, warehouses, industrial sheds, offices and commercial buildings with customized bird management and prevention solutions.",
+      "Protect factories, warehouses, industrial sheds, offices, and commercial buildings across Bhubaneswar, Cuttack, and Puri.",
   },
 ];
 
@@ -51,42 +55,42 @@ const faqs = [
   {
     question: "What is included in your bird management service?",
     answer:
-      "Our bird management services include site inspection, identification of bird activity, assessment of nesting and roosting areas, selection of suitable bird deterrents and professional installation where required.",
+      "Our bird management services include a free site inspection, identification of bird activity, assessment of nesting and roosting areas, selection of suitable eco-friendly bird deterrents, and professional installation.",
   },
   {
     question: "Do you provide pigeon control services?",
     answer:
-      "Yes. We provide pigeon management solutions for balconies, rooftops, windows, apartments, offices and commercial buildings using suitable bird netting, spikes and other deterrent systems.",
+      "Yes. Giridurga Pest Control provides pigeon and crow management solutions for balconies, rooftops, solar panels, windows, apartments, offices, and commercial buildings using bird netting, spikes, and humane deterrent systems.",
   },
   {
     question: "What are the different methods of bird control?",
     answer:
-      "Depending on the property and bird activity, we offer bird nets, bird spikes, suitable bird repellents and other humane deterrent solutions to discourage unwanted nesting and roosting.",
+      "Depending on the property and bird activity, we offer bird nets, bird spikes, eco-friendly bird repellents, and humane trapping systems to prevent birds from nesting or roosting on your property without harming them.",
   },
   {
     question: "Are your bird control methods safe for birds?",
     answer:
-      "We prioritize humane bird management methods that discourage birds from landing or nesting without causing unnecessary harm. The appropriate solution depends on the site and bird species.",
+      "Yes. We use safe, humane, and eco-friendly bird control methods that discourage birds from landing, nesting, or roosting without harming them.",
   },
   {
-    question: "Do you provide bird management in Bhubaneswar and Cuttack?",
+    question: "Do you provide bird management in Bhubaneswar, Cuttack, and Puri?",
     answer:
-      "Yes. Nilachakra Pest Control provides bird management services in Bhubaneswar, Cuttack, Puri and nearby locations across Odisha.",
+      "Yes. Giridurga Pest Control provides bird management services in Bhubaneswar, Cuttack, Puri, and nearby areas across Odisha with genuine rates and expert support.",
   },
   {
     question: "Can bird nets be installed on balconies and rooftops?",
     answer:
-      "Yes. Bird nets can be installed in suitable balconies, windows, open areas, rooftops and other spaces to help prevent birds from entering and nesting.",
+      "Yes. Bird nets can be installed across balconies, windows, open areas, rooftops, and solar panel zones to prevent birds from entering and nesting.",
   },
   {
     question: "Do you provide bird control for industrial buildings?",
     answer:
-      "Yes. We provide customized bird management solutions for industrial sheds, warehouses, factories, offices, hotels and other commercial properties.",
+      "Yes. We provide customized bird management solutions for industrial sheds, warehouses, factories, offices, hotels, and other commercial properties.",
   },
   {
     question: "How can I prevent pigeons from returning?",
     answer:
-      "Suitable bird netting, spikes and other deterrent systems can help reduce repeated roosting and nesting. Regular maintenance and professional recommendations also help maintain effective protection.",
+      "Professionally installed bird netting, spikes, and deterrent systems discourage repeated roosting and nesting. Our team also provides free site inspection and maintenance guidance.",
   },
 ];
 
@@ -135,6 +139,19 @@ const PdfIcon = () => (
   </svg>
 );
 
+// Check icon
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const BirdmanagementserviceMain = () => {
   const rootRef = useRef(null);
 
@@ -150,9 +167,7 @@ const BirdmanagementserviceMain = () => {
     const root = rootRef.current;
     if (!root) return;
 
-    const items = root.querySelectorAll(
-      ".bird-management-main-reveal"
-    );
+    const items = root.querySelectorAll(".bird-management-main-reveal");
 
     if (typeof IntersectionObserver === "undefined") {
       items.forEach((el) => el.classList.add("is-visible"));
@@ -177,18 +192,13 @@ const BirdmanagementserviceMain = () => {
   }, []);
 
   return (
-    <section
-      className="bird-management-main"
-      ref={rootRef}
-    >
+    <section className="bird-management-main" ref={rootRef}>
       <div className="bird-management-main-glow bird-management-main-glow-one" />
       <div className="bird-management-main-glow bird-management-main-glow-two" />
 
       <div className="bird-management-main-container">
-
         {/* LEFT SIDEBAR */}
         <aside className="bird-management-main-sidebar">
-
           <div className="bird-management-main-menu">
             {services.map((srv, index) => (
               <button
@@ -217,20 +227,16 @@ const BirdmanagementserviceMain = () => {
 
           {/* CONTACT CARD */}
           <div className="bird-management-main-contact-card">
-
             <div className="bird-management-main-contact-decoration bird-management-main-contact-decoration-one" />
             <div className="bird-management-main-contact-decoration bird-management-main-contact-decoration-two" />
 
             <div className="bird-management-main-contact-content">
-
-              <h2>
-                Contact Us for Expert Bird Management
-              </h2>
+              <h2>Contact Giridurga Pest Control for Bird Management</h2>
 
               <a
                 href="tel:+919876543210"
                 className="bird-management-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -243,7 +249,6 @@ const BirdmanagementserviceMain = () => {
               >
                 +91 98765 43210
               </a>
-
             </div>
           </div>
 
@@ -256,12 +261,10 @@ const BirdmanagementserviceMain = () => {
             <PdfIcon />
             <span>Download Pdf File</span>
           </a>
-
         </aside>
 
         {/* RIGHT CONTENT */}
         <main className="bird-management-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`bird-management-main-hero ${
@@ -296,7 +299,7 @@ const BirdmanagementserviceMain = () => {
               key={`text-${activeService}`}
             >
               <span className="bird-management-main-hero-label">
-                PROFESSIONAL BIRD MANAGEMENT
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -307,68 +310,84 @@ const BirdmanagementserviceMain = () => {
 
           {/* BIRD MANAGEMENT OVERVIEW */}
           <div className="bird-management-main-overview bird-management-main-reveal">
-
             <span className="bird-management-main-section-subtitle">
-              ABOUT BIRD MANAGEMENT
+              GIRIDURGA PEST CONTROL • SAFE &amp; HUMANE BIRD CONTROL
             </span>
 
-            <h2>
-              Bird Management Service in Odisha
-            </h2>
+            <h2>Bird Management Service in Odisha</h2>
 
             <p>
-              Bird infestations can cause serious issues for both
-              homes and businesses in Odisha. From damaging rooftops
-              and solar panels to creating mess with droppings and
-              nests, birds like pigeons and crows can become a major
-              problem if not managed properly.
+              Bird infestations can cause serious issues for both homes and
+              businesses in Odisha. From damaging rooftops and solar panels to
+              creating mess with droppings and nests, birds like pigeons and
+              crows can become a major problem if not controlled properly.
             </p>
 
             <p>
-              At Nilachakra Pest Control, we offer expert bird
-              management services in Odisha that are safe, humane
-              and designed for long-term prevention. We use suitable
-              bird control methods such as bird nets, spikes,
-              repellents and deterrent systems to discourage birds
-              from nesting or roosting on your property without
-              causing unnecessary harm.
+              At <strong>Giridurga Pest Control</strong>, we offer expert bird
+              management services in Odisha that are safe, humane, and
+              long-lasting. We use eco-friendly bird control methods such as{" "}
+              <strong>
+                bird nets, spikes, repellents, and trapping systems
+              </strong>{" "}
+              to prevent birds from nesting or roosting on your property—without
+              harming them.
             </p>
-
-            <p>
-              Our bird control solutions are customized according
-              to the property structure, bird activity and specific
-              requirements of each customer.
-            </p>
-
           </div>
 
           {/* COMPREHENSIVE SOLUTIONS */}
           <div className="bird-management-main-comprehensive bird-management-main-reveal">
-
             <span className="bird-management-main-section-subtitle">
               ADVANCED BIRD PROTECTION
             </span>
 
-            <h2>
-              Expert Bird Control and Management Solutions
-            </h2>
+            <h2>Expert Bird Control &amp; Management Services in Odisha</h2>
 
             <p>
-              Whether you are dealing with birds in balconies,
-              industrial sheds, commercial buildings, rooftops
-              or solar panels, our trained team will inspect
-              your site and recommend a customized bird control
-              solution.
+              Whether you’re dealing with birds in balconies, industrial sheds,
+              commercial buildings, or rooftops, our trained team will inspect
+              your site and provide a customized bird control solution.
+            </p>
+
+            <p>
+              As a trusted pest control company in Odisha,{" "}
+              <strong>Giridurga Pest Control</strong> serves{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby areas with
+              reliable results and affordable pricing.
+            </p>
+
+            <ul className="bird-management-main-highlights">
+              <li>
+                <span className="bird-management-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Protect your property from bird damage</span>
+              </li>
+              <li>
+                <span className="bird-management-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Safe, humane, and eco-friendly bird control solutions</span>
+              </li>
+              <li>
+                <span className="bird-management-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Free inspection and expert support</span>
+              </li>
+            </ul>
+
+            <p className="bird-management-main-tagline">
+              Don’t wait until it becomes a health hazard—call{" "}
+              <strong>Giridurga Pest Control</strong> today!
             </p>
 
             <div className="bird-management-main-image-grid">
-
               <div className="bird-management-main-image-card">
-
                 <div className="bird-management-main-image-wrap">
                   <img
                     src={serviceone}
-                    alt="Professional bird net installation service"
+                    alt="Professional bird net installation service in Odisha"
                     loading="lazy"
                   />
 
@@ -377,18 +396,20 @@ const BirdmanagementserviceMain = () => {
                   </span>
                 </div>
 
+                <span className="bird-management-main-card-subtitle">
+                  BALCONIES &amp; ROOFTOPS
+                </span>
+
                 <h3>Bird Net Installation</h3>
 
                 <p>
-                  Install suitable bird safety nets on balconies,
-                  windows, rooftops and open spaces to prevent
-                  unwanted bird entry and nesting.
+                  Install durable bird safety nets on balconies, windows,
+                  rooftops, and open spaces to prevent unwanted bird entry and
+                  nesting.
                 </p>
-
               </div>
 
               <div className="bird-management-main-image-card">
-
                 <div className="bird-management-main-image-wrap">
                   <img
                     src={servicetwo}
@@ -401,46 +422,37 @@ const BirdmanagementserviceMain = () => {
                   </span>
                 </div>
 
-                <h3>Bird Spike Installation</h3>
+                <span className="bird-management-main-card-subtitle">
+                  LEDGES &amp; SOLAR PANELS
+                </span>
+
+                <h3>Bird Spike &amp; Repellent Solutions</h3>
 
                 <p>
-                  Use appropriate bird spikes and deterrent
-                  systems to discourage pigeons and other birds
-                  from landing on building surfaces.
+                  Use appropriate bird spikes, repellents, and humane trapping
+                  systems to discourage pigeons and crows from roosting on
+                  building surfaces.
                 </p>
-
               </div>
-
             </div>
           </div>
 
           {/* WHY CHOOSE US */}
           <div className="bird-management-main-overview bird-management-main-reveal">
-
             <span className="bird-management-main-section-subtitle">
-              WHY CHOOSE NILACHAKRA
+              WHY CHOOSE GIRIDURGA PEST CONTROL
             </span>
 
-            <h2>
-              Trusted Bird Control Experts Across Odisha
-            </h2>
+            <h2>Trusted Bird Control Experts Across Odisha</h2>
 
             <p>
-              As a trusted pest control company in Odisha,
-              Nilachakra Pest Control provides customized
-              bird management solutions for residential,
-              commercial and industrial properties.
-            </p>
-
-            <p>
-              Our team focuses on practical, humane and
-              property-specific bird deterrent solutions
-              to help protect your buildings from nesting,
-              roosting and bird-related damage.
+              As a trusted pest control company in Odisha,{" "}
+              <strong>Giridurga Pest Control</strong> provides customized bird
+              management solutions for residential, commercial, and industrial
+              properties.
             </p>
 
             <div className="bird-management-main-benefits">
-
               <div className="bird-management-main-benefit">
                 <span>✓</span>
                 <p>Protect your property from bird damage</p>
@@ -448,7 +460,7 @@ const BirdmanagementserviceMain = () => {
 
               <div className="bird-management-main-benefit">
                 <span>✓</span>
-                <p>Humane and eco-conscious bird control solutions</p>
+                <p>Safe, humane &amp; eco-friendly bird control solutions</p>
               </div>
 
               <div className="bird-management-main-benefit">
@@ -463,59 +475,71 @@ const BirdmanagementserviceMain = () => {
 
               <div className="bird-management-main-benefit">
                 <span>✓</span>
-                <p>Site inspection and expert support</p>
+                <p>Free site inspection and expert support</p>
               </div>
 
               <div className="bird-management-main-benefit">
                 <span>✓</span>
-                <p>Solutions for balconies, rooftops and industrial sheds</p>
+                <p>Solutions for balconies, rooftops, solar panels &amp; sheds</p>
               </div>
-
             </div>
-
           </div>
 
           {/* SERVICE LOCATIONS / SEO CONTENT */}
           <div className="bird-management-main-overview bird-management-main-reveal">
-
             <span className="bird-management-main-section-subtitle">
               OUR SERVICE LOCATIONS
             </span>
 
-            <h2>
-              Bird Management and Pest Control Services Near You
-            </h2>
+            <h2>Bird Management and Pest Control Services Near You</h2>
 
             <p>
-              Nilachakra Pest Control provides professional bird
-              management and pest control services across Odisha.
-              We serve customers in Bhubaneswar, Cuttack, Puri
-              and nearby locations with customized bird control
-              solutions.
+              <strong>Giridurga Pest Control</strong> provides professional bird
+              management and pest control services across Odisha. We serve
+              customers in <strong>Bhubaneswar, Cuttack, Puri</strong>, and
+              nearby locations with customized bird control solutions.
             </p>
 
             <p>
-              If you are searching for the best pest control
-              in Cuttack with genuine rates, pest control
-              Bhubaneswar, best pest control services in
-              Bhubaneswar or pest control in Puri, our team
-              can help you find suitable property protection
-              solutions.
+              If you are searching for the{" "}
+              <strong>Best Pest Control in Cuttack with genuine rates</strong>,{" "}
+              <strong>pest control Bhubaneswar</strong>,{" "}
+              <strong>best pest control services in Bhubaneswar</strong>, or{" "}
+              <strong>pest control Puri</strong>, our team can help you find
+              suitable property protection solutions.
             </p>
 
             <p>
-              We also provide expert pest and termite control
-              across Cuttack, professional pest control
-              services near Cuttack Odisha and reliable pest
-              control solutions for residential and commercial
-              properties.
+              We also provide{" "}
+              <strong>
+                expert pest and termite control across Cuttack
+              </strong>
+              , dependable <strong>pest control near Cuttack, Odisha</strong>,
+              and complete <strong>pest control solutions in Cuttack</strong>{" "}
+              for residential and commercial properties.
             </p>
 
+            <div className="bird-management-main-local-box">
+              <span className="bird-management-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Bird &amp; Pest Protection Across Odisha</h3>
+              <div className="bird-management-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
+              </div>
+            </div>
           </div>
 
           {/* FAQ SECTION */}
           <div className="bird-management-main-faq bird-management-main-reveal">
-
             <span className="bird-management-main-section-subtitle">
               HAVE QUESTIONS?
             </span>
@@ -523,13 +547,12 @@ const BirdmanagementserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="bird-management-main-faq-intro">
-              Find answers to common questions about our bird
-              net installation, pigeon control, bird spikes
-              and professional bird management services.
+              Find answers to common questions about Giridurga Pest Control’s
+              bird net installation, pigeon control, bird spikes, and
+              professional bird management services.
             </p>
 
             <div className="bird-management-main-faq-list">
-
               {faqs.map((faq, index) => (
                 <div
                   key={faq.question}
@@ -537,24 +560,19 @@ const BirdmanagementserviceMain = () => {
                     activeFaq === index ? "faq-active" : ""
                   }`}
                 >
-
                   <button
                     type="button"
                     className="bird-management-main-faq-question"
                     onClick={() =>
-                      setActiveFaq(
-                        activeFaq === index ? -1 : index
-                      )
+                      setActiveFaq(activeFaq === index ? -1 : index)
                     }
                     aria-expanded={activeFaq === index}
                   >
-
                     <span>{faq.question}</span>
 
                     <span className="bird-management-main-faq-toggle">
                       {activeFaq === index ? "−" : "+"}
                     </span>
-
                   </button>
 
                   <div className="bird-management-main-faq-answer">
@@ -562,28 +580,22 @@ const BirdmanagementserviceMain = () => {
                       <p>{faq.answer}</p>
                     </div>
                   </div>
-
                 </div>
               ))}
-
             </div>
           </div>
 
           {/* BOTTOM CTA */}
           <div className="bird-management-main-bottom-cta bird-management-main-reveal">
-
             <div>
-              <span>PROTECT YOUR PROPERTY TODAY</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
-              <h2>
-                Need Professional Bird Management?
-              </h2>
+              <h2>Need Professional Bird Management?</h2>
 
               <p>
-                Protect your home and business from unwanted
-                bird nesting and roosting. Contact Nilachakra
-                Pest Control for professional bird control
-                and prevention solutions.
+                Don’t wait until it becomes a health hazard—call Giridurga Pest
+                Control today for a free inspection and humane bird control
+                solutions!
               </p>
             </div>
 
@@ -594,9 +606,7 @@ const BirdmanagementserviceMain = () => {
               Contact Us
               <ArrowIcon />
             </a>
-
           </div>
-
         </main>
       </div>
     </section>

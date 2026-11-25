@@ -45,7 +45,7 @@
 }
 
 /* ==========================================
-   SECTION HEADING
+   SECTION HEADING (STATIC & SIMPLE)
 ========================================== */
 
 .service-main-heading {
@@ -69,19 +69,13 @@
   font-weight: 700;
   letter-spacing: 3px;
   box-shadow: 0 8px 26px rgba(23, 59, 43, 0.08);
-  opacity: 0;
-  transform: translateY(-14px) scale(0.92);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-
-.service-main-active .service-main-subtitle { opacity: 1; transform: none; }
 
 .service-main-subtitle-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--service-main-lime-dark);
-  animation: serviceMainPulse 2s infinite;
 }
 
 .service-main-heading h2 {
@@ -93,20 +87,8 @@
   margin: 24px 0 18px;
 }
 
-.service-main-word { display: inline-block; white-space: nowrap; margin-right: 0.26em; }
-.service-main-word:last-child { margin-right: 0; }
-.service-main-word-accent { color: #83ad38; }
-
-.service-main-letter {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(0.6em) rotateX(-70deg) scale(0.9);
-  filter: blur(6px);
-  transform-origin: bottom center;
-}
-
-.service-main-active .service-main-letter {
-  animation: serviceMainLetterIn 0.7s cubic-bezier(0.2, 0.9, 0.25, 1) forwards;
+.service-main-word-accent {
+  color: #83ad38;
 }
 
 .service-main-heading p {
@@ -114,12 +96,7 @@
   color: var(--service-main-text);
   font-size: clamp(0.95rem, 1.3vw, 1.08rem);
   line-height: 1.8;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.8s ease 0.9s, transform 0.8s ease 0.9s;
 }
-
-.service-main-active .service-main-heading p { opacity: 1; transform: none; }
 
 /* ==========================================
    GRID - 4 COLUMNS x 5 ROWS = 20 CARDS
@@ -161,7 +138,6 @@
     transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
     background 0.55s ease,
     box-shadow 0.55s ease;
-  /* stagger by column only, so lower cards don't wait long */
   transition-delay: calc(var(--card-index) * 90ms + 0.3s);
 }
 
@@ -238,7 +214,7 @@
   color: var(--service-main-lime);
 }
 
-/* TITLE - room for long names (up to 3 lines) */
+/* TITLE */
 .service-main-card h3 {
   position: relative;
   z-index: 2;
@@ -373,12 +349,6 @@
 
 /* KEYFRAMES */
 @keyframes serviceMainLightSweep { from { left: -150%; } to { left: 150%; } }
-@keyframes serviceMainLetterIn { 60% { filter: blur(0); } 100% { opacity: 1; transform: none; filter: blur(0); } }
-@keyframes serviceMainPulse {
-  0% { box-shadow: 0 0 0 0 rgba(169, 220, 61, 0.6); }
-  70% { box-shadow: 0 0 0 11px rgba(169, 220, 61, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(169, 220, 61, 0); }
-}
 @keyframes serviceMainFloat {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(16px, 18px) scale(1.06); }
@@ -393,7 +363,7 @@
   .service-main-card { padding: 28px 14px 22px; }
 }
 
-/* tablet: 2 columns (20 cards = 10 rows) */
+/* tablet: 2 columns */
 @media (max-width: 1024px) {
   .service-main { padding: 80px 25px 90px; }
   .service-main-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
@@ -431,8 +401,5 @@
   .service-main *::before,
   .service-main *::after { transition: none !important; animation: none !important; }
 
-  .service-main-card,
-  .service-main-letter,
-  .service-main-subtitle,
-  .service-main-heading p { opacity: 1; transform: none; filter: none; }
+  .service-main-card { opacity: 1; transform: none; filter: none; }
 }

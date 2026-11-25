@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ServiceMain.css";
@@ -176,14 +175,6 @@ const services = [
   backImage: s.backImage || s.image,
 }));
 
-/* ================= HEADING ================= */
-
-const HEADING_WORDS = [
-  { text: "Our", accent: false },
-  { text: "Professional", accent: false },
-  { text: "Services", accent: true },
-];
-
 /* ================= COMPONENT ================= */
 
 const ServiceMain = () => {
@@ -213,66 +204,34 @@ const ServiceMain = () => {
     return () => io.disconnect();
   }, []);
 
-  let letterIndex = 0;
-
   return (
     <section
-      className={`service-main ${
-        inView ? "service-main-active" : ""
-      }`}
+      className={`service-main ${inView ? "service-main-active" : ""}`}
       ref={sectionRef}
     >
       <div className="service-main-glow service-main-glow-one" />
       <div className="service-main-glow service-main-glow-two" />
 
       <div className="service-main-container">
-
         {/* SECTION HEADING */}
-
         <div className="service-main-heading">
           <span className="service-main-subtitle">
             <i className="service-main-subtitle-dot" />
             WHAT WE OFFER
           </span>
 
-          <h2 aria-label="Our Professional Services">
-            {HEADING_WORDS.map((word, wi) => (
-              <span
-                className={`service-main-word ${
-                  word.accent
-                    ? "service-main-word-accent"
-                    : ""
-                }`}
-                key={wi}
-              >
-                {word.text.split("").map((ch, ci) => {
-                  const delay = letterIndex++ * 0.05;
-
-                  return (
-                    <span
-                      className="service-main-letter"
-                      style={{
-                        animationDelay: `${delay}s`,
-                      }}
-                      key={`${wi}-${ci}`}
-                      aria-hidden="true"
-                    >
-                      {ch}
-                    </span>
-                  );
-                })}
-              </span>
-            ))}
+          <h2>
+            Our Professional{" "}
+            <span className="service-main-word-accent">Services</span>
           </h2>
 
           <p>
-            Discover our professional pest control solutions
-            designed to keep your home and workplace safe.
+            Discover our professional pest control solutions designed to keep
+            your home and workplace safe.
           </p>
         </div>
 
         {/* SERVICE CARDS */}
-
         <div className="service-main-grid">
           {services.map((service, index) => {
             const Icon = service.icon;
@@ -287,28 +246,23 @@ const ServiceMain = () => {
                 }}
               >
                 {/* NUMBER */}
-
                 <span className="service-main-number">
                   {String(service.id).padStart(2, "0")}
                 </span>
 
                 {/* ICON */}
-
                 <div className="service-main-icon">
                   <Icon size={36} strokeWidth={1.5} />
                 </div>
 
                 {/* TITLE */}
-
                 <h3>{service.title}</h3>
 
                 {/* IMAGE */}
-
                 <div className="service-main-image-wrapper">
                   <div className="service-main-image-ring" />
 
                   <div className="service-main-image-inner">
-
                     <div className="service-main-image-front">
                       <img
                         src={service.image}
@@ -324,12 +278,10 @@ const ServiceMain = () => {
                         loading="lazy"
                       />
                     </div>
-
                   </div>
                 </div>
 
                 {/* LEARN MORE - INDIVIDUAL PATH */}
-
                 <Link
                   to={service.path}
                   className="service-main-link"
@@ -342,18 +294,12 @@ const ServiceMain = () => {
                   }
                 >
                   <span>Learn More</span>
-
-                  <ArrowUpRight
-                    size={18}
-                    strokeWidth={2.2}
-                  />
+                  <ArrowUpRight size={18} strokeWidth={2.2} />
                 </Link>
-
               </article>
             );
           })}
         </div>
-
       </div>
     </section>
   );

@@ -8,66 +8,71 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Fly Inspection",
-    heading: "Detailed Fly Inspection Services",
+    subtitle: "BREEDING SITE & HYGIENE AUDIT",
+    heading: "Detailed Fly Inspection Services in Odisha",
     image: serviceone,
     description:
-      "Identify breeding sites, entry points, waste zones and high-activity areas around your property with a thorough inspection.",
+      "Identify breeding sites, drain hotspots, waste zones, and entry points across homes, restaurants, hotels, hospitals, and food units.",
   },
   {
     title: "Fly Treatment",
-    heading: "Professional Fly Control Solutions",
+    subtitle: "RESIDUAL SPRAYS, TRAPS & BIO-CONTROL",
+    heading: "Fly Management Services in Odisha",
     image: service,
     description:
-      "Bring housefly, fruit fly and drain fly activity under control with targeted larvicides, residual sprays, baits and traps.",
+      "Giridurga Pest Control targets breeding areas with eco-friendly residual sprays, fly traps, and biological controls to manage houseflies, drain flies, and fruit flies.",
   },
   {
     title: "Breeding & Drain Control",
-    heading: "Targeted Breeding Site & Drain Control",
+    subtitle: "LARVAL & ORGANIC BUILDUP CARE",
+    heading: "Targeted Breeding Site & Drain Fly Control",
     image: servicetwo,
     description:
-      "Focused treatment around garbage areas, floor drains, grease traps, compost zones and damp organic buildup where flies breed.",
+      "Focused treatment around garbage areas, floor drains, grease traps, and damp organic buildup to break fly breeding cycles effectively.",
   },
   {
     title: "Residential & Commercial Sites",
-    heading: "Fly Control for Homes & Businesses",
+    subtitle: "HOMES, HOTELS, HOSPITALS & FOOD UNITS",
+    heading: "Fly Control for Homes & Businesses in Odisha",
     image: service,
     description:
-      "Customized fly management plans for homes, kitchens, restaurants, cafes, food processing units, hospitals and offices.",
+      "Customized fly control plans across Bhubaneswar, Cuttack, Puri, and nearby cities with fast response and genuine rates.",
   },
   {
     title: "Preventive Fly Management",
-    heading: "Ongoing Fly Prevention & Hygiene Support",
+    subtitle: "ONGOING HYGIENE & EXCLUSION CARE",
+    heading: "Long-Lasting Fly Prevention & Hygiene Support",
     image: serviceone,
     description:
-      "Minimize repeat fly infestations with UV fly catcher placement, sanitation guidance, screening advice and scheduled follow-ups.",
+      "Protect your space from disease-carrying flies with UV trap placement, sanitation guidance, and expert pest and termite control across Cuttack and Odisha.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does your fly management service include?",
+    question: "What does Giridurga Pest Control's fly management service include?",
     answer:
-      "Our service includes site inspection, locating breeding sources and entry points, targeted adult and larval control measures, and practical sanitation and exclusion advice to prevent future fly problems.",
+      "Our service includes a thorough inspection of breeding areas and entry points, eco-friendly adult and larval treatments such as residual sprays, fly traps, and biological controls, plus customized sanitation guidance.",
   },
   {
     question: "What types of flies do you control?",
     answer:
-      "We manage common nuisance and hygiene-risk species including houseflies, fruit flies, drain flies, blowflies and cluster flies across indoor and outdoor areas.",
+      "We control houseflies, drain flies, fruit flies, blowflies, and other nuisance or disease-carrying flies across indoor and outdoor residential and commercial areas.",
   },
   {
-    question: "Are fly control treatments safe for kitchens, children and pets?",
+    question: "Are fly control treatments safe for families, pets, and food areas?",
     answer:
-      "We select food-safe and environment-appropriate methods such as targeted baits, UV traps and approved formulations, along with clear safety and preparation instructions for sensitive areas.",
+      "Yes. Giridurga Pest Control uses eco-friendly, scientifically proven treatments selected specifically for kitchens, food processing areas, homes, and sensitive commercial spaces, along with clear safety instructions.",
   },
   {
-    question: "How quickly will I see results after fly treatment?",
+    question: "Which cities in Odisha do you serve for fly and pest control?",
     answer:
-      "Adult fly activity typically drops noticeably shortly after treatment, while addressing drains and breeding sites stops new flies from emerging over the following days.",
+      "We serve Bhubaneswar, Cuttack, Puri, and nearby cities in Odisha with fast response, genuine rates, and reliable fly, termite, and general pest control services.",
   },
   {
-    question: "Do you provide fly control for restaurants and commercial spaces?",
+    question: "Do you provide fly control for restaurants, hotels, hospitals, and food units?",
     answer:
-      "Yes. We provide tailored fly management programs for restaurants, commercial kitchens, food facilities, warehouses, retail stores and residential properties.",
+      "Yes. Whether it is your home, restaurant, hotel, hospital, or food processing unit, our trained team conducts a thorough inspection and provides a customized fly control plan.",
   },
 ];
 
@@ -113,6 +118,18 @@ const PdfIcon = () => (
   </svg>
 );
 
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const FlymanagementserviceMain = () => {
   const rootRef = useRef(null);
 
@@ -127,9 +144,7 @@ const FlymanagementserviceMain = () => {
     const root = rootRef.current;
     if (!root) return;
 
-    const items = root.querySelectorAll(
-      ".fly-management-service-main-reveal"
-    );
+    const items = root.querySelectorAll(".fly-management-service-main-reveal");
 
     if (typeof IntersectionObserver === "undefined") {
       items.forEach((el) => el.classList.add("is-visible"));
@@ -154,10 +169,7 @@ const FlymanagementserviceMain = () => {
   }, []);
 
   return (
-    <section
-      className="fly-management-service-main"
-      ref={rootRef}
-    >
+    <section className="fly-management-service-main" ref={rootRef}>
       <div className="fly-management-service-main-glow fly-management-service-main-glow-one" />
       <div className="fly-management-service-main-glow fly-management-service-main-glow-two" />
 
@@ -196,12 +208,12 @@ const FlymanagementserviceMain = () => {
             <div className="fly-management-service-main-contact-decoration fly-management-service-main-contact-decoration-two" />
 
             <div className="fly-management-service-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+              <h2>Contact Giridurga Pest Control for any advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="fly-management-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -233,9 +245,7 @@ const FlymanagementserviceMain = () => {
           {/* HERO SECTION */}
           <div
             className={`fly-management-service-main-hero ${
-              imageFailed
-                ? "fly-management-service-main-hero-fallback"
-                : ""
+              imageFailed ? "fly-management-service-main-hero-fallback" : ""
             }`}
           >
             {!imageFailed && (
@@ -266,7 +276,7 @@ const FlymanagementserviceMain = () => {
               key={`text-${activeService}`}
             >
               <span className="fly-management-service-main-hero-label">
-                PROFESSIONAL FLY MANAGEMENT
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -278,23 +288,65 @@ const FlymanagementserviceMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="fly-management-service-main-overview fly-management-service-main-reveal">
             <span className="fly-management-service-main-section-subtitle">
-              ABOUT FLY MANAGEMENT
+              GIRIDURGA PEST CONTROL • HYGIENE &amp; FLY CONTROL EXPERTS
             </span>
 
-            <h2>Fly Management Overview</h2>
+            <h2>Fly Management Services in Odisha</h2>
 
             <p>
-              Flies multiply rapidly around organic waste, drains, kitchens and
-              outdoor refuse areas, spreading bacteria and creating serious
-              hygiene concerns for homes and businesses. Our team inspects
-              breeding zones, identifies entry points and delivers targeted fly
-              control for your property.
+              Flies are more than just a nuisance—they are known carriers of
+              harmful bacteria and viruses that can contaminate food, spread
+              diseases, and impact hygiene in homes and commercial spaces. If
+              you’re facing a fly infestation, it’s time to act fast with expert
+              help.
             </p>
 
             <p>
-              Every facility has different hygiene and structural pressures. We
-              assess waste handling, drainage, airflow and fly species before
-              recommending an effective control and prevention plan.
+              <strong>Giridurga Pest Control</strong> offers professional and
+              affordable fly management services in Odisha, using safe and
+              scientifically proven techniques to control and prevent fly
+              infestations. We target breeding areas and apply eco-friendly
+              treatments like{" "}
+              <strong>
+                residual sprays, fly traps, and biological controls
+              </strong>{" "}
+              to reduce fly populations quickly and effectively.
+            </p>
+
+            <p>
+              Whether it's your home, restaurant, hotel, hospital, or food
+              processing unit, our trained team conducts a thorough inspection
+              and provides a customized fly control plan to suit your property.
+              We serve <strong>Bhubaneswar, Cuttack, Puri</strong>, and other
+              nearby cities with fast response and dependable results.
+            </p>
+
+            <ul className="fly-management-service-main-highlights">
+              <li>
+                <span className="fly-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Controls houseflies, drain flies, and fruit flies</span>
+              </li>
+              <li>
+                <span className="fly-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Safe for families, pets &amp; sensitive food preparation areas
+                </span>
+              </li>
+              <li>
+                <span className="fly-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Affordable, effective &amp; long-lasting protection</span>
+              </li>
+            </ul>
+
+            <p className="fly-management-service-main-tagline">
+              Protect your space from disease-carrying flies with Odisha’s
+              trusted pest control experts at Giridurga Pest Control.
             </p>
           </div>
 
@@ -304,45 +356,93 @@ const FlymanagementserviceMain = () => {
               TARGETED FLY CONTROL
             </span>
 
-            <h2>Complete Fly Control Solutions</h2>
+            <h2>Fly Management Services in Odisha</h2>
 
             <p>
-              From residential kitchens to high-traffic hospitality and food
-              facilities, we offer practical fly management tailored to your
-              site conditions.
+              Trusted among{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong> and
+              known for the{" "}
+              <strong>best pest control services in Bhubaneswar</strong>,{" "}
+              <strong>pest control Puri</strong>, and{" "}
+              <strong>expert pest and termite control across Cuttack</strong>,
+              Giridurga Pest Control delivers tailored fly control for
+              residential and commercial facilities.
             </p>
 
             <div className="fly-management-service-main-image-grid">
               <div className="fly-management-service-main-image-card">
                 <div className="fly-management-service-main-image-wrap">
-                  <img src={serviceone} alt="Fly inspection" />
+                  <img
+                    src={serviceone}
+                    alt="Fly breeding site and drain inspection in Odisha"
+                  />
                   <span className="fly-management-service-main-image-number">
                     01
                   </span>
                 </div>
 
+                <span className="fly-management-service-main-card-subtitle">
+                  BREEDING &amp; ENTRY POINT AUDIT
+                </span>
+
                 <h3>Detailed Inspection</h3>
 
                 <p>
                   Detailed inspection to pinpoint breeding grounds, drain
-                  hotspots and entry points.
+                  hotspots, waste zones, and entry points across your property.
                 </p>
               </div>
 
               <div className="fly-management-service-main-image-card">
                 <div className="fly-management-service-main-image-wrap">
-                  <img src={servicetwo} alt="Fly treatment" />
+                  <img
+                    src={servicetwo}
+                    alt="Eco-friendly fly treatment and trapping"
+                  />
                   <span className="fly-management-service-main-image-number">
                     02
                   </span>
                 </div>
 
-                <h3>Targeted Treatment</h3>
+                <span className="fly-management-service-main-card-subtitle">
+                  TRAPS, SPRAYS &amp; BIO-CONTROL
+                </span>
+
+                <h3>Targeted Eco-Friendly Treatment</h3>
 
                 <p>
-                  Targeted control measures designed to eliminate adult flies
-                  and disrupt breeding cycles safely.
+                  Targeted residual sprays, fly traps, and biological controls
+                  designed to curb houseflies, drain flies, and fruit flies
+                  safely.
                 </p>
+              </div>
+            </div>
+
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="fly-management-service-main-local-box">
+              <span className="fly-management-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Trusted Fly &amp; Pest Control Across Odisha</h3>
+              <p>
+                Looking for{" "}
+                <strong>Best Pest Control in Cuttack with genuine rates</strong>{" "}
+                or dependable <strong>pest control near Cuttack, Odisha</strong>?
+                Giridurga Pest Control offers the{" "}
+                <strong>best pest control services in Cuttack</strong> and
+                complete <strong>pest control solutions in Cuttack</strong>,
+                Bhubaneswar, and Puri.
+              </p>
+              <div className="fly-management-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
               </div>
             </div>
           </div>
@@ -356,8 +456,8 @@ const FlymanagementserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="fly-management-service-main-faq-intro">
-              Find answers to common questions about our fly inspection,
-              control and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              fly inspection, control, and prevention services in Odisha.
             </p>
 
             <div className="fly-management-service-main-faq-list">
@@ -396,13 +496,13 @@ const FlymanagementserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="fly-management-service-main-bottom-cta fly-management-service-main-reveal">
             <div>
-              <span>KEEP YOUR PROPERTY FLY-FREE</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
-              <h2>Need Professional Fly Control?</h2>
+              <h2>Need Professional Fly Control in Odisha?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Protect your space from disease-carrying flies with Giridurga
+                Pest Control’s affordable, eco-safe solutions.
               </p>
             </div>
 

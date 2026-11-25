@@ -8,66 +8,71 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Termite Inspection",
-    heading: "Detailed Termite Inspection Services",
+    subtitle: "MUD TUBES & MOISTURE ZONE AUDIT",
+    heading: "Detailed Termite Inspection Services in Odisha",
     image: serviceone,
     description:
-      "Locate mud tubes, hollow timber, wood damage and moisture zones with a thorough inspection of your property.",
+      "Locate mud tubes, hollow timber, wood damage, and moisture-prone zones across residential flats, offices, shops, and hotels.",
   },
   {
     title: "Termite Treatment",
-    heading: "Professional Termite Treatment Solutions",
+    subtitle: "ODORLESS ANTI-TERMITE BARRIER",
+    heading: "Post-Construction Termite Management Services in Odisha",
     image: service,
     description:
-      "Bring subterranean and drywood termite activity under control with targeted soil barriers, baiting and tailored treatment.",
+      "Giridurga Pest Control uses government-approved, odorless, and eco-safe chemicals to create a protective anti-termite barrier that keeps termites away for years.",
   },
   {
-    title: "Pre & Post-Construction Control",
-    heading: "Pre & Post-Construction Termite Protection",
+    title: "Drill-Fill-Seal Protection",
+    subtitle: "WALL-FLOOR & PLUMBING CARE",
+    heading: "Precision Drill & Inject Anti-Termite Solutions",
     image: servicetwo,
     description:
-      "Focused protection across foundations, plinths, slab joints, utility conduits and existing structures where termites enter.",
+      "Targeted drilling and injection into wall-floor junctions, wooden fixtures, and plumbing areas with zero disturbance to your daily routine.",
   },
   {
     title: "Residential & Commercial Control",
-    heading: "Termite Control for Homes & Businesses",
+    subtitle: "FLATS, OFFICES, SHOPS & HOTELS",
+    heading: "Termite Control for Homes & Businesses in Odisha",
     image: service,
     description:
-      "Customized termite management plans for houses, apartments, offices, warehouses, schools and commercial facilities.",
+      "Customized termite management plans across Bhubaneswar, Cuttack, Puri, and nearby areas with genuine rates and certified technicians.",
   },
   {
     title: "Preventive Termite Management",
-    heading: "Ongoing Termite Prevention & Monitoring",
+    subtitle: "ONGOING STRUCTURAL PROTECTION",
+    heading: "Long-Lasting Termite Prevention & Monitoring",
     image: serviceone,
     description:
-      "Minimize the risk of repeat termite infestations with moisture control advice, structural checks and scheduled follow-ups.",
+      "Protect your property from hidden structural damage with scheduled monitoring and expert pest and termite control across Cuttack and Odisha.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does your termite management service include?",
+    question: "What does Giridurga Pest Control's post-construction termite service include?",
     answer:
-      "Our service includes property inspection, identifying mud tubes and vulnerable structural zones, targeted termite treatment and practical recommendations to reduce future infestation risks.",
+      "Our service includes inspecting moisture-prone areas and mud tubes, precision drilling and injecting government-approved, odorless anti-termite chemicals into wall-floor junctions, wooden fixtures, and plumbing zones, and sealing treated points cleanly.",
   },
   {
-    question: "Are termite treatments safe for children and pets?",
+    question: "Are your termite treatments safe and odor-free for children and pets?",
     answer:
-      "We select suitable treatment methods and apply them according to site conditions and safety guidelines. Always follow your technician's instructions regarding treated areas and re-entry times.",
+      "Yes. Giridurga Pest Control uses government-approved, odorless, and eco-safe formulations applied by certified pest control technicians with zero disturbance to your routine.",
   },
   {
-    question: "How often should termite control be inspected or repeated?",
+    question: "Which areas in Odisha do you serve for termite and pest control?",
     answer:
-      "Inspection and maintenance intervals depend on soil conditions, treatment type, building structure and local termite pressure. Our technician will advise on a suitable monitoring or warranty schedule.",
+      "We serve Bhubaneswar, Cuttack, Puri, and nearby areas across Odisha with genuine rates, fast response, and dependable post-construction termite and general pest control services.",
   },
   {
-    question: "How long does a termite treatment take?",
+    question: "How long does post-construction termite protection last?",
     answer:
-      "Service time depends on property size, foundation layout and the extent of termite activity. Your technician will let you know the estimated duration before starting.",
+      "Our drill-and-inject anti-termite chemical barrier is designed to keep termites away for years, depending on soil moisture and building structure. Our technician will advise on warranty and follow-up checks during inspection.",
   },
   {
-    question: "Do you provide termite control for both homes and commercial spaces?",
+    question: "Do you provide termite control for flats, offices, shops, and hotels?",
     answer:
-      "Yes. We provide termite management solutions for residential homes, apartments, offices, storage spaces and commercial buildings.",
+      "Yes. Whether it is a residential flat, independent house, office building, shop, or hotel, we offer customized termite control plans tailored to your property.",
   },
 ];
 
@@ -107,6 +112,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -154,10 +171,7 @@ const TermitemanagementserviceMain = () => {
   }, []);
 
   return (
-    <section
-      className="termite-management-service-main"
-      ref={rootRef}
-    >
+    <section className="termite-management-service-main" ref={rootRef}>
       <div className="termite-management-service-main-glow termite-management-service-main-glow-one" />
       <div className="termite-management-service-main-glow termite-management-service-main-glow-two" />
 
@@ -196,12 +210,12 @@ const TermitemanagementserviceMain = () => {
             <div className="termite-management-service-main-contact-decoration termite-management-service-main-contact-decoration-two" />
 
             <div className="termite-management-service-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+              <h2>Contact Giridurga Pest Control for any advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="termite-management-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -266,7 +280,7 @@ const TermitemanagementserviceMain = () => {
               key={`text-${activeService}`}
             >
               <span className="termite-management-service-main-hero-label">
-                PROFESSIONAL TERMITE MANAGEMENT
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -278,24 +292,65 @@ const TermitemanagementserviceMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="termite-management-service-main-overview termite-management-service-main-reveal">
             <span className="termite-management-service-main-section-subtitle">
-              ABOUT TERMITE MANAGEMENT
+              GIRIDURGA PEST CONTROL • TERMITE PROTECTION EXPERTS
             </span>
 
-            <h2>Termite Management Overview</h2>
+            <h2>Post-Construction Termite Management Services in Odisha</h2>
 
             <p>
-              Termites often work silently behind walls, under flooring and
-              around foundations, weakening wood framing, cabinetry, doors and
-              stored materials before visible damage appears. Our team inspects
-              high-risk areas, spots early signs of activity and recommends
-              targeted termite control for your property.
+              Termites can silently destroy your property from the inside out,
+              causing severe structural damage and financial loss. Even after
+              construction is complete, homes and commercial buildings in
+              Odisha remain vulnerable to termite attacks—especially in
+              moisture-prone areas.
             </p>
 
             <p>
-              Every structure has different vulnerability points. We evaluate
-              building layout, soil and moisture conditions, and signs of
-              termite presence before recommending an effective treatment and
-              prevention plan.
+              At <strong>Giridurga Pest Control</strong>, we provide reliable
+              and effective post-construction termite management services in
+              Odisha using government-approved, odorless, and eco-safe
+              chemicals. Our team drills and injects anti-termite solutions
+              into key points like{" "}
+              <strong>
+                wall-floor junctions, wooden fixtures, and plumbing areas
+              </strong>{" "}
+              to create a protective barrier that keeps termites away for
+              years.
+            </p>
+
+            <p>
+              Whether it’s a residential flat, office building, shop, or hotel,
+              we offer customized termite control plans with long-lasting
+              results and zero disturbance to your routine. Serving{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby areas, we
+              are trusted for our quality service, expert staff, and affordable
+              pricing.
+            </p>
+
+            <ul className="termite-management-service-main-highlights">
+              <li>
+                <span className="termite-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Safe, odor-free &amp; eco-friendly anti-termite treatment</span>
+              </li>
+              <li>
+                <span className="termite-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Prevents termite infestation and structural wood damage</span>
+              </li>
+              <li>
+                <span className="termite-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>Certified pest control technicians with precision tools</span>
+              </li>
+            </ul>
+
+            <p className="termite-management-service-main-tagline">
+              Secure your property from hidden termite threats with Odisha’s
+              trusted pest control experts at Giridurga Pest Control.
             </p>
           </div>
 
@@ -305,45 +360,101 @@ const TermitemanagementserviceMain = () => {
               TARGETED TERMITE CONTROL
             </span>
 
-            <h2>Complete Termite Control Solutions</h2>
+            <h2>Post-Construction Termite Management Services in Odisha</h2>
 
             <p>
-              From residential homes to commercial buildings, we offer practical
-              termite management tailored to structural conditions and
-              infestation levels.
+              Known for{" "}
+              <strong>
+                expert pest and termite control across Cuttack
+              </strong>
+              , <strong>pest control Bhubaneswar</strong>, and{" "}
+              <strong>pest control Puri</strong>, Giridurga Pest Control
+              delivers the{" "}
+              <strong>best pest control services in Cuttack</strong> and nearby
+              cities with thorough structural protection.
             </p>
 
             <div className="termite-management-service-main-image-grid">
               <div className="termite-management-service-main-image-card">
                 <div className="termite-management-service-main-image-wrap">
-                  <img src={serviceone} alt="Termite inspection" />
+                  <img
+                    src={serviceone}
+                    alt="Post-construction termite inspection in Odisha"
+                  />
                   <span className="termite-management-service-main-image-number">
                     01
                   </span>
                 </div>
 
-                <h3>Detailed Inspection</h3>
+                <span className="termite-management-service-main-card-subtitle">
+                  MOISTURE &amp; MUD TUBE AUDIT
+                </span>
+
+                <h3>Detailed Structural Inspection</h3>
 
                 <p>
-                  Detailed inspection to spot mud tubes, wood damage and
-                  high-risk moisture zones.
+                  Detailed inspection to spot mud tubes, hollow woodwork,
+                  plumbing seepage, and high-risk moisture zones before
+                  treatment.
                 </p>
               </div>
 
               <div className="termite-management-service-main-image-card">
                 <div className="termite-management-service-main-image-wrap">
-                  <img src={servicetwo} alt="Termite treatment" />
+                  <img
+                    src={servicetwo}
+                    alt="Drill and inject anti-termite barrier treatment"
+                  />
                   <span className="termite-management-service-main-image-number">
                     02
                   </span>
                 </div>
 
-                <h3>Targeted Treatment</h3>
+                <span className="termite-management-service-main-card-subtitle">
+                  DRILL, INJECT &amp; SEAL BARRIER
+                </span>
+
+                <h3>Targeted Anti-Termite Treatment</h3>
 
                 <p>
-                  Targeted control measures designed to manage termite activity
-                  reliably and safely.
+                  Precision drilling and injection of odorless,
+                  government-approved chemicals along wall-floor junctions and
+                  wooden fixtures.
                 </p>
+              </div>
+            </div>
+
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="termite-management-service-main-local-box">
+              <span className="termite-management-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Leading Termite &amp; Pest Control Across Odisha</h3>
+              <p>
+                Searching for{" "}
+                <strong>
+                  Best Pest Control in Cuttack with genuine rates
+                </strong>{" "}
+                or dependable{" "}
+                <strong>pest control near Cuttack, Odisha</strong>? Giridurga
+                Pest Control is counted among top{" "}
+                <strong>Pest Control Service Providers in Cuttack</strong>,
+                offering the{" "}
+                <strong>best pest control services in Bhubaneswar</strong> and
+                comprehensive{" "}
+                <strong>pest control solutions in Cuttack</strong>, Puri, and
+                surrounding areas.
+              </p>
+              <div className="termite-management-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
               </div>
             </div>
           </div>
@@ -357,8 +468,9 @@ const TermitemanagementserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="termite-management-service-main-faq-intro">
-              Find answers to common questions about our termite inspection,
-              treatment and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              post-construction termite inspection, treatment, and prevention
+              services in Odisha.
             </p>
 
             <div className="termite-management-service-main-faq-list">
@@ -397,13 +509,13 @@ const TermitemanagementserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="termite-management-service-main-bottom-cta termite-management-service-main-reveal">
             <div>
-              <span>KEEP YOUR PROPERTY TERMITE-FREE</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
-              <h2>Need Professional Termite Control?</h2>
+              <h2>Need Post-Construction Termite Control?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Secure your property from hidden termite threats with
+                Giridurga Pest Control at genuine rates.
               </p>
             </div>
 

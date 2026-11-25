@@ -9,70 +9,70 @@ const services = [
   {
     title: "Ant Trail Inspection",
     subtitle: "TRAIL & NESTING SOURCE AUDIT",
-    heading: "Detailed Ant Inspection Services",
+    heading: "Detailed Ant Colony & Entry Inspection",
     image: serviceone,
     description:
-      "Trace ant trails, entry points, wall gaps, skirting boards and outdoor nesting spots to pinpoint where ant activity originates.",
+      "Trace sugar ant, carpenter ant, and red ant trails, wall gaps, electrical points, and outdoor nesting spots to target colonies at the source.",
   },
   {
     title: "Ant Control Treatment",
     subtitle: "INDOOR & PERIMETER CONTROL",
-    heading: "Professional Ant Management Solutions",
+    heading: "Ant Control Services in Odisha",
     image: service,
     description:
-      "Reduce ant activity across kitchens, pantries, balconies, walls and entry points with structured treatment suited to your space.",
+      "Giridurga Pest Control uses eco-friendly, targeted treatments to eliminate ant colonies at the source across kitchens, pantries, balconies, and offices.",
   },
   {
-    title: "Kitchen & Entry Point Care",
-    subtitle: "FOOD ZONES & CRACK SEALING CARE",
+    title: "Kitchen & Wiring Protection",
+    subtitle: "FOOD ZONES & ELECTRICAL SAFETY",
     heading: "Targeted Kitchen & Entry Point Ant Control",
     image: servicetwo,
     description:
-      "Focused attention around kitchen counters, cabinets, sinks, window frames and gaps where ants forage and enter.",
+      "Protect food counters, cabinets, sinks, and electrical wiring from contamination and damage with precision gel and barrier care.",
   },
   {
     title: "Residential & Commercial Control",
     subtitle: "HOMES, OFFICES & FOOD SPACES",
-    heading: "Ant Control for Homes & Businesses",
+    heading: "Ant Control for Homes & Businesses in Odisha",
     image: service,
     description:
-      "Practical ant management services for houses, flats, cafes, restaurants, offices, storage rooms and commercial sites.",
+      "Practical ant management solutions for houses, flats, cafes, restaurants, offices, and commercial premises across Bhubaneswar, Cuttack, and Puri.",
   },
   {
     title: "Preventive Ant Management",
     subtitle: "ONGOING TRAIL & SOURCE CARE",
-    heading: "Ongoing Ant Prevention & Management",
+    heading: "Ongoing Ant Prevention & Pest Management",
     image: serviceone,
     description:
-      "Keep ant trails down with practical food-storage and entry-point guidance along with recommended follow-up checks.",
+      "Keep ant trails away with entry-point guidance and scheduled follow-ups alongside expert pest and termite control across Cuttack and nearby cities.",
   },
 ];
 
 const faqs = [
   {
-    question: "What does your ant management service include?",
+    question: "What does Giridurga Pest Control's ant management service include?",
     answer:
-      "Our service includes inspecting ant trails and potential entry or nesting spots, applying targeted control measures, and sharing practical prevention tips.",
+      "Our service includes inspecting ant trails and nesting spots, applying eco-friendly colony-targeted treatments for sugar ants, carpenter ants, and red ants, and sharing prevention tips.",
   },
   {
-    question: "Are ant treatments safe for children and pets?",
+    question: "Are your ant control treatments safe for children, pets, and kitchens?",
     answer:
-      "We select appropriate treatment methods based on the area and share clear safety instructions. Always follow your technician's re-entry and kitchen safety guidance.",
+      "Yes. Giridurga Pest Control uses eco-friendly, odorless, and targeted formulations designed for residential kitchens, offices, and food spaces, accompanied by clear safety guidance.",
   },
   {
-    question: "How often should ant treatment be repeated?",
+    question: "Which cities in Odisha do you serve for ant and pest control?",
     answer:
-      "Frequency depends on ant activity levels, surrounding greenery or cracks and the treatment approach used. Our technician can suggest a suitable follow-up schedule after inspection.",
+      "We serve Bhubaneswar, Cuttack, Puri, and surrounding cities in Odisha with genuine rates, fast response, and reliable ant, termite, and general pest control services.",
   },
   {
-    question: "How long does ant treatment take?",
+    question: "Why do ants keep returning after regular spray or wiping?",
     answer:
-      "Service time varies with property size and affected zones. Your technician will let you know the expected duration before starting.",
+      "Surface sprays only affect visible worker ants while leaving the hidden queen and colony intact. Our targeted treatments eliminate the ant colony at its source to stop recurring trails.",
   },
   {
-    question: "Do you provide ant control for homes and commercial spaces?",
+    question: "Do you provide ant control for both homes and commercial spaces?",
     answer:
-      "Yes. We provide ant management solutions for individual homes, apartments, offices, cafes, shops and commercial premises.",
+      "Yes. We provide customized ant management solutions for individual homes, apartments, offices, cafes, hospitals, shops, and commercial buildings across Odisha.",
   },
 ];
 
@@ -112,6 +112,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -196,12 +208,12 @@ const AntmanagementserviceMain = () => {
             <div className="ant-management-service-main-contact-decoration ant-management-service-main-contact-decoration-two" />
 
             <div className="ant-management-service-main-contact-content">
-              <h2>Contact with us for any advice</h2>
+              <h2>Contact Giridurga Pest Control for any advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="ant-management-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -276,23 +288,67 @@ const AntmanagementserviceMain = () => {
           {/* SERVICE OVERVIEW */}
           <div className="ant-management-service-main-overview ant-management-service-main-reveal">
             <span className="ant-management-service-main-section-subtitle">
-              ANT CONTROL STRATEGY
+              GIRIDURGA PEST CONTROL • ANT CONTROL STRATEGY
             </span>
 
-            <h2>Ant Management Overview</h2>
+            <h2>Ant Control Services in Odisha</h2>
 
             <p>
-              Ants quickly follow food trails, moisture spots, wall gaps and
-              entry points, making short-term surface wiping only a temporary
-              fix. Our team inspects trails and common access areas to recommend
-              targeted ant management for your property.
+              Are ants invading your home or office in Odisha? Don’t let these
+              tiny pests become a big problem. At{" "}
+              <strong>Giridurga Pest Control</strong>, we offer professional ant
+              management services in Odisha to keep your space clean, safe, and
+              pest-free.
             </p>
 
             <p>
-              Every space has different activity patterns. We assess indoor
-              foraging zones, wall crevices and outdoor entry routes before
-              suggesting a practical treatment and prevention plan.
+              Ants can cause more damage than you might think. From
+              contaminating food to damaging electrical wiring, they’re more than
+              just a nuisance. Our trained experts use eco-friendly and
+              effective solutions to eliminate ant colonies at the source — not
+              just the surface. Whether you're dealing with{" "}
+              <strong>sugar ants, carpenter ants, or red ants</strong>, we have
+              targeted treatments to remove them completely.
             </p>
+
+            <p>
+              Serving <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby
+              areas, Giridurga Pest Control is recognized among reliable{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong> and
+              delivers the{" "}
+              <strong>best pest control services in Bhubaneswar</strong> and{" "}
+              <strong>pest control Puri</strong> with safe, long-lasting
+              results.
+            </p>
+
+            <ul className="ant-management-service-main-highlights">
+              <li>
+                <span className="ant-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Eliminates ant colonies at the source — not just surface
+                  trails
+                </span>
+              </li>
+              <li>
+                <span className="ant-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Targeted care for sugar ants, carpenter ants &amp; red ants
+                </span>
+              </li>
+              <li>
+                <span className="ant-management-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Eco-friendly, safe &amp; odorless solutions for homes and
+                  offices
+                </span>
+              </li>
+            </ul>
           </div>
 
           {/* COMPREHENSIVE SOLUTIONS */}
@@ -304,14 +360,21 @@ const AntmanagementserviceMain = () => {
             <h2>Complete Ant Control Solutions</h2>
 
             <p>
-              From home kitchens to commercial spaces, we provide practical ant
-              management tailored to the affected areas and activity levels.
+              From home kitchens to commercial spaces, Giridurga Pest Control
+              provides the <strong>best pest control services in Cuttack</strong>
+              , <strong>pest control Bhubaneswar</strong>, and{" "}
+              <strong>pest control Puri</strong> alongside specialized ant
+              management and{" "}
+              <strong>expert pest and termite control across Cuttack</strong>.
             </p>
 
             <div className="ant-management-service-main-image-grid">
               <div className="ant-management-service-main-image-card">
                 <div className="ant-management-service-main-image-wrap">
-                  <img src={serviceone} alt="Ant trail inspection" />
+                  <img
+                    src={serviceone}
+                    alt="Ant trail and colony inspection in Odisha"
+                  />
                   <span className="ant-management-service-main-image-number">
                     01
                   </span>
@@ -321,32 +384,64 @@ const AntmanagementserviceMain = () => {
                   TRAIL &amp; ACCESS CHECK
                 </span>
 
-                <h3>Detailed Inspection</h3>
+                <h3>Detailed Colony Inspection</h3>
 
                 <p>
-                  Detailed inspection to trace ant trails, entry gaps and
-                  active nesting zones.
+                  Detailed inspection to trace ant trails, entry gaps,
+                  electrical conduits, and active nesting zones in homes and
+                  offices.
                 </p>
               </div>
 
               <div className="ant-management-service-main-image-card">
                 <div className="ant-management-service-main-image-wrap">
-                  <img src={servicetwo} alt="Ant control treatment" />
+                  <img
+                    src={servicetwo}
+                    alt="Targeted eco-friendly ant control treatment"
+                  />
                   <span className="ant-management-service-main-image-number">
                     02
                   </span>
                 </div>
 
                 <span className="ant-management-service-main-card-subtitle">
-                  TARGETED APPLICATION
+                  COLONY-LEVEL APPLICATION
                 </span>
 
-                <h3>Targeted Treatment</h3>
+                <h3>Targeted Eco-Friendly Treatment</h3>
 
                 <p>
-                  Targeted treatment procedures designed to curb ant activity
-                  effectively across key spots.
+                  Targeted gel and perimeter treatments designed to eliminate
+                  sugar ants, carpenter ants, and red ants right at the colony
+                  source.
                 </p>
+              </div>
+            </div>
+
+            {/* LOCAL SERVICE COVERAGE & KEYWORDS */}
+            <div className="ant-management-service-main-local-box">
+              <span className="ant-management-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Trusted Ant &amp; Pest Control Across Odisha</h3>
+              <p>
+                Looking for{" "}
+                <strong>Best Pest Control in Cuttack with genuine rates</strong>{" "}
+                or dependable <strong>pest control near Cuttack, Odisha</strong>?
+                Giridurga Pest Control delivers complete{" "}
+                <strong>pest control solutions in Cuttack</strong>, Bhubaneswar,
+                and Puri for residential and commercial properties.
+              </p>
+              <div className="ant-management-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
               </div>
             </div>
           </div>
@@ -360,8 +455,9 @@ const AntmanagementserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="ant-management-service-main-faq-intro">
-              Find answers to common questions about our ant inspection,
-              treatment and prevention services.
+              Find answers to common questions about Giridurga Pest Control’s
+              ant inspection, colony treatment, and prevention services in
+              Odisha.
             </p>
 
             <div className="ant-management-service-main-faq-list">
@@ -400,13 +496,13 @@ const AntmanagementserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="ant-management-service-main-bottom-cta ant-management-service-main-reveal">
             <div>
-              <span>KEEP YOUR PROPERTY ANT-FREE</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
-              <h2>Need Professional Ant Control?</h2>
+              <h2>Need Professional Ant Control in Odisha?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Get in touch with Giridurga Pest Control for eco-friendly ant
+                colony removal at genuine rates.
               </p>
             </div>
 

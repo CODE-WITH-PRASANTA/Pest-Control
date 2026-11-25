@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import "./CommoditypestMain.css";
 
@@ -9,38 +8,43 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Commodity Inspection",
-    heading: "Professional Commodity Pest Inspection",
+    subtitle: "STORED GRAIN & WAREHOUSE AUDIT",
+    heading: "Professional Commodity Pest Inspection in Odisha",
     image: serviceone,
     description:
-      "Detailed inspection of stored grains, pulses, packaged foods and warehouse spaces to identify pest activity and potential infestation risks.",
+      "Detailed inspection of stored grains, pulses, packaged foods, and warehouse spaces to identify pest activity and infestation risks early.",
   },
   {
     title: "Warehouse Pest Control",
-    heading: "Advanced Warehouse Pest Management",
+    subtitle: "GODOWNS & COMMERCIAL STORAGE",
+    heading: "Commodity Pest Management in Odisha",
     image: service,
     description:
-      "Comprehensive pest management solutions for warehouses, godowns, storage facilities and commercial stock areas.",
+      "Giridurga Pest Control protects valuable stock in warehouses, godowns, processing units, and transport containers using targeted fumigation, fogging, and residual care.",
   },
   {
     title: "Commodity Fumigation",
+    subtitle: "CONTROLLED STOCK FUMIGATION",
     heading: "Effective Commodity Fumigation Services",
     image: servicetwo,
     description:
-      "Professional fumigation solutions designed to control insects and pests affecting stored commodities, subject to product and site safety requirements.",
+      "Professional fumigation solutions designed to manage weevils, beetles, and moths affecting stored commodities while following strict safety precautions.",
   },
   {
     title: "Grain & Food Protection",
+    subtitle: "STORAGE & TRANSIT HYGIENE",
     heading: "Reliable Grain and Food Storage Protection",
     image: serviceone,
     description:
-      "Specialized pest management for grains, pulses and packaged food products to help protect stock quality during storage and transportation.",
+      "Specialized pest management for rice, wheat, pulses, cereals, and packaged foods to safeguard stock quality during storage and transportation.",
   },
   {
     title: "Preventive Pest Management",
+    subtitle: "ONGOING STOCK & FACILITY CARE",
     heading: "Long-Term Commodity Pest Prevention",
     image: service,
     description:
-      "Customized preventive pest management plans to reduce infestation risks and maintain cleaner, safer storage environments.",
+      "Customized preventive plans across Bhubaneswar, Cuttack, and Puri alongside expert pest and termite control across Cuttack and nearby regions.",
   },
 ];
 
@@ -48,27 +52,27 @@ const faqs = [
   {
     question: "What is commodity pest management?",
     answer:
-      "Commodity pest management involves inspecting and controlling pests such as weevils, beetles, moths and rodents that damage stored grains, pulses and packaged food products.",
+      "Commodity pest management involves inspecting and controlling pests such as weevils, beetles, moths, and rodents that damage stored grains, pulses, and packaged food products during storage and transit.",
   },
   {
     question: "Which commodities require pest control?",
     answer:
-      "Stored grains, rice, wheat, pulses, cereals, packaged food products and other agricultural commodities may require regular pest inspection and management.",
+      "Stored grains, rice, wheat, pulses, cereals, spices, packaged food products, and other agricultural commodities benefit from regular pest inspection and preventive management.",
   },
   {
     question: "Do you provide warehouse and godown pest control?",
     answer:
-      "Yes. Giridurga Pest Control provides customized commodity pest management solutions for warehouses, godowns, food processing units, storage facilities and commercial properties.",
+      "Yes. Giridurga Pest Control provides customized commodity pest management solutions for warehouses, godowns, food processing units, transport containers, and commercial storage facilities.",
   },
   {
-    question: "Do you provide fumigation services?",
+    question: "Do you provide commodity fumigation services?",
     answer:
-      "Yes. We provide professional fumigation services based on commodity type, infestation level and site requirements. Treatments are carried out using suitable approved procedures and safety precautions.",
+      "Yes. We provide professional fumigation, fogging, and residual pest control based on commodity type, infestation level, and site requirements using approved procedures and safety precautions.",
   },
   {
-    question: "Which locations do you serve in Odisha?",
+    question: "Which locations in Odisha do you serve?",
     answer:
-      "We provide pest management services in Bhubaneswar, Cuttack, Puri and surrounding areas across Odisha, subject to service availability.",
+      "Giridurga Pest Control serves Bhubaneswar, Cuttack, Puri, and surrounding cities across Odisha with genuine rates, timely service, and reliable commodity and general pest control.",
   },
 ];
 
@@ -114,6 +118,18 @@ const PdfIcon = () => (
   </svg>
 );
 
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const CommoditypestMain = () => {
   const rootRef = useRef(null);
 
@@ -128,9 +144,7 @@ const CommoditypestMain = () => {
     const root = rootRef.current;
     if (!root) return;
 
-    const items = root.querySelectorAll(
-      ".commodity-pest-main-reveal"
-    );
+    const items = root.querySelectorAll(".commodity-pest-main-reveal");
 
     if (typeof IntersectionObserver === "undefined") {
       items.forEach((el) => el.classList.add("is-visible"));
@@ -155,18 +169,13 @@ const CommoditypestMain = () => {
   }, []);
 
   return (
-    <section
-      className="commodity-pest-main"
-      ref={rootRef}
-    >
+    <section className="commodity-pest-main" ref={rootRef}>
       <div className="commodity-pest-main-glow commodity-pest-main-glow-one" />
       <div className="commodity-pest-main-glow commodity-pest-main-glow-two" />
 
       <div className="commodity-pest-main-container">
-
         {/* LEFT SIDEBAR */}
         <aside className="commodity-pest-main-sidebar">
-
           <div className="commodity-pest-main-menu">
             {services.map((srv, index) => (
               <button
@@ -195,18 +204,16 @@ const CommoditypestMain = () => {
 
           {/* CONTACT CARD */}
           <div className="commodity-pest-main-contact-card">
-
             <div className="commodity-pest-main-contact-decoration commodity-pest-main-contact-decoration-one" />
             <div className="commodity-pest-main-contact-decoration commodity-pest-main-contact-decoration-two" />
 
             <div className="commodity-pest-main-contact-content">
-
-              <h2>Contact Us For Expert Pest Control Advice</h2>
+              <h2>Contact Giridurga Pest Control For Advice</h2>
 
               <a
                 href="tel:+919876543210"
                 className="commodity-pest-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -219,7 +226,6 @@ const CommoditypestMain = () => {
               >
                 +91 98765 43210
               </a>
-
             </div>
           </div>
 
@@ -232,21 +238,16 @@ const CommoditypestMain = () => {
             <PdfIcon />
             <span>Download PDF File</span>
           </a>
-
         </aside>
 
         {/* RIGHT CONTENT */}
         <main className="commodity-pest-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`commodity-pest-main-hero ${
-              imageFailed
-                ? "commodity-pest-main-hero-fallback"
-                : ""
+              imageFailed ? "commodity-pest-main-hero-fallback" : ""
             }`}
           >
-
             {!imageFailed && (
               <img
                 key={`img-${activeService}`}
@@ -275,56 +276,82 @@ const CommoditypestMain = () => {
               key={`text-${activeService}`}
             >
               <span className="commodity-pest-main-hero-label">
-                GIRIDURGA PEST CONTROL
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
 
               <p>{currentService.description}</p>
             </div>
-
           </div>
 
           {/* SERVICE OVERVIEW */}
           <div className="commodity-pest-main-overview commodity-pest-main-reveal">
-
             <span className="commodity-pest-main-section-subtitle">
-              ABOUT COMMODITY PEST MANAGEMENT
+              GIRIDURGA PEST CONTROL • WAREHOUSE &amp; GRAIN STORAGE CARE
             </span>
 
             <h2>Commodity Pest Management in Odisha</h2>
 
             <p>
-              Stored products like grains, pulses and packaged foods
-              are highly vulnerable to pest infestations. Pests such
-              as weevils, beetles, moths and rodents can cause
+              Stored products like grains, pulses, and packaged foods are
+              highly vulnerable to pest infestations. Pests such as{" "}
+              <strong>weevils, beetles, moths, and rodents</strong> can cause
               significant damage to commodities during storage and
-              transportation, resulting in financial losses and
-              potential health risks.
+              transportation, resulting in financial losses and hygiene risks.
             </p>
 
             <p>
-              Giridurga Pest Control provides professional commodity
-              pest management services in Odisha to protect valuable
-              stock in warehouses, godowns, processing units and
-              transport containers. Our treatment solutions include
-              suitable fumigation, fogging and residual pest control
-              methods based on inspection and site requirements.
+              <strong>Giridurga Pest Control</strong> provides professional
+              commodity pest management services in Odisha to protect valuable
+              stock in warehouses, godowns, processing units, and transport
+              containers. Our treatment solutions include suitable{" "}
+              <strong>
+                fumigation, fogging, and residual pest control methods
+              </strong>{" "}
+              based on inspection and site requirements.
             </p>
 
             <p>
-              We follow appropriate safety procedures and
-              industry-relevant practices to help keep stored
-              commodities protected. Our experts provide customized
-              pest management plans for traders, food processors,
-              warehouse operators and commercial businesses.
+              We follow appropriate safety procedures and industry-relevant
+              practices to help keep stored commodities protected across{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby areas. Our
+              experts provide customized pest management plans for traders, food
+              processors, warehouse operators, and commercial businesses.
             </p>
 
+            <ul className="commodity-pest-main-highlights">
+              <li>
+                <span className="commodity-pest-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Protects grains, pulses &amp; packaged foods from weevils,
+                  beetles, moths &amp; rodents
+                </span>
+              </li>
+              <li>
+                <span className="commodity-pest-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Controlled fumigation, fogging &amp; residual warehouse care
+                </span>
+              </li>
+              <li>
+                <span className="commodity-pest-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Customized protection plans for godowns, mills &amp; transit
+                  containers
+                </span>
+              </li>
+            </ul>
           </div>
 
           {/* COMPREHENSIVE SOLUTIONS */}
           <div className="commodity-pest-main-comprehensive commodity-pest-main-reveal">
-
             <span className="commodity-pest-main-section-subtitle">
               OUR COMMODITY PEST CONTROL SOLUTIONS
             </span>
@@ -332,20 +359,18 @@ const CommoditypestMain = () => {
             <h2>Complete Commodity Pest Management Solutions</h2>
 
             <p>
-              From grain storage facilities to large commercial
-              warehouses, we offer reliable pest management
-              solutions designed around your storage conditions
-              and commodity protection needs.
+              From grain storage facilities to large commercial warehouses,{" "}
+              <strong>Giridurga Pest Control</strong> offers reliable pest
+              management solutions designed around your storage conditions and
+              commodity protection needs.
             </p>
 
             <div className="commodity-pest-main-image-grid">
-
               <div className="commodity-pest-main-image-card">
-
                 <div className="commodity-pest-main-image-wrap">
                   <img
                     src={serviceone}
-                    alt="Commodity and warehouse pest inspection"
+                    alt="Commodity and warehouse pest inspection in Odisha"
                     loading="lazy"
                   />
 
@@ -354,22 +379,24 @@ const CommoditypestMain = () => {
                   </span>
                 </div>
 
+                <span className="commodity-pest-main-card-subtitle">
+                  STOCK &amp; GODOWN AUDIT
+                </span>
+
                 <h3>Detailed Commodity Inspection</h3>
 
                 <p>
-                  Identifying pest activity, infestation sources
-                  and vulnerable storage areas to recommend
-                  suitable control measures.
+                  Identifying pest activity, infestation sources, and
+                  vulnerable storage areas to recommend suitable control
+                  measures.
                 </p>
-
               </div>
 
               <div className="commodity-pest-main-image-card">
-
                 <div className="commodity-pest-main-image-wrap">
                   <img
                     src={servicetwo}
-                    alt="Professional commodity fumigation"
+                    alt="Professional commodity fumigation in Odisha"
                     loading="lazy"
                   />
 
@@ -378,37 +405,35 @@ const CommoditypestMain = () => {
                   </span>
                 </div>
 
+                <span className="commodity-pest-main-card-subtitle">
+                  APPROVED FUMIGATION &amp; RESIDUAL CARE
+                </span>
+
                 <h3>Professional Fumigation</h3>
 
                 <p>
-                  Appropriate fumigation solutions for stored
-                  commodities and storage facilities, following
-                  required safety precautions.
+                  Appropriate fumigation solutions for stored commodities and
+                  storage facilities, following required safety precautions.
                 </p>
-
               </div>
-
             </div>
-
           </div>
 
           {/* WHY CHOOSE US */}
           <div className="commodity-pest-main-benefits commodity-pest-main-reveal">
-
             <span className="commodity-pest-main-section-subtitle">
-              WHY CHOOSE GIRIDURGA
+              WHY CHOOSE GIRIDURGA PEST CONTROL
             </span>
 
             <h2>Why Choose Giridurga Pest Control?</h2>
 
             <div className="commodity-pest-main-benefit-grid">
-
               <div className="commodity-pest-main-benefit-card">
                 <span>01</span>
                 <h3>Expert Professionals</h3>
                 <p>
-                  Experienced pest management professionals
-                  with a focus on effective commodity protection.
+                  Experienced pest management professionals with a focus on
+                  effective commodity protection.
                 </p>
               </div>
 
@@ -416,17 +441,17 @@ const CommoditypestMain = () => {
                 <span>02</span>
                 <h3>Suitable Treatment Methods</h3>
                 <p>
-                  Customized inspection and treatment plans
-                  according to commodity and storage conditions.
+                  Customized inspection and treatment plans according to
+                  commodity and storage conditions.
                 </p>
               </div>
 
               <div className="commodity-pest-main-benefit-card">
                 <span>03</span>
-                <h3>Affordable Solutions</h3>
+                <h3>Genuine &amp; Affordable Rates</h3>
                 <p>
-                  Practical pest management services designed
-                  to meet different business requirements.
+                  Practical pest management services designed to meet
+                  different business and storage requirements.
                 </p>
               </div>
 
@@ -434,18 +459,66 @@ const CommoditypestMain = () => {
                 <span>04</span>
                 <h3>Odisha-Wide Service</h3>
                 <p>
-                  Service coverage across Bhubaneswar, Cuttack,
-                  Puri and surrounding locations.
+                  Service coverage across Bhubaneswar, Cuttack, Puri, and
+                  surrounding locations.
                 </p>
               </div>
-
             </div>
+          </div>
 
+          {/* SERVICE AREAS / SEO KEYWORDS */}
+          <div className="commodity-pest-main-areas commodity-pest-main-reveal">
+            <span className="commodity-pest-main-section-subtitle">
+              OUR SERVICE LOCATIONS
+            </span>
+
+            <h2>Trusted Commodity &amp; Pest Control Across Odisha</h2>
+
+            <p>
+              Looking for the{" "}
+              <strong>Best Pest Control in Cuttack with genuine rates</strong>?{" "}
+              <strong>Giridurga Pest Control</strong> provides professional
+              commodity pest management, warehouse fumigation, and commercial
+              pest control across Odisha.
+            </p>
+
+            <p>
+              We serve businesses and property owners searching for{" "}
+              <strong>pest control Bhubaneswar</strong>, the{" "}
+              <strong>best pest control services in Bhubaneswar</strong>,{" "}
+              <strong>pest control Puri</strong>, and{" "}
+              <strong>pest control near Cuttack, Odisha</strong>. Recognized
+              among reliable{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong>, we
+              also deliver the{" "}
+              <strong>best pest control services in Cuttack</strong>,{" "}
+              <strong>
+                expert pest and termite control across Cuttack
+              </strong>
+              , and complete <strong>pest control solutions in Cuttack</strong>.
+            </p>
+
+            <div className="commodity-pest-main-local-box">
+              <span className="commodity-pest-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Commodity &amp; Pest Protection Across Odisha</h3>
+              <div className="commodity-pest-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
+              </div>
+            </div>
           </div>
 
           {/* FAQ SECTION */}
           <div className="commodity-pest-main-faq commodity-pest-main-reveal">
-
             <span className="commodity-pest-main-section-subtitle">
               HAVE QUESTIONS?
             </span>
@@ -453,13 +526,12 @@ const CommoditypestMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="commodity-pest-main-faq-intro">
-              Find answers to common questions about our
-              commodity pest inspection, fumigation and
-              warehouse pest management services.
+              Find answers to common questions about Giridurga Pest Control’s
+              commodity pest inspection, fumigation, and warehouse pest
+              management services.
             </p>
 
             <div className="commodity-pest-main-faq-list">
-
               {faqs.map((faq, index) => (
                 <div
                   key={faq.question}
@@ -467,7 +539,6 @@ const CommoditypestMain = () => {
                     activeFaq === index ? "faq-active" : ""
                   }`}
                 >
-
                   <button
                     type="button"
                     className="commodity-pest-main-faq-question"
@@ -488,26 +559,22 @@ const CommoditypestMain = () => {
                       <p>{faq.answer}</p>
                     </div>
                   </div>
-
                 </div>
               ))}
-
             </div>
-
           </div>
 
           {/* BOTTOM CTA */}
           <div className="commodity-pest-main-bottom-cta commodity-pest-main-reveal">
-
             <div>
-              <span>PROTECT YOUR STORED COMMODITIES</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Commodity Pest Control?</h2>
 
               <p>
-                Protect your valuable stock from unwanted pests.
-                Contact Giridurga Pest Control for professional
-                commodity pest management in Odisha.
+                Protect your valuable stock from unwanted pests. Contact
+                Giridurga Pest Control for professional commodity pest
+                management in Odisha at genuine rates.
               </p>
             </div>
 
@@ -518,11 +585,8 @@ const CommoditypestMain = () => {
               Contact Us
               <ArrowIcon />
             </a>
-
           </div>
-
         </main>
-
       </div>
     </section>
   );

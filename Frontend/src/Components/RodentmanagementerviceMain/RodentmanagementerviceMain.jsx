@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import "./RodentmanagementerviceMain.css";
 
@@ -22,7 +21,7 @@ const services = [
       "Control rodent infestations with professional baiting, trapping and targeted treatment methods for residential and commercial properties.",
   },
   {
-    title: "Rodent Baiting Treatment",
+    title: "Rodent Baiting",
     heading: "Effective Rodent Baiting Solutions",
     image: servicetwo,
     description:
@@ -121,24 +120,58 @@ const PdfIcon = () => (
 
 const RodentmanagementerviceMain = () => {
   const rootRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   const [activeService, setActiveService] = useState(1);
   const [activeFaq, setActiveFaq] = useState(0);
   const [failedImages, setFailedImages] = useState({});
+  const [stickyTop, setStickyTop] = useState(24);
 
   const currentService = services[activeService];
   const imageFailed = failedImages[activeService];
 
   useEffect(() => {
+    const updateStickyOffset = () => {
+      if (!sidebarRef.current) return;
+      if (window.innerWidth <= 860) {
+        setStickyTop(0);
+        return;
+      }
+
+      const sidebarHeight = sidebarRef.current.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const bottomGap = 24;
+
+      if (sidebarHeight + 48 > viewportHeight) {
+        setStickyTop(viewportHeight - sidebarHeight - bottomGap);
+      } else {
+        setStickyTop(24);
+      }
+    };
+
+    updateStickyOffset();
+    window.addEventListener("resize", updateStickyOffset);
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined" && sidebarRef.current) {
+      resizeObserver = new ResizeObserver(updateStickyOffset);
+      resizeObserver.observe(sidebarRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateStickyOffset);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
-    const items = root.querySelectorAll(
-      ".rodent-management-main-reveal"
-    );
+    const items = root.querySelectorAll(".rodent-management-main-reveal");
 
     if (typeof IntersectionObserver === "undefined") {
-      items.forEach((el) => el.classList.add("is-visible"));
+      items.forEach((item) => item.classList.add("is-visible"));
       return;
     }
 
@@ -154,24 +187,25 @@ const RodentmanagementerviceMain = () => {
       { threshold: 0.12 }
     );
 
-    items.forEach((el) => observer.observe(el));
+    items.forEach((item) => observer.observe(item));
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section
-      className="rodent-management-main"
-      ref={rootRef}
-    >
-      <div className="rodent-management-main-glow rodent-management-main-glow-one" />
-      <div className="rodent-management-main-glow rodent-management-main-glow-two" />
+    <section className="rodent-management-main" ref={rootRef}>
+      <div className="rodent-management-main-bg-wrap" aria-hidden="true">
+        <div className="rodent-management-main-glow rodent-management-main-glow-one" />
+        <div className="rodent-management-main-glow rodent-management-main-glow-two" />
+      </div>
 
       <div className="rodent-management-main-container">
-
         {/* LEFT SIDEBAR */}
-        <aside className="rodent-management-main-sidebar">
-
+        <aside
+          className="rodent-management-main-sidebar"
+          ref={sidebarRef}
+          style={{ top: `${stickyTop}px` }}
+        >
           <div className="rodent-management-main-menu">
             {services.map((srv, index) => (
               <button
@@ -204,9 +238,7 @@ const RodentmanagementerviceMain = () => {
             <div className="rodent-management-main-contact-decoration rodent-management-main-contact-decoration-two" />
 
             <div className="rodent-management-main-contact-content">
-              <h2>
-                Contact Us for Expert Rodent Control Advice
-              </h2>
+              <h2>Contact Us for Expert Rodent Control Advice</h2>
 
               <a
                 href="tel:+919876543210"
@@ -234,14 +266,12 @@ const RodentmanagementerviceMain = () => {
             className="rodent-management-main-download"
           >
             <PdfIcon />
-            <span>Download Pdf File</span>
+            <span>Download PDF File</span>
           </a>
-
         </aside>
 
         {/* RIGHT CONTENT */}
         <main className="rodent-management-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`rodent-management-main-hero ${
@@ -287,52 +317,44 @@ const RodentmanagementerviceMain = () => {
 
           {/* SERVICE OVERVIEW */}
           <div className="rodent-management-main-overview rodent-management-main-reveal">
-
             <span className="rodent-management-main-section-subtitle">
               ABOUT RODENT MANAGEMENT
             </span>
 
-            <h2>
-              Professional Rodent Management Services in Odisha
-            </h2>
+            <h2>Professional Rodent Management Services in Odisha</h2>
 
             <p>
-              Rodents like rats and mice are not only destructive
-              but also pose serious health risks. They contaminate
-              food, chew electrical wires, damage property and can
-              spread diseases such as leptospirosis and salmonella.
-              Quick and professional rodent control is essential
-              to keep your space safe and hygienic.
+              Rodents like rats and mice are not only destructive but also pose
+              serious health risks. They contaminate food, chew electrical wires,
+              damage property and can spread diseases such as leptospirosis and
+              salmonella. Quick and professional rodent control is essential to
+              keep your space safe and hygienic.
             </p>
 
             <p>
-              At Nilachakra Pest Control, we provide expert rodent
-              management services in Odisha using safe, proven
-              techniques. Our trained team conducts a detailed
-              site inspection to identify entry points, nests and
-              movement areas. We use a combination of baiting,
-              trapping and suitable rodent control treatments
-              tailored to your property.
+              At Nilachakra Pest Control, we provide expert rodent management
+              services in Odisha using professional techniques. Our trained team
+              conducts a detailed site inspection to identify entry points,
+              nests and movement areas. We use a combination of baiting, trapping
+              and suitable rodent control treatments tailored to your property.
             </p>
 
             <p>
-              Whether it is a home, warehouse, office or restaurant,
-              we offer customized rodent control solutions for
-              long-term protection. We serve Bhubaneswar, Cuttack,
-              Puri and nearby areas.
+              Whether it is a home, warehouse, office or restaurant, we offer
+              customized rodent control solutions for long-term protection. We
+              serve Bhubaneswar, Cuttack, Puri and nearby areas.
             </p>
 
             <ul className="rodent-management-main-benefits">
-              <li>✓ Destroys nests and helps block entry points</li>
-              <li>✓ Effective and affordable rodent treatments</li>
-              <li>✓ Professional inspection and expert consultation</li>
+              <li>✓ Detailed rodent inspection and assessment</li>
+              <li>✓ Effective rat and mouse control treatments</li>
+              <li>✓ Professional technicians and expert consultation</li>
+              <li>✓ Preventive solutions for long-term protection</li>
             </ul>
-
           </div>
 
           {/* COMPREHENSIVE SOLUTIONS */}
           <div className="rodent-management-main-comprehensive rodent-management-main-reveal">
-
             <span className="rodent-management-main-section-subtitle">
               ADVANCED RODENT PROTECTION
             </span>
@@ -340,19 +362,18 @@ const RodentmanagementerviceMain = () => {
             <h2>Complete Rodent Control Solutions</h2>
 
             <p>
-              From identifying rodent entry points to controlling
-              active rat and mouse infestations, we provide
-              professional rodent management solutions designed
-              around your property and protection requirements.
+              From identifying rodent entry points to controlling active rat
+              and mouse infestations, we provide professional rodent management
+              solutions designed around your property and protection
+              requirements.
             </p>
 
             <div className="rodent-management-main-image-grid">
-
               <div className="rodent-management-main-image-card">
                 <div className="rodent-management-main-image-wrap">
                   <img
                     src={serviceone}
-                    alt="Professional rat and mouse inspection in Odisha"
+                    alt="Professional rat and mouse inspection"
                   />
                   <span className="rodent-management-main-image-number">
                     01
@@ -362,8 +383,8 @@ const RodentmanagementerviceMain = () => {
                 <h3>Detailed Rodent Inspection</h3>
 
                 <p>
-                  Identify rat droppings, nesting locations,
-                  gnaw marks and possible rodent entry points.
+                  Identify rat droppings, nesting locations, gnaw marks and
+                  possible rodent entry points.
                 </p>
               </div>
 
@@ -371,7 +392,7 @@ const RodentmanagementerviceMain = () => {
                 <div className="rodent-management-main-image-wrap">
                   <img
                     src={servicetwo}
-                    alt="Professional rodent baiting and trapping treatment"
+                    alt="Professional rodent treatment"
                   />
                   <span className="rodent-management-main-image-number">
                     02
@@ -381,17 +402,15 @@ const RodentmanagementerviceMain = () => {
                 <h3>Professional Rodent Treatment</h3>
 
                 <p>
-                  Use appropriate baiting, trapping and
-                  preventive techniques to manage rodent activity.
+                  Use appropriate baiting, trapping and preventive techniques to
+                  manage rodent activity.
                 </p>
               </div>
-
             </div>
           </div>
 
           {/* PROCESS AND METHODS */}
           <div className="rodent-management-main-overview rodent-management-main-reveal">
-
             <span className="rodent-management-main-section-subtitle">
               OUR WORKING PROCESS
             </span>
@@ -399,103 +418,75 @@ const RodentmanagementerviceMain = () => {
             <h2>Rodent Control Process & Methods</h2>
 
             <div className="rodent-management-main-process-list">
+              {[
+                {
+                  title: "Inspection & Assessment",
+                  description:
+                    "Our experts inspect your premises to identify rodent activity, nesting areas, entry points and the level of infestation.",
+                },
+                {
+                  title: "Customized Treatment Plan",
+                  description:
+                    "Based on the inspection, we prepare a suitable rodent management plan according to your property and specific requirements.",
+                },
+                {
+                  title: "Safe & Targeted Treatment",
+                  description:
+                    "Our technicians use suitable baiting, trapping and other targeted control methods while providing necessary safety instructions.",
+                },
+                {
+                  title: "Preventive Measures",
+                  description:
+                    "We recommend sealing entry points, maintaining cleanliness and following proper food storage practices to reduce future rodent activity.",
+                },
+                {
+                  title: "Follow-Up Services",
+                  description:
+                    "Monitoring and follow-up recommendations help assess treatment effectiveness and minimize recurring infestations.",
+                },
+              ].map((item, index) => (
+                <div
+                  className="rodent-management-main-process-item"
+                  key={item.title}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
 
-              <div className="rodent-management-main-process-item">
-                <span>01</span>
-                <div>
-                  <h3>Inspection & Assessment</h3>
-                  <p>
-                    Our experts inspect your premises to identify
-                    rodent activity, nesting areas, entry points
-                    and the level of infestation.
-                  </p>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="rodent-management-main-process-item">
-                <span>02</span>
-                <div>
-                  <h3>Customized Treatment Plan</h3>
-                  <p>
-                    Based on the inspection, we prepare a suitable
-                    rodent management plan according to your
-                    property and specific requirements.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rodent-management-main-process-item">
-                <span>03</span>
-                <div>
-                  <h3>Safe & Targeted Treatment</h3>
-                  <p>
-                    Our technicians use suitable baiting, trapping
-                    and other targeted control methods while
-                    providing necessary safety instructions.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rodent-management-main-process-item">
-                <span>04</span>
-                <div>
-                  <h3>Preventive Measures</h3>
-                  <p>
-                    We recommend sealing entry points, maintaining
-                    cleanliness and following proper food storage
-                    practices to reduce future rodent activity.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rodent-management-main-process-item">
-                <span>05</span>
-                <div>
-                  <h3>Follow-Up Services</h3>
-                  <p>
-                    Monitoring and follow-up recommendations
-                    help assess treatment effectiveness and
-                    minimize recurring infestations.
-                  </p>
-                </div>
-              </div>
-
+              ))}
             </div>
           </div>
 
           {/* WHY CHOOSE US */}
           <div className="rodent-management-main-overview rodent-management-main-reveal">
-
             <span className="rodent-management-main-section-subtitle">
               WHY CHOOSE NILACHAKRA
             </span>
 
             <h2>
-              Trusted Rodent Control Services in Bhubaneswar,
-              Cuttack & Puri
+              Trusted Rodent Control Services in Bhubaneswar, Cuttack & Puri
             </h2>
 
             <p>
-              Nilachakra Pest Control provides professional rodent
-              management solutions for residential, commercial and
-              industrial properties across Odisha. Our team focuses
-              on identifying the root cause of rodent infestations
-              and recommending effective treatment and prevention
-              methods.
+              Nilachakra Pest Control provides professional rodent management
+              solutions for residential, commercial and industrial properties
+              across Odisha. Our team focuses on identifying the root cause of
+              rodent infestations and recommending effective treatment and
+              prevention methods.
             </p>
 
             <p>
-              If you are searching for the best pest control in
-              Cuttack, pest control Bhubaneswar, pest control Puri
-              or expert pest control services in Odisha, contact
-              our team for professional assistance.
+              If you are searching for the best pest control in Cuttack, pest
+              control Bhubaneswar, pest control Puri or expert pest control
+              services in Odisha, contact our team for professional assistance.
             </p>
-
           </div>
 
           {/* FAQ SECTION */}
           <div className="rodent-management-main-faq rodent-management-main-reveal">
-
             <span className="rodent-management-main-section-subtitle">
               HAVE QUESTIONS?
             </span>
@@ -503,13 +494,11 @@ const RodentmanagementerviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="rodent-management-main-faq-intro">
-              Find answers to common questions about our
-              professional rat control, mouse control and
-              rodent management services.
+              Find answers to common questions about our professional rat
+              control, mouse control and rodent management services.
             </p>
 
             <div className="rodent-management-main-faq-list">
-
               {faqs.map((faq, index) => (
                 <div
                   key={faq.question}
@@ -539,7 +528,6 @@ const RodentmanagementerviceMain = () => {
                   </div>
                 </div>
               ))}
-
             </div>
           </div>
 
@@ -548,27 +536,25 @@ const RodentmanagementerviceMain = () => {
             <h2>Our Rodent Control Service Areas</h2>
 
             <p>
-              Rodent Management Services in Odisha | Rat Control
-              Services in Cuttack | Mouse Control in Bhubaneswar |
-              Best Pest Control Services in Cuttack | Pest Control
-              Near Cuttack Odisha | Pest Control Puri | Professional
-              Rodent Control Company in Odisha | Commercial Rodent
-              Management | Residential Rat Control Services.
+              Rodent Management Services in Odisha | Rat Control Services in
+              Cuttack | Mouse Control in Bhubaneswar | Best Pest Control
+              Services in Cuttack | Pest Control Near Cuttack Odisha | Pest
+              Control Puri | Professional Rodent Control Company in Odisha |
+              Commercial Rodent Management | Residential Rat Control Services.
             </p>
           </div>
 
           {/* BOTTOM CTA */}
           <div className="rodent-management-main-bottom-cta rodent-management-main-reveal">
-
             <div>
               <span>PROTECT YOUR PROPERTY TODAY</span>
 
               <h2>Need Professional Rodent Control?</h2>
 
               <p>
-                Keep your home and business protected from rats
-                and mice. Contact Nilachakra Pest Control for
-                professional rodent management assistance.
+                Keep your home and business protected from rats and mice.
+                Contact Nilachakra Pest Control for professional rodent
+                management assistance.
               </p>
             </div>
 
@@ -579,9 +565,7 @@ const RodentmanagementerviceMain = () => {
               Contact Us
               <ArrowIcon />
             </a>
-
           </div>
-
         </main>
       </div>
     </section>

@@ -52,12 +52,12 @@ const faqs = [
   {
     question: "What does your mosquito management service include?",
     answer:
-      "Our service includes inspection of breeding and resting spots, targeted control measures for larvae and adult mosquitoes, and practical advice to reduce recurring activity.",
+      "Our service includes inspection of breeding and resting spots, targeted mosquito fogging, larvicide application, eco-friendly repellents and practical advice to reduce recurring activity.",
   },
   {
     question: "Are mosquito treatments safe for children and pets?",
     answer:
-      "We select appropriate treatment methods based on the indoor or outdoor area and provide clear safety instructions. Always follow your technician's re-entry guidance.",
+      "Yes. We select appropriate odorless and safe mosquito spray treatments based on the indoor or outdoor area and provide clear safety instructions. Always follow your technician's re-entry guidance.",
   },
   {
     question: "How often should mosquito control be repeated?",
@@ -70,9 +70,9 @@ const faqs = [
       "Service time depends on whether you need indoor rooms, balconies, gardens or commercial grounds treated. Your technician will share the expected duration upfront.",
   },
   {
-    question: "Do you provide mosquito control for homes and commercial spaces?",
+    question: "Which cities do you cover for mosquito control in Odisha?",
     answer:
-      "Yes. We provide mosquito management solutions for individual homes, apartments, residential societies, cafes, offices and commercial premises.",
+      "Giridurga Pest Control serves all major cities in Odisha, including Bhubaneswar, Cuttack, and Puri, for individual homes, apartments, residential societies, offices, and industrial premises.",
   },
 ];
 
@@ -120,13 +120,49 @@ const PdfIcon = () => (
 
 const MosquitomanagementserviceMain = () => {
   const rootRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   const [activeService, setActiveService] = useState(1);
   const [activeFaq, setActiveFaq] = useState(0);
   const [failedImages, setFailedImages] = useState({});
+  const [stickyTop, setStickyTop] = useState(24);
 
   const currentService = services[activeService];
   const imageFailed = failedImages[activeService];
+
+  useEffect(() => {
+    const updateStickyOffset = () => {
+      if (!sidebarRef.current) return;
+      if (window.innerWidth <= 860) {
+        setStickyTop(0);
+        return;
+      }
+
+      const sidebarHeight = sidebarRef.current.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const bottomGap = 24;
+
+      if (sidebarHeight + 48 > viewportHeight) {
+        setStickyTop(viewportHeight - sidebarHeight - bottomGap);
+      } else {
+        setStickyTop(24);
+      }
+    };
+
+    updateStickyOffset();
+    window.addEventListener("resize", updateStickyOffset);
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined" && sidebarRef.current) {
+      resizeObserver = new ResizeObserver(updateStickyOffset);
+      resizeObserver.observe(sidebarRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateStickyOffset);
+      if (resizeObserver) resizeObserver.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -163,12 +199,21 @@ const MosquitomanagementserviceMain = () => {
       className="mosquito-management-service-main"
       ref={rootRef}
     >
-      <div className="mosquito-management-service-main-glow mosquito-management-service-main-glow-one" />
-      <div className="mosquito-management-service-main-glow mosquito-management-service-main-glow-two" />
+      <div
+        className="mosquito-management-service-main-bg-wrap"
+        aria-hidden="true"
+      >
+        <div className="mosquito-management-service-main-glow mosquito-management-service-main-glow-one" />
+        <div className="mosquito-management-service-main-glow mosquito-management-service-main-glow-two" />
+      </div>
 
       <div className="mosquito-management-service-main-container">
         {/* LEFT SIDEBAR */}
-        <aside className="mosquito-management-service-main-sidebar">
+        <aside
+          className="mosquito-management-service-main-sidebar"
+          ref={sidebarRef}
+          style={{ top: `${stickyTop}px` }}
+        >
           <div className="mosquito-management-service-main-menu">
             {services.map((srv, index) => (
               <button
@@ -286,20 +331,57 @@ const MosquitomanagementserviceMain = () => {
               MOSQUITO CONTROL STRATEGY
             </span>
 
-            <h2>Mosquito Management Overview</h2>
+            <h2>
+              Mosquito Control &amp; Fogging Service in Odisha — Protect Your
+              Family from Dengue
+            </h2>
 
             <p>
-              Mosquitoes thrive near standing water, shaded greenery,
-              balconies and damp corners, making lasting relief difficult
-              without addressing both breeding sources and active adults. Our
-              team inspects high-risk spots and recommends targeted mosquito
-              control for your property.
+              Mosquitoes are not just annoying—they are dangerous carriers of
+              deadly diseases like dengue, malaria, and chikungunya. If you are
+              facing frequent mosquito bites at home or workplace, it&apos;s
+              time to take expert help for long-term relief.
             </p>
 
             <p>
-              Every space has different exposure levels. We assess outdoor
-              surroundings, indoor resting areas and seasonal conditions
-              before recommending a practical control and prevention plan.
+              At Giridurga Pest Control, we offer advanced mosquito management
+              services in Odisha for residential, commercial, and industrial
+              properties. Our treatment includes targeted mosquito fogging,
+              larvicide application, and eco-friendly repellents that eliminate
+              both adult mosquitoes and their breeding sources.
+            </p>
+          </div>
+
+          {/* WHY MOSQUITO CONTROL IS CRITICAL */}
+          <div className="mosquito-management-service-main-overview mosquito-management-service-main-reveal">
+            <span className="mosquito-management-service-main-section-subtitle">
+              WHY MOSQUITO CONTROL MATTERS
+            </span>
+
+            <h2>Why Mosquito Control Is Critical in Odisha</h2>
+
+            <p>
+              Our trained professionals inspect your premises, identify
+              high-risk areas like stagnant water and dark corners, and provide
+              a customized mosquito control solution. We ensure that our
+              treatments are safe for humans, pets, and the environment.
+            </p>
+
+            <p>
+              We serve all major cities in Odisha, including Bhubaneswar,
+              Cuttack, and Puri, with fast, reliable, and affordable service.
+            </p>
+
+            <ul className="mosquito-management-service-main-benefits">
+              <li>✅ Kills mosquitoes and stops breeding</li>
+              <li>✅ Odorless &amp; safe mosquito spray treatments</li>
+              <li>✅ Expert support &amp; free inspection</li>
+            </ul>
+
+            <p className="mosquito-management-service-main-closing-note">
+              Protect your family and workspace from mosquito-borne diseases
+              with the help of Odisha’s trusted pest control experts at
+              Giridurga Pest Control.
             </p>
           </div>
 
@@ -353,8 +435,8 @@ const MosquitomanagementserviceMain = () => {
                 <h3>Targeted Treatment</h3>
 
                 <p>
-                  Targeted treatment procedures designed to curb mosquito
-                  activity effectively across key zones.
+                  Targeted fogging and larvicide procedures designed to curb
+                  mosquito activity effectively across key zones.
                 </p>
               </div>
             </div>
@@ -370,7 +452,7 @@ const MosquitomanagementserviceMain = () => {
 
             <p className="mosquito-management-service-main-faq-intro">
               Find answers to common questions about our mosquito inspection,
-              treatment and prevention services.
+              fogging, treatment and prevention services.
             </p>
 
             <div className="mosquito-management-service-main-faq-list">
@@ -414,8 +496,8 @@ const MosquitomanagementserviceMain = () => {
               <h2>Need Professional Mosquito Control?</h2>
 
               <p>
-                Get in touch with our team and find the right solution for
-                your property.
+                Get in touch with Giridurga Pest Control and find the right
+                solution for your property.
               </p>
             </div>
 

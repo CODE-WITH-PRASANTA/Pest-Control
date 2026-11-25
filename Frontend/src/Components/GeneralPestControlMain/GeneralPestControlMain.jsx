@@ -63,7 +63,7 @@ const processSteps = [
     number: "03",
     title: "Safe & Targeted Treatment",
     description:
-      "Using eco-friendly and government-approved chemicals, gels, sprays or fogging methods, we target pests at their source while following appropriate safety precautions.",
+      "Using suitable government-approved chemicals, gels, sprays or fogging methods, we target pests at their source while following appropriate safety precautions.",
     image: service,
   },
   {
@@ -148,6 +148,7 @@ const GeneralPestControlMain = () => {
 
   const currentService = services[activeService];
 
+  // SCROLL REVEAL ANIMATION
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
@@ -530,7 +531,7 @@ const GeneralPestControlMain = () => {
             </div>
           </div>
 
-          {/* SERVICE LOCATIONS / SEO */}
+          {/* SERVICE LOCATIONS */}
 
           <div className="general-pest-control-main-location general-pest-control-main-reveal">
 

@@ -1,8 +1,6 @@
-
 import { useEffect, useRef, useState } from "react";
 import "./FoggingserviceMain.css";
 
-// Add your images manually in the assets folder
 import service from "../../assets/service-details.jpg";
 import serviceone from "../../assets/service-d1.jpg";
 import servicetwo from "../../assets/service-d2.jpg";
@@ -10,38 +8,43 @@ import servicetwo from "../../assets/service-d2.jpg";
 const services = [
   {
     title: "Fogging Inspection",
-    heading: "Professional Fogging Inspection Services",
+    subtitle: "PROPERTY & COVERAGE AUDIT",
+    heading: "Detailed Fogging Inspection Services in Odisha",
     image: serviceone,
     description:
-      "Our team inspects your property, identifies pest activity and evaluates the areas requiring fogging treatment for effective coverage.",
+      "Inspect your property, identify flying insect activity, and evaluate indoor and outdoor zones requiring targeted fogging coverage.",
   },
   {
     title: "Indoor Fogging",
-    heading: "Advanced Indoor Fogging Solutions",
+    subtitle: "FOGAIR & FINE MIST COVERAGE",
+    heading: "Professional Fogging Services in Odisha",
     image: service,
     description:
-      "Targeted indoor fogging solutions for suitable residential and commercial spaces to help manage flying insects and unwanted pests.",
+      "Giridurga Pest Control uses modern fogging equipment, including FogAir machines, and approved products to reach difficult corners and surfaces.",
   },
   {
     title: "Outdoor Fogging",
+    subtitle: "GARDENS, COMPOUNDS & PERIMETERS",
     heading: "Effective Outdoor Fogging Treatment",
     image: servicetwo,
     description:
-      "Professional outdoor fogging for suitable open areas, gardens, surroundings and other locations where flying insect activity is a concern.",
+      "Targeted outdoor fogging for gardens, open areas, drains, and building perimeters where mosquitoes and flying insects gather.",
   },
   {
     title: "Residential & Commercial Fogging",
-    heading: "Fogging Services for Homes and Businesses",
+    subtitle: "HOMES, HOTELS, SCHOOLS & OFFICES",
+    heading: "Fogging Services for Homes & Businesses in Odisha",
     image: serviceone,
     description:
-      "Customized fogging services for houses, apartments, hotels, restaurants, schools, offices and commercial properties.",
+      "Customized fogging services for houses, apartments, hotels, restaurants, schools, offices, and commercial properties across Bhubaneswar, Cuttack, and Puri.",
   },
   {
     title: "Preventive Fogging",
+    subtitle: "SCHEDULED PEST PREVENTION",
     heading: "Planned Fogging and Pest Prevention",
     image: service,
     description:
-      "Scheduled fogging recommendations and preventive pest management support to help maintain cleaner and more comfortable surroundings.",
+      "Scheduled fogging recommendations and preventive pest management support alongside expert pest and termite control across Cuttack and Odisha.",
   },
 ];
 
@@ -49,32 +52,32 @@ const faqs = [
   {
     question: "What is fogging service in pest control?",
     answer:
-      "Fogging is a pest management technique that releases a fine mist or aerosol to cover suitable areas and help control targeted pests, especially flying insects. The treatment method depends on the property, pest problem and product used.",
+      "Fogging is a pest management technique that releases a fine mist or aerosol to cover suitable areas—including hard-to-reach corners—and help control targeted adult flying insects. The treatment method depends on the property, pest concern, and product used.",
   },
   {
-    question: "How does professional fogging work?",
+    question: "How does Giridurga Pest Control perform professional fogging?",
     answer:
-      "Our trained technicians first inspect the property and identify the areas requiring treatment. Suitable fogging equipment and approved products are then selected and applied according to the product label and treatment requirements.",
+      "Our trained technicians first inspect the property to identify the areas requiring coverage. Modern fogging equipment, including FogAir machines, and approved products are then selected and applied according to the product label and site requirements.",
   },
   {
-    question: "Is fogging suitable for homes and commercial properties?",
+    question: "Is fogging suitable for both homes and commercial properties?",
     answer:
-      "Yes. Fogging can be considered for suitable residential and commercial spaces, including homes, apartments, hotels, restaurants, offices, schools and other properties after an assessment.",
+      "Yes. Giridurga Pest Control provides customized fogging services for houses, apartments, hotels, restaurants, schools, offices, and commercial buildings across Odisha after an initial assessment.",
   },
   {
-    question: "How long should I stay away during fogging?",
+    question: "How long should occupants stay away during fogging?",
     answer:
-      "The required evacuation and re-entry time depends on the chemical product, application method and property conditions. Our technicians will provide specific safety and re-entry instructions before treatment.",
+      "The required evacuation and re-entry window depends on the formulation used, application method, and ventilation conditions. Our technicians provide clear preparation, evacuation, and safe re-entry instructions before starting.",
   },
   {
     question: "Does fogging help control mosquitoes and flying insects?",
     answer:
-      "Fogging can help control targeted adult flying insects in treated areas. However, it does not necessarily eliminate breeding sources. Removing stagnant water and following suitable preventive measures are also important.",
+      "Fogging helps knock down targeted adult mosquitoes and flying insects in treated areas. For sustained control, we also recommend eliminating stagnant water and addressing breeding sites.",
   },
   {
-    question: "Which locations do you serve in Odisha?",
+    question: "Which locations in Odisha do you serve for fogging and pest control?",
     answer:
-      "Giridurga Pest Control provides pest management services in Cuttack, Bhubaneswar, Puri and surrounding areas across Odisha. Contact us to confirm service availability in your location.",
+      "Giridurga Pest Control serves Cuttack, Bhubaneswar, Puri, and surrounding cities across Odisha with genuine rates, on-time scheduling, and reliable fogging, termite, and general pest control services.",
   },
 ];
 
@@ -114,6 +117,18 @@ const PdfIcon = () => (
       d="M14 2v5h5M8 16h2a1.5 1.5 0 000-3H8v5m5-5v5h1a2.5 2.5 0 000-5h-1m5 0h3m-3 0v5m0-2h2"
       stroke="currentColor"
       strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M20 6L9 17l-5-5"
+      stroke="currentColor"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -164,7 +179,6 @@ const FoggingserviceMain = () => {
       <div className="fogging-service-main-glow fogging-service-main-glow-two" />
 
       <div className="fogging-service-main-container">
-
         {/* LEFT SIDEBAR */}
         <aside className="fogging-service-main-sidebar">
           <div className="fogging-service-main-menu">
@@ -204,7 +218,7 @@ const FoggingserviceMain = () => {
               <a
                 href="tel:+919876543210"
                 className="fogging-service-main-contact-phone-icon"
-                aria-label="Call our support team"
+                aria-label="Call Giridurga Pest Control support team"
               >
                 <PhoneIcon />
               </a>
@@ -233,7 +247,6 @@ const FoggingserviceMain = () => {
 
         {/* RIGHT CONTENT */}
         <main className="fogging-service-main-content">
-
           {/* HERO SECTION */}
           <div
             className={`fogging-service-main-hero ${
@@ -268,7 +281,7 @@ const FoggingserviceMain = () => {
               key={`text-${activeService}`}
             >
               <span className="fogging-service-main-hero-label">
-                GIRIDURGA PEST CONTROL
+                {currentService.subtitle}
               </span>
 
               <h1>{currentService.heading}</h1>
@@ -280,48 +293,72 @@ const FoggingserviceMain = () => {
           {/* FOGGING OVERVIEW */}
           <div className="fogging-service-main-overview fogging-service-main-reveal">
             <span className="fogging-service-main-section-subtitle">
-              ABOUT OUR SERVICE
+              GIRIDURGA PEST CONTROL • FOGAIR &amp; MIST SOLUTIONS
             </span>
 
-            <h2>Professional Fogging Service</h2>
+            <h2>Professional Fogging Service in Odisha</h2>
 
             <p>
-              Fogging is a fast and effective pest control method that
-              releases a fine mist to cover suitable areas, including
-              difficult-to-reach corners and surfaces. It is commonly
-              used to help control targeted flying insects and improve
-              pest management in residential and commercial spaces.
+              Fogging is a fast and effective pest control method that releases a
+              fine mist to cover suitable areas, including difficult-to-reach
+              corners and surfaces. It is commonly used to help control targeted
+              flying insects and improve pest management in residential and
+              commercial spaces.
             </p>
 
             <p>
               At <strong>Giridurga Pest Control</strong>, we provide
-              professional fogging services using modern fogging
-              equipment, including FogAir machines, and suitable
-              pest control products. Our trained experts assess your
-              property and select an appropriate treatment approach
-              according to the pest problem and site requirements.
+              professional fogging services in Odisha using modern fogging
+              equipment, including <strong>FogAir machines</strong>, and
+              approved pest control products. Our trained experts assess your
+              property and select an appropriate treatment approach according to
+              the pest problem and site requirements.
             </p>
 
             <p>
-              Every treatment is carefully planned, beginning with a
-              detailed inspection, followed by appropriate fogging
-              application and practical preventive recommendations.
-              We focus on effective coverage, responsible application
-              and clear safety instructions.
+              Every treatment is carefully planned, beginning with a detailed
+              inspection, followed by targeted fogging application and
+              practical preventive recommendations. Whether you require fogging
+              for your home, apartment, hotel, restaurant, school, office, or
+              commercial property across{" "}
+              <strong>Bhubaneswar, Cuttack, Puri</strong>, and nearby cities,
+              our team delivers customized solutions at genuine rates.
             </p>
 
-            <p>
-              Whether you require fogging for your home, apartment,
-              hotel, restaurant, school, office or commercial property,
-              our team provides customized pest management solutions
-              based on your requirements.
-            </p>
+            <ul className="fogging-service-main-highlights">
+              <li>
+                <span className="fogging-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Modern FogAir &amp; ULV fogging equipment for thorough mist
+                  coverage
+                </span>
+              </li>
+              <li>
+                <span className="fogging-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Targeted control for mosquitoes &amp; flying insects indoors
+                  and outdoors
+                </span>
+              </li>
+              <li>
+                <span className="fogging-service-main-highlight-icon">
+                  <CheckIcon />
+                </span>
+                <span>
+                  Trained technicians with clear safety &amp; re-entry guidance
+                </span>
+              </li>
+            </ul>
           </div>
 
           {/* WHY CHOOSE US */}
           <div className="fogging-service-main-benefits fogging-service-main-reveal">
             <span className="fogging-service-main-section-subtitle">
-              WHY CHOOSE US
+              WHY CHOOSE GIRIDURGA PEST CONTROL
             </span>
 
             <h2>Why Choose Giridurga Pest Control for Fogging?</h2>
@@ -331,8 +368,8 @@ const FoggingserviceMain = () => {
                 <span>✓</span>
                 <h3>Modern Fogging Equipment</h3>
                 <p>
-                  Professional fogging equipment, including FogAir
-                  machines, selected according to treatment requirements.
+                  Professional fogging equipment, including FogAir machines,
+                  selected according to treatment requirements.
                 </p>
               </div>
 
@@ -340,8 +377,8 @@ const FoggingserviceMain = () => {
                 <span>✓</span>
                 <h3>Trained Experts</h3>
                 <p>
-                  Experienced technicians who assess the property and
-                  apply suitable treatments with care.
+                  Experienced technicians who assess the property and apply
+                  suitable treatments with care.
                 </p>
               </div>
 
@@ -349,7 +386,7 @@ const FoggingserviceMain = () => {
                 <span>✓</span>
                 <h3>Planned Treatment</h3>
                 <p>
-                  Inspection, targeted application and preventive
+                  Inspection, targeted application, and preventive
                   recommendations for better pest management.
                 </p>
               </div>
@@ -358,8 +395,8 @@ const FoggingserviceMain = () => {
                 <span>✓</span>
                 <h3>Customized Solutions</h3>
                 <p>
-                  Fogging service recommendations based on your property,
-                  pest concerns and treatment requirements.
+                  Fogging service recommendations based on your property, pest
+                  concerns, and treatment requirements.
                 </p>
               </div>
             </div>
@@ -374,42 +411,56 @@ const FoggingserviceMain = () => {
             <h2>How Giridurga Pest Control Does Fogging</h2>
 
             <p>
-              We follow a planned process to ensure that each fogging
-              treatment is carried out with suitable equipment,
-              appropriate products and proper safety precautions.
+              We follow a structured 4-step process so each fogging treatment is
+              carried out with suitable equipment, approved products, and
+              proper safety precautions.
             </p>
 
             <div className="fogging-service-main-image-grid">
               <div className="fogging-service-main-image-card">
                 <div className="fogging-service-main-image-wrap">
-                  <img src={serviceone} alt="Fogging property inspection" />
+                  <img
+                    src={serviceone}
+                    alt="Fogging property inspection in Odisha"
+                  />
                   <span className="fogging-service-main-image-number">
                     01
                   </span>
                 </div>
 
+                <span className="fogging-service-main-card-subtitle">
+                  SITE &amp; PEST EVALUATION
+                </span>
+
                 <h3>Detailed Property Inspection</h3>
 
                 <p>
-                  Our experts inspect the property, understand the pest
-                  problem and identify areas requiring fogging treatment.
+                  Our experts inspect the property, understand the pest problem,
+                  and identify areas requiring fogging treatment.
                 </p>
               </div>
 
               <div className="fogging-service-main-image-card">
                 <div className="fogging-service-main-image-wrap">
-                  <img src={servicetwo} alt="Professional fogging application" />
+                  <img
+                    src={servicetwo}
+                    alt="Professional FogAir fogging application"
+                  />
                   <span className="fogging-service-main-image-number">
                     02
                   </span>
                 </div>
 
+                <span className="fogging-service-main-card-subtitle">
+                  FOGAIR &amp; FINE MIST TREATMENT
+                </span>
+
                 <h3>Professional Fogging Application</h3>
 
                 <p>
-                  Our trained technicians use suitable fogging equipment
-                  and products to apply treatment according to the
-                  recommended procedure.
+                  Our trained technicians use suitable fogging equipment and
+                  products to apply treatment according to the recommended
+                  procedure.
                 </p>
               </div>
             </div>
@@ -417,10 +468,10 @@ const FoggingserviceMain = () => {
             <div className="fogging-service-main-process">
               <div>
                 <span>03</span>
-                <h3>Safety & Precautions</h3>
+                <h3>Safety &amp; Precautions</h3>
                 <p>
-                  We provide instructions regarding preparation,
-                  evacuation and safe re-entry after treatment.
+                  We provide instructions regarding preparation, evacuation, and
+                  safe re-entry after treatment.
                 </p>
               </div>
 
@@ -428,8 +479,8 @@ const FoggingserviceMain = () => {
                 <span>04</span>
                 <h3>Preventive Guidance</h3>
                 <p>
-                  We recommend practical steps to help reduce recurring
-                  pest activity and maintain hygienic surroundings.
+                  We recommend practical steps to help reduce recurring pest
+                  activity and maintain hygienic surroundings.
                 </p>
               </div>
             </div>
@@ -444,25 +495,33 @@ const FoggingserviceMain = () => {
             <h2>Fogging and Pest Control Services Across Odisha</h2>
 
             <p>
-              Looking for the best pest control in Cuttack with genuine
-              rates? Giridurga Pest Control offers professional pest
-              management and fogging services for residential and
-              commercial properties.
+              Looking for the{" "}
+              <strong>Best Pest Control in Cuttack with genuine rates</strong>?{" "}
+              <strong>Giridurga Pest Control</strong> offers professional pest
+              management and fogging services for residential and commercial
+              properties.
             </p>
 
             <p>
-              We serve customers searching for pest control in
-              Bhubaneswar, the best pest control services in Bhubaneswar,
-              pest control in Puri and pest control near Cuttack, Odisha.
-              Our team also provides expert pest and termite control
-              across Cuttack, subject to service availability.
+              We serve customers searching for{" "}
+              <strong>pest control Bhubaneswar</strong>, the{" "}
+              <strong>best pest control services in Bhubaneswar</strong>,{" "}
+              <strong>pest control Puri</strong>, and{" "}
+              <strong>pest control near Cuttack, Odisha</strong>. Our team also
+              provides{" "}
+              <strong>
+                expert pest and termite control across Cuttack
+              </strong>{" "}
+              and nearby cities.
             </p>
 
             <p>
-              If you are searching for reliable pest control service
-              providers in Cuttack or professional pest control solutions
-              in Cuttack, contact Giridurga Pest Control for service
-              information and pricing details.
+              If you are searching for reliable{" "}
+              <strong>Pest Control Service Providers in Cuttack</strong>, the{" "}
+              <strong>best pest control services in Cuttack</strong>, or
+              professional <strong>pest control solutions in Cuttack</strong>,
+              contact Giridurga Pest Control for service information and pricing
+              details.
             </p>
 
             <div className="fogging-service-main-city-list">
@@ -470,6 +529,24 @@ const FoggingserviceMain = () => {
               <span>Bhubaneswar</span>
               <span>Puri</span>
               <span>Across Odisha</span>
+            </div>
+
+            <div className="fogging-service-main-local-box">
+              <span className="fogging-service-main-card-subtitle">
+                SERVICE AREAS &amp; SPECIALTIES IN ODISHA
+              </span>
+              <h3>Complete Fogging &amp; Pest Protection Across Odisha</h3>
+              <div className="fogging-service-main-keyword-tags">
+                <span>Best Pest Control in Cuttack with genuine rates</span>
+                <span>Pest Control Bhubaneswar</span>
+                <span>Best Pest Control Services in Bhubaneswar</span>
+                <span>Pest Control Puri</span>
+                <span>Pest Control near Cuttack, Odisha</span>
+                <span>Best Pest Control Services in Cuttack</span>
+                <span>Pest Control Service Providers in Cuttack</span>
+                <span>Expert Pest and Termite Control across Cuttack</span>
+                <span>Pest Control Solutions in Cuttack</span>
+              </div>
             </div>
           </div>
 
@@ -482,8 +559,9 @@ const FoggingserviceMain = () => {
             <h2>Frequently Asked Questions</h2>
 
             <p className="fogging-service-main-faq-intro">
-              Find answers to common questions about our fogging
-              procedures, equipment, safety and pest management services.
+              Find answers to common questions about Giridurga Pest Control’s
+              fogging procedures, equipment, safety, and pest management
+              services.
             </p>
 
             <div className="fogging-service-main-faq-list">
@@ -522,14 +600,14 @@ const FoggingserviceMain = () => {
           {/* BOTTOM CTA */}
           <div className="fogging-service-main-bottom-cta fogging-service-main-reveal">
             <div>
-              <span>KEEP YOUR SURROUNDINGS PEST-FREE</span>
+              <span>GIRIDURGA PEST CONTROL • BHUBANESWAR • CUTTACK • PURI</span>
 
               <h2>Need Professional Fogging Service?</h2>
 
               <p>
-                Get professional fogging assistance from Giridurga Pest
-                Control. Contact our team today for customized pest
-                management solutions for your property.
+                Get professional fogging assistance from Giridurga Pest Control.
+                Contact our team today for customized pest management solutions
+                at genuine rates.
               </p>
             </div>
 
@@ -541,7 +619,6 @@ const FoggingserviceMain = () => {
               <ArrowIcon />
             </a>
           </div>
-
         </main>
       </div>
     </section>

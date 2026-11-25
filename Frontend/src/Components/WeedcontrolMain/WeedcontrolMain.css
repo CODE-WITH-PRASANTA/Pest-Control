@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap");
 
 .weed-control-main {
@@ -14,7 +13,7 @@
   background: var(--pest-bg);
   font-family: "DM Sans", sans-serif;
   color: var(--pest-text);
-  overflow: hidden;
+  overflow-x: clip;
 }
 
 .weed-control-main *,
@@ -65,11 +64,13 @@
   align-items: start;
 }
 
-/* SIDEBAR */
+/* STICKY SIDEBAR */
 
 .weed-control-main-sidebar {
+  position: -webkit-sticky;
   position: sticky;
   top: 24px;
+  align-self: start;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -133,7 +134,7 @@
 }
 
 .weed-control-main-menu-item.active
-.weed-control-main-menu-number {
+  .weed-control-main-menu-number {
   color: var(--pest-dark);
 }
 
@@ -158,12 +159,12 @@
 }
 
 .weed-control-main-menu-item:hover
-.weed-control-main-arrow svg {
+  .weed-control-main-arrow svg {
   transform: translateX(4px);
 }
 
 .weed-control-main-menu-item.active
-.weed-control-main-arrow {
+  .weed-control-main-arrow {
   background: var(--pest-dark);
   color: var(--pest-green);
 }
@@ -215,7 +216,7 @@
 .weed-control-main-contact-content h2 {
   max-width: 280px;
   margin: 0 auto 22px;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1.25;
   font-weight: 700;
   color: var(--pest-dark);
@@ -346,7 +347,7 @@
 }
 
 .weed-control-main-hero:hover
-.weed-control-main-hero-image {
+  .weed-control-main-hero-image {
   transform: scale(1.04);
 }
 
@@ -361,9 +362,9 @@
     linear-gradient(
       180deg,
       rgba(8, 28, 20, 0) 25%,
-      rgba(8, 28, 20, 0.82) 100%
+      rgba(8, 28, 20, 0.85) 100%
     ),
-    linear-gradient(90deg, rgba(8, 28, 20, 0.45), transparent 65%);
+    linear-gradient(90deg, rgba(8, 28, 20, 0.5), transparent 65%);
   pointer-events: none;
 }
 
@@ -399,7 +400,7 @@
   left: 40px;
   right: 40px;
   bottom: 38px;
-  max-width: 620px;
+  max-width: 650px;
   color: white;
   z-index: 2;
   animation: weedControlTextIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -426,11 +427,11 @@
 }
 
 .weed-control-main-hero-text p {
-  max-width: 520px;
+  max-width: 560px;
   font-size: 15px;
   line-height: 1.75;
   margin: 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 /* COMMON HEADINGS */
@@ -447,6 +448,7 @@
 .weed-control-main-overview,
 .weed-control-main-comprehensive,
 .weed-control-main-benefits,
+.weed-control-main-areas,
 .weed-control-main-faq {
   margin-top: 52px;
 }
@@ -454,6 +456,7 @@
 .weed-control-main-overview h2,
 .weed-control-main-comprehensive h2,
 .weed-control-main-benefits h2,
+.weed-control-main-areas h2,
 .weed-control-main-faq h2 {
   color: #18382c;
   font-size: clamp(24px, 2.6vw, 33px);
@@ -465,11 +468,20 @@
 
 .weed-control-main-overview p,
 .weed-control-main-comprehensive > p,
-.weed-control-main-benefits > p {
+.weed-control-main-benefits > p,
+.weed-control-main-areas > p {
   font-size: 16px;
   line-height: 1.9;
   color: #59615c;
   margin: 0 0 18px;
+}
+
+.weed-control-main-overview strong,
+.weed-control-main-comprehensive strong,
+.weed-control-main-benefits strong,
+.weed-control-main-areas strong {
+  color: var(--pest-dark);
+  font-weight: 700;
 }
 
 /* IMAGE GRID */
@@ -514,7 +526,7 @@
 }
 
 .weed-control-main-image-card:hover
-.weed-control-main-image-wrap img {
+  .weed-control-main-image-wrap img {
   transform: scale(1.09);
 }
 
@@ -538,13 +550,22 @@
 }
 
 .weed-control-main-image-card:hover
-.weed-control-main-image-number {
+  .weed-control-main-image-number {
   opacity: 1;
   transform: translateY(0);
 }
 
+.weed-control-main-card-subtitle {
+  display: block;
+  margin: 16px 10px 4px;
+  color: #779c43;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
 .weed-control-main-image-card h3 {
-  margin: 18px 10px 8px;
+  margin: 4px 10px 8px;
   color: var(--pest-dark);
   font-size: 19px;
 }
@@ -579,7 +600,9 @@
   padding: 16px;
   border-radius: 14px;
   background: #f5f8ef;
-  transition: transform 0.35s ease, background 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease;
 }
 
 .weed-control-main-benefit-item:hover {
@@ -606,6 +629,44 @@
   color: #405344;
   font-size: 14px;
   line-height: 1.6;
+  font-weight: 600;
+}
+
+/* LOCAL COVERAGE BOX */
+
+.weed-control-main-local-box {
+  margin-top: 26px;
+  padding: 26px 28px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 26px rgba(23, 62, 45, 0.05);
+}
+
+.weed-control-main-local-box
+  .weed-control-main-card-subtitle {
+  margin: 0 0 6px;
+}
+
+.weed-control-main-local-box h3 {
+  margin: 0 0 14px;
+  color: var(--pest-dark);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.weed-control-main-keyword-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.weed-control-main-keyword-tags span {
+  padding: 7px 14px;
+  border-radius: 50px;
+  background: #f2f7ec;
+  border: 1px solid rgba(119, 156, 67, 0.25);
+  color: var(--pest-dark);
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -680,7 +741,7 @@
 }
 
 .weed-control-main-faq-item.faq-active
-.weed-control-main-faq-toggle {
+  .weed-control-main-faq-toggle {
   transform: rotate(180deg);
   background: var(--pest-dark);
   color: var(--pest-green);
@@ -697,7 +758,7 @@
 }
 
 .weed-control-main-faq-item.faq-active
-.weed-control-main-faq-answer {
+  .weed-control-main-faq-answer {
   grid-template-rows: 1fr;
 }
 
@@ -851,7 +912,7 @@
   }
 
   .weed-control-main-contact-content h2 {
-    font-size: 23px;
+    font-size: 21px;
   }
 
   .weed-control-main-hero {
@@ -961,6 +1022,10 @@
 
   .weed-control-main-hero-text h1 {
     font-size: 25px;
+  }
+
+  .weed-control-main-local-box {
+    padding: 20px 18px;
   }
 
   .weed-control-main-faq-question {

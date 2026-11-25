@@ -1,4 +1,3 @@
-
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap");
 
 .wasp-management-main {
@@ -14,7 +13,9 @@
   background: var(--pest-bg);
   font-family: "DM Sans", sans-serif;
   color: var(--pest-text);
-  overflow: hidden;
+
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .wasp-management-main *,
@@ -35,6 +36,7 @@
     rgba(208, 244, 123, 0) 68%
   );
   animation: waspManagementFloat 11s ease-in-out infinite;
+  z-index: 0;
 }
 
 .wasp-management-main-glow-one {
@@ -59,21 +61,60 @@
   z-index: 2;
   max-width: 1320px;
   margin: 0 auto;
+
   display: grid;
   grid-template-columns: 340px minmax(0, 1fr);
+
   gap: 48px;
-  align-items: start;
+  align-items: stretch;
 }
 
-/* SIDEBAR */
+/* ==================================================
+   SMART STICKY SIDEBAR
+================================================== */
 
 .wasp-management-main-sidebar {
   position: sticky;
   top: 24px;
+
+  align-self: start;
+
   display: flex;
   flex-direction: column;
   gap: 22px;
+
+  height: max-content;
+  max-height: calc(100vh - 48px);
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #a9dc3d transparent;
+
+  z-index: 5;
 }
+
+/* SIDEBAR SCROLLBAR */
+
+.wasp-management-main-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.wasp-management-main-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wasp-management-main-sidebar::-webkit-scrollbar-thumb {
+  background: #a9dc3d;
+  border-radius: 10px;
+}
+
+.wasp-management-main-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #173e2d;
+}
+
+/* SIDEBAR MENU */
 
 .wasp-management-main-menu {
   display: flex;
@@ -86,19 +127,26 @@
   width: 100%;
   min-height: 72px;
   padding: 12px 14px 12px 18px;
+
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 18px;
+
   background: #f8fafb;
   color: var(--pest-dark);
+
   display: flex;
   align-items: center;
   gap: 14px;
+
   font-family: inherit;
   font-size: 17px;
   font-weight: 700;
   text-align: left;
+
   cursor: pointer;
+
   box-shadow: 0 6px 16px rgba(23, 62, 45, 0.04);
+
   transition:
     background 0.4s ease,
     transform 0.4s ease,
@@ -111,7 +159,6 @@
   font-weight: 800;
   letter-spacing: 0.05em;
   color: rgba(23, 62, 45, 0.4);
-  transition: color 0.35s ease;
 }
 
 .wasp-management-main-menu-title {
@@ -143,12 +190,12 @@
   height: 44px;
   border-radius: 50%;
   background: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    background 0.35s ease,
-    color 0.35s ease;
+
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 .wasp-management-main-arrow svg {
@@ -174,12 +221,17 @@
   position: relative;
   min-height: 340px;
   border-radius: 22px;
+
   background: linear-gradient(160deg, #dcf88f, var(--pest-green));
+
   overflow: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   padding: 34px 24px;
+
   box-shadow: 0 18px 40px rgba(70, 110, 35, 0.16);
 }
 
@@ -226,20 +278,21 @@
   height: 72px;
   border-radius: 50%;
   background: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin: 0 auto 22px;
+
   color: var(--pest-dark);
   box-shadow: 0 10px 24px rgba(23, 62, 45, 0.12);
-  transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+
+  transition: transform 0.4s ease;
 }
 
 .wasp-management-main-contact-phone-icon:hover {
   transform: rotate(-12deg) scale(1.1);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.16);
 }
 
 .wasp-management-main-contact-phone-icon svg {
@@ -268,29 +321,30 @@
 .wasp-management-main-download {
   min-height: 68px;
   padding: 14px 20px;
+
   background: var(--pest-green);
   border-radius: 60px;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
+
   text-decoration: none;
   color: var(--pest-dark);
+
   font-size: 16px;
   font-weight: 800;
+
   box-shadow: 0 10px 24px rgba(70, 110, 35, 0.14);
-  transition:
-    background 0.4s ease,
-    color 0.4s ease,
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+
+  transition: all 0.4s ease;
 }
 
 .wasp-management-main-download:hover {
   background: var(--pest-dark);
   color: white;
   transform: translateY(-4px);
-  box-shadow: 0 16px 34px rgba(20, 50, 35, 0.2);
 }
 
 .wasp-management-main-download svg {
@@ -303,6 +357,7 @@
 
 .wasp-management-main-content {
   min-width: 0;
+  position: relative;
 }
 
 /* SCROLL REVEAL */
@@ -310,6 +365,7 @@
 .wasp-management-main-reveal {
   opacity: 0;
   transform: translateY(36px);
+
   transition:
     opacity 0.9s ease,
     transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -327,21 +383,29 @@
   height: 430px;
   overflow: hidden;
   border-radius: 24px;
+
   background: linear-gradient(135deg, #1f5a42, #173e2d);
+
   isolation: isolate;
+
   box-shadow: 0 24px 50px rgba(23, 62, 45, 0.2);
 }
 
 .wasp-management-main-hero-image {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   object-position: center;
+
   display: block;
+
   animation: waspManagementHeroReveal 0.9s ease;
   transition: transform 0.9s ease;
+
   z-index: -1;
 }
 
@@ -357,6 +421,7 @@
 .wasp-management-main-hero-overlay {
   position: absolute;
   inset: 0;
+
   background:
     linear-gradient(
       180deg,
@@ -364,6 +429,7 @@
       rgba(8, 28, 20, 0.82) 100%
     ),
     linear-gradient(90deg, rgba(8, 28, 20, 0.45), transparent 65%);
+
   pointer-events: none;
 }
 
@@ -372,14 +438,19 @@
   top: 22px;
   right: 24px;
   z-index: 2;
+
   display: inline-flex;
   align-items: center;
   gap: 10px;
+
   padding: 9px 16px;
+
   border-radius: 40px;
   background: rgba(255, 255, 255, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.3);
+
   backdrop-filter: blur(10px);
+
   color: #fff;
   font-size: 13px;
   font-weight: 700;
@@ -399,19 +470,23 @@
   left: 40px;
   right: 40px;
   bottom: 38px;
+
   max-width: 620px;
   color: white;
   z-index: 2;
-  animation: waspManagementTextIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  animation: waspManagementTextIn 0.8s ease;
 }
 
 .wasp-management-main-hero-label {
   display: inline-block;
   margin-bottom: 16px;
   padding: 8px 15px;
+
   border-radius: 50px;
   background: var(--pest-green);
   color: var(--pest-dark);
+
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -446,12 +521,16 @@
 
 .wasp-management-main-overview,
 .wasp-management-main-comprehensive,
+.wasp-management-main-process,
+.wasp-management-main-location,
 .wasp-management-main-faq {
   margin-top: 52px;
 }
 
 .wasp-management-main-overview h2,
 .wasp-management-main-comprehensive h2,
+.wasp-management-main-process h2,
+.wasp-management-main-location h2,
 .wasp-management-main-faq h2 {
   color: #18382c;
   font-size: clamp(24px, 2.6vw, 33px);
@@ -462,11 +541,18 @@
 }
 
 .wasp-management-main-overview p,
-.wasp-management-main-comprehensive > p {
+.wasp-management-main-comprehensive > p,
+.wasp-management-main-location > p {
   font-size: 16px;
   line-height: 1.9;
   color: #59615c;
   margin: 0 0 18px;
+}
+
+.wasp-management-main-overview strong,
+.wasp-management-main-location strong {
+  color: var(--pest-dark);
+  font-weight: 700;
 }
 
 /* IMAGE GRID */
@@ -481,9 +567,12 @@
 .wasp-management-main-image-card {
   min-width: 0;
   padding: 12px 12px 22px;
+
   background: #fff;
   border-radius: 20px;
+
   box-shadow: 0 10px 26px rgba(23, 62, 45, 0.06);
+
   transition:
     transform 0.45s ease,
     box-shadow 0.45s ease;
@@ -519,25 +608,20 @@
   position: absolute;
   top: 14px;
   left: 14px;
+
   width: 40px;
   height: 40px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   border-radius: 50%;
   background: var(--pest-green);
   color: var(--pest-dark);
+
   font-size: 13px;
   font-weight: 800;
-  transform: translateY(-10px);
-  opacity: 0;
-  transition: 0.4s ease;
-}
-
-.wasp-management-main-image-card:hover
-.wasp-management-main-image-number {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .wasp-management-main-image-card h3 {
@@ -553,6 +637,105 @@
   margin: 0 10px;
 }
 
+/* PROCESS */
+
+.wasp-management-main-process-intro {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #69736d;
+  margin-bottom: 28px;
+}
+
+.wasp-management-main-process-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.wasp-management-main-process-item {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  align-items: center;
+  gap: 24px;
+
+  padding: 14px;
+
+  background: white;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 24px rgba(23, 62, 45, 0.05);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.wasp-management-main-process-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(23, 62, 45, 0.1);
+}
+
+.wasp-management-main-process-image {
+  position: relative;
+  height: 145px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #e5e9e5;
+}
+
+.wasp-management-main-process-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.wasp-management-main-process-item:hover
+.wasp-management-main-process-image img {
+  transform: scale(1.08);
+}
+
+.wasp-management-main-process-image span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+  background: var(--pest-green);
+  color: var(--pest-dark);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.wasp-management-main-process-content > span {
+  color: #779c43;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.wasp-management-main-process-content h3 {
+  color: var(--pest-dark);
+  font-size: 19px;
+  margin: 8px 0;
+}
+
+.wasp-management-main-process-content p {
+  color: #69736d;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 0;
+}
+
 /* BENEFITS */
 
 .wasp-management-main-benefits {
@@ -562,34 +745,71 @@
   margin-top: 26px;
 }
 
-.wasp-management-main-benefit {
+.wasp-management-main-benefits > div {
   display: flex;
   align-items: center;
   gap: 12px;
+
   padding: 16px;
-  border-radius: 14px;
+
   background: #fff;
-  box-shadow: 0 6px 18px rgba(23, 62, 45, 0.05);
+  border-radius: 13px;
+
+  box-shadow: 0 6px 18px rgba(23, 62, 45, 0.04);
 }
 
-.wasp-management-main-benefit span {
+.wasp-management-main-benefits span {
   flex-shrink: 0;
+
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
   background: var(--pest-green);
+  border-radius: 50%;
+
   color: var(--pest-dark);
   font-weight: 800;
 }
 
-.wasp-management-main-benefit p {
+.wasp-management-main-benefits p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.6;
-  color: #405344;
+  line-height: 1.5;
+  color: var(--pest-dark);
+  font-weight: 600;
+}
+
+/* SERVICE LOCATIONS */
+
+.wasp-management-main-location {
+  padding: 30px;
+
+  background: white;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 28px rgba(23, 62, 45, 0.06);
+}
+
+.wasp-management-main-location-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.wasp-management-main-location-tags span {
+  padding: 9px 16px;
+  border-radius: 30px;
+
+  background: #eaf7d3;
+  color: var(--pest-dark);
+
+  font-size: 13px;
+  font-weight: 700;
 }
 
 /* FAQ */
@@ -615,7 +835,9 @@
   border-radius: 18px;
   background: white;
   overflow: hidden;
+
   box-shadow: 0 6px 18px rgba(23, 62, 45, 0.04);
+
   transition:
     background 0.4s ease,
     box-shadow 0.4s ease;
@@ -629,34 +851,43 @@
 .wasp-management-main-faq-question {
   width: 100%;
   min-height: 74px;
+
   border: none;
   background: transparent;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+
   padding: 16px 24px;
+
   color: #193b2d;
   font-family: inherit;
   font-size: 17px;
   font-weight: 600;
   text-align: left;
+
   cursor: pointer;
 }
 
 .wasp-management-main-faq-toggle {
   flex-shrink: 0;
+
   width: 40px;
   height: 40px;
+
   border-radius: 50%;
   background: #f3f3fb;
   color: #183d2c;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 24px;
-  font-weight: 400;
   line-height: 1;
+
   transition:
     transform 0.4s ease,
     background 0.4s ease;
@@ -696,25 +927,34 @@
 
 .wasp-management-main-bottom-cta {
   position: relative;
+
   padding: 40px 42px;
+
   border-radius: 22px;
+
   background: linear-gradient(135deg, #1f5a42, var(--pest-dark));
   color: white;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 26px;
+
   overflow: hidden;
+
   box-shadow: 0 22px 46px rgba(23, 62, 45, 0.25);
 }
 
 .wasp-management-main-bottom-cta::after {
   content: "";
+
   position: absolute;
   width: 240px;
   height: 240px;
+
   border: 40px solid rgba(208, 244, 123, 0.12);
   border-radius: 50%;
+
   right: -70px;
   top: -110px;
 }
@@ -735,6 +975,7 @@
 .wasp-management-main-bottom-cta h2 {
   margin: 12px 0 8px;
   font-size: clamp(22px, 2.6vw, 30px);
+  color: white;
 }
 
 .wasp-management-main-bottom-cta p {
@@ -746,16 +987,21 @@
 
 .wasp-management-main-cta-button {
   flex-shrink: 0;
+
   min-height: 54px;
   padding: 13px 24px;
+
   border-radius: 50px;
   background: var(--pest-green);
   color: var(--pest-dark);
+
   display: flex;
   align-items: center;
   gap: 12px;
+
   text-decoration: none;
   font-weight: 800;
+
   transition:
     background 0.35s ease,
     transform 0.35s ease;
@@ -807,12 +1053,19 @@
   }
 }
 
-/* TABLET */
+/* ==================================================
+   TABLET
+================================================== */
 
 @media (max-width: 1100px) {
   .wasp-management-main-container {
     grid-template-columns: 290px minmax(0, 1fr);
     gap: 28px;
+  }
+
+  .wasp-management-main-sidebar {
+    top: 20px;
+    max-height: calc(100vh - 40px);
   }
 
   .wasp-management-main-menu-item {
@@ -851,7 +1104,9 @@
   }
 }
 
-/* MOBILE / TABLET */
+/* ==================================================
+   MOBILE / TABLET
+================================================== */
 
 @media (max-width: 860px) {
   .wasp-management-main {
@@ -865,7 +1120,9 @@
 
   .wasp-management-main-sidebar {
     position: relative;
-    top: 0;
+    top: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .wasp-management-main-menu {
@@ -913,11 +1170,29 @@
     align-items: flex-start;
     padding: 30px 24px;
   }
+
+  .wasp-management-main-process-item {
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+  }
+
+  .wasp-management-main-process-image {
+    height: 130px;
+  }
 }
 
-/* SMALL MOBILE */
+/* ==================================================
+   SMALL MOBILE
+================================================== */
 
 @media (max-width: 540px) {
+  .wasp-management-main-sidebar {
+    position: relative;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
   .wasp-management-main-menu {
     grid-template-columns: 1fr;
   }
@@ -937,12 +1212,8 @@
     letter-spacing: 1px;
   }
 
-  .wasp-management-main-hero-text p {
-    font-size: 13px;
-  }
-
-  .wasp-management-main-benefits {
-    grid-template-columns: 1fr;
+  .wasp-management-main-hero-text h1 {
+    font-size: 27px;
   }
 
   .wasp-management-main-faq-question {
@@ -954,12 +1225,34 @@
     padding: 0 18px 18px;
   }
 
-  .wasp-management-main-contact-number {
-    font-size: 21px;
+  .wasp-management-main-process-item {
+    grid-template-columns: 1fr;
+  }
+
+  .wasp-management-main-process-image {
+    height: 190px;
+  }
+
+  .wasp-management-main-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .wasp-management-main-location {
+    padding: 22px 18px;
+  }
+
+  .wasp-management-main-bottom-cta {
+    padding: 28px 20px;
+  }
+
+  .wasp-management-main-contact-content h2 {
+    font-size: 23px;
   }
 }
 
-/* REDUCED MOTION */
+/* ==================================================
+   REDUCED MOTION
+================================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .wasp-management-main *,
