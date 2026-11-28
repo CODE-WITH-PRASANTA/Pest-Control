@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./Booking.css";
 
 /* ------------------------------------------------------------------ */
@@ -59,49 +60,6 @@ const TRENDS = {
   cancelled: { value: 5, up: false },
 };
 
-const buildSeed = () => {
-  const head = [
-    { name: "Ramesh Patra", service: "Termite Control", phone: "9876543210", location: "Bhubaneswar", date: "2026-11-15", status: "Completed", amount: 2500 },
-    { name: "Sneha Das", service: "Bed Bug Control", phone: "8765432109", location: "Cuttack", date: "2026-11-15", status: "In Progress", amount: 1800 },
-    { name: "Arjit Kuanar", service: "General Pest Control", phone: "9988766554", location: "Puri", date: "2026-11-14", status: "Completed", amount: 3000 },
-    { name: "Priya Rout", service: "Rodent Control", phone: "7654321098", location: "Kendrapara", date: "2026-11-14", status: "Pending", amount: 2200 },
-    { name: "Sibu Nayak", service: "Cockroach Control", phone: "9123456789", location: "Bhubaneswar", date: "2026-11-13", status: "Completed", amount: 1500 },
-  ];
-
-  /* 243 remaining rows: 179 completed, 35 in progress, 18 cancelled, 11 pending (248 total) */
-  const pool = [
-    ...Array(179).fill("Completed"),
-    ...Array(35).fill("In Progress"),
-    ...Array(18).fill("Cancelled"),
-    ...Array(11).fill("Pending"),
-  ];
-  let seed = 20261116;
-  const rand = () => {
-    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-    return seed / 4294967296;
-  };
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(rand() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-
-  const rest = pool.map((status, k) => {
-    const i = k + 5;
-    return {
-      name: NAMES[(i * 7 + 3) % NAMES.length],
-      service: SERVICES[(i * 5 + 2) % SERVICES.length],
-      phone: `9${100000000 + ((i * 48271 * 1237) % 899999999)}`,
-      location: LOCATIONS[(i * 3 + 1) % LOCATIONS.length],
-      date: new Date(Date.UTC(2026, 10, 13 - Math.floor(i / 3))).toISOString().slice(0, 10),
-      status,
-      amount: AMOUNTS[(i * 3 + 4) % AMOUNTS.length],
-    };
-  });
-
-  return [...head, ...rest].map((b, i) => ({ ...b, id: 2489 - i }));
-};
-
-const INITIAL_BOOKINGS = buildSeed();
 const PAGE_SIZE = 5;
 
 const EMPTY_FORM = {
@@ -123,7 +81,7 @@ const toISO = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
 const todayDate = () => new Date();
 const isoOf = (d) => toISO(d.getFullYear(), d.getMonth(), d.getDate());
 
-const formatPhone = (p) => `+91 ${p.slice(0, 5)} ${p.slice(5)}`;
+const formatPhone = (p = "") => (/^\d{10}$/.test(p) ? `+91 ${p.slice(0, 5)} ${p.slice(5)}` : p);
 const formatAmount = (n) => `₹ ${Number(n).toLocaleString("en-IN")}`;
 const parseDate = (iso) => new Date(`${iso}T00:00:00`);
 const formatDate = (iso) =>
@@ -350,7 +308,7 @@ const Avatar = ({ name, size = "md" }) => {
 };
 
 const ServiceBadge = ({ service }) => (
-  <span className={`Booking-service Booking-${SERVICE_CLASS[service]}`}>
+  <span className={`Booking-service Booking-${SERVICE_CLASS[service] || "service-general"}`}>
     <Icon name="bug" size={14} />
     {service}
   </span>
@@ -929,8 +887,11 @@ const Pagination = ({ page, totalPages, total, onChange }) => {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
+const normalizeBooking = (b) => ({ ...b, id: b._id || b.id });
+const shortId = (id) => String(id).slice(-6).toUpperCase();
+
 const Booking = () => {
-  const [bookings, setBookings] = useState(INITIAL_BOOKINGS);
+  const [bookings, setBookings] = useState([]);
   const [tab, setTab] = useState("All");
   const [service, setService] = useState("All");
   const [range, setRange] = useState({ start: null, end: null });
@@ -946,6 +907,25 @@ const Booking = () => {
     toastTimer.current = setTimeout(() => setToast(null), 3000);
   }, []);
   useEffect(() => () => clearTimeout(toastTimer.current), []);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchBookings = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/bookings`);
+        const result = await res.json();
+        if (!ignore && res.ok && result.success) {
+          setBookings((result.data || []).map(normalizeBooking));
+        }
+      } catch {
+        if (!ignore) showToast("Failed to load bookings from server.");
+      }
+    };
+    fetchBookings();
+    return () => {
+      ignore = true;
+    };
+  }, [showToast]);
 
   const stats = useMemo(
     () => ({
@@ -1011,41 +991,86 @@ const Booking = () => {
   const closeModal = useCallback(() => setModal(null), []);
   const openAction = (type, booking) => setModal({ type, booking });
 
-  const handleAdd = (data) => {
-    const nextId = Math.max(...bookings.map((b) => b.id)) + 1;
-    setBookings((list) => [{ ...data, id: nextId }, ...list]);
-    setTab("All");
-    setService("All");
-    setRange({ start: null, end: null });
-    setPage(1);
-    closeModal();
-    showToast(`Booking #${nextId} was added.`);
+  const handleAdd = async (data) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to add booking.");
+      }
+      const created = normalizeBooking(result.data);
+      setBookings((list) => [created, ...list]);
+      setTab("All");
+      setService("All");
+      setRange({ start: null, end: null });
+      setPage(1);
+      closeModal();
+      showToast(`Booking #${shortId(created.id)} was added.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
-  const handleEdit = (data) => {
-    setBookings((list) => list.map((b) => (b.id === modal.booking.id ? { ...b, ...data } : b)));
-    closeModal();
-    showToast(`Booking #${modal.booking.id} was updated.`);
+  const handleEdit = async (data) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/bookings/${modal.booking.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to update booking.");
+      }
+      const updated = normalizeBooking(result.data);
+      setBookings((list) => list.map((b) => (b.id === modal.booking.id ? updated : b)));
+      closeModal();
+      showToast(`Booking #${shortId(modal.booking.id)} was updated.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const { id } = modal.booking;
-    setBookings((list) => list.filter((b) => b.id !== id));
-    setSelected((s) => {
-      const next = new Set(s);
-      next.delete(id);
-      return next;
-    });
-    closeModal();
-    showToast(`Booking #${id} was deleted.`);
+    try {
+      const res = await fetch(`${API_BASE_URL}/bookings/${id}`, {
+        method: "DELETE",
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to delete booking.");
+      }
+      setBookings((list) => list.filter((b) => b.id !== id));
+      setSelected((s) => {
+        const next = new Set(s);
+        next.delete(id);
+        return next;
+      });
+      closeModal();
+      showToast(`Booking #${shortId(id)} was deleted.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
-  const handleBulkDelete = () => {
-    const count = selected.size;
-    setBookings((list) => list.filter((b) => !selected.has(b.id)));
-    setSelected(new Set());
-    closeModal();
-    showToast(`${count} booking${count > 1 ? "s were" : " was"} deleted.`);
+  const handleBulkDelete = async () => {
+    const ids = [...selected];
+    try {
+      await Promise.all(
+        ids.map((id) => fetch(`${API_BASE_URL}/bookings/${id}`, { method: "DELETE" }))
+      );
+      setBookings((list) => list.filter((b) => !selected.has(b.id)));
+      setSelected(new Set());
+      closeModal();
+      showToast(`${ids.length} booking${ids.length > 1 ? "s were" : " was"} deleted.`);
+    } catch {
+      showToast("Could not delete selected bookings.");
+    }
   };
 
   const statCards = [
@@ -1213,7 +1238,7 @@ const Booking = () => {
                     <td className="Booking-cellCheck">
                       <Checkbox checked={selected.has(b.id)} onChange={() => toggleRow(b.id)} label={`Select booking ${b.id}`} />
                     </td>
-                    <td className="Booking-cellId">#{b.id}</td>
+                    <td className="Booking-cellId">#{shortId(b.id)}</td>
                     <td className="Booking-cellCustomer">
                       <Avatar name={b.name} />
                       <span className="Booking-customerName">{b.name}</span>
@@ -1264,13 +1289,13 @@ const Booking = () => {
       )}
 
       {modal?.type === "edit" && (
-        <Modal title="Edit booking" subtitle={`Update booking #${modal.booking.id} for ${modal.booking.name}.`} onClose={closeModal}>
+        <Modal title="Edit booking" subtitle={`Update booking #${shortId(modal.booking.id)} for ${modal.booking.name}.`} onClose={closeModal}>
           <BookingForm initial={modal.booking} editing onSubmit={handleEdit} onCancel={closeModal} />
         </Modal>
       )}
 
       {modal?.type === "view" && (
-        <Modal title={`Booking #${modal.booking.id}`} onClose={closeModal} size="sm">
+        <Modal title={`Booking #${shortId(modal.booking.id)}`} onClose={closeModal} size="sm">
           <div className="Booking-profile">
             <Avatar name={modal.booking.name} size="xl" />
             <h3 className="Booking-profileName">{modal.booking.name}</h3>
@@ -1285,6 +1310,12 @@ const Booking = () => {
               <dt><Icon name="phone" size={16} /> Phone</dt>
               <dd>{formatPhone(modal.booking.phone)}</dd>
             </div>
+            {modal.booking.email && (
+              <div>
+                <dt>Email</dt>
+                <dd>{modal.booking.email}</dd>
+              </div>
+            )}
             <div>
               <dt><Icon name="pin" size={16} /> Location</dt>
               <dd>{modal.booking.location}</dd>
@@ -1293,6 +1324,12 @@ const Booking = () => {
               <dt><Icon name="calendar" size={16} /> Booking date</dt>
               <dd>{formatDate(modal.booking.date)}</dd>
             </div>
+            {modal.booking.message && (
+              <div>
+                <dt>Message</dt>
+                <dd>{modal.booking.message}</dd>
+              </div>
+            )}
           </dl>
           <div className="Booking-modalFooter">
             <button type="button" className="Booking-btn Booking-btn--ghost" onClick={closeModal}>

@@ -1,41 +1,47 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { API_BASE_URL, BACKEND_BASE_URL } from '../../config/api'
 import './ProjectMain.css'
 
-// Update image paths to match your assets folder
-import project1 from '../../assets/news1.jpg'
-import project2 from '../../assets/proj2.jpg'
-import project3 from '../../assets/proj3.jpg'
-import project4 from '../../assets/news1.jpg'
-
-const projects = [
-  {
-    image: project1,
-    title: 'Patient Recovery Management',
-    category: 'Management',
-    type: 'Nursing',
-  },
-  {
-    image: project2,
-    title: 'Health Monitoring Project',
-    category: 'Management',
-    type: 'Nursing',
-  },
-  {
-    image: project3,
-    title: 'Pest Control Solutions',
-    category: 'Management',
-    type: 'Protection',
-  },
-  {
-    image: project4,
-    title: 'Safety & Prevention',
-    category: 'Management',
-    type: 'Healthcare',
-  },
-]
+const resolveImageUrl = (img) => {
+  if (!img) return ''
+  if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('data:')) {
+    return img
+  }
+  return `${BACKEND_BASE_URL}${img.startsWith('/') ? '' : '/'}${img}`
+}
 
 function ProjectsOverview() {
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const [activeIndex, setActiveIndex] = useState(null)
+
+  useEffect(() => {
+    let ignore = false
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/projects`)
+        const result = await res.json()
+        if (!ignore) {
+          if (!res.ok || !result.success) {
+            throw new Error(result.message || 'Failed to load projects')
+          }
+          const visible = (result.data || []).filter(
+            (p) => p.status === 'Published' || p.status === 'Completed' || !p.status
+          )
+          setProjects(visible)
+        }
+      } catch (err) {
+        if (!ignore) setError(err.message || 'Unable to load projects.')
+      } finally {
+        if (!ignore) setLoading(false)
+      }
+    }
+    fetchProjects()
+    return () => {
+      ignore = true
+    }
+  }, [])
 
   const handleCardClick = (index) => {
     setActiveIndex(activeIndex === index ? null : index)
@@ -44,47 +50,86 @@ function ProjectsOverview() {
   return (
     <section className="project-section">
       <div className="project-container">
-        <div className="project-grid">
-          {projects.map((project, index) => {
-            const isActive = activeIndex === index
+        {loading ? (
+          <p style={{ textAlign: 'center', padding: '48px 16px', fontSize: '16px' }}>
+            Loading projects...
+          </p>
+        ) : error ? (
+          <p style={{ textAlign: 'center', padding: '48px 16px', color: '#dc2626', fontSize: '16px' }}>
+            {error}
+          </p>
+        ) : projects.length === 0 ? (
+          <p style={{ textAlign: 'center', padding: '48px 16px', fontSize: '16px' }}>
+            No projects found in database.
+          </p>
+        ) : (
+          <div className="project-grid">
+            {projects.map((project, index) => {
+              const isActive = activeIndex === index
+              const cover = resolveImageUrl(
+                (Array.isArray(project.images) && project.images[0]) || project.image
+              )
 
-            return (
-              <div
-                className={`project-card ${isActive ? 'is-active' : ''}`}
-                key={index}
-                onClick={() => handleCardClick(index)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    handleCardClick(index)
-                  }
-                }}
-                aria-pressed={isActive}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="project-image"
-                />
+              return (
+                <div
+                  className={`project-card ${isActive ? 'is-active' : ''}`}
+                  key={project._id || project.id || index}
+                  onClick={() => handleCardClick(index)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      handleCardClick(index)
+                    }
+                  }}
+                  aria-pressed={isActive}
+                >
+                  {cover ? (
+                    <img
+                      src={cover}
+                      alt={project.title}
+                      className="project-image"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      className="project-image"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'linear-gradient(135deg, #0f5132, #2fb344)',
+                        color: '#ffffff',
+                        fontWeight: 700,
+                        fontSize: '18px',
+                      }}
+                    >
+                      {project.category || 'Project'}
+                    </div>
+                  )}
 
-                <div className="project-overlay" />
+                  <div className="project-overlay" />
 
-                <div className="project-golden-frame" />
+                  <div className="project-golden-frame" />
 
-                <div className="project-info">
-                  <h3>{project.title}</h3>
-                  <p>
-                    {project.category}
-                    <span>•</span>
-                    {project.type}
-                  </p>
+                  <div className="project-info">
+                    <h3>{project.title}</h3>
+                    <p>
+                      {project.category}
+                      {project.location && (
+                        <>
+                          <span>•</span>
+                          {project.location}
+                        </>
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )

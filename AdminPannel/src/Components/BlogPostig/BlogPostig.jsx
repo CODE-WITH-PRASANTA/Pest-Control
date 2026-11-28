@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 import "./BlogPostig.css";
 
 /* ---------------------------------- Icons --------------------------------- */
@@ -67,7 +69,7 @@ const INITIAL = {
   category: "",
   location: "",
   desc: "",
-  tags: ["Pest Control", "Home Care", "Termite"],
+  tags: [],
   mode: "now",
   schedule: "",
 };
@@ -133,10 +135,29 @@ const Modal = ({ title, subtitle, onClose, children, footer, size = "sm" }) => {
 
 /* ------------------------------ Main component ---------------------------- */
 const BlogPostig = () => {
-  const [form, setForm] = useState(INITIAL);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const editBlog = location.state?.blog || null;
+  const editingId = editBlog?._id || editBlog?.id || null;
+
+  const [form, setForm] = useState(() =>
+    editBlog
+      ? {
+          title: editBlog.title || "",
+          category: editBlog.category || "",
+          location: editBlog.location || "",
+          desc: editBlog.desc || editBlog.excerpt || "",
+          tags: Array.isArray(editBlog.tags) ? editBlog.tags : [],
+          mode: editBlog.mode || "now",
+          schedule: editBlog.schedule || "",
+        }
+      : INITIAL
+  );
   const [errors, setErrors] = useState({});
   const [tagInput, setTagInput] = useState("");
-  const [image, setImage] = useState(null); // {url, name, size}
+  const [image, setImage] = useState(() =>
+    editBlog?.image ? { url: editBlog.image, name: "Current featured image", size: 0 } : null
+  ); // {url, name, size, file}
   const [dragging, setDragging] = useState(false);
   const [modal, setModal] = useState(null); // link | image | table | cancel | success
   const [toast, setToast] = useState(null);
@@ -145,6 +166,30 @@ const BlogPostig = () => {
   const [block, setBlock] = useState("p");
   const [stats, setStats] = useState({ words: 0, chars: 0 });
   const [result, setResult] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/categories`);
+        const data = await res.json();
+        if (!ignore && res.ok && data.success) {
+          const active = (data.data || [])
+            .filter((c) => c.status !== "Inactive")
+            .map((c) => c.name);
+          setCategories(active);
+        }
+      } catch {
+        // Ignore category fetch error
+      }
+    };
+    fetchCategories();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   // modal inputs
   const [linkUrl, setLinkUrl] = useState("");
@@ -154,6 +199,7 @@ const BlogPostig = () => {
   const editorRef = useRef(null);
   const fileRef = useRef(null);
   const savedRange = useRef(null);
+  const scheduleRef = useRef(null);
 
   const set = (k, v) => { setForm((f) => ({ ...f, [k]: v })); setErrors((e) => ({ ...e, [k]: undefined })); };
   const notify = (msg, type = "success") => setToast({ msg, type });
@@ -164,7 +210,17 @@ const BlogPostig = () => {
     return () => clearTimeout(t);
   }, [toast]);
 
-  useEffect(() => () => image?.url && URL.revokeObjectURL(image.url), [image]);
+  useEffect(() => () => {
+    if (image?.url && image.url.startsWith("blob:")) URL.revokeObjectURL(image.url);
+  }, [image]);
+
+  useEffect(() => {
+    if (editBlog && editorRef.current) {
+      editorRef.current.innerHTML = editBlog.content || "";
+      const text = editorRef.current.innerText.trim();
+      setStats({ words: text ? text.split(/\s+/).length : 0, chars: text.length });
+    }
+  }, [editBlog]);
 
   /* ----------------------------- Editor helpers ---------------------------- */
   const insideEditor = (node) => editorRef.current && node && editorRef.current.contains(node);
@@ -278,7 +334,7 @@ const BlogPostig = () => {
     if (!file) return;
     if (!OK_TYPES.includes(file.type)) return setErrors((e) => ({ ...e, image: "Only JPG, JPEG, PNG or WEBP images are allowed." }));
     if (file.size > MAX_IMG) return setErrors((e) => ({ ...e, image: "Image must be 5MB or smaller." }));
-    setImage({ url: URL.createObjectURL(file), name: file.name, size: file.size });
+    setImage({ url: URL.createObjectURL(file), name: file.name, size: file.size, file });
     setErrors((e) => ({ ...e, image: undefined }));
   };
   const onDrop = (e) => { e.preventDefault(); setDragging(false); handleImage(e.dataTransfer.files?.[0]); };
@@ -325,14 +381,63 @@ const BlogPostig = () => {
     if (editorRef.current) editorRef.current.innerHTML = "";
   };
 
+  const submitBlog = async (status) => {
+    if (submitting) return;
+    setSubmitting(true);
+    try {
+      const fd = new FormData();
+      fd.append("title", form.title.trim());
+      fd.append("category", form.category || "Pest Control");
+      fd.append("location", form.location || "");
+      fd.append("desc", form.desc.trim());
+      fd.append("excerpt", form.desc.trim());
+      fd.append("content", editorRef.current?.innerHTML || "");
+      fd.append("tags", JSON.stringify(form.tags));
+      fd.append("status", status);
+      fd.append("published", JSON.stringify(status === "Published"));
+      fd.append("mode", form.mode);
+      fd.append("schedule", form.schedule || "");
+      fd.append("date", editBlog?.date || new Date().toISOString().slice(0, 10));
+      if (image?.file) {
+        fd.append("image", image.file);
+      } else if (image?.url) {
+        fd.append("image", image.url);
+      }
+
+      const url = editingId ? `${API_BASE_URL}/blogs/${editingId}` : `${API_BASE_URL}/blogs`;
+      const method = editingId ? "PUT" : "POST";
+      const res = await fetch(url, { method, body: fd });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        return notify(data.message || "Failed to save blog", "danger");
+      }
+
+      if (status === "Draft") {
+        notify(editingId ? "Draft updated successfully" : "Draft saved successfully");
+        if (editingId) navigate("/blog");
+      } else {
+        setResult({
+          kind: editingId ? "updated" : form.mode === "later" ? "scheduled" : "published",
+          title: form.title.trim(),
+          category: form.category,
+          when: form.schedule,
+        });
+        setModal("success");
+      }
+    } catch {
+      notify("Could not connect to backend server", "danger");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const publish = () => {
     if (!validate(true)) return notify("Please fix the highlighted fields", "danger");
-    setResult({ kind: form.mode === "later" ? "scheduled" : "published", title: form.title.trim(), category: form.category, when: form.schedule });
-    setModal("success");
+    submitBlog("Published");
   };
   const saveDraft = () => {
     if (!validate(false)) return notify("Add a blog title to save a draft", "danger");
-    notify("Draft saved successfully");
+    submitBlog("Draft");
   };
 
   const isDirty = useMemo(
@@ -381,7 +486,7 @@ const BlogPostig = () => {
           <div className="blog-postig__row">
             <div className={`blog-postig__field ${errors.category ? "has-error" : ""}`}>
               <label>Category <em>*</em></label>
-              <Select value={form.category} options={CATEGORIES} onChange={(v) => set("category", v)} placeholder="Select category" icon="grid" invalid={!!errors.category} />
+              <Select value={form.category} options={categories} onChange={(v) => set("category", v)} placeholder={categories.length ? "Select category" : "No categories found"} icon="grid" invalid={!!errors.category} />
               {errors.category && <span className="blog-postig__error">{errors.category}</span>}
             </div>
             <div className="blog-postig__field">
@@ -490,8 +595,19 @@ const BlogPostig = () => {
 
           <section className="blog-postig__card">
             <h4 className="blog-postig__card-title"><span><Icon name="tag" size={17} /></span> Tags <small>{form.tags.length}/{MAX_TAGS}</small></h4>
-            <div className="blog-postig__input blog-postig__input--plain">
-              <input type="text" placeholder="Enter tags and press Enter" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={onTagKey} onBlur={() => addTags(tagInput)} disabled={form.tags.length >= MAX_TAGS} />
+            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+              <div className="blog-postig__input blog-postig__input--plain" style={{ flex: 1 }}>
+                <input type="text" placeholder="Enter tag and click Add" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={onTagKey} disabled={form.tags.length >= MAX_TAGS} />
+              </div>
+              <button
+                type="button"
+                className="blog-postig__btn blog-postig__btn--primary"
+                style={{ height: "42px", padding: "0 16px", flexShrink: 0 }}
+                onClick={() => addTags(tagInput)}
+                disabled={form.tags.length >= MAX_TAGS || !tagInput.trim()}
+              >
+                Add
+              </button>
             </div>
             <div className="blog-postig__tags">
               {form.tags.map((t) => (
@@ -514,15 +630,34 @@ const BlogPostig = () => {
                 <input type="radio" name="bp-mode" checked={form.mode === "later"} onChange={() => set("mode", "later")} />
                 <i /> Schedule for Later
               </label>
-              <div className={`blog-postig__input blog-postig__date ${form.mode !== "later" ? "is-disabled" : ""} ${errors.schedule ? "has-error" : ""}`}>
-                <input type="datetime-local" disabled={form.mode !== "later"} min={toLocalInput(new Date())} value={form.schedule} onChange={(e) => set("schedule", e.target.value)} />
+              <div
+                className={`blog-postig__input blog-postig__date ${form.mode !== "later" ? "is-disabled" : ""} ${errors.schedule ? "has-error" : ""}`}
+                onClick={() => {
+                  if (form.mode !== "later") set("mode", "later");
+                  setTimeout(() => {
+                    scheduleRef.current?.focus();
+                    scheduleRef.current?.showPicker?.();
+                  }, 0);
+                }}
+              >
+                <input
+                  ref={scheduleRef}
+                  type="datetime-local"
+                  value={form.schedule}
+                  onChange={(e) => {
+                    if (form.mode !== "later") set("mode", "later");
+                    set("schedule", e.target.value);
+                  }}
+                />
               </div>
             </div>
             {errors.schedule && <span className="blog-postig__error">{errors.schedule}</span>}
 
             <div className="blog-postig__actions">
-              <button type="button" className="blog-postig__btn blog-postig__btn--primary" onClick={publish}><Icon name="send" size={16} /> {form.mode === "later" ? "Schedule Blog" : "Publish Blog"}</button>
-              <button type="button" className="blog-postig__btn blog-postig__btn--light" onClick={saveDraft}><Icon name="save" size={16} /> Save as Draft</button>
+              <button type="button" className="blog-postig__btn blog-postig__btn--primary" onClick={publish} disabled={submitting}>
+                <Icon name="send" size={16} /> {submitting ? "Saving..." : editingId ? "Update Blog" : form.mode === "later" ? "Schedule Blog" : "Publish Blog"}
+              </button>
+              <button type="button" className="blog-postig__btn blog-postig__btn--light" onClick={saveDraft} disabled={submitting}><Icon name="save" size={16} /> Save as Draft</button>
               <button type="button" className="blog-postig__btn blog-postig__btn--light" onClick={onCancel}><Icon name="x" size={16} /> Cancel</button>
             </div>
           </section>
@@ -576,13 +711,22 @@ const BlogPostig = () => {
       )}
 
       {modal === "success" && result && (
-        <Modal title={result.kind === "scheduled" ? "Blog scheduled!" : "Blog published!"} onClose={() => { setModal(null); resetAll(); }}
-          footer={<button type="button" className="blog-postig__btn blog-postig__btn--primary" onClick={() => { setModal(null); resetAll(); }}>Write another blog</button>}>
+        <Modal
+          title={result.kind === "updated" ? "Blog updated!" : result.kind === "scheduled" ? "Blog scheduled!" : "Blog published!"}
+          onClose={() => { setModal(null); if (editingId) navigate("/blog"); else resetAll(); }}
+          footer={
+            <button type="button" className="blog-postig__btn blog-postig__btn--primary" onClick={() => { setModal(null); if (editingId) navigate("/blog"); else resetAll(); }}>
+              {editingId ? "Back to Blog Management" : "Write another blog"}
+            </button>
+          }
+        >
           <div className="blog-postig__success">
             <span><Icon name="check" size={32} /></span>
             <h4>{result.title}</h4>
             <p>
-              {result.kind === "scheduled"
+              {result.kind === "updated"
+                ? "Your blog changes have been saved to the database."
+                : result.kind === "scheduled"
                 ? `Scheduled for ${new Date(result.when).toLocaleString("en-GB", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}`
                 : "Your blog is now live on your website."}
             </p>

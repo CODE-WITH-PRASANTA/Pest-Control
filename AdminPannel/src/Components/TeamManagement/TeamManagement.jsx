@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./TeamManagement.css";
 
 /* ------------------------------------------------------------------ */
@@ -30,21 +31,6 @@ const AVATAR_TONES = [
   ["#0e7490", "#22d3ee"],
 ];
 
-const INITIAL_MEMBERS = [
-  { id: 1, name: "Ramesh Patra", role: "Manager", phone: "9876543210", email: "ramesh@pestcontrol.com", joinDate: "2026-01-10", status: "Active" },
-  { id: 2, name: "Sneha Das", role: "Technician", phone: "8765432109", email: "sneha@pestcontrol.com", joinDate: "2026-01-12", status: "Active" },
-  { id: 3, name: "Arjit Kuanar", role: "Field Staff", phone: "9988766554", email: "arjit@pestcontrol.com", joinDate: "2026-01-15", status: "On Leave" },
-  { id: 4, name: "Priya Rout", role: "Support", phone: "7654321098", email: "priya@pestcontrol.com", joinDate: "2026-01-18", status: "Active" },
-  { id: 5, name: "Sibu Nayak", role: "Technician", phone: "9123456789", email: "sibu@pestcontrol.com", joinDate: "2026-01-20", status: "Inactive" },
-  { id: 6, name: "Manas Behera", role: "Field Staff", phone: "9437012345", email: "manas@pestcontrol.com", joinDate: "2026-01-22", status: "Active" },
-  { id: 7, name: "Lipsa Mohanty", role: "Support", phone: "9861098610", email: "lipsa@pestcontrol.com", joinDate: "2026-01-25", status: "Active" },
-  { id: 8, name: "Debasish Sahoo", role: "Technician", phone: "7978123456", email: "debasish@pestcontrol.com", joinDate: "2026-02-01", status: "Active" },
-  { id: 9, name: "Anita Jena", role: "Manager", phone: "9090909090", email: "anita@pestcontrol.com", joinDate: "2026-02-04", status: "Active" },
-  { id: 10, name: "Rakesh Swain", role: "Field Staff", phone: "8895123456", email: "rakesh@pestcontrol.com", joinDate: "2026-02-08", status: "Active" },
-  { id: 11, name: "Smita Panda", role: "Support", phone: "7008123456", email: "smita@pestcontrol.com", joinDate: "2026-02-12", status: "Active" },
-  { id: 12, name: "Biswajit Mishra", role: "Technician", phone: "9556123456", email: "biswajit@pestcontrol.com", joinDate: "2026-02-15", status: "Active" },
-];
-
 const EMPTY_FORM = {
   name: "",
   role: "Technician",
@@ -52,6 +38,7 @@ const EMPTY_FORM = {
   email: "",
   joinDate: new Date().toISOString().slice(0, 10),
   status: "Active",
+  avatar: "",
 };
 
 /* ------------------------------------------------------------------ */
@@ -241,8 +228,19 @@ const Icon = ({ name, size = 18, className = "" }) => (
 /*  Small building blocks                                              */
 /* ------------------------------------------------------------------ */
 
-const Avatar = ({ name, size = "md" }) => {
+const Avatar = ({ name, avatar, size = "md" }) => {
   const [from, to] = getTone(name);
+  if (avatar) {
+    return (
+      <span className={`TeamManagement-avatar TeamManagement-avatar--${size}`} style={{ overflow: "hidden", padding: 0 }}>
+        <img
+          src={avatar}
+          alt={name}
+          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit", display: "block" }}
+        />
+      </span>
+    );
+  }
   return (
     <span
       className={`TeamManagement-avatar TeamManagement-avatar--${size}`}
@@ -535,10 +533,46 @@ const DatePicker = ({ value, onChange, hasError, label }) => {
 const MemberForm = ({ initial, members, editingId, onSubmit, onCancel }) => {
   const [form, setForm] = useState(initial);
   const [errors, setErrors] = useState({});
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(initial.avatar || "");
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (avatarPreview && avatarPreview.startsWith("blob:")) {
+        URL.revokeObjectURL(avatarPreview);
+      }
+    };
+  }, [avatarPreview]);
 
   const set = (key, val) => {
     setForm((f) => ({ ...f, [key]: val }));
     setErrors((e) => ({ ...e, [key]: undefined }));
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setErrors((prev) => ({ ...prev, avatar: "Please choose a valid image file." }));
+      return;
+    }
+    if (avatarPreview && avatarPreview.startsWith("blob:")) {
+      URL.revokeObjectURL(avatarPreview);
+    }
+    setAvatarFile(file);
+    setAvatarPreview(URL.createObjectURL(file));
+    setErrors((prev) => ({ ...prev, avatar: undefined }));
+  };
+
+  const handleRemoveAvatar = () => {
+    if (avatarPreview && avatarPreview.startsWith("blob:")) {
+      URL.revokeObjectURL(avatarPreview);
+    }
+    setAvatarFile(null);
+    setAvatarPreview("");
+    set("avatar", "");
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleSubmit = (e) => {
@@ -546,13 +580,47 @@ const MemberForm = ({ initial, members, editingId, onSubmit, onCancel }) => {
     const found = validate(form, members, editingId);
     setErrors(found);
     if (Object.keys(found).length === 0) {
-      onSubmit({ ...form, name: form.name.trim(), email: form.email.trim() });
+      onSubmit({ ...form, name: form.name.trim(), email: form.email.trim(), avatarFile });
     }
   };
 
   return (
     <form className="TeamManagement-form" onSubmit={handleSubmit} noValidate>
       <div className="TeamManagement-formGrid">
+        <div className="TeamManagement-field TeamManagement-field--full">
+          <span className="TeamManagement-label">Profile picture</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+            <Avatar name={form.name || "TM"} avatar={avatarPreview} size="lg" />
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+                id="team-avatar-upload"
+              />
+              <label
+                htmlFor="team-avatar-upload"
+                className="TeamManagement-btn TeamManagement-btn--ghost"
+                style={{ cursor: "pointer", margin: 0 }}
+              >
+                {avatarPreview ? "Change photo" : "Upload photo"}
+              </label>
+              {avatarPreview && (
+                <button
+                  type="button"
+                  className="TeamManagement-btn TeamManagement-btn--ghost"
+                  onClick={handleRemoveAvatar}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          </div>
+          {errors.avatar && <span className="TeamManagement-error">{errors.avatar}</span>}
+        </div>
+
         <label className="TeamManagement-field TeamManagement-field--full">
           <span className="TeamManagement-label">Full name</span>
           <input
@@ -735,8 +803,11 @@ const Pagination = ({ page, totalPages, total, pageSize, onChange }) => {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
+const normalizeMember = (m) => ({ ...m, id: m._id || m.id });
+
 const TeamManagement = () => {
-  const [members, setMembers] = useState(INITIAL_MEMBERS);
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [view, setView] = useState("list");
@@ -754,6 +825,27 @@ const TeamManagement = () => {
   }, []);
 
   useEffect(() => () => clearTimeout(toastTimer.current), []);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchMembers = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/teams`);
+        const result = await res.json();
+        if (!ignore && res.ok && result.success) {
+          setMembers((result.data || []).map(normalizeMember));
+        }
+      } catch (err) {
+        if (!ignore) showToast("Failed to load team members from server.");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+    fetchMembers();
+    return () => {
+      ignore = true;
+    };
+  }, [showToast]);
 
   const stats = useMemo(
     () => ({
@@ -790,26 +882,78 @@ const TeamManagement = () => {
   const closeModal = useCallback(() => setModal(null), []);
   const openAction = (type, member) => setModal({ type, member });
 
-  const handleAdd = (data) => {
-    setMembers((list) => [{ ...data, id: Date.now() }, ...list]);
-    setQuery("");
-    setStatusFilter("All");
-    setPage(1);
-    closeModal();
-    showToast(`${data.name} was added to the team.`);
+  const buildMemberFormData = (data) => {
+    const fd = new FormData();
+    fd.append("name", data.name);
+    fd.append("role", data.role);
+    fd.append("phone", data.phone);
+    fd.append("email", data.email);
+    fd.append("joinDate", data.joinDate);
+    fd.append("status", data.status);
+    if (data.avatarFile) {
+      fd.append("avatar", data.avatarFile);
+    } else if (typeof data.avatar === "string") {
+      fd.append("avatar", data.avatar);
+    }
+    return fd;
   };
 
-  const handleEdit = (data) => {
-    setMembers((list) => list.map((m) => (m.id === modal.member.id ? { ...m, ...data } : m)));
-    closeModal();
-    showToast(`${data.name}'s details were updated.`);
+  const handleAdd = async (data) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/teams`, {
+        method: "POST",
+        body: buildMemberFormData(data),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to add team member.");
+      }
+      setMembers((list) => [normalizeMember(result.data), ...list]);
+      setQuery("");
+      setStatusFilter("All");
+      setPage(1);
+      closeModal();
+      showToast(`${data.name} was added to the team.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
-  const handleDelete = () => {
+  const handleEdit = async (data) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/teams/${modal.member.id}`, {
+        method: "PUT",
+        body: buildMemberFormData(data),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to update team member.");
+      }
+      const updated = normalizeMember(result.data);
+      setMembers((list) => list.map((m) => (m.id === modal.member.id ? updated : m)));
+      closeModal();
+      showToast(`${data.name}'s details were updated.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
+  };
+
+  const handleDelete = async () => {
     const { id, name } = modal.member;
-    setMembers((list) => list.filter((m) => m.id !== id));
-    closeModal();
-    showToast(`${name} was removed from the team.`);
+    try {
+      const res = await fetch(`${API_BASE_URL}/teams/${id}`, {
+        method: "DELETE",
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to delete team member.");
+      }
+      setMembers((list) => list.filter((m) => m.id !== id));
+      closeModal();
+      showToast(`${name} was removed from the team.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
   const statusOptions = [
@@ -963,7 +1107,7 @@ const TeamManagement = () => {
                   <tr key={m.id}>
                     <td className="TeamManagement-cellIndex">{(page - 1) * pageSize + i + 1}</td>
                     <td className="TeamManagement-cellMember">
-                      <Avatar name={m.name} />
+                      <Avatar name={m.name} avatar={m.avatar} />
                       <span className="TeamManagement-memberName">{m.name}</span>
                     </td>
                     <td className="TeamManagement-cellRole">
@@ -1003,7 +1147,7 @@ const TeamManagement = () => {
             {pageItems.map((m) => (
               <article key={m.id} className="TeamManagement-gridCard">
                 <div className="TeamManagement-gridTop">
-                  <Avatar name={m.name} size="lg" />
+                  <Avatar name={m.name} avatar={m.avatar} size="lg" />
                   <StatusBadge status={m.status} />
                 </div>
                 <h3 className="TeamManagement-gridName">{m.name}</h3>
@@ -1061,7 +1205,7 @@ const TeamManagement = () => {
       {modal?.type === "view" && (
         <Modal title="Member details" onClose={closeModal} size="sm">
           <div className="TeamManagement-profile">
-            <Avatar name={modal.member.name} size="xl" />
+            <Avatar name={modal.member.name} avatar={modal.member.avatar} size="xl" />
             <h3 className="TeamManagement-profileName">{modal.member.name}</h3>
             <div className="TeamManagement-profileBadges">
               <RoleBadge role={modal.member.role} />

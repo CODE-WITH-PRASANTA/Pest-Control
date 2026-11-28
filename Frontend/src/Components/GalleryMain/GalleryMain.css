@@ -1,0 +1,338 @@
+.gallery-main-section {
+  position: relative;
+  padding: 90px 20px 110px;
+  background: linear-gradient(180deg, #f6fbf8 0%, #ffffff 48%, #f3faf5 100%);
+  overflow: hidden;
+}
+
+.gallery-main-glow {
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gallery-main-glow-one {
+  top: -140px;
+  left: -140px;
+  background: rgba(47, 179, 68, 0.12);
+}
+
+.gallery-main-glow-two {
+  bottom: -140px;
+  right: -140px;
+  background: rgba(8, 48, 31, 0.08);
+}
+
+.gallery-main-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.gallery-main-heading {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 40px;
+}
+
+.gallery-main-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: rgba(47, 179, 68, 0.12);
+  color: #146c2e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.gallery-main-subtitle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2fb344;
+  display: inline-block;
+}
+
+.gallery-main-heading h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #08301f;
+  margin: 0 0 12px;
+  line-height: 1.15;
+}
+
+.gallery-main-heading h2 span {
+  color: #2fb344;
+}
+
+.gallery-main-heading p {
+  color: #4f6659;
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.gallery-main-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 42px;
+}
+
+.gallery-main-filter-btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1.5px solid #d7e7dd;
+  background: #ffffff;
+  color: #1e4231;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(8, 48, 31, 0.04);
+}
+
+.gallery-main-filter-btn:hover {
+  border-color: #2fb344;
+  transform: translateY(-2px);
+}
+
+.gallery-main-filter-btn.is-active {
+  background: linear-gradient(135deg, #0c4d31, #198754);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(12, 77, 49, 0.22);
+}
+
+.gallery-main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.gallery-main-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(8, 48, 31, 0.08);
+  box-shadow: 0 14px 34px rgba(8, 48, 31, 0.07);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.gallery-main-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(8, 48, 31, 0.14);
+}
+
+.gallery-main-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #eaf5ee;
+}
+
+.gallery-main-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gallery-main-card:hover .gallery-main-media img {
+  transform: scale(1.07);
+}
+
+.gallery-main-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 48, 31, 0.05) 30%, rgba(8, 48, 31, 0.78) 100%);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-main-card:hover .gallery-main-overlay {
+  opacity: 1;
+}
+
+.gallery-main-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.gallery-main-cat {
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  color: #08301f;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gallery-main-count {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(8, 48, 31, 0.78);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.gallery-main-caption {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.gallery-main-caption h3 {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.gallery-main-caption p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.gallery-main-state {
+  text-align: center;
+  padding: 64px 20px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px dashed #c8dfd0;
+  color: #365243;
+  font-size: 16px;
+}
+
+.gallery-main-state.is-error {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+/* Lightbox Modal */
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(6, 26, 17, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.gallery-lightbox-box {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  background: #ffffff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 32px 72px rgba(0, 0, 0, 0.45);
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(8, 48, 31, 0.78);
+  color: #ffffff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.gallery-lightbox-media {
+  position: relative;
+  background: #081c13;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.gallery-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.9);
+  color: #08301f;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gallery-lightbox-nav.prev { left: 16px; }
+.gallery-lightbox-nav.next { right: 16px; }
+
+.gallery-lightbox-info {
+  padding: 20px 24px;
+}
+
+.gallery-lightbox-info h3 {
+  margin: 0 0 6px;
+  color: #08301f;
+  font-size: 1.25rem;
+}
+
+.gallery-lightbox-info p {
+  margin: 0;
+  color: #4f6659;
+  font-size: 14px;
+}
+
+@media (max-width: 992px) {
+  .gallery-main-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-main-section {
+    padding: 64px 16px 80px;
+  }
+  .gallery-main-grid {
+    grid-template-columns: 1fr;
+  }
+}

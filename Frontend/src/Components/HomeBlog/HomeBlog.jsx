@@ -1,36 +1,54 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL, BACKEND_BASE_URL } from "../../config/api";
 import "./HomeBlog.css";
-import blogImg from "../../assets/home-blog-1.jpg";
 
 const TITLE = "Everything you need to know about insect control";
 
-const posts = [
-  {
-    id: 1,
-    category: "Pest Identification",
-    title: "Preventing Rodents in Homes and Businesses",
-    text: "We ensure best quality bugs pest control service. This service is best for homes, shops and offices.",
-    image: blogImg,
-  },
-  {
-    id: 2,
-    category: "Bed Bug Treatment",
-    title: "Bed Bug Identification And Treatment Guide",
-    text: "We ensure best quality bugs pest control service. This service is best for homes, shops and offices.",
-    image: blogImg,
-  },
-  {
-    id: 3,
-    category: "Ant Infestation",
-    title: "Effective Mosquito Control for Your Home",
-    text: "We ensure best quality bugs pest control service. This service is best for homes, shops and offices.",
-    image: blogImg,
-  },
-];
+const resolveImageUrl = (img) => {
+  if (!img) return "";
+  const clean = String(img).replace(/\\/g, "/");
+  if (clean.startsWith("http://") || clean.startsWith("https://") || clean.startsWith("data:") || clean.startsWith("blob:")) {
+    return clean;
+  }
+  return `${BACKEND_BASE_URL}${clean.startsWith("/") ? "" : "/"}${clean}`;
+};
+
+const toSlug = (text = "") =>
+  String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
 
 const HomeBlog = () => {
   const sectionRef = useRef(null);
+  const navigate = useNavigate();
   const [inView, setInView] = useState(false);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/blogs`);
+        const result = await res.json();
+        if (!ignore && res.ok && result.success) {
+          const published = (result.data || [])
+            .filter((b) => b.status === "Published" || (!b.status && b.published !== false))
+            .slice(0, 3);
+          setPosts(published);
+        }
+      } catch {
+        // Keep empty if backend is unreachable
+      }
+    };
+    fetchBlogs();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   /* ---------- start animations when section is visible ---------- */
   useEffect(() => {
@@ -115,56 +133,102 @@ const HomeBlog = () => {
 
         {/* CARDS */}
         <div className="HomeBlog-grid">
-          {posts.map((post, index) => (
-            <article
-              className="HomeBlog-card"
-              key={post.id}
-              style={{ "--c": index }}
-            >
-              <div className="HomeBlog-imageWrap">
-                <div className="HomeBlog-imageTrack">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="HomeBlog-image"
-                    loading="lazy"
-                  />
-                  <img
-                    src={post.image}
-                    alt=""
-                    aria-hidden="true"
-                    className="HomeBlog-image"
-                    loading="lazy"
-                  />
+          {posts.map((post, index) => {
+            const imgSrc = resolveImageUrl(post.image);
+            const blogSlug = post.slug || toSlug(post.title) || post._id || post.id;
+            const openBlog = (e) => {
+              e.preventDefault();
+              navigate(`/blogs/${blogSlug}`, { state: { blog: post } });
+            };
+            return (
+              <article
+                className="HomeBlog-card"
+                key={post._id || post.id || index}
+                style={{ "--c": index }}
+              >
+                <div className="HomeBlog-imageWrap">
+                  <div className="HomeBlog-imageTrack">
+                    {imgSrc ? (
+                      <>
+                        <img
+                          src={imgSrc}
+                          alt={post.title}
+                          className="HomeBlog-image"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                        <img
+                          src={imgSrc}
+                          alt=""
+                          aria-hidden="true"
+                          className="HomeBlog-image"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          className="HomeBlog-image"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "linear-gradient(135deg, #0f5132, #2fb344)",
+                            color: "#ffffff",
+                            fontWeight: 700,
+                          }}
+                        >
+                          {post.category || "Blog"}
+                        </div>
+                        <div
+                          className="HomeBlog-image"
+                          aria-hidden="true"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "linear-gradient(135deg, #0f5132, #2fb344)",
+                            color: "#ffffff",
+                            fontWeight: 700,
+                          }}
+                        >
+                          {post.category || "Blog"}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <div className="HomeBlog-content">
-                <span className="HomeBlog-category">{post.category}</span>
-                <h3 className="HomeBlog-cardTitle">{post.title}</h3>
-                <p className="HomeBlog-text">{post.text}</p>
+                <div className="HomeBlog-content">
+                  <span className="HomeBlog-category">{post.category}</span>
+                  <h3 className="HomeBlog-cardTitle">{post.title}</h3>
+                  <p className="HomeBlog-text">{post.desc || post.excerpt}</p>
 
-                <a href="#" className="HomeBlog-readMore">
-                  <span className="HomeBlog-readMoreText">Read More</span>
-                  <span className="HomeBlog-readMoreIcon">
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="16"
-                      height="16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M7 17L17 7" />
-                      <path d="M8 7h9v9" />
-                    </svg>
-                  </span>
-                </a>
-              </div>
-            </article>
-          ))}
+                  <a href={`/blogs/${blogSlug}`} className="HomeBlog-readMore" onClick={openBlog}>
+                    <span className="HomeBlog-readMoreText">Read More</span>
+                    <span className="HomeBlog-readMoreIcon">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17L17 7" />
+                        <path d="M8 7h9v9" />
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

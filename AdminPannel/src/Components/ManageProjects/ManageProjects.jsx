@@ -1,4 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
+import PublishToggle from "../PublishToggle/PublishToggle";
 import "./ManageProjects.css";
 
 /* ---------- Icons ---------- */
@@ -63,40 +66,24 @@ const STATUS_META = {
 };
 const PAGE_SIZE = 5;
 
-const TEMPLATES = [
-  ["Residential Pest Control", "Residential", "Complete pest control solution for homes and apartments."],
-  ["Office Disinfection Service", "Commercial", "Safe & effective office pest management for teams."],
-  ["Termite Control Treatment", "Termite Control", "Long-lasting termite protection for wooden structures."],
-  ["Bed Bug Removal Service", "Bed Bug Control", "Complete bed bug inspection and removal for rooms."],
-  ["Rodent Control Service", "Rodent Control", "Keep your space safe from rats and rodents."],
-];
-
-const STATUS_SEQ = [
-  "Published", "Published", "Draft", "Unpublished", "Published",
-  "Published", "Published", "Draft", "Published", "Published",
-  "Published", "Draft", "Published", "Published", "Published",
-  "Unpublished", "Published", "Published", "Draft", "Published",
-  "Published", "Published", "Published", "Published",
-];
-
-const SAMPLE_PROJECTS = STATUS_SEQ.map((status, i) => {
-  const t = TEMPLATES[i % 5];
-  const d = new Date(2026, 10, 15 - i);
-  return {
-    id: i + 1,
-    title: i < 5 ? t[0] : `${t[0]} #${Math.floor(i / 5) + 1}`,
-    description: t[2],
-    category: t[1],
-    location: LOCATIONS[(i * 2 + (i % 3)) % LOCATIONS.length],
-    status,
-    imageCount: 3 + (i % 3),
-    images: [], // put real image URLs here, e.g. ["/img/p1.jpg", "/img/p2.jpg"]
-    date: d.toISOString(),
-  };
-});
-
 const fmtDate = (iso) =>
-  new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  iso ? new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+
+const normalizeProject = (p) => {
+  const imgs = Array.isArray(p.images) && p.images.length ? p.images : p.image ? [p.image] : [];
+  const rawDescription = p.description || "";
+  const plainDesc = p.desc || rawDescription.replace(/<[^>]+>/g, " ").trim();
+  return {
+    ...p,
+    id: p._id || p.id,
+    description: plainDesc,
+    rawDescription,
+    images: imgs,
+    imageCount: imgs.length,
+    status: p.status || "Published",
+    date: p.createdAt || new Date().toISOString(),
+  };
+};
 
 /* ---------- Small pieces ---------- */
 const Thumb = ({ src, category, size = "md" }) => {
@@ -192,7 +179,9 @@ const Modal = ({ title, onClose, children }) => {
 
 /* ---------- Main component ---------- */
 const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
-  const [projects, setProjects] = useState(SAMPLE_PROJECTS);
+  const navigate = useNavigate();
+  const [projects, setProjects] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -208,6 +197,34 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
     setToast(m);
     setTimeout(() => setToast(""), 2400);
   };
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchProjects = async () => {
+      try {
+        const [projRes, catRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/projects`),
+          fetch(`${API_BASE_URL}/categories`),
+        ]);
+        const result = await projRes.json();
+        const catResult = await catRes.json();
+        if (!ignore) {
+          if (projRes.ok && result.success) {
+            setProjects((result.data || []).map(normalizeProject));
+          }
+          if (catRes.ok && catResult.success) {
+            setCategoryOptions((catResult.data || []).map((c) => c.name));
+          }
+        }
+      } catch {
+        if (!ignore) showToast("Failed to load projects from server.");
+      }
+    };
+    fetchProjects();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const stats = useMemo(
     () => ({
@@ -258,27 +275,51 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
 
   const openEdit = (p) => {
     if (onEdit) return onEdit(p);
-    setEditErrors({});
-    setEditing({ ...p });
+    navigate("/projects/add", { state: { project: p } });
   };
 
   const saveEdit = (e) => {
     e.preventDefault();
-    const er = {};
-    if (!editing.title.trim()) er.title = "Title is required.";
-    if (!editing.location.trim()) er.location = "Location is required.";
-    setEditErrors(er);
-    if (Object.keys(er).length) return;
-    setProjects((prev) => prev.map((p) => (p.id === editing.id ? { ...editing, title: editing.title.trim() } : p)));
     setEditing(null);
-    showToast("Project updated successfully");
   };
 
-  const confirmDelete = () => {
-    setProjects((prev) => prev.filter((p) => p.id !== deleting.id));
-    if (onDelete) onDelete(deleting);
-    setDeleting(null);
-    showToast("Project deleted");
+  const toggleProjectStatus = async (p) => {
+    const nextStatus = p.status === "Published" ? "Unpublished" : "Published";
+    try {
+      const res = await fetch(`${API_BASE_URL}/projects/${p.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: nextStatus }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to update project status");
+      }
+      setProjects((prev) =>
+        prev.map((item) => (item.id === p.id ? normalizeProject(result.data) : item))
+      );
+      showToast(`Project ${nextStatus.toLowerCase()}`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/projects/${deleting.id}`, {
+        method: "DELETE",
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to delete project");
+      }
+      setProjects((prev) => prev.filter((p) => p.id !== deleting.id));
+      if (onDelete) onDelete(deleting);
+      setDeleting(null);
+      showToast("Project deleted");
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
   const statCards = [
@@ -336,7 +377,7 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
             </button>
           )}
         </div>
-        <Select value={category} onChange={(v) => { setCategory(v); setPage(1); }} options={CATEGORIES} allLabel="All Category" />
+        <Select value={category} onChange={(v) => { setCategory(v); setPage(1); }} options={categoryOptions} allLabel="All Category" />
         <Select value={location} onChange={(v) => { setLocation(v); setPage(1); }} options={LOCATIONS} allLabel="All Location" />
         <Select value={status} onChange={(v) => { setStatus(v); setPage(1); }} options={STATUSES} allLabel="All Status" />
         <button type="button" className="ManageProjects-reset" onClick={reset} disabled={!hasFilters}>
@@ -346,7 +387,7 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
         <button
           type="button"
           className="ManageProjects-add"
-          onClick={() => (onAdd ? onAdd() : showToast("Connect onAdd to open the Add Project page"))}
+          onClick={() => (onAdd ? onAdd() : navigate("/projects/add"))}
         >
           <Icon name="plus" size={18} />
           <span>Add Project</span>
@@ -381,8 +422,8 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
             </thead>
             <tbody>
               {rows.map((p, i) => {
-                const cm = CATEGORY_META[p.category];
-                const sm = STATUS_META[p.status];
+                const cm = CATEGORY_META[p.category] || CATEGORY_META.Residential;
+                const sm = STATUS_META[p.status] || STATUS_META.Published;
                 const extra = Math.max(0, p.imageCount - 3);
                 return (
                   <tr key={p.id} className="ManageProjects-row" style={{ "--MP-i": i }}>
@@ -417,10 +458,11 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
                       </div>
                     </td>
                     <td data-label="Status">
-                      <span className={`ManageProjects-badge ManageProjects-status-${sm.cls}`}>
-                        <Icon name={sm.icon} size={13} />
-                        <span className="ManageProjects-badge-text">{p.status}</span>
-                      </span>
+                      <PublishToggle
+                        checked={p.status === "Published"}
+                        onChange={() => toggleProjectStatus(p)}
+                        label={`Toggle publish status for ${p.title}`}
+                      />
                     </td>
                     <td data-label="Created">
                       <span className="ManageProjects-date">
@@ -504,8 +546,8 @@ const ManageProjects = ({ onAdd, onView, onEdit, onDelete }) => {
               <Thumb src={viewing.images[0]} category={viewing.category} />
               <div>
                 <p className="ManageProjects-title">{viewing.title}</p>
-                <span className={`ManageProjects-badge ManageProjects-status-${STATUS_META[viewing.status].cls}`}>
-                  <Icon name={STATUS_META[viewing.status].icon} size={13} />
+                <span className={`ManageProjects-badge ManageProjects-status-${(STATUS_META[viewing.status] || STATUS_META.Published).cls}`}>
+                  <Icon name={(STATUS_META[viewing.status] || STATUS_META.Published).icon} size={13} />
                   {viewing.status}
                 </span>
               </div>

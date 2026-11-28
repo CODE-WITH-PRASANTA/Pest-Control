@@ -6,10 +6,10 @@ import "./DashboardOne.css";
 /* ------------------------------------------------------------------ */
 
 const DEFAULT_STATS = [
-  { key: "bookings", label: "Total Bookings", value: 248, trend: 12, up: true, icon: "calendar", mark: "calendar", tone: "bookings" },
-  { key: "projects", label: "Total Projects", value: 56, trend: 8, up: true, icon: "layers", mark: "layers", tone: "projects" },
-  { key: "orders", label: "Total Orders", value: 182, trend: 15, up: true, icon: "cart", mark: "cart", tone: "orders" },
-  { key: "enquiries", label: "Total Enquiries", value: 37, trend: 5, up: true, icon: "mail", mark: "mail", tone: "enquiries" },
+  { key: "bookings", label: "Total Bookings", value: 0, trend: 0, up: true, icon: "calendar", mark: "calendar", tone: "bookings" },
+  { key: "projects", label: "Total Projects", value: 0, trend: 0, up: true, icon: "layers", mark: "layers", tone: "projects" },
+  { key: "orders", label: "Total Blogs", value: 0, trend: 0, up: true, icon: "cart", mark: "cart", tone: "orders" },
+  { key: "enquiries", label: "Total Enquiries", value: 0, trend: 0, up: true, icon: "mail", mark: "mail", tone: "enquiries" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -109,9 +109,11 @@ const ICON_PATHS = {
   ),
   cart: (
     <>
-      <circle cx="8" cy="21" r="1" />
-      <circle cx="19" cy="21" r="1" />
-      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6" />
+      <path d="M16 13H8" />
+      <path d="M16 17H8" />
+      <path d="M10 9H8" />
     </>
   ),
   mail: (

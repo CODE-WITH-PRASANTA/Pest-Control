@@ -1,19 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Menu,
   ChevronDown,
   Bell,
   Search,
-  User,
   LogOut,
-  Shield,
   X,
 } from 'lucide-react';
+import { API_BASE_URL as BASE_API, BACKEND_BASE_URL } from '../../config/api';
 import './Topbar.css';
 
-const BACKEND_BASE_URL = 'http://localhost:5000';
-const API_BASE_URL = `${BACKEND_BASE_URL}/api/profiles`;
+const API_BASE_URL = `${BASE_API}/profiles`;
 const AUTH_KEY = 'isAdminAuthenticated';
 
 const DEFAULT_AVATAR =
@@ -241,24 +239,6 @@ const Topbar = ({ toggleSidebar }) => {
                     <p className="Topbar-card-name">{currentProfile.name}</p>
                     <p className="Topbar-card-email">{currentProfile.email}</p>
                   </div>
-
-                  <div className="Topbar-dropdown-divider" />
-
-                  <Link
-                    to="/profile"
-                    className="Topbar-dropdown-item"
-                    onClick={closeAllMenus}
-                  >
-                    <User size={16} /> My Profile
-                  </Link>
-
-                  <Link
-                    to="/settings"
-                    className="Topbar-dropdown-item"
-                    onClick={closeAllMenus}
-                  >
-                    <Shield size={16} /> Security &amp; Settings
-                  </Link>
 
                   <div className="Topbar-dropdown-divider" />
 

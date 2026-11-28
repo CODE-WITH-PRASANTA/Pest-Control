@@ -1,4 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
+import PublishToggle from "../PublishToggle/PublishToggle";
 import "./ManageGallery.css";
 
 /* ---------------------------------- Icons --------------------------------- */
@@ -64,52 +67,23 @@ const STATUS_META = {
   Unpublished: { icon: "eyeoff", cls: "unpublished" },
 };
 
-const iso = (offset) => {
-  const d = new Date(2026, 10, 15);
-  d.setDate(d.getDate() - offset);
-  return d.toISOString().slice(0, 10);
-};
-
-const SEED_FIRST = [
-  { title: "Residential Pest Control", desc: "Home pest control service gallery", category: "Residential", location: "Bhubaneswar", count: 11, status: "Published" },
-  { title: "Office Disinfection Service", desc: "Office & commercial space disinfection", category: "Commercial", location: "Cuttack", count: 9, status: "Published" },
-  { title: "Termite Control Treatment", desc: "Termite inspection and treatment work", category: "Termite Control", location: "Puri", count: 8, status: "Draft" },
-  { title: "Bed Bug Removal Service", desc: "Bed bug inspection and removal", category: "Red Bug Control", location: "Kendrapara", count: 7, status: "Unpublished" },
-  { title: "Rodent Control Service", desc: "Rodent inspection and control service", category: "Rodent Control", location: "Bhubaneswar", count: 6, status: "Published" },
-];
-
-const buildSeed = () => {
-  const topics = [
-    ["Apartment Fumigation", "Residential"], ["Restaurant Hygiene Service", "Commercial"],
-    ["Wood Borer Treatment", "Termite Control"], ["Mattress Sanitization", "Red Bug Control"],
-    ["Warehouse Rodent Proofing", "Rodent Control"], ["Kitchen Cockroach Gel", "Cockroach Control"],
-    ["Mosquito Fogging Drive", "Mosquito Control"], ["Villa Anti-Termite", "Termite Control"],
-    ["Hotel Pest Audit", "Commercial"], ["Garden Pest Care", "Residential"],
-  ];
-  const drafts = [4, 10, 16, 22, 28];
-  const unpub = [13];
-  const rest = Array.from({ length: 31 }, (_, i) => {
-    const [title, category] = topics[i % topics.length];
-    return {
-      title: `${title}${i >= topics.length ? ` #${Math.floor(i / topics.length) + 1}` : ""}`,
-      desc: `${category} service work gallery`,
-      category,
-      location: LOCATIONS[(i + 2) % LOCATIONS.length],
-      count: 4 + ((i * 3) % 9),
-      status: drafts.includes(i) ? "Draft" : unpub.includes(i) ? "Unpublished" : "Published",
-    };
-  });
-  return [...SEED_FIRST, ...rest].map((g, i) => ({
-    id: i + 1,
-    ...g,
-    images: [], // uploaded image urls (optional)
-    createdAt: iso(i + (i > 0 ? 0 : 0)),
-  }));
-};
-
 const fmtDate = (isoStr) => {
+  if (!isoStr) return "—";
   const d = new Date(isoStr);
   return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+};
+
+const normalizeGallery = (g) => {
+  const imgs = Array.isArray(g.images) && g.images.length ? g.images : g.image ? [g.image] : [];
+  return {
+    ...g,
+    id: g._id || g.id,
+    desc: g.desc || g.description?.replace(/<[^>]+>/g, " ").trim() || "",
+    images: imgs,
+    count: imgs.length,
+    status: g.status || "Published",
+    createdAt: g.createdAt || new Date().toISOString().slice(0, 10),
+  };
 };
 
 const EMPTY_FORM = { title: "", desc: "", category: CATEGORY_LIST[0], location: LOCATIONS[0], status: "Published", images: [] };
@@ -205,7 +179,9 @@ const Modal = ({ title, subtitle, onClose, children, footer, size = "md" }) => {
 
 /* ------------------------------- Main component --------------------------- */
 const ManageGallery = () => {
-  const [galleries, setGalleries] = useState(buildSeed);
+  const navigate = useNavigate();
+  const [galleries, setGalleries] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -214,8 +190,37 @@ const ManageGallery = () => {
   const [selected, setSelected] = useState([]);
   const [modal, setModal] = useState(null); // {type:'add'|'edit'|'view'|'delete'|'bulk', item?}
   const [form, setForm] = useState(EMPTY_FORM);
+  const [newFiles, setNewFiles] = useState([]);
   const [error, setError] = useState("");
   const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchGalleries = async () => {
+      try {
+        const [galRes, catRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/gallery`),
+          fetch(`${API_BASE_URL}/categories`),
+        ]);
+        const result = await galRes.json();
+        const catResult = await catRes.json();
+        if (!ignore) {
+          if (galRes.ok && result.success) {
+            setGalleries((result.data || []).map(normalizeGallery));
+          }
+          if (catRes.ok && catResult.success) {
+            setCategoryOptions((catResult.data || []).map((c) => c.name));
+          }
+        }
+      } catch {
+        if (!ignore) setToast({ msg: "Failed to load galleries from server.", type: "danger" });
+      }
+    };
+    fetchGalleries();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   /* toast auto hide */
   useEffect(() => {
@@ -267,60 +272,97 @@ const ManageGallery = () => {
   const toggleOne = (id) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
 
   /* modal helpers */
-  const closeModal = () => { setModal(null); setError(""); };
-  const openAdd = () => { setForm(EMPTY_FORM); setError(""); setModal({ type: "add" }); };
+  const closeModal = () => { setModal(null); setError(""); setNewFiles([]); };
+  const openAdd = () => { setForm(EMPTY_FORM); setNewFiles([]); setError(""); setModal({ type: "add" }); };
   const openEdit = (item) => {
-    setForm({ title: item.title, desc: item.desc, category: item.category, location: item.location, status: item.status, images: item.images });
-    setError("");
-    setModal({ type: "edit", item });
+    navigate("/gallery/add", { state: { gallery: item } });
   };
 
   const handleFiles = (e) => {
-    const urls = Array.from(e.target.files || []).map((f) => URL.createObjectURL(f));
+    const files = Array.from(e.target.files || []);
+    const urls = files.map((f) => URL.createObjectURL(f));
+    setNewFiles((prev) => [...prev, ...files.map((file, idx) => ({ file, preview: urls[idx] }))]);
     setForm((f) => ({ ...f, images: [...f.images, ...urls] }));
     e.target.value = "";
   };
-  const removeFormImage = (idx) => setForm((f) => ({ ...f, images: f.images.filter((_, i) => i !== idx) }));
-
-  const saveForm = (e) => {
-    e.preventDefault();
-    if (!form.title.trim()) return setError("Gallery title is required.");
-    if (modal.type === "add") {
-      const id = Math.max(0, ...galleries.map((g) => g.id)) + 1;
-      const item = {
-        id,
-        title: form.title.trim(),
-        desc: form.desc.trim() || `${form.category} service gallery`,
-        category: form.category,
-        location: form.location,
-        status: form.status,
-        images: form.images,
-        count: form.images.length,
-        createdAt: new Date().toISOString().slice(0, 10),
-      };
-      setGalleries((g) => [item, ...g]);
-      setPage(1);
-      notify("Gallery added successfully");
-    } else {
-      const old = modal.item;
-      setGalleries((list) =>
-        list.map((g) =>
-          g.id === old.id
-            ? { ...g, ...form, title: form.title.trim(), desc: form.desc.trim(), count: Math.max(g.count - g.images.length, 0) + form.images.length }
-            : g
-        )
-      );
-      notify("Gallery updated successfully");
+  const removeFormImage = (idx) => {
+    const targetUrl = form.images[idx];
+    if (targetUrl && targetUrl.startsWith("blob:")) {
+      setNewFiles((prev) => prev.filter((item) => item.preview !== targetUrl));
     }
-    closeModal();
+    setForm((f) => ({ ...f, images: f.images.filter((_, i) => i !== idx) }));
   };
 
-  const confirmDelete = () => {
+  const saveForm = async (e) => {
+    e.preventDefault();
+    if (!form.title.trim()) return setError("Gallery title is required.");
+
+    try {
+      const fd = new FormData();
+      fd.append("title", form.title.trim());
+      fd.append("desc", form.desc.trim() || `${form.category} service gallery`);
+      fd.append("description", form.desc.trim() || `${form.category} service gallery`);
+      fd.append("category", form.category);
+      fd.append("location", form.location);
+      fd.append("status", form.status);
+      const existingImages = form.images.filter((url) => !url.startsWith("blob:"));
+      fd.append("existingImages", JSON.stringify(existingImages));
+      newFiles.forEach((item) => fd.append("images", item.file));
+
+      const isAdd = modal.type === "add";
+      const url = isAdd ? `${API_BASE_URL}/gallery` : `${API_BASE_URL}/gallery/${modal.item.id}`;
+      const res = await fetch(url, { method: isAdd ? "POST" : "PUT", body: fd });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return setError(result.message || "Failed to save gallery.");
+      }
+
+      const savedItem = normalizeGallery(result.data);
+      if (isAdd) {
+        setGalleries((g) => [savedItem, ...g]);
+        setPage(1);
+        notify("Gallery added successfully");
+      } else {
+        setGalleries((list) => list.map((g) => (g.id === modal.item.id ? savedItem : g)));
+        notify("Gallery updated successfully");
+      }
+      closeModal();
+    } catch {
+      setError("Could not connect to backend server.");
+    }
+  };
+
+  const toggleGalleryStatus = async (g) => {
+    const nextStatus = g.status === "Published" ? "Unpublished" : "Published";
+    try {
+      const res = await fetch(`${API_BASE_URL}/gallery/${g.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: nextStatus }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return notify(result.message || "Failed to update gallery status", "danger");
+      }
+      const updated = normalizeGallery(result.data);
+      setGalleries((prev) => prev.map((item) => (item.id === g.id ? updated : item)));
+      notify(`Gallery ${nextStatus.toLowerCase()}`);
+    } catch {
+      notify("Could not connect to backend server.", "danger");
+    }
+  };
+
+  const confirmDelete = async () => {
     const ids = modal.type === "bulk" ? selected : [modal.item.id];
-    setGalleries((g) => g.filter((x) => !ids.includes(x.id)));
-    setSelected((s) => s.filter((id) => !ids.includes(id)));
-    notify(ids.length > 1 ? `${ids.length} galleries deleted` : "Gallery deleted", "danger");
-    closeModal();
+    try {
+      await Promise.all(ids.map((id) => fetch(`${API_BASE_URL}/gallery/${id}`, { method: "DELETE" })));
+      setGalleries((g) => g.filter((x) => !ids.includes(x.id)));
+      setSelected((s) => s.filter((id) => !ids.includes(id)));
+      notify(ids.length > 1 ? `${ids.length} galleries deleted` : "Gallery deleted", "danger");
+      closeModal();
+    } catch {
+      notify("Failed to delete gallery", "danger");
+    }
   };
 
   const statCards = [
@@ -374,7 +416,7 @@ const ManageGallery = () => {
             <button type="button" onClick={() => setSearch("")} aria-label="Clear search"><Icon name="x" size={14} /></button>
           )}
         </label>
-        <Select value={category} options={CATEGORY_LIST} allLabel="All Category" onChange={(v) => { setCategory(v); setPage(1); }} />
+        <Select value={category} options={categoryOptions} allLabel="All Category" onChange={(v) => { setCategory(v); setPage(1); }} />
         <Select value={location} options={LOCATIONS} allLabel="All Location" onChange={(v) => { setLocation(v); setPage(1); }} />
         <Select value={status} options={STATUSES} allLabel="All Status" onChange={(v) => { setStatus(v); setPage(1); }} />
         <button type="button" className="manage-gallery__btn manage-gallery__btn--reset" onClick={resetFilters} disabled={!hasFilters}>
@@ -419,8 +461,8 @@ const ManageGallery = () => {
             </thead>
             <tbody>
               {rows.map((g, i) => {
-                const cat = CATEGORIES[g.category];
-                const st = STATUS_META[g.status];
+                const cat = CATEGORIES[g.category] || CATEGORIES.Residential;
+                const st = STATUS_META[g.status] || STATUS_META.Published;
                 const thumbs = [0, 1, 2].slice(0, Math.min(3, Math.max(g.count, 1)));
                 const extra = g.count - thumbs.length;
                 return (
@@ -431,7 +473,6 @@ const ManageGallery = () => {
                     <td className="col-num" data-label="#">{start + i + 1}</td>
                     <td className="col-title" data-label="Title">
                       <div className="manage-gallery__gallery">
-                        <Thumb category={g.category} src={g.images[0]} size="lg" />
                         <div>
                           <strong>{g.title}</strong>
                           <small>{g.desc}</small>
@@ -453,9 +494,11 @@ const ManageGallery = () => {
                       </div>
                     </td>
                     <td data-label="Status">
-                      <span className={`manage-gallery__status manage-gallery__status--${st.cls}`}>
-                        <Icon name={st.icon} size={14} /> {g.status}
-                      </span>
+                      <PublishToggle
+                        checked={g.status === "Published"}
+                        onChange={() => toggleGalleryStatus(g)}
+                        label={`Toggle publish status for ${g.title}`}
+                      />
                     </td>
                     <td data-label="Created">
                       <span className="manage-gallery__date"><Icon name="calendar" size={15} /> {fmtDate(g.createdAt)}</span>
@@ -580,13 +623,21 @@ const ManageGallery = () => {
         >
           <div className="manage-gallery__detail">
             <div className="manage-gallery__detail-meta">
-              <span className="manage-gallery__badge" style={{ background: CATEGORIES[modal.item.category].bg, color: CATEGORIES[modal.item.category].fg }}>
-                {CATEGORIES[modal.item.category].emoji} {modal.item.category}
-              </span>
-              <span className="manage-gallery__loc"><Icon name="pin" size={15} /> {modal.item.location}</span>
-              <span className={`manage-gallery__status manage-gallery__status--${STATUS_META[modal.item.status].cls}`}>
-                <Icon name={STATUS_META[modal.item.status].icon} size={14} /> {modal.item.status}
-              </span>
+              {(() => {
+                const modalCat = CATEGORIES[modal.item.category] || CATEGORIES.Residential;
+                const modalSt = STATUS_META[modal.item.status] || STATUS_META.Published;
+                return (
+                  <>
+                    <span className="manage-gallery__badge" style={{ background: modalCat.bg, color: modalCat.fg }}>
+                      {modalCat.emoji} {modal.item.category}
+                    </span>
+                    <span className="manage-gallery__loc"><Icon name="pin" size={15} /> {modal.item.location}</span>
+                    <span className={`manage-gallery__status manage-gallery__status--${modalSt.cls}`}>
+                      <Icon name={modalSt.icon} size={14} /> {modal.item.status}
+                    </span>
+                  </>
+                );
+              })()}
               <span className="manage-gallery__date"><Icon name="calendar" size={15} /> {fmtDate(modal.item.createdAt)}</span>
             </div>
             <h5>{modal.item.count} Images</h5>

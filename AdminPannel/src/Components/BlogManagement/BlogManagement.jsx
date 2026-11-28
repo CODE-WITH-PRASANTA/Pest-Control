@@ -1,4 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
+import PublishToggle from "../PublishToggle/PublishToggle";
 import "./BlogManagement.css";
 
 /* ------------------------------- Icons ------------------------------- */
@@ -40,53 +43,40 @@ const CATEGORIES = {
   Disinfection: { emoji: "🧴", bg: "#dbeafe", fg: "#1d4ed8", a: "#93c5fd", b: "#2563eb" },
   Commercial: { emoji: "🏢", bg: "#cffafe", fg: "#0e7490", a: "#67e8f9", b: "#0891b2" },
 };
-const CATEGORY_LIST = Object.keys(CATEGORIES);
+const DEFAULT_CAT = { emoji: "📝", bg: "#dcf8e3", fg: "#15803d", a: "#86efac", b: "#16a34a" };
+const getCat = (cat) => CATEGORIES[cat] || DEFAULT_CAT;
+const CATEGORY_LIST = [
+  "Pest Control",
+  "Home Care",
+  "Termite Control",
+  "Rodent Control",
+  "Cockroach Control",
+  "Mosquito Control",
+  "Bed Bug Control",
+  "Commercial Services",
+  "Residential",
+  "Disinfection",
+  "Commercial",
+];
 const LOCATIONS = ["Bhubaneswar", "Cuttack", "Puri", "Kendrapara", "Jajpur", "Balasore"];
 const STATUSES = ["Published", "Draft", "Unpublished"];
 const STATUS_ICON = { Published: "check", Draft: "clock", Unpublished: "eyeoff" };
 const PER_PAGE = 5;
 
-const FIRST = [
-  ["How to Keep Your Home Pest-Free", "Simple and effective pest control tips for every home.", "Residential", "Bhubaneswar", "Pest Control, Home Care", "Published"],
-  ["Complete Guide to Termite Control", "Learn the causes, signs, and preventive measures.", "Termite Control", "Cuttack", "Termite, Prevention", "Published"],
-  ["Signs of Bed Bug Infestation", "Know the early signs and best treatment options.", "Bed Bug Control", "Puri", "Bed Bug, Treatment", "Draft"],
-  ["How to Get Rid of Rodents Safely", "Safe, effective, and long-term rodent control.", "Rodent Control", "Kendrapara", "Rodent, Safety", "Unpublished"],
-  ["Benefits of Professional Disinfection", "Why professional disinfection is important for health.", "Disinfection", "Bhubaneswar", "Disinfection, Health", "Published"],
-];
-
-const iso = (back) => {
-  const d = new Date(2026, 10, 15);
-  d.setDate(d.getDate() - back);
-  return d.toISOString().slice(0, 10);
-};
-
-const buildData = () => {
-  const topics = ["Cockroach Prevention Tips", "Monsoon Pest Checklist", "Wood Borer Warning Signs", "Kitchen Hygiene Guide", "Office Pest Audit", "Ant Control at Home"];
-  const drafts = [4, 10, 16, 22, 28];
-  const rest = Array.from({ length: 31 }, (_, i) => {
-    const cat = CATEGORY_LIST[i % CATEGORY_LIST.length];
-    return [
-      `${topics[i % topics.length]}${i >= topics.length ? ` Part ${Math.floor(i / topics.length) + 1}` : ""}`,
-      `Helpful ${cat.toLowerCase()} advice from our experts.`,
-      cat,
-      LOCATIONS[(i + 2) % LOCATIONS.length],
-      "Pest Control, Tips",
-      drafts.includes(i) ? "Draft" : i === 13 ? "Unpublished" : "Published",
-    ];
-  });
-  return [...FIRST, ...rest].map(([title, desc, category, location, tags, status], i) => ({
-    id: i + 1, title, desc, category, location, status,
-    tags: tags.split(",").map((t) => t.trim()),
-    date: iso(i + 1),
-  }));
-};
-
-const fmt = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+const fmt = (d) =>
+  d ? new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : "—";
 const EMPTY = { title: "", desc: "", category: CATEGORY_LIST[0], location: LOCATIONS[0], tags: "", status: "Published" };
 
 /* ----------------------------- Small parts --------------------------- */
-const Thumb = ({ category, size }) => {
-  const c = CATEGORIES[category];
+const Thumb = ({ category, image, size }) => {
+  const c = getCat(category);
+  if (image) {
+    return (
+      <span className={`blog-management__thumb blog-management__thumb--${size}`} style={{ overflow: "hidden", padding: 0 }}>
+        <img src={image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit", display: "block" }} />
+      </span>
+    );
+  }
   return (
     <span className={`blog-management__thumb blog-management__thumb--${size}`} style={{ background: `linear-gradient(135deg, ${c.a}, ${c.b})` }}>
       {c.emoji}
@@ -146,8 +136,19 @@ const Modal = ({ title, subtitle, onClose, footer, children, wide }) => {
 };
 
 /* ------------------------------ Component ---------------------------- */
+const normalizeBlog = (b) => ({
+  ...b,
+  id: b._id || b.id,
+  desc: b.desc || b.excerpt || "",
+  status: b.status || (b.published === false ? "Draft" : "Published"),
+  tags: Array.isArray(b.tags) ? b.tags : [],
+  date: b.date || (b.createdAt ? b.createdAt.slice(0, 10) : new Date().toISOString().slice(0, 10)),
+});
+
 const BlogManagement = () => {
-  const [blogs, setBlogs] = useState(buildData);
+  const navigate = useNavigate();
+  const [blogs, setBlogs] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
@@ -158,6 +159,34 @@ const BlogManagement = () => {
   const [form, setForm] = useState(EMPTY);
   const [error, setError] = useState("");
   const [toast, setToast] = useState("");
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchBlogs = async () => {
+      try {
+        const [blogsRes, catsRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/blogs`),
+          fetch(`${API_BASE_URL}/categories`),
+        ]);
+        const blogsData = await blogsRes.json();
+        const catsData = await catsRes.json();
+        if (!ignore) {
+          if (blogsRes.ok && blogsData.success) {
+            setBlogs((blogsData.data || []).map(normalizeBlog));
+          }
+          if (catsRes.ok && catsData.success) {
+            setCategoryOptions((catsData.data || []).map((c) => c.name));
+          }
+        }
+      } catch {
+        if (!ignore) setToast("Failed to load blogs from server.");
+      }
+    };
+    fetchBlogs();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!toast) return undefined;
@@ -201,47 +230,45 @@ const BlogManagement = () => {
   const toggleOne = (id) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
 
   const close = () => { setModal(null); setError(""); };
-  const openAdd = () => { setForm(EMPTY); setModal({ type: "form" }); };
-  const openEdit = (b) => {
-    setForm({ title: b.title, desc: b.desc, category: b.category, location: b.location, tags: b.tags.join(", "), status: b.status });
-    setModal({ type: "form", item: b });
-  };
+  const openAdd = () => navigate("/blog/new");
+  const openEdit = (b) => navigate("/blog/new", { state: { blog: b } });
 
   const save = (e) => {
     e.preventDefault();
-    if (!form.title.trim()) return setError("Blog title is required.");
-    const data = {
-      title: form.title.trim(),
-      desc: form.desc.trim() || "No description added.",
-      category: form.category,
-      location: form.location,
-      status: form.status,
-      tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean).slice(0, 4),
-    };
-    if (modal.item) {
-      setBlogs((list) => list.map((b) => (b.id === modal.item.id ? { ...b, ...data } : b)));
-      setToast("Blog updated successfully");
-    } else {
-      const id = Math.max(0, ...blogs.map((b) => b.id)) + 1;
-      setBlogs((list) => [{ id, ...data, date: new Date().toISOString().slice(0, 10) }, ...list]);
-      setPage(1);
-      setToast("Blog added successfully");
-    }
     close();
   };
 
-  const remove = () => {
+  const remove = async () => {
     const del = modal.type === "bulk" ? selected : [modal.item.id];
-    setBlogs((list) => list.filter((b) => !del.includes(b.id)));
-    setSelected((s) => s.filter((id) => !del.includes(id)));
-    setToast(del.length > 1 ? `${del.length} blogs deleted` : "Blog deleted");
-    close();
+    try {
+      await Promise.all(del.map((id) => fetch(`${API_BASE_URL}/blogs/${id}`, { method: "DELETE" })));
+      setBlogs((list) => list.filter((b) => !del.includes(b.id)));
+      setSelected((s) => s.filter((id) => !del.includes(id)));
+      setToast(del.length > 1 ? `${del.length} blogs deleted` : "Blog deleted");
+      close();
+    } catch {
+      setToast("Failed to delete blog(s)");
+    }
   };
 
-  const setStatusFor = (b, s) => {
-    setBlogs((list) => list.map((x) => (x.id === b.id ? { ...x, status: s } : x)));
-    setToast(`Blog ${s.toLowerCase()}`);
-    close();
+  const setStatusFor = async (b, s) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/blogs/${b.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: s, published: s === "Published" }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return setToast(result.message || "Failed to update status");
+      }
+      const updated = normalizeBlog(result.data);
+      setBlogs((list) => list.map((x) => (x.id === b.id ? updated : x)));
+      setToast(`Blog ${s.toLowerCase()}`);
+      close();
+    } catch {
+      setToast("Failed to update blog status");
+    }
   };
 
   return (
@@ -277,7 +304,7 @@ const BlogManagement = () => {
           <Icon name="search" size={18} />
           <input type="text" placeholder="Search blog by title..." value={search} onChange={(e) => change(setSearch)(e.target.value)} />
         </label>
-        <Select value={category} options={CATEGORY_LIST} allLabel="All Category" onChange={change(setCategory)} />
+        <Select value={category} options={categoryOptions} allLabel="All Category" onChange={change(setCategory)} />
         <Select value={status} options={STATUSES} allLabel="All Status" onChange={change(setStatus)} />
         <Select value={location} options={LOCATIONS} allLabel="All Location" onChange={change(setLocation)} />
         <button type="button" className="blog-management__btn blog-management__btn--reset" onClick={reset} disabled={!hasFilter}>
@@ -317,21 +344,27 @@ const BlogManagement = () => {
             </thead>
             <tbody>
               {rows.map((b, i) => {
-                const c = CATEGORIES[b.category];
+                const c = getCat(b.category);
                 return (
                   <tr key={b.id} className={selected.includes(b.id) ? "is-selected" : ""}>
                     <td className="c-check"><input type="checkbox" className="blog-management__check" checked={selected.includes(b.id)} onChange={() => toggleOne(b.id)} aria-label="Select row" /></td>
                     <td className="c-num">{start + i + 1}</td>
                     <td className="c-title">
                       <div className="blog-management__blog">
-                        <Thumb category={b.category} size="lg" />
+                        <Thumb category={b.category} image={b.image} size="lg" />
                         <div><strong>{b.title}</strong><small>{b.desc}</small></div>
                       </div>
                     </td>
                     <td data-label="Category"><span className="blog-management__badge" style={{ background: c.bg, color: c.fg }}>{c.emoji} {b.category}</span></td>
-                    <td data-label="Location"><span className="blog-management__meta"><Icon name="pin" size={15} /> {b.location}</span></td>
+                    <td data-label="Location"><span className="blog-management__meta"><Icon name="pin" size={15} /> {b.location || "—"}</span></td>
                     <td data-label="Tags"><div className="blog-management__tags">{b.tags.map((t) => <span key={t}>{t}</span>)}</div></td>
-                    <td data-label="Status"><span className={`blog-management__status blog-management__status--${b.status.toLowerCase()}`}><Icon name={STATUS_ICON[b.status]} size={14} /> {b.status}</span></td>
+                    <td data-label="Status">
+                      <PublishToggle
+                        checked={b.status === "Published"}
+                        onChange={() => setStatusFor(b, b.status === "Published" ? "Unpublished" : "Published")}
+                        label={`Toggle publish status for ${b.title}`}
+                      />
+                    </td>
                     <td data-label="Created"><span className="blog-management__meta"><Icon name="cal" size={15} /> {fmt(b.date)}</span></td>
                     <td className="c-action">
                       <div className="blog-management__actions">
@@ -431,11 +464,11 @@ const BlogManagement = () => {
           }
         >
           <div className="blog-management__view">
-            <Thumb category={modal.item.category} size="hero" />
+            <Thumb category={modal.item.category} image={modal.item.image} size="hero" />
             <div className="blog-management__view-meta">
-              <span className="blog-management__badge" style={{ background: CATEGORIES[modal.item.category].bg, color: CATEGORIES[modal.item.category].fg }}>{CATEGORIES[modal.item.category].emoji} {modal.item.category}</span>
+              <span className="blog-management__badge" style={{ background: getCat(modal.item.category).bg, color: getCat(modal.item.category).fg }}>{getCat(modal.item.category).emoji} {modal.item.category}</span>
               <span className={`blog-management__status blog-management__status--${modal.item.status.toLowerCase()}`}><Icon name={STATUS_ICON[modal.item.status]} size={14} /> {modal.item.status}</span>
-              <span className="blog-management__meta"><Icon name="pin" size={15} /> {modal.item.location}</span>
+              <span className="blog-management__meta"><Icon name="pin" size={15} /> {modal.item.location || "—"}</span>
               <span className="blog-management__meta"><Icon name="cal" size={15} /> {fmt(modal.item.date)}</span>
             </div>
             <div className="blog-management__tags">{modal.item.tags.map((t) => <span key={t}>{t}</span>)}</div>

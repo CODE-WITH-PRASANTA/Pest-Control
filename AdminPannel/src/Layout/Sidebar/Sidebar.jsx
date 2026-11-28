@@ -8,15 +8,12 @@ import {
   FiBriefcase,
   FiImage,
   FiEdit3,
-  FiShoppingCart,
-  FiTool,
   FiMail,
-  FiUser,
-  FiSettings,
   FiChevronDown,
   FiFileText,
   FiPlusSquare,
-  FiPhoneCall,
+  FiTag,
+  FiMessageSquare,
   FiX,
 } from "react-icons/fi";
 
@@ -64,36 +61,14 @@ const menuItems = [
     children: [
       { text: "Blog Posting", path: "/blog/new", icon: <FiPlusSquare size={16} /> },
       { text: "Blog Management", path: "/blog", icon: <FiFileText size={16} /> },
-    ],
-  },
-  {
-    text: "Order",
-    path: "/orders",
-    icon: <FiShoppingCart size={20} />,
-  },
-  {
-    type: "dropdown",
-    text: "Service",
-    icon: <FiTool size={20} />,
-    children: [
-      { text: "Add Service", path: "/services/add", icon: <FiPlusSquare size={16} /> },
-      { text: "Manage Service", path: "/services", icon: <FiFileText size={16} /> },
+      { text: "Category", path: "/blog/categories", icon: <FiTag size={16} /> },
+      { text: "Blog Review", path: "/blog/reviews", icon: <FiMessageSquare size={16} /> },
     ],
   },
   {
     text: "Enquiry",
     path: "/enquiry",
     icon: <FiMail size={20} />,
-  },
-  {
-    text: "Profile",
-    path: "/profile",
-    icon: <FiUser size={20} />,
-  },
-  {
-    text: "Setting",
-    path: "/settings",
-    icon: <FiSettings size={20} />,
   },
 ];
 
@@ -247,21 +222,6 @@ const Sidebar = ({ isCollapsed, isMobileOpen, onClose }) => {
           );
         })}
       </nav>
-
-      {/* FOOTER CARD */}
-      {showText && (
-        <div className="Sidebar-footer">
-          <div className="Sidebar-help-card">
-            <span className="Sidebar-help-icon">
-              <FiPhoneCall size={18} />
-            </span>
-            <div className="Sidebar-help-text">
-              <span className="Sidebar-help-title">Call Anytime</span>
-              <span className="Sidebar-help-number">+91 7205303566</span>
-            </div>
-          </div>
-        </div>
-      )}
     </aside>
   );
 };

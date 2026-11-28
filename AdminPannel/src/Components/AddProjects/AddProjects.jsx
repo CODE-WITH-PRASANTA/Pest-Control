@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 import "./AddProjects.css";
 
 /* ---------- Inline icons ---------- */
@@ -181,10 +183,27 @@ const MAX_SIZE = 5 * 1024 * 1024;
 const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
 
 const AddProjects = ({ onSave, onCancel }) => {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [location, setLocation] = useState("");
-  const [images, setImages] = useState([]);
+  const routeLocation = useLocation();
+  const navigate = useNavigate();
+  const editProject = routeLocation.state?.project || null;
+  const editingId = editProject?._id || editProject?.id || null;
+
+  const [title, setTitle] = useState(editProject?.title || "");
+  const [category, setCategory] = useState(editProject?.category || "");
+  const [location, setLocation] = useState(editProject?.location || "");
+  const [images, setImages] = useState(() => {
+    const existing =
+      Array.isArray(editProject?.images) && editProject.images.length
+        ? editProject.images
+        : editProject?.image
+        ? [editProject.image]
+        : [];
+    return existing.map((url, idx) => ({
+      id: `existing-${idx}`,
+      url,
+      isExisting: true,
+    }));
+  });
   const [errors, setErrors] = useState({});
   const [dragActive, setDragActive] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
@@ -193,6 +212,29 @@ const AddProjects = ({ onSave, onCancel }) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [active, setActive] = useState({});
   const [saved, setSaved] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/categories`);
+        const data = await res.json();
+        if (!ignore && res.ok && data.success) {
+          const active = (data.data || [])
+            .filter((c) => c.status !== "Inactive")
+            .map((c) => c.name);
+          setCategories(active);
+        }
+      } catch {
+        // Ignore category fetch error
+      }
+    };
+    fetchCategories();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const editorRef = useRef(null);
   const fileRef = useRef(null);
@@ -380,7 +422,7 @@ const AddProjects = ({ onSave, onCancel }) => {
   const removeImage = (id) => {
     setImages((prev) => {
       const t = prev.find((i) => i.id === id);
-      if (t) URL.revokeObjectURL(t.url);
+      if (t?.url && t.url.startsWith("blob:")) URL.revokeObjectURL(t.url);
       return prev.filter((i) => i.id !== id);
     });
   };
@@ -406,7 +448,9 @@ const AddProjects = ({ onSave, onCancel }) => {
   };
 
   const resetForm = () => {
-    images.forEach((i) => URL.revokeObjectURL(i.url));
+    images.forEach((i) => {
+      if (i.url && i.url.startsWith("blob:")) URL.revokeObjectURL(i.url);
+    });
     setTitle("");
     setCategory("");
     setLocation("");
@@ -418,21 +462,62 @@ const AddProjects = ({ onSave, onCancel }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (editProject && editorRef.current) {
+      const html = editProject.rawDescription || editProject.description || editProject.desc || "";
+      editorRef.current.innerHTML = html;
+      if (html.trim()) {
+        editorRef.current.classList.remove("AddProjects-editor-empty");
+      }
+    }
+  }, [editProject]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    const payload = {
-      title: title.trim(),
-      category,
-      location: location.trim(),
-      description: editorRef.current.innerHTML,
-      images: images.map((i) => i.file),
-    };
-    if (onSave) onSave(payload);
-    else console.log("Project saved:", payload);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2600);
-    resetForm();
+
+    const htmlDesc = editorRef.current ? editorRef.current.innerHTML : "";
+    const plainDesc = editorRef.current ? editorRef.current.innerText.trim() : "";
+
+    try {
+      const fd = new FormData();
+      fd.append("title", title.trim());
+      fd.append("category", category);
+      fd.append("location", location.trim());
+      fd.append("desc", plainDesc.slice(0, 160));
+      fd.append("description", htmlDesc);
+      fd.append("status", editProject?.status || "Published");
+      const existingImages = images
+        .filter((item) => item.isExisting && item.url)
+        .map((item) => item.url);
+      fd.append("existingImages", JSON.stringify(existingImages));
+      images.forEach((item) => {
+        if (item.file) fd.append("images", item.file);
+      });
+
+      const url = editingId
+        ? `${API_BASE_URL}/projects/${editingId}`
+        : `${API_BASE_URL}/projects`;
+      const res = await fetch(url, {
+        method: editingId ? "PUT" : "POST",
+        body: fd,
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        setErrors((p) => ({ ...p, description: result.message || "Failed to save project." }));
+        return;
+      }
+
+      if (onSave) onSave(result.data);
+      setSaved(true);
+      setTimeout(() => {
+        setSaved(false);
+        if (editingId) navigate("/projects");
+      }, 1000);
+      if (!editingId) resetForm();
+    } catch {
+      setErrors((p) => ({ ...p, description: "Could not connect to backend server." }));
+    }
   };
 
   const handleCancel = () => {
@@ -462,9 +547,11 @@ const AddProjects = ({ onSave, onCancel }) => {
           <PlusIcon size={26} />
         </div>
         <div className="AddProjects-header-text">
-          <h1 className="AddProjects-heading">Add Project</h1>
+          <h1 className="AddProjects-heading">{editingId ? "Edit Project" : "Add Project"}</h1>
           <p className="AddProjects-subheading">
-            Create a new project to showcase your work, case study, or service result.
+            {editingId
+              ? "Update project details and images in your database."
+              : "Create a new project to showcase your work, case study, or service result."}
           </p>
         </div>
       </header>
@@ -525,23 +612,29 @@ const AddProjects = ({ onSave, onCancel }) => {
                   </button>
                   {catOpen && (
                     <ul className="AddProjects-menu" role="listbox">
-                      {CATEGORIES.map((c) => (
-                        <li
-                          key={c}
-                          role="option"
-                          aria-selected={category === c}
-                          className={`AddProjects-menu-item ${
-                            category === c ? "AddProjects-menu-item-active" : ""
-                          }`}
-                          onClick={() => {
-                            setCategory(c);
-                            setCatOpen(false);
-                            setErrors((p) => ({ ...p, category: "" }));
-                          }}
-                        >
-                          {c}
+                      {categories.length === 0 ? (
+                        <li className="AddProjects-menu-item" style={{ opacity: 0.7, cursor: "default" }}>
+                          No categories found
                         </li>
-                      ))}
+                      ) : (
+                        categories.map((c) => (
+                          <li
+                            key={c}
+                            role="option"
+                            aria-selected={category === c}
+                            className={`AddProjects-menu-item ${
+                              category === c ? "AddProjects-menu-item-active" : ""
+                            }`}
+                            onClick={() => {
+                              setCategory(c);
+                              setCatOpen(false);
+                              setErrors((p) => ({ ...p, category: "" }));
+                            }}
+                          >
+                            {c}
+                          </li>
+                        ))
+                      )}
                     </ul>
                   )}
                 </div>
@@ -772,11 +865,11 @@ const AddProjects = ({ onSave, onCancel }) => {
               <ul className="AddProjects-thumbs">
                 {images.map((img) => (
                   <li key={img.id} className="AddProjects-thumb">
-                    <img src={img.url} alt={img.file.name} className="AddProjects-thumb-img" />
+                    <img src={img.url} alt={img.file?.name || "Project image"} className="AddProjects-thumb-img" />
                     <button
                       type="button"
                       className="AddProjects-thumb-remove"
-                      aria-label={`Remove ${img.file.name}`}
+                      aria-label={`Remove ${img.file?.name || "image"}`}
                       onClick={() => removeImage(img.id)}
                     >
                       <CloseIcon size={12} />
@@ -792,13 +885,17 @@ const AddProjects = ({ onSave, onCancel }) => {
         <div className="AddProjects-actions">
           <button type="submit" className="AddProjects-btn AddProjects-btn-primary">
             <SaveIcon size={18} />
-            <span>Save Project</span>
+            <span>{editingId ? "Update Project" : "Save Project"}</span>
           </button>
           <button type="button" className="AddProjects-btn AddProjects-btn-secondary" onClick={handleCancel}>
             <CloseIcon size={18} />
             <span>Cancel</span>
           </button>
-          {saved && <span className="AddProjects-toast">Project saved successfully</span>}
+          {saved && (
+            <span className="AddProjects-toast">
+              {editingId ? "Project updated successfully" : "Project saved successfully"}
+            </span>
+          )}
         </div>
       </form>
     </section>

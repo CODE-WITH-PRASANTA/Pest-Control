@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 import "./AddGallery.css";
 
 /* ---------- Icons ---------- */
@@ -69,10 +71,27 @@ const MAX_IMAGES = 20;
 const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
 
 const AddGallery = ({ onSave, onCancel }) => {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [location, setLocation] = useState("");
-  const [images, setImages] = useState([]);
+  const routeLocation = useLocation();
+  const navigate = useNavigate();
+  const editGallery = routeLocation.state?.gallery || null;
+  const editingId = editGallery?._id || editGallery?.id || null;
+
+  const [title, setTitle] = useState(editGallery?.title || "");
+  const [category, setCategory] = useState(editGallery?.category || "");
+  const [location, setLocation] = useState(editGallery?.location || "");
+  const [images, setImages] = useState(() => {
+    const existing =
+      Array.isArray(editGallery?.images) && editGallery.images.length
+        ? editGallery.images
+        : editGallery?.image
+        ? [editGallery.image]
+        : [];
+    return existing.map((url, idx) => ({
+      id: `existing-${idx}`,
+      url,
+      isExisting: true,
+    }));
+  });
   const [errors, setErrors] = useState({});
   const [dragActive, setDragActive] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
@@ -81,6 +100,29 @@ const AddGallery = ({ onSave, onCancel }) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [active, setActive] = useState({});
   const [saved, setSaved] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/categories`);
+        const data = await res.json();
+        if (!ignore && res.ok && data.success) {
+          const active = (data.data || [])
+            .filter((c) => c.status !== "Inactive")
+            .map((c) => c.name);
+          setCategories(active);
+        }
+      } catch {
+        // Ignore category fetch error
+      }
+    };
+    fetchCategories();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const editorRef = useRef(null);
   const fileRef = useRef(null);
@@ -122,8 +164,21 @@ const AddGallery = ({ onSave, onCancel }) => {
 
   /* Free preview URLs on unmount */
   useEffect(() => {
-    return () => imagesRef.current.forEach((i) => URL.revokeObjectURL(i.url));
+    return () =>
+      imagesRef.current.forEach((i) => {
+        if (i.url && i.url.startsWith("blob:")) URL.revokeObjectURL(i.url);
+      });
   }, []);
+
+  useEffect(() => {
+    if (editGallery && editorRef.current) {
+      const html = editGallery.description || editGallery.desc || "";
+      editorRef.current.innerHTML = html;
+      if (html.trim()) {
+        editorRef.current.classList.remove("AddGallery-editor-empty");
+      }
+    }
+  }, [editGallery]);
 
   /* ---------- Editor helpers ---------- */
   const saveSelection = () => {
@@ -226,8 +281,8 @@ const AddGallery = ({ onSave, onCancel }) => {
         err = "Only JPG, JPEG, PNG and WEBP images are allowed.";
       } else if (f.size > MAX_SIZE) {
         err = "Each image must be 5MB or smaller.";
-      } else if (existing.some((i) => i.file.name === f.name && i.file.size === f.size) ||
-                 next.some((i) => i.file.name === f.name && i.file.size === f.size)) {
+      } else if (existing.some((i) => i.file?.name === f.name && i.file?.size === f.size) ||
+                 next.some((i) => i.file?.name === f.name && i.file?.size === f.size)) {
         err = "Some images were skipped because they were already added.";
       } else if (existing.length + next.length >= MAX_IMAGES) {
         err = `You can upload up to ${MAX_IMAGES} images.`;
@@ -247,7 +302,7 @@ const AddGallery = ({ onSave, onCancel }) => {
   const removeImage = (id) => {
     setImages((prev) => {
       const t = prev.find((i) => i.id === id);
-      if (t) URL.revokeObjectURL(t.url);
+      if (t?.url && t.url.startsWith("blob:")) URL.revokeObjectURL(t.url);
       return prev.filter((i) => i.id !== id);
     });
   };
@@ -269,7 +324,9 @@ const AddGallery = ({ onSave, onCancel }) => {
   };
 
   const resetForm = () => {
-    images.forEach((i) => URL.revokeObjectURL(i.url));
+    images.forEach((i) => {
+      if (i.url && i.url.startsWith("blob:")) URL.revokeObjectURL(i.url);
+    });
     setTitle("");
     setCategory("");
     setLocation("");
@@ -282,21 +339,52 @@ const AddGallery = ({ onSave, onCancel }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    const payload = {
-      title: title.trim(),
-      category,
-      location: location.trim(),
-      description: editorRef.current ? editorRef.current.innerHTML : "",
-      images: images.map((i) => i.file),
-    };
-    if (onSave) onSave(payload);
-    else console.log("Gallery saved:", payload);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2600);
-    resetForm();
+
+    const htmlDesc = editorRef.current ? editorRef.current.innerHTML : "";
+    const plainDesc = editorRef.current ? editorRef.current.innerText.trim() : "";
+
+    try {
+      const fd = new FormData();
+      fd.append("title", title.trim());
+      fd.append("category", category);
+      fd.append("location", location.trim());
+      fd.append("desc", plainDesc.slice(0, 160));
+      fd.append("description", htmlDesc);
+      fd.append("status", editGallery?.status || "Published");
+      const existingImages = images
+        .filter((item) => item.isExisting && item.url)
+        .map((item) => item.url);
+      fd.append("existingImages", JSON.stringify(existingImages));
+      images.forEach((item) => {
+        if (item.file) fd.append("images", item.file);
+      });
+
+      const url = editingId
+        ? `${API_BASE_URL}/gallery/${editingId}`
+        : `${API_BASE_URL}/gallery`;
+      const res = await fetch(url, {
+        method: editingId ? "PUT" : "POST",
+        body: fd,
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        setErrors((p) => ({ ...p, images: result.message || "Failed to save gallery." }));
+        return;
+      }
+
+      if (onSave) onSave(result.data);
+      setSaved(true);
+      setTimeout(() => {
+        setSaved(false);
+        if (editingId) navigate("/gallery");
+      }, 1000);
+      if (!editingId) resetForm();
+    } catch {
+      setErrors((p) => ({ ...p, images: "Could not connect to backend server." }));
+    }
   };
 
   const handleCancel = () => {
@@ -327,9 +415,11 @@ const AddGallery = ({ onSave, onCancel }) => {
           <Icon name="gallery" size={26} />
         </div>
         <div className="AddGallery-header-text">
-          <h1 className="AddGallery-heading">Add Gallery</h1>
+          <h1 className="AddGallery-heading">{editingId ? "Edit Gallery" : "Add Gallery"}</h1>
           <p className="AddGallery-subheading">
-            Upload new images to your gallery and showcase your pest control work.
+            {editingId
+              ? "Update gallery details and images in your database."
+              : "Upload new images to your gallery and showcase your pest control work."}
           </p>
         </div>
       </header>
@@ -390,21 +480,27 @@ const AddGallery = ({ onSave, onCancel }) => {
                   </button>
                   {catOpen && (
                     <ul className="AddGallery-menu" role="listbox">
-                      {CATEGORIES.map((c) => (
-                        <li
-                          key={c}
-                          role="option"
-                          aria-selected={category === c}
-                          className={`AddGallery-menu-item ${category === c ? "AddGallery-menu-item-active" : ""}`}
-                          onClick={() => {
-                            setCategory(c);
-                            setCatOpen(false);
-                            setErrors((p) => ({ ...p, category: "" }));
-                          }}
-                        >
-                          {c}
+                      {categories.length === 0 ? (
+                        <li className="AddGallery-menu-item" style={{ opacity: 0.7, cursor: "default" }}>
+                          No categories found
                         </li>
-                      ))}
+                      ) : (
+                        categories.map((c) => (
+                          <li
+                            key={c}
+                            role="option"
+                            aria-selected={category === c}
+                            className={`AddGallery-menu-item ${category === c ? "AddGallery-menu-item-active" : ""}`}
+                            onClick={() => {
+                              setCategory(c);
+                              setCatOpen(false);
+                              setErrors((p) => ({ ...p, category: "" }));
+                            }}
+                          >
+                            {c}
+                          </li>
+                        ))
+                      )}
                     </ul>
                   )}
                 </div>
@@ -595,11 +691,11 @@ const AddGallery = ({ onSave, onCancel }) => {
                 <ul className="AddGallery-thumbs">
                   {images.map((img) => (
                     <li key={img.id} className="AddGallery-thumb">
-                      <img src={img.url} alt={img.file.name} className="AddGallery-thumb-img" />
+                      <img src={img.url} alt={img.file?.name || "Gallery image"} className="AddGallery-thumb-img" />
                       <button
                         type="button"
                         className="AddGallery-thumb-remove"
-                        aria-label={`Remove ${img.file.name}`}
+                        aria-label={`Remove ${img.file?.name || "image"}`}
                         onClick={() => removeImage(img.id)}
                       >
                         <Icon name="x" size={12} />
@@ -616,13 +712,17 @@ const AddGallery = ({ onSave, onCancel }) => {
         <div className="AddGallery-actions">
           <button type="submit" className="AddGallery-btn AddGallery-btn-primary">
             <Icon name="save" size={18} />
-            <span>Save Gallery</span>
+            <span>{editingId ? "Update Gallery" : "Save Gallery"}</span>
           </button>
           <button type="button" className="AddGallery-btn AddGallery-btn-secondary" onClick={handleCancel}>
             <Icon name="x" size={18} />
             <span>Cancel</span>
           </button>
-          {saved && <span className="AddGallery-toast">Gallery saved successfully</span>}
+          {saved && (
+            <span className="AddGallery-toast">
+              {editingId ? "Gallery updated successfully" : "Gallery saved successfully"}
+            </span>
+          )}
         </div>
       </form>
     </section>

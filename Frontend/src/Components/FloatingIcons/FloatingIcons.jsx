@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./FloatingIcons.css";
+
+const ENQUIRY_SERVICES = [
+  "Home Pest Control",
+  "Termite Treatment",
+  "Bed Bug Control",
+  "Rodent Control",
+  "Cockroach Control",
+  "Mosquito Control",
+];
 
 /* ---------------------------------
    Contact number
@@ -51,6 +61,21 @@ const ArrowUpIcon = () => (
     aria-hidden="true"
   >
     <polyline points="18 15 12 9 6 15" />
+  </svg>
+);
+
+const EnquiryIcon = () => (
+  <svg
+    className="FloatingIcons__svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
   </svg>
 );
 
@@ -109,12 +134,68 @@ const getScrolledElements = (preferred) => {
 const FloatingIcons = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
+  const [enquiryForm, setEnquiryForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: ENQUIRY_SERVICES[0],
+    message: "",
+  });
+  const [sending, setSending] = useState(false);
+  const [enquirySuccess, setEnquirySuccess] = useState(false);
+  const [enquiryError, setEnquiryError] = useState("");
 
   /* The element that is actually scrolling (null = window) */
   const scrollerRef = useRef(null);
 
   /* Running scroll-to-top animation (frame id + cleanup) */
   const animRef = useRef({ frame: 0, stop: null });
+
+  const handleEnquiryChange = (e) => {
+    const { name, value } = e.target;
+    setEnquiryForm((prev) => ({ ...prev, [name]: value }));
+    setEnquiryError("");
+  };
+
+  const handleEnquirySubmit = async (e) => {
+    e.preventDefault();
+    if (sending) return;
+    setSending(true);
+    setEnquiryError("");
+    try {
+      const res = await fetch(`${API_BASE_URL}/enquiries`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: enquiryForm.name.trim(),
+          email: enquiryForm.email.trim(),
+          phone: enquiryForm.phone.trim(),
+          service: enquiryForm.service,
+          subject: enquiryForm.service,
+          message: enquiryForm.message.trim(),
+          status: "New",
+          at: new Date().toISOString().slice(0, 16),
+        }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.message || "Failed to submit enquiry");
+      }
+      setEnquirySuccess(true);
+      setEnquiryForm({
+        name: "",
+        email: "",
+        phone: "",
+        service: ENQUIRY_SERVICES[0],
+        message: "",
+      });
+    } catch (err) {
+      setEnquiryError(err.message || "Unable to submit enquiry. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  };
 
   /* Scroll visibility + progress (works for window AND inner containers) */
   useEffect(() => {
@@ -278,6 +359,23 @@ const FloatingIcons = () => {
         </button>
       </div>
 
+      {/* Quick Enquiry */}
+      <div className="FloatingIcons__item FloatingIcons__item--enquiry" style={{ "--enter": 0 }}>
+        <button
+          type="button"
+          className="FloatingIcons__btn FloatingIcons__btn--enquiry"
+          onClick={() => {
+            setEnquirySuccess(false);
+            setEnquiryError("");
+            setEnquiryOpen(true);
+          }}
+          aria-label="Open quick enquiry form"
+          title="Quick Enquiry"
+        >
+          <EnquiryIcon />
+        </button>
+      </div>
+
       {/* Call */}
       <div className="FloatingIcons__item FloatingIcons__item--call" style={{ "--enter": 1 }}>
         <a
@@ -301,6 +399,135 @@ const FloatingIcons = () => {
           <WhatsAppIcon />
         </a>
       </div>
+
+      {/* Enquiry Modal */}
+      {enquiryOpen && (
+        <div
+          className="FloatingEnquiry-overlay"
+          onMouseDown={() => setEnquiryOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Quick Enquiry"
+        >
+          <div className="FloatingEnquiry-modal" onMouseDown={(e) => e.stopPropagation()}>
+            <div className="FloatingEnquiry-head">
+              <div>
+                <span className="FloatingEnquiry-badge">QUICK ENQUIRY</span>
+                <h3>Request a Free Inspection</h3>
+              </div>
+              <button
+                type="button"
+                className="FloatingEnquiry-close"
+                onClick={() => setEnquiryOpen(false)}
+                aria-label="Close enquiry modal"
+              >
+                ×
+              </button>
+            </div>
+
+            {enquirySuccess ? (
+              <div className="FloatingEnquiry-success">
+                <div className="FloatingEnquiry-successIcon">✓</div>
+                <h4>Enquiry Submitted!</h4>
+                <p>Thank you for reaching out. Our pest control team will contact you shortly.</p>
+                <button
+                  type="button"
+                  className="FloatingEnquiry-submit"
+                  onClick={() => setEnquiryOpen(false)}
+                >
+                  Done
+                </button>
+              </div>
+            ) : (
+              <form className="FloatingEnquiry-form" onSubmit={handleEnquirySubmit}>
+                <div className="FloatingEnquiry-grid">
+                  <label className="FloatingEnquiry-field">
+                    <span>Full Name *</span>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Enter your name"
+                      value={enquiryForm.name}
+                      onChange={handleEnquiryChange}
+                      required
+                    />
+                  </label>
+                  <label className="FloatingEnquiry-field">
+                    <span>Phone Number *</span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Enter phone number"
+                      value={enquiryForm.phone}
+                      onChange={handleEnquiryChange}
+                      required
+                    />
+                  </label>
+                </div>
+
+                <div className="FloatingEnquiry-grid">
+                  <label className="FloatingEnquiry-field">
+                    <span>Email Address *</span>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Enter email address"
+                      value={enquiryForm.email}
+                      onChange={handleEnquiryChange}
+                      required
+                    />
+                  </label>
+                  <label className="FloatingEnquiry-field">
+                    <span>Service Needed</span>
+                    <select
+                      name="service"
+                      value={enquiryForm.service}
+                      onChange={handleEnquiryChange}
+                    >
+                      {ENQUIRY_SERVICES.map((srv) => (
+                        <option key={srv} value={srv}>
+                          {srv}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                <label className="FloatingEnquiry-field">
+                  <span>Message *</span>
+                  <textarea
+                    name="message"
+                    rows={3}
+                    placeholder="Tell us about your pest issue..."
+                    value={enquiryForm.message}
+                    onChange={handleEnquiryChange}
+                    required
+                  />
+                </label>
+
+                {enquiryError && <p className="FloatingEnquiry-error">{enquiryError}</p>}
+
+                <div className="FloatingEnquiry-actions">
+                  <button
+                    type="button"
+                    className="FloatingEnquiry-cancel"
+                    onClick={() => setEnquiryOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="FloatingEnquiry-submit"
+                    disabled={sending}
+                  >
+                    {sending ? "Sending..." : "Submit Enquiry"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </aside>
   );
 };

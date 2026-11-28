@@ -11,6 +11,7 @@ import Contact from './Pages/Contact/Contact'
 import News from './Pages/News/News'
 import NewsDetails from './Pages/NewsDetails/NewsDetails'
 import Projects from './Pages/Projects/Projects'
+import Gallery from './Pages/Gallery/Gallery'
 import ProjectDetails from './Pages/ProjectDetails/ProjectDetails'
 import Services from './Pages/Services/Services'
 import TeamDetails from './Pages/TeamDetails/TeamDetails'
@@ -79,9 +80,11 @@ function App() {
             <Route path="/team-details" element={<TeamDetails />} />
 
             <Route path="/news" element={<News />} />
+            <Route path="/blogs/:slug" element={<NewsDetails />} />
             <Route path="/news-details" element={<NewsDetails />} />
 
             <Route path="/projects" element={<Projects />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/project-details" element={<ProjectDetails />} />
 
             <Route path="/terms" element={<TermAndCondition />} />

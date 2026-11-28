@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   FiBarChart2,
   FiPieChart,
@@ -22,78 +23,34 @@ import './DashboardTwo.css'
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
-const RANGES = [
-  {
-    value: '3m',
-    label: 'Last 3 Months',
-    data: [
-      { m: 'Sep', v: 150 },
-      { m: 'Oct', v: 168 },
-      { m: 'Nov', v: 220 },
-    ],
-  },
-  {
-    value: '6m',
-    label: 'Last 6 Months',
-    data: [
-      { m: 'Jun', v: 82 },
-      { m: 'Jul', v: 118 },
-      { m: 'Aug', v: 108 },
-      { m: 'Sep', v: 150 },
-      { m: 'Oct', v: 168 },
-      { m: 'Nov', v: 220 },
-    ],
-  },
-  {
-    value: '12m',
-    label: 'Last 12 Months',
-    data: [
-      { m: 'Dec', v: 58 },
-      { m: 'Jan', v: 72 },
-      { m: 'Feb', v: 64 },
-      { m: 'Mar', v: 88 },
-      { m: 'Apr', v: 101 },
-      { m: 'May', v: 94 },
-      { m: 'Jun', v: 82 },
-      { m: 'Jul', v: 118 },
-      { m: 'Aug', v: 108 },
-      { m: 'Sep', v: 150 },
-      { m: 'Oct', v: 168 },
-      { m: 'Nov', v: 220 },
-    ],
-  },
-]
-
-const SERVICES = [
-  { name: 'Termite Control', percent: 35, count: 87, color: '#16a34a' },
-  { name: 'Rodent Control', percent: 20, count: 50, color: '#2563eb' },
-  { name: 'Bed Bug Control', percent: 15, count: 37, color: '#f59e0b' },
-  { name: 'General Pest', percent: 18, count: 45, color: '#a855f7' },
-  { name: 'Other Services', percent: 12, count: 29, color: '#38bdf8' },
-]
+const SERVICE_COLORS = ['#16a34a', '#2563eb', '#f59e0b', '#a855f7', '#38bdf8']
 
 const QUICK_ACTIONS = [
-  { label: 'Add Booking', icon: FiPlus },
-  { label: 'Add Member', icon: FiUserPlus },
-  { label: 'New Project', icon: FiLayers },
-  { label: 'View Enquiries', icon: FiMail },
+  { label: 'Add Booking', icon: FiPlus, path: '/booking' },
+  { label: 'Add Member', icon: FiUserPlus, path: '/team' },
+  { label: 'New Project', icon: FiLayers, path: '/projects/add' },
+  { label: 'View Enquiries', icon: FiMail, path: '/enquiry' },
 ]
 
-const SCHEDULE = [
-  { time: '10:00 AM', title: 'Termite Control Service', place: 'Bhubaneswar', tone: 'green' },
-  { time: '12:30 PM', title: 'General Pest Control', place: 'Cuttack', tone: 'blue' },
-  { time: '03:00 PM', title: 'Rodent Control Service', place: 'Khandagiri', tone: 'orange' },
-]
+const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const BOOKINGS = [
-  { id: '#2489', name: 'Ramesh Patra', service: 'Termite Control', color: '#16a34a', location: 'Bhubaneswar', date: '15 Nov 2026', status: 'Completed' },
-  { id: '#2488', name: 'Sneha Das', service: 'Bed Bug Control', color: '#f59e0b', location: 'Cuttack', date: '15 Nov 2026', status: 'In Progress' },
-  { id: '#2487', name: 'Arjit Kuanar', service: 'General Pest Control', color: '#a855f7', location: 'Puri', date: '14 Nov 2026', status: 'Completed' },
-  { id: '#2486', name: 'Priya Rout', service: 'Rodent Control', color: '#2563eb', location: 'Kendrapara', date: '14 Nov 2026', status: 'Pending' },
-]
-
-const MONTH_REVENUE = 124500
-const REVENUE_GROWTH = 18
+const buildMonthlyData = (bookings, monthsCount) => {
+  const now = new Date()
+  const buckets = []
+  for (let i = monthsCount - 1; i >= 0; i -= 1) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    buckets.push({ key, m: MONTH_SHORT[d.getMonth()], v: 0 })
+  }
+  const map = new Map(buckets.map((b) => [b.key, b]))
+  bookings.forEach((bk) => {
+    const raw = bk.date || bk.createdAt
+    if (!raw) return
+    const key = String(raw).slice(0, 7)
+    if (map.has(key)) map.get(key).v += 1
+  })
+  return buckets.map(({ m, v }) => ({ m, v }))
+}
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -434,15 +391,106 @@ const DashboardTwoChart = ({ data }) => {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
-const DashboardTwo = () => {
-  const [range, setRange] = useState('6m')
+const DashboardTwo = ({ bookings = [], enquiries = [] }) => {
+  const navigate = useNavigate()
   const [hovered, setHovered] = useState(null)
   const [ready, setReady] = useState(false)
 
-  const current = RANGES.find((r) => r.value === range) || RANGES[1]
-  const totalBookings = SERVICES.reduce((sum, s) => sum + s.count, 0)
+  const recentEnquiries = useMemo(
+    () =>
+      enquiries.slice(0, 5).map((e) => ({
+        id: e._id || e.id,
+        name: e.name || 'Customer',
+        email: e.email || '',
+        service: e.service || e.subject || 'General Enquiry',
+        phone: e.phone || '',
+        status: e.status || 'New',
+        date: e.createdAt || e.at
+          ? new Date(e.createdAt || e.at).toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })
+          : 'Today',
+      })),
+    [enquiries]
+  )
+
+  const enquirySummary = useMemo(
+    () => [
+      { label: 'New', count: enquiries.filter((e) => (e.status || 'New') === 'New').length, color: '#2563eb', bg: '#eff6ff', border: '#dbeafe' },
+      { label: 'In Progress', count: enquiries.filter((e) => e.status === 'In Progress').length, color: '#d97706', bg: '#fffbeb', border: '#fde68a' },
+      { label: 'Closed', count: enquiries.filter((e) => e.status === 'Closed').length, color: '#16a34a', bg: '#f0fdf4', border: '#bbf7d0' },
+    ],
+    [enquiries]
+  )
+
+  const services = useMemo(() => {
+    if (!bookings.length) return []
+    const counts = new Map()
+    bookings.forEach((b) => {
+      const name = b.service || 'General Pest Control'
+      counts.set(name, (counts.get(name) || 0) + 1)
+    })
+    const total = bookings.length
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([name, count], idx) => ({
+        name,
+        count,
+        percent: Math.round((count / total) * 100),
+        color: SERVICE_COLORS[idx % SERVICE_COLORS.length],
+      }))
+  }, [bookings])
+
+  const monthRevenue = useMemo(() => {
+    const currentMonth = new Date().toISOString().slice(0, 7)
+    const monthly = bookings
+      .filter((b) => String(b.date || b.createdAt || '').startsWith(currentMonth))
+      .reduce((sum, b) => sum + (Number(b.amount) || 0), 0)
+    return monthly
+  }, [bookings])
+
+  const scheduleItems = useMemo(() => {
+    const tones = ['green', 'blue', 'orange']
+    return bookings
+      .filter((b) => b.status === 'Pending' || b.status === 'In Progress')
+      .slice(0, 3)
+      .map((b, i) => ({
+        id: b._id || b.id,
+        time: b.date
+          ? new Date(b.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })
+          : 'Today',
+        title: b.service || 'Pest Control Service',
+        place: b.location || 'Contact Form',
+        tone: tones[i % tones.length],
+      }))
+  }, [bookings])
+
+  const recentBookings = useMemo(
+    () =>
+      bookings.slice(0, 5).map((b, i) => ({
+        id: `#${String(b._id || b.id).slice(-6).toUpperCase()}`,
+        name: b.name || 'Customer',
+        service: b.service || 'General Pest Control',
+        color: SERVICE_COLORS[i % SERVICE_COLORS.length],
+        location: b.location || 'Contact Form',
+        date: b.date || b.createdAt
+          ? new Date(b.date || b.createdAt).toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })
+          : '—',
+        status: b.status || 'Pending',
+      })),
+    [bookings]
+  )
+
+  const totalBookings = bookings.length
   const animatedTotal = useCountUp(totalBookings, 1200)
-  const animatedRevenue = useCountUp(MONTH_REVENUE, 1500)
+  const animatedRevenue = useCountUp(monthRevenue, 1500)
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setReady(true))
@@ -454,31 +502,146 @@ const DashboardTwo = () => {
   const GAP = 3
   const segments = useMemo(() => {
     let acc = 0
-    return SERVICES.map((s) => {
+    return services.map((s) => {
       const len = (s.percent / 100) * C
       const seg = { ...s, dash: Math.max(len - GAP, 0), offset: -acc }
       acc += len
       return seg
     })
-  }, [C])
+  }, [C, services])
 
-  const activeService = hovered !== null ? SERVICES[hovered] : null
+  const activeService = hovered !== null ? services[hovered] : null
 
   return (
     <div className="DashboardTwo">
       <div className="DashboardTwo-grid">
-        {/* ---------------- Booking Overview ---------------- */}
+        {/* ---------------- Recent Enquiries ---------------- */}
         <section className="DashboardTwo-card DashboardTwo-overview">
           <header className="DashboardTwo-cardHead">
             <h3 className="DashboardTwo-cardTitle">
               <span className="DashboardTwo-titleIcon">
-                <FiBarChart2 />
+                <FiMail />
               </span>
-              Booking Overview
+              Recent Enquiries
             </h3>
-            <DashboardTwoDropdown value={range} options={RANGES} onChange={setRange} />
+            <button type="button" className="DashboardTwo-viewAll" onClick={() => navigate('/enquiry')}>
+              View All
+            </button>
           </header>
-          <DashboardTwoChart data={current.data} />
+
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '10px',
+              marginBottom: '16px',
+            }}
+          >
+            {enquirySummary.map((item) => (
+              <div
+                key={item.label}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '6px 14px',
+                  borderRadius: '999px',
+                  background: item.bg,
+                  border: `1px solid ${item.border}`,
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  color: item.color,
+                }}
+              >
+                <span>{item.label}</span>
+                <span
+                  style={{
+                    padding: '1px 7px',
+                    borderRadius: '999px',
+                    background: '#ffffff',
+                    color: item.color,
+                    fontSize: '12px',
+                  }}
+                >
+                  {item.count}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {recentEnquiries.length === 0 ? (
+            <div
+              style={{
+                padding: '36px 16px',
+                textAlign: 'center',
+                borderRadius: '16px',
+                background: 'linear-gradient(180deg, #f8fbf9 0%, #f1f7f3 100%)',
+                border: '1px dashed #c8dfd0',
+                color: '#5c7265',
+                fontSize: '14px',
+              }}
+            >
+              No enquiries yet. Website enquiries will appear here in real time.
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {recentEnquiries.map((enq) => (
+                <div
+                  key={enq.id}
+                  onClick={() => navigate('/enquiry')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') navigate('/enquiry')
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '14px',
+                    padding: '13px 16px',
+                    borderRadius: '14px',
+                    background: '#ffffff',
+                    border: '1px solid #e4efe8',
+                    boxShadow: '0 4px 14px rgba(8, 48, 31, 0.04)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
+                    <span className="DashboardTwo-avatar">
+                      {enq.name
+                        .split(' ')
+                        .map((w) => w[0])
+                        .join('')
+                        .slice(0, 2)
+                        .toUpperCase()}
+                    </span>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, fontSize: '14px', color: '#08301f' }}>
+                        {enq.name}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#5c7265', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {enq.service}
+                        {enq.phone ? ` • ${enq.phone}` : ''}
+                        {enq.email ? ` • ${enq.email}` : ''}
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>{enq.date}</span>
+                    <span
+                      className={`DashboardTwo-status DashboardTwo-status--${
+                        enq.status === 'Closed' ? 'completed' : enq.status === 'In Progress' ? 'in-progress' : 'pending'
+                      }`}
+                    >
+                      {enq.status}
+                    </span>
+                    <FiChevronRight style={{ color: '#94a3b8' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* ---------------- Service Distribution ---------------- */}
@@ -532,18 +695,24 @@ const DashboardTwo = () => {
             </div>
 
             <ul className="DashboardTwo-legend">
-              {SERVICES.map((s, i) => (
-                <li
-                  key={s.name}
-                  className={`DashboardTwo-legendItem${hovered === i ? ' is-active' : ''}`}
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  <span className="DashboardTwo-legendDot" style={{ background: s.color }} />
-                  <span className="DashboardTwo-legendName">{s.name}</span>
-                  <span className="DashboardTwo-legendValue">{s.percent}%</span>
+              {services.length === 0 ? (
+                <li className="DashboardTwo-legendItem">
+                  <span className="DashboardTwo-legendName">No bookings yet</span>
                 </li>
-              ))}
+              ) : (
+                services.map((s, i) => (
+                  <li
+                    key={s.name}
+                    className={`DashboardTwo-legendItem${hovered === i ? ' is-active' : ''}`}
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
+                  >
+                    <span className="DashboardTwo-legendDot" style={{ background: s.color }} />
+                    <span className="DashboardTwo-legendName">{s.name}</span>
+                    <span className="DashboardTwo-legendValue">{s.percent}%</span>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </section>
@@ -558,8 +727,13 @@ const DashboardTwo = () => {
               Quick Actions
             </h3>
             <div className="DashboardTwo-actionGrid">
-              {QUICK_ACTIONS.map(({ label, icon: Icon }) => (
-                <button type="button" className="DashboardTwo-actionBtn" key={label}>
+              {QUICK_ACTIONS.map(({ label, icon: Icon, path }) => (
+                <button
+                  type="button"
+                  className="DashboardTwo-actionBtn"
+                  key={label}
+                  onClick={() => navigate(path)}
+                >
                   <Icon className="DashboardTwo-actionIcon" />
                   <span>{label}</span>
                 </button>
@@ -575,27 +749,37 @@ const DashboardTwo = () => {
                 </span>
                 Today&rsquo;s Schedule
               </h3>
-              <button type="button" className="DashboardTwo-viewAll">
+              <button type="button" className="DashboardTwo-viewAll" onClick={() => navigate('/booking')}>
                 View All
               </button>
             </header>
             <ul className="DashboardTwo-scheduleList">
-              {SCHEDULE.map((item) => (
-                <li key={item.time}>
-                  <button type="button" className="DashboardTwo-scheduleItem">
-                    <span className={`DashboardTwo-time DashboardTwo-time--${item.tone}`}>
-                      {item.time}
-                    </span>
-                    <span className="DashboardTwo-scheduleInfo">
-                      <strong className="DashboardTwo-scheduleTitle">{item.title}</strong>
-                      <span className="DashboardTwo-schedulePlace">
-                        <FiMapPin /> {item.place}
-                      </span>
-                    </span>
-                    <FiChevronRight className="DashboardTwo-scheduleArrow" />
-                  </button>
+              {scheduleItems.length === 0 ? (
+                <li style={{ padding: '12px 0', color: '#6b7f72', fontSize: '14px' }}>
+                  No pending bookings scheduled.
                 </li>
-              ))}
+              ) : (
+                scheduleItems.map((item) => (
+                  <li key={item.id}>
+                    <button
+                      type="button"
+                      className="DashboardTwo-scheduleItem"
+                      onClick={() => navigate('/booking')}
+                    >
+                      <span className={`DashboardTwo-time DashboardTwo-time--${item.tone}`}>
+                        {item.time}
+                      </span>
+                      <span className="DashboardTwo-scheduleInfo">
+                        <strong className="DashboardTwo-scheduleTitle">{item.title}</strong>
+                        <span className="DashboardTwo-schedulePlace">
+                          <FiMapPin /> {item.place}
+                        </span>
+                      </span>
+                      <FiChevronRight className="DashboardTwo-scheduleArrow" />
+                    </button>
+                  </li>
+                ))
+              )}
             </ul>
           </section>
 
@@ -610,7 +794,7 @@ const DashboardTwo = () => {
               </strong>
             </div>
             <span className="DashboardTwo-revenueBadge">
-              <FiArrowUp /> +{REVENUE_GROWTH}%
+              <FiArrowUp /> +{monthRevenue > 0 ? 18 : 0}%
             </span>
           </section>
         </aside>
@@ -624,7 +808,7 @@ const DashboardTwo = () => {
               </span>
               Recent Bookings
             </h3>
-            <button type="button" className="DashboardTwo-viewAll">
+            <button type="button" className="DashboardTwo-viewAll" onClick={() => navigate('/booking')}>
               View All
             </button>
           </header>
@@ -643,46 +827,59 @@ const DashboardTwo = () => {
                 </tr>
               </thead>
               <tbody>
-                {BOOKINGS.map((b) => (
-                  <tr className="DashboardTwo-tr" key={b.id}>
-                    <td data-label="Booking" className="DashboardTwo-tdId">
-                      {b.id}
-                    </td>
-                    <td data-label="Customer">
-                      <span className="DashboardTwo-customer">
-                        <span className="DashboardTwo-avatar">
-                          {b.name
-                            .split(' ')
-                            .map((w) => w[0])
-                            .join('')}
-                        </span>
-                        {b.name}
-                      </span>
-                    </td>
-                    <td data-label="Service">
-                      <span className="DashboardTwo-serviceCell">
-                        <span className="DashboardTwo-serviceDot" style={{ background: b.color }} />
-                        {b.service}
-                      </span>
-                    </td>
-                    <td data-label="Location">{b.location}</td>
-                    <td data-label="Date">{b.date}</td>
-                    <td data-label="Status">
-                      <span
-                        className={`DashboardTwo-status DashboardTwo-status--${b.status
-                          .toLowerCase()
-                          .replace(' ', '-')}`}
-                      >
-                        {b.status}
-                      </span>
-                    </td>
-                    <td data-label="Action" className="DashboardTwo-tdAction">
-                      <button type="button" className="DashboardTwo-viewBtn" aria-label={`View booking ${b.id}`}>
-                        <FiEye />
-                      </button>
+                {recentBookings.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} style={{ textAlign: 'center', padding: '24px', color: '#6b7f72' }}>
+                      No bookings found in database.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  recentBookings.map((b) => (
+                    <tr className="DashboardTwo-tr" key={b.id}>
+                      <td data-label="Booking" className="DashboardTwo-tdId">
+                        {b.id}
+                      </td>
+                      <td data-label="Customer">
+                        <span className="DashboardTwo-customer">
+                          <span className="DashboardTwo-avatar">
+                            {b.name
+                              .split(' ')
+                              .map((w) => w[0])
+                              .join('')}
+                          </span>
+                          {b.name}
+                        </span>
+                      </td>
+                      <td data-label="Service">
+                        <span className="DashboardTwo-serviceCell">
+                          <span className="DashboardTwo-serviceDot" style={{ background: b.color }} />
+                          {b.service}
+                        </span>
+                      </td>
+                      <td data-label="Location">{b.location}</td>
+                      <td data-label="Date">{b.date}</td>
+                      <td data-label="Status">
+                        <span
+                          className={`DashboardTwo-status DashboardTwo-status--${b.status
+                            .toLowerCase()
+                            .replace(' ', '-')}`}
+                        >
+                          {b.status}
+                        </span>
+                      </td>
+                      <td data-label="Action" className="DashboardTwo-tdAction">
+                        <button
+                          type="button"
+                          className="DashboardTwo-viewBtn"
+                          aria-label={`View booking ${b.id}`}
+                          onClick={() => navigate('/booking')}
+                        >
+                          <FiEye />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

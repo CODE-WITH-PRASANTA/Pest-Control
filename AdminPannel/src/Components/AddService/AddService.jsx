@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./AddService.css";
 
 /* ------------------------------- Icons ------------------------------- */
@@ -241,7 +242,7 @@ const AddService = () => {
     if (editorRef.current) editorRef.current.innerHTML = "";
   };
 
-  const save = () => {
+  const save = async () => {
     const err = {};
     if (!form.title.trim()) err.title = "Service title is required.";
     if (!form.desc.trim()) err.desc = "Short description is required.";
@@ -250,8 +251,30 @@ const AddService = () => {
     if (!form.category) err.category = "Please select a category.";
     setErrors(err);
     if (Object.keys(err).length) return setToast("Please fix the highlighted fields");
-    setSaved({ title: form.title.trim(), category: form.category, published: form.published });
-    setModal("success");
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/services`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: form.title.trim(),
+          desc: form.desc.trim(),
+          category: form.category,
+          location: form.location.trim(),
+          content: editorRef.current?.innerHTML || "",
+          image: image?.url || "",
+          published: form.published,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        return setToast(result.message || "Failed to save service");
+      }
+      setSaved({ title: form.title.trim(), category: form.category, published: form.published });
+      setModal("success");
+    } catch (error) {
+      setToast("Could not connect to backend server");
+    }
   };
 
   const dirty = form.title || form.desc || form.category || form.location || image || (editorRef.current?.innerText || "").trim();

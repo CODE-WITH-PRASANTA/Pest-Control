@@ -1,20 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import Card1 from "../../assets/team1-1.jpg";
-import Card2 from "../../assets/team1-2.jpg";
-import Card3 from "../../assets/team1-3.jpg";
-import Card4 from "../../assets/team1-4.jpg";
-import Card5 from "../../assets/TeamMember-1.jpg";
-import Card6 from "../../assets/TeamMember-2.jpg";
+import { API_BASE_URL, BACKEND_BASE_URL } from "../../config/api";
 import "./TeamContainer.css";
 
-const teamMembers = [
-  { id: 1, name: "Michael Turner", role: "Pest Trainer", image: Card1 },
-  { id: 2, name: "Shakti Prasad", role: "Pest Control Officer", image: Card2 },
-  { id: 3, name: "Cody Fisher", role: "Pest Trainer", image: Card3 },
-  { id: 4, name: "Sadie Sink", role: "Pest Control Officer", image: Card4 },
-  { id: 5, name: "Marry Buttler", role: "Pest Trainer", image: Card5 },
-  { id: 6, name: "Jessica Brown", role: "Pest Control Officer", image: Card6 },
-];
+const resolveAvatarUrl = (avatar) => {
+  if (!avatar) return "";
+  if (avatar.startsWith("http://") || avatar.startsWith("https://") || avatar.startsWith("data:")) {
+    return avatar;
+  }
+  return `${BACKEND_BASE_URL}${avatar.startsWith("/") ? "" : "/"}${avatar}`;
+};
+
+const getInitials = (name = "") =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() || "")
+    .join("");
 
 const TeamContainerSocialIcon = ({ type, name }) => {
   const icons = {
@@ -56,6 +58,36 @@ const TeamContainerSocialIcon = ({ type, name }) => {
 const TeamContainer = () => {
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchTeamMembers = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/teams`);
+        const result = await response.json();
+        if (!ignore) {
+          if (!response.ok || !result.success) {
+            throw new Error(result.message || "Failed to load team members");
+          }
+          setTeamMembers(result.data || []);
+        }
+      } catch (err) {
+        if (!ignore) {
+          setError(err.message || "Unable to load team members.");
+        }
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -86,42 +118,74 @@ const TeamContainer = () => {
       <div className="team-container-glow team-container-glow-two" />
 
       <div className="team-container-wrapper">
-        <div className="team-container-grid">
-          {teamMembers.map((member, index) => (
-            <article
-              className="team-container-card"
-              key={member.id}
-              style={{ "--card-index": index }}
-              tabIndex={0}
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="team-container-image"
-                loading="lazy"
-              />
-              <div className="team-container-shade" />
-              <span className="team-container-shine" />
+        {loading ? (
+          <p style={{ textAlign: "center", padding: "48px 16px", fontSize: "16px" }}>
+            Loading team members...
+          </p>
+        ) : error ? (
+          <p style={{ textAlign: "center", padding: "48px 16px", color: "#dc2626", fontSize: "16px" }}>
+            {error}
+          </p>
+        ) : teamMembers.length === 0 ? (
+          <p style={{ textAlign: "center", padding: "48px 16px", fontSize: "16px" }}>
+            No team members found in database.
+          </p>
+        ) : (
+          <div className="team-container-grid">
+            {teamMembers.map((member, index) => (
+              <article
+                className="team-container-card"
+                key={member._id || member.id}
+                style={{ "--card-index": index }}
+                tabIndex={0}
+              >
+                {member.avatar ? (
+                  <img
+                    src={resolveAvatarUrl(member.avatar)}
+                    alt={member.name}
+                    className="team-container-image"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div
+                    className="team-container-image"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "linear-gradient(135deg, #0f5132, #2fb344)",
+                      color: "#ffffff",
+                      fontSize: "52px",
+                      fontWeight: 700,
+                      letterSpacing: "2px",
+                    }}
+                  >
+                    {getInitials(member.name)}
+                  </div>
+                )}
+                <div className="team-container-shade" />
+                <span className="team-container-shine" />
 
-              <div className="team-container-overlay">
-                <div className="team-container-info">
-                  <h3>{member.name}</h3>
-                  <p>{member.role}</p>
-                </div>
+                <div className="team-container-overlay">
+                  <div className="team-container-info">
+                    <h3>{member.name}</h3>
+                    <p>{member.role}</p>
+                  </div>
 
-                <div className="team-container-socials-wrap">
-                  <div className="team-container-socials-inner">
-                    <div className="team-container-socials">
-                      <TeamContainerSocialIcon type="facebook" name={member.name} />
-                      <TeamContainerSocialIcon type="twitter" name={member.name} />
-                      <TeamContainerSocialIcon type="instagram" name={member.name} />
+                  <div className="team-container-socials-wrap">
+                    <div className="team-container-socials-inner">
+                      <div className="team-container-socials">
+                        <TeamContainerSocialIcon type="facebook" name={member.name} />
+                        <TeamContainerSocialIcon type="twitter" name={member.name} />
+                        <TeamContainerSocialIcon type="instagram" name={member.name} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

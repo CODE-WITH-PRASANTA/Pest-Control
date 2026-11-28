@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./ContactMain.css";
 
 const HEADING_TEXT = "Feel free to write";
@@ -55,6 +56,7 @@ const ContactMain = () => {
   const [formData, setFormData] = useState(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     const root = rootRef.current;
@@ -106,22 +108,46 @@ const ContactMain = () => {
     setSubmitted(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (sending) return;
     setSending(true);
+    setSubmitError("");
 
-    // Replace this timeout with your real API call
-    setTimeout(() => {
-      setSending(false);
+    try {
+      const response = await fetch(`${API_BASE_URL}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          service: formData.subject.trim() || "General Pest Control",
+          phone: formData.phone,
+          message: formData.message,
+          location: "Contact Form",
+          date: new Date().toISOString().slice(0, 10),
+          status: "Pending",
+          amount: 0,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to send message");
+      }
       setSubmitted(true);
       setFormData(initialForm);
-    }, 900);
+    } catch (err) {
+      setSubmitError(err.message || "Unable to submit message. Please try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleReset = () => {
     setFormData(initialForm);
     setSubmitted(false);
+    setSubmitError("");
   };
 
   const renderField = (name, type, label, extra = {}) => (
@@ -240,6 +266,13 @@ const ContactMain = () => {
                   Reset
                 </button>
               </div>
+
+              {/* ERROR MESSAGE */}
+              {submitError && (
+                <div className="contact-main-error-message" role="alert" style={{ color: "#dc2626", marginTop: "12px", fontSize: "14px" }}>
+                  {submitError}
+                </div>
+              )}
 
               {/* SUCCESS MESSAGE */}
               {submitted && (

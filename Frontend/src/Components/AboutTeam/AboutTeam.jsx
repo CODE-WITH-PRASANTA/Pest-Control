@@ -1,9 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
+import { API_BASE_URL, BACKEND_BASE_URL } from "../../config/api";
 import "./AboutTeam.css";
-import teamImg1 from "../../assets/team1-1.jpg"; // adjust paths / file names if needed
-import teamImg2 from "../../assets/team1-2.jpg";
-import teamImg3 from "../../assets/team1-3.jpg";
-import teamImg4 from "../../assets/team1-4.jpg";
+
+const resolveAvatarUrl = (avatar) => {
+  if (!avatar) return "";
+  if (avatar.startsWith("http://") || avatar.startsWith("https://") || avatar.startsWith("data:")) {
+    return avatar;
+  }
+  return `${BACKEND_BASE_URL}${avatar.startsWith("/") ? "" : "/"}${avatar}`;
+};
+
+const getInitials = (name = "") =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() || "")
+    .join("");
 
 const HEADING_LINES = ["The team guiding your", "parenthood journey"];
 
@@ -27,16 +40,29 @@ const InstagramIcon = () => (
   </svg>
 );
 
-const TEAM = [
-  { id: 1, name: "Michael Turner", role: "Pest Trainer", img: teamImg1, links: { facebook: "#", twitter: "#", instagram: "#" } },
-  { id: 2, name: "Jessica Brown", role: "Pest Control Officer", img: teamImg2, links: { facebook: "#", twitter: "#", instagram: "#" } },
-  { id: 3, name: "Cody Fisher", role: "Pest Trainer", img: teamImg3, links: { facebook: "#", twitter: "#", instagram: "#" } },
-  { id: 4, name: "Brooklyn Simmons", role: "Pest Control Officer", img: teamImg4, links: { facebook: "#", twitter: "#", instagram: "#" } },
-];
-
 const AboutTeam = () => {
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
+  const [team, setTeam] = useState([]);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchTeam = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/teams`);
+        const result = await res.json();
+        if (!ignore && res.ok && result.success) {
+          setTeam((result.data || []).slice(0, 4));
+        }
+      } catch {
+        // Keep empty if backend is unreachable
+      }
+    };
+    fetchTeam();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -97,38 +123,58 @@ const AboutTeam = () => {
         </div>
 
         <div className="AboutTeam__grid">
-          {TEAM.map((m, i) => (
-            <article
-              className="AboutTeam__card"
-              style={{ transitionDelay: `${0.8 + i * 0.15}s` }}
-              key={m.id}
-              tabIndex={0}
-            >
-              <img className="AboutTeam__image" src={m.img} alt={m.name} loading="lazy" />
-              <div className="AboutTeam__shade" />
+          {team.map((m, i) => {
+            const avatarSrc = resolveAvatarUrl(m.avatar);
+            return (
+              <article
+                className="AboutTeam__card"
+                style={{ transitionDelay: `${0.8 + i * 0.15}s` }}
+                key={m._id || m.id}
+                tabIndex={0}
+              >
+                {avatarSrc ? (
+                  <img className="AboutTeam__image" src={avatarSrc} alt={m.name} loading="lazy" />
+                ) : (
+                  <div
+                    className="AboutTeam__image"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "linear-gradient(135deg, #0f5132, #2fb344)",
+                      color: "#ffffff",
+                      fontSize: "44px",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {getInitials(m.name)}
+                  </div>
+                )}
+                <div className="AboutTeam__shade" />
 
-              <div className="AboutTeam__info">
-                <h3 className="AboutTeam__name">{m.name}</h3>
-                <p className="AboutTeam__role">{m.role}</p>
+                <div className="AboutTeam__info">
+                  <h3 className="AboutTeam__name">{m.name}</h3>
+                  <p className="AboutTeam__role">{m.role}</p>
 
-                <div className="AboutTeam__socials">
-                  <div className="AboutTeam__socialsInner">
-                    <div className="AboutTeam__socialsRow">
-                      <a className="AboutTeam__social" href={m.links.facebook} aria-label={`${m.name} on Facebook`}>
-                        <FacebookIcon />
-                      </a>
-                      <a className="AboutTeam__social" href={m.links.twitter} aria-label={`${m.name} on Twitter`}>
-                        <TwitterIcon />
-                      </a>
-                      <a className="AboutTeam__social" href={m.links.instagram} aria-label={`${m.name} on Instagram`}>
-                        <InstagramIcon />
-                      </a>
+                  <div className="AboutTeam__socials">
+                    <div className="AboutTeam__socialsInner">
+                      <div className="AboutTeam__socialsRow">
+                        <a className="AboutTeam__social" href="#team" onClick={(e) => e.preventDefault()} aria-label={`${m.name} on Facebook`}>
+                          <FacebookIcon />
+                        </a>
+                        <a className="AboutTeam__social" href="#team" onClick={(e) => e.preventDefault()} aria-label={`${m.name} on Twitter`}>
+                          <TwitterIcon />
+                        </a>
+                        <a className="AboutTeam__social" href="#team" onClick={(e) => e.preventDefault()} aria-label={`${m.name} on Instagram`}>
+                          <InstagramIcon />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

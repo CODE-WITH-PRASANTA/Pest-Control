@@ -1,71 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL, BACKEND_BASE_URL } from "../../config/api";
 import "./NewsMain.css";
-import news1 from "../../assets/news-1.jpg"; // adjust path if needed
-import news2 from "../../assets/news-2.jpg";
-import news3 from "../../assets/news-3.jpg";
-
-const newsData = [
-  {
-    id: 1,
-    category: "Pest Identification",
-    title: "Preventing Rodents in Homes and Businesses",
-    description:
-      "Learn how to identify rodent activity early and protect your home or business with effective prevention methods.",
-    image: news1,
-    date: "Nov 08, 2026",
-    readTime: "5 min read",
-  },
-  {
-    id: 2,
-    category: "Bed Bug Treatment",
-    title: "Bed Bug Identification and Treatment Guide",
-    description:
-      "Discover the common signs of bed bugs and the best ways to eliminate infestations effectively.",
-    image: news2,
-    date: "Nov 03, 2026",
-    readTime: "4 min read",
-  },
-  {
-    id: 3,
-    category: "Mosquito Control",
-    title: "Effective Mosquito Control for Your Home",
-    description:
-      "Keep your surroundings safe and comfortable with professional mosquito control and prevention tips.",
-    image: news3,
-    date: "Oct 28, 2026",
-    readTime: "6 min read",
-  },
-  {
-    id: 4,
-    category: "Professional Pest Care",
-    title: "Why Professional Pest Control Matters",
-    description:
-      "Understand why professional pest management is essential for maintaining a clean and healthy environment.",
-    image: news3,
-    date: "Oct 21, 2026",
-    readTime: "4 min read",
-  },
-  {
-    id: 5,
-    category: "Home Protection",
-    title: "Simple Ways to Keep Your Home Pest-Free",
-    description:
-      "Follow these simple preventive measures to keep unwanted pests away from your living spaces.",
-    image: news2,
-    date: "Oct 14, 2026",
-    readTime: "3 min read",
-  },
-  {
-    id: 6,
-    category: "Pest Prevention",
-    title: "Seasonal Pest Problems and Their Solutions",
-    description:
-      "Explore common seasonal pest problems and learn how to protect your property throughout the year.",
-    image: news1,
-    date: "Oct 06, 2026",
-    readTime: "5 min read",
-  },
-];
 
 const HEADING_WORDS = [
   { text: "Explore", accent: false },
@@ -73,6 +9,37 @@ const HEADING_WORDS = [
   { text: "Latest", accent: false },
   { text: "Insights", accent: true },
 ];
+
+const resolveImageUrl = (img) => {
+  if (!img) return "";
+  if (img.startsWith("http://") || img.startsWith("https://") || img.startsWith("data:")) {
+    return img;
+  }
+  return `${BACKEND_BASE_URL}${img.startsWith("/") ? "" : "/"}${img}`;
+};
+
+const formatDate = (dateStr) => {
+  if (!dateStr) return "";
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
+};
+
+const toSlug = (text = "") =>
+  String(text)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
+const estimateReadTime = (html = "") => {
+  const text = html.replace(/<[^>]+>/g, " ").trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  return `${Math.max(1, Math.ceil(words / 200))} min read`;
+};
 
 const ArrowIcon = () => (
   <svg
@@ -105,7 +72,38 @@ const ClockIcon = () => (
 
 const NewsMain = () => {
   const sectionRef = useRef(null);
+  const navigate = useNavigate();
   const [inView, setInView] = useState(false);
+  const [newsData, setNewsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/blogs`);
+        const result = await res.json();
+        if (!ignore) {
+          if (!res.ok || !result.success) {
+            throw new Error(result.message || "Failed to load blogs");
+          }
+          const publishedBlogs = (result.data || []).filter(
+            (b) => b.status === "Published" || (!b.status && b.published !== false)
+          );
+          setNewsData(publishedBlogs);
+        }
+      } catch (err) {
+        if (!ignore) setError(err.message || "Unable to load blogs.");
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+    fetchBlogs();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -174,59 +172,101 @@ const NewsMain = () => {
           </p>
         </div>
 
-        <div className="news-main-grid">
-          {newsData.map((item, index) => (
-            <article
-              className="news-main-card"
-              key={item.id}
-              style={{ "--card-index": index }}
-            >
-              <div className="news-main-image-wrapper">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="news-main-image"
-                  loading="lazy"
-                />
-                <div className="news-main-image-overlay"></div>
+        {loading ? (
+          <p style={{ textAlign: "center", padding: "48px 16px", fontSize: "16px" }}>
+            Loading blogs...
+          </p>
+        ) : error ? (
+          <p style={{ textAlign: "center", padding: "48px 16px", color: "#dc2626", fontSize: "16px" }}>
+            {error}
+          </p>
+        ) : newsData.length === 0 ? (
+          <p style={{ textAlign: "center", padding: "48px 16px", fontSize: "16px" }}>
+            No published blogs found in database.
+          </p>
+        ) : (
+          <div className="news-main-grid">
+            {newsData.map((item, index) => {
+              const blogSlug = item.slug || toSlug(item.title) || item._id || item.id;
+              const openBlog = (e) => {
+                if (e) e.preventDefault();
+                navigate(`/blogs/${blogSlug}`, { state: { blog: item } });
+              };
+              return (
+              <article
+                className="news-main-card"
+                key={item._id || item.id}
+                style={{ "--card-index": index, cursor: "pointer" }}
+                onClick={openBlog}
+              >
+                <div className="news-main-image-wrapper">
+                  {item.image ? (
+                    <img
+                      src={resolveImageUrl(item.image)}
+                      alt={item.title}
+                      className="news-main-image"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      className="news-main-image"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "linear-gradient(135deg, #0f5132, #2fb344)",
+                        color: "#fff",
+                        fontWeight: 700,
+                        fontSize: "20px",
+                      }}
+                    >
+                      {item.category || "Blog"}
+                    </div>
+                  )}
+                  <div className="news-main-image-overlay"></div>
 
-                <span className="news-main-image-tag">{item.category}</span>
+                  <span className="news-main-image-tag">{item.category}</span>
 
-                <span className="news-main-image-number">
-                  {String(item.id).padStart(2, "0")}
-                </span>
-              </div>
-
-              <div className="news-main-content">
-                <div className="news-main-meta">
-                  <span>{item.date}</span>
-                  <i />
-                  <span className="news-main-meta-time">
-                    <ClockIcon />
-                    {item.readTime}
+                  <span className="news-main-image-number">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                <span className="news-main-category">{item.category}</span>
+                <div className="news-main-content">
+                  <div className="news-main-meta">
+                    <span>{formatDate(item.date || item.createdAt)}</span>
+                    <i />
+                    <span className="news-main-meta-time">
+                      <ClockIcon />
+                      {estimateReadTime(item.content)}
+                    </span>
+                  </div>
 
-                <h3>{item.title}</h3>
+                  <span className="news-main-category">{item.category}</span>
 
-                <p>{item.description}</p>
+                  <h3>{item.title}</h3>
 
-                <a
-                  href="#"
-                  className="news-main-read-more"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <span>Read More</span>
-                  <span className="news-main-arrow">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+                  <p>{item.desc || item.excerpt}</p>
+
+                  <a
+                    href={`/blogs/${blogSlug}`}
+                    className="news-main-read-more"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openBlog(e);
+                    }}
+                  >
+                    <span>Read More</span>
+                    <span className="news-main-arrow">
+                      <ArrowIcon />
+                    </span>
+                  </a>
+                </div>
+              </article>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

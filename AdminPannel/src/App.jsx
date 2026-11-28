@@ -19,6 +19,8 @@ import ManageGallery from "./Components/ManageGallery/ManageGallery";
 
 import BlogPostig from "./Components/BlogPostig/BlogPostig";
 import BlogManagement from "./Components/BlogManagement/BlogManagement";
+import BlogCategory from "./Components/BlogCategory/BlogCategory";
+import BlogReview from "./Components/BlogReview/BlogReview";
 
 import Order from "./Components/Order/Order";
 import Enquiry from "./Components/Enquiry/Enquiry";
@@ -50,6 +52,8 @@ const App = () => {
 
             <Route path="blog/new" element={<BlogPostig />} />
             <Route path="blog" element={<BlogManagement />} />
+            <Route path="blog/categories" element={<BlogCategory />} />
+            <Route path="blog/reviews" element={<BlogReview />} />
 
             <Route path="orders" element={<Order />} />
             <Route path="enquiry" element={<Enquiry />} />

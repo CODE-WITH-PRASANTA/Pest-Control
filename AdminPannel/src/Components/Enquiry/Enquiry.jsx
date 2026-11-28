@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { API_BASE_URL } from "../../config/api";
 import "./Enquiry.css";
 
 /* ------------------------------------------------------------------ */
@@ -58,51 +59,6 @@ const MESSAGES = [
   "The problem has come back after the last treatment. I need a follow-up visit.",
 ];
 
-const buildSeed = () => {
-  const head = [
-    { name: "Ramesh Patra", service: "Home Pest Control", phone: "9876543210", email: "rameshpatra@gmail.com", at: "2026-11-15T11:24", status: "New", message: MESSAGES[0] },
-    { name: "Sneha Das", service: "Termite Treatment", phone: "8765432109", email: "snehasd@gmail.com", at: "2026-11-14T16:10", status: "In Progress", message: MESSAGES[3] },
-    { name: "Arjit Kuanar", service: "Bed Bug Control", phone: "9988766554", email: "arjitkuanar@gmail.com", at: "2026-11-14T10:32", status: "New", message: MESSAGES[4] },
-    { name: "Priya Rout", service: "Rodent Control", phone: "7654321098", email: "priyarout@gmail.com", at: "2026-11-13T14:45", status: "Closed", message: MESSAGES[5] },
-    { name: "Sibu Nayak", service: "Cockroach Control", phone: "9123456789", email: "sibunayak@gmail.com", at: "2026-11-12T09:15", status: "In Progress", message: MESSAGES[1] },
-  ];
-
-  /* 251 remaining rows: 46 new, 16 in progress, 189 closed (256 total) */
-  const pool = [
-    ...Array(46).fill("New"),
-    ...Array(16).fill("In Progress"),
-    ...Array(189).fill("Closed"),
-  ];
-  let seed = 20261117;
-  const rand = () => {
-    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-    return seed / 4294967296;
-  };
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(rand() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-
-  const pad = (n) => String(n).padStart(2, "0");
-  const rest = pool.map((status, k) => {
-    const i = k + 5;
-    const name = NAMES[(i * 7 + 3) % NAMES.length];
-    const date = new Date(Date.UTC(2026, 10, 12 - Math.floor(k / 3))).toISOString().slice(0, 10);
-    return {
-      name,
-      service: SERVICES[(i * 5 + 2) % SERVICES.length],
-      phone: `9${100000000 + ((i * 48271 * 1237) % 899999999)}`,
-      email: `${name.toLowerCase().replace(/\s+/g, "")}@gmail.com`,
-      at: `${date}T${pad(9 + ((k * 5) % 9))}:${pad((k * 17) % 60)}`,
-      status,
-      message: MESSAGES[(i * 3) % MESSAGES.length],
-    };
-  });
-
-  return [...head, ...rest].map((e, i) => ({ ...e, id: 256 - i }));
-};
-
-const INITIAL_ENQUIRIES = buildSeed();
 const PAGE_SIZE = 5;
 
 /* ------------------------------------------------------------------ */
@@ -122,7 +78,7 @@ const formatTime = (hhmm) => {
   return `${pad(h % 12 || 12)}:${pad(m)} ${h >= 12 ? "PM" : "AM"}`;
 };
 const formatDateTime = (at) => `${formatDate(at.slice(0, 10))}, ${formatTime(at.slice(11, 16))}`;
-const formatPhone = (p) => `+91 ${p.slice(0, 5)} ${p.slice(5)}`;
+const formatPhone = (p = "") => (/^\d{10}$/.test(p) ? `+91 ${p.slice(0, 5)} ${p.slice(5)}` : p);
 
 const getInitials = (name) =>
   name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]?.toUpperCase()).join("");
@@ -356,18 +312,18 @@ const Avatar = ({ name, size = "md" }) => (
 );
 
 const ServiceBadge = ({ service }) => (
-  <span className={`Enquiry-service Enquiry-${SERVICE_CLASS[service]}`}>
-    <Icon name={SERVICE_ICON[service]} size={14} />
+  <span className={`Enquiry-service Enquiry-${SERVICE_CLASS[service] || "service-home"}`}>
+    <Icon name={SERVICE_ICON[service] || "bug"} size={14} />
     {service}
   </span>
 );
 
 const StatusBadge = ({ status }) => (
-  <span className={`Enquiry-badge Enquiry-${STATUS_CLASS[status]}`}>
-    {STATUS_ICON[status] === "dot" ? (
+  <span className={`Enquiry-badge Enquiry-${STATUS_CLASS[status] || "status-new"}`}>
+    {(STATUS_ICON[status] || "dot") === "dot" ? (
       <span className="Enquiry-badgeDot" />
     ) : (
-      <Icon name={STATUS_ICON[status]} size={13} strokeWidth={2.6} />
+      <Icon name={STATUS_ICON[status] || "dot"} size={13} strokeWidth={2.6} />
     )}
     {status}
   </span>
@@ -972,8 +928,15 @@ const Leaves = () => (
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
+const normalizeEnquiry = (e) => ({
+  ...e,
+  id: e._id || e.id,
+  at: e.at || (e.createdAt ? e.createdAt.slice(0, 16) : new Date().toISOString().slice(0, 16)),
+  service: e.service || e.subject || "Home Pest Control",
+});
+
 const Enquiry = () => {
-  const [enquiries, setEnquiries] = useState(INITIAL_ENQUIRIES);
+  const [enquiries, setEnquiries] = useState([]);
   const [query, setQuery] = useState("");
   const [service, setService] = useState("All");
   const [status, setStatus] = useState("All");
@@ -990,6 +953,25 @@ const Enquiry = () => {
     toastTimer.current = setTimeout(() => setToast(null), 3000);
   }, []);
   useEffect(() => () => clearTimeout(toastTimer.current), []);
+
+  useEffect(() => {
+    let ignore = false;
+    const fetchEnquiries = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/enquiries`);
+        const result = await res.json();
+        if (!ignore && res.ok && result.success) {
+          setEnquiries((result.data || []).map(normalizeEnquiry));
+        }
+      } catch {
+        if (!ignore) showToast("Failed to load enquiries from server.");
+      }
+    };
+    fetchEnquiries();
+    return () => {
+      ignore = true;
+    };
+  }, [showToast]);
 
   const stats = useMemo(
     () => ({
@@ -1067,30 +1049,62 @@ const Enquiry = () => {
     showToast(`Exported ${rows.length} enquir${rows.length === 1 ? "y" : "ies"}.`);
   };
 
-  const handleEdit = (data) => {
-    setEnquiries((list) => list.map((e) => (e.id === modal.enquiry.id ? { ...e, ...data } : e)));
-    closeModal();
-    showToast(`${data.name}'s enquiry was updated.`);
+  const handleEdit = async (data) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/enquiries/${modal.enquiry.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to update enquiry.");
+      }
+      const updated = normalizeEnquiry(result.data);
+      setEnquiries((list) => list.map((e) => (e.id === modal.enquiry.id ? updated : e)));
+      closeModal();
+      showToast(`${data.name}'s enquiry was updated.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const { id, name } = modal.enquiry;
-    setEnquiries((list) => list.filter((e) => e.id !== id));
-    setSelected((s) => {
-      const next = new Set(s);
-      next.delete(id);
-      return next;
-    });
-    closeModal();
-    showToast(`Enquiry from ${name} was deleted.`);
+    try {
+      const res = await fetch(`${API_BASE_URL}/enquiries/${id}`, {
+        method: "DELETE",
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        return showToast(result.message || "Failed to delete enquiry.");
+      }
+      setEnquiries((list) => list.filter((e) => e.id !== id));
+      setSelected((s) => {
+        const next = new Set(s);
+        next.delete(id);
+        return next;
+      });
+      closeModal();
+      showToast(`Enquiry from ${name} was deleted.`);
+    } catch {
+      showToast("Could not connect to backend server.");
+    }
   };
 
-  const handleBulkDelete = () => {
-    const count = selected.size;
-    setEnquiries((list) => list.filter((e) => !selected.has(e.id)));
-    setSelected(new Set());
-    closeModal();
-    showToast(`${count} enquir${count === 1 ? "y was" : "ies were"} deleted.`);
+  const handleBulkDelete = async () => {
+    const ids = [...selected];
+    try {
+      await Promise.all(
+        ids.map((id) => fetch(`${API_BASE_URL}/enquiries/${id}`, { method: "DELETE" }))
+      );
+      setEnquiries((list) => list.filter((e) => !selected.has(e.id)));
+      setSelected(new Set());
+      closeModal();
+      showToast(`${ids.length} enquir${ids.length === 1 ? "y was" : "ies were"} deleted.`);
+    } catch {
+      showToast("Could not delete selected enquiries.");
+    }
   };
 
   const statCards = [
